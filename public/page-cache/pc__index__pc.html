@@ -1,0 +1,1827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="description" content="Belesch-box">
+    <meta name="csrf-token" content="Ji76AJ8dvpyQDqQQXFx5zg9FXiqZlmDg2DL5Xxqq" />
+    <link href="http://127.0.0.1:8000/frontend/assets/images/favicon/favicon.png" rel="icon">
+    <title>Belesch-box</title>
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&amp;family=Roboto:wght@400;700&amp;display=swap">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="http://127.0.0.1:8000/frontend/assets/css/libraries.css">
+    <link rel="stylesheet" href="http://127.0.0.1:8000/frontend/assets/css/style.css">
+    <!-- Livewire Styles -->
+<style >
+    [wire\:loading], [wire\:loading\.delay], [wire\:loading\.inline-block], [wire\:loading\.inline], [wire\:loading\.block], [wire\:loading\.flex], [wire\:loading\.table], [wire\:loading\.grid], [wire\:loading\.inline-flex] {
+        display: none;
+    }
+
+    [wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short], [wire\:loading\.delay\.long], [wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest] {
+        display:none;
+    }
+
+    [wire\:offline] {
+        display: none;
+    }
+
+    [wire\:dirty]:not(textarea):not(input):not(select) {
+        display: none;
+    }
+
+    input:-webkit-autofill, select:-webkit-autofill, textarea:-webkit-autofill {
+        animation-duration: 50000s;
+        animation-name: livewireautofill;
+    }
+
+    @keyframes livewireautofill { from {} }
+</style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="preloader">
+        <div class="loading"><span></span><span></span><span></span><span></span></div>
+    </div>
+    <div wire:id="IygSBSKYpBhbfWFC9oJC" wire:initial-data="{&quot;fingerprint&quot;:{&quot;id&quot;:&quot;IygSBSKYpBhbfWFC9oJC&quot;,&quot;name&quot;:&quot;frontend.home&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;\/&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;v&quot;:&quot;acj&quot;},&quot;effects&quot;:{&quot;listeners&quot;:[]},&quot;serverMemo&quot;:{&quot;children&quot;:{&quot;l3766301975-0&quot;:{&quot;id&quot;:&quot;malBOdstlksLUfRTEOZ0&quot;,&quot;tag&quot;:&quot;style&quot;},&quot;l3766301975-1&quot;:{&quot;id&quot;:&quot;T5ax6B5oIcZGcrzHiBpE&quot;,&quot;tag&quot;:&quot;&quot;}},&quot;errors&quot;:[],&quot;htmlHash&quot;:&quot;1bf0d57c&quot;,&quot;data&quot;:[],&quot;dataMeta&quot;:[],&quot;checksum&quot;:&quot;4a41f92586da5a5e20105345a8804c2320dd37dabdabe37f84e9a764793edbb9&quot;}}">
+    <style wire:id="malBOdstlksLUfRTEOZ0" wire:initial-data="{&quot;fingerprint&quot;:{&quot;id&quot;:&quot;malBOdstlksLUfRTEOZ0&quot;,&quot;name&quot;:&quot;frontend.includes.header&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;\/&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;v&quot;:&quot;acj&quot;},&quot;effects&quot;:{&quot;listeners&quot;:[]},&quot;serverMemo&quot;:{&quot;children&quot;:[],&quot;errors&quot;:[],&quot;htmlHash&quot;:&quot;6c5ff5ee&quot;,&quot;data&quot;:[],&quot;dataMeta&quot;:[],&quot;checksum&quot;:&quot;3483352d629b16c5312cbf58239ecd8cdaef735db89acc357b1aafa999c74f8c&quot;}}">
+    /* Header modernisé */
+    .header {
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+        position: relative;
+        z-index: 1000;
+    }
+    
+    /* Topbar modernisé */
+    .header-topbar {
+        background: linear-gradient(135deg, #009ee1 0%, #0077b3 100%);
+        padding: 0.75rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .contact__list li {
+        margin-right: 2rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .contact__list li i {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.9rem;
+    }
+    
+    .contact__list li a {
+        color: white;
+        font-size: 0.85rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .contact__list li a:hover {
+        color: rgba(255, 255, 255, 0.8);
+        transform: translateY(-1px);
+    }
+    
+    /* Social icons modernisés */
+    .social-icons {
+        display: flex;
+        gap: 0.75rem;
+    }
+    
+    .social-icons li a {
+        width: 32px;
+        height: 32px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+    }
+    
+    .social-icons li a:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Search modernisé */
+    .header-topbar__search {
+        display: flex;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 25px;
+        padding: 0.25rem;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .header-topbar__search .form-control {
+        background: transparent;
+        border: none;
+        color: white;
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+    }
+    
+    .header-topbar__search .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+    }
+    
+    .header-topbar__search-btn {
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        transition: all 0.3s ease;
+    }
+    
+    .header-topbar__search-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: scale(1.1);
+    }
+    
+    /* Navigation principale modernisée */
+    .navbar {
+        background: white;
+        padding: 1rem 0;
+        border-bottom: 1px solid rgba(0, 158, 225, 0.1);
+    }
+    
+    .navbar-brand {
+        display: flex;
+        align-items: center;
+    }
+    
+    .navbar-brand img {
+        height: 45px;
+        transition: all 0.3s ease;
+    }
+    
+    .navbar-brand:hover img {
+        transform: scale(1.05);
+    }
+    
+    /* Navigation links modernisés */
+    .navbar-nav {
+        gap: 2rem;
+    }
+    
+    .nav__item-link {
+        color: #2d3748;
+        font-weight: 500;
+        font-size: 0.95rem;
+        text-decoration: none;
+        padding: 0.5rem 0;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+    
+    .nav__item-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(135deg, #009ee1 0%, #0077b3 100%);
+        transition: width 0.3s ease;
+    }
+    
+    .nav__item-link:hover::after,
+    .nav__item-link.active::after {
+        width: 100%;
+    }
+    
+    .nav__item-link:hover {
+        color: #009ee1;
+        transform: translateY(-1px);
+    }
+    
+    .nav__item-link.active {
+        color: #009ee1;
+        font-weight: 600;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .contact__list li {
+            margin-right: 1rem;
+            font-size: 0.8rem;
+        }
+        
+        .social-icons {
+            gap: 0.5rem;
+        }
+        
+        .social-icons li a {
+            width: 28px;
+            height: 28px;
+        }
+    }
+</style>
+
+<!-- =========================  Header  =========================== -->
+<header class="header header-layout1">
+    <div class="header-topbar">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-12">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <ul class="contact__list d-flex flex-wrap align-items-center list-unstyled mb-0">
+
+                            <li>
+                                <i class="icon-phone"></i><a href="tel:+5565454117">+49 531 516 057 12</a>
+                            </li>
+                            <li>
+                                <i class="icon-clock"></i><a
+                                    href="http://127.0.0.1:8000/contact">Monday
+                                    - Friday: 08:30 AM
+                                    - 16:30 PM</a>
+                            </li>
+                        </ul><!-- /.contact__list -->
+                        <div class="d-flex">
+                            <ul class="social-icons list-unstyled mb-0 mr-30">
+
+                                                                    <li><a href="https://www.youtube.com" target="_blank"><i
+                                                class="fab fa-youtube"></i></a></li>
+                                                                    <li><a href="https://www.facebook.com" target="_blank"><i
+                                                class="fab fa-facebook"></i></a></li>
+                                                                    <li><a href="http://localhost/admin-master" target="_blank"><i
+                                                class="fab fa-twitter"></i></a></li>
+                                                                    <li><a href="http://localhost/admin-master" target="_blank"><i
+                                                class="fab fa-instagram"></i></a></li>
+                                                            </ul><!-- /.social-icons -->
+                            <form class="header-topbar__search">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <button class="header-topbar__search-btn"><i class="fa fa-search"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div><!-- /.col-12 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </div><!-- /.header-top -->
+    <nav class="navbar navbar-expand-lg sticky-navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="http://127.0.0.1:8000">
+                <img src="http://127.0.0.1:8000/frontend/assets/images/logo/belesch-logo-light.png" class="logo-light"
+                     alt="logo">
+                <img src="http://127.0.0.1:8000/frontend/assets/images/logo/belesch-logo-light.png" class="logo-dark" alt="logo">
+            </a>
+            <button class="navbar-toggler" type="button">
+                <span class="menu-lines"><span></span></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNavigation">
+                <ul class="navbar-nav m-auto">
+                    <li class="nav__item">
+                        <a href="http://127.0.0.1:8000" class="nav__item-link active">Home</a>
+                    </li><!-- /.nav-item -->
+                    <li class="nav__item">
+                        <a href="http://127.0.0.1:8000/about" class="nav__item-link ">About Us</a>
+                    </li><!-- /.nav-item -->
+                    <li class="nav__item">
+                        <a href="http://127.0.0.1:8000/contact" class="nav__item-link ">Contacts</a>
+                    </li> <!-- /.nav-item -->
+
+                                            <li class="nav__item">
+                            <a href="http://127.0.0.1:8000/userLogin" class="nav__item-link">Sign-in</a>
+                        </li> <!-- /.nav-item -->
+                    
+                </ul><!-- /.navbar-nav -->
+                <button class="close-mobile-menu d-block d-lg-none"><i class="fas fa-times"></i></button>
+            </div><!-- /.navbar-collapse -->
+            <div class="d-none d-xl-flex align-items-center position-relative ml-30">
+                <!-- Bouton déplacé vers la section des packages -->
+            </div>
+        </div><!-- /.container -->
+    </nav><!-- /.navbar -->
+</header><!-- /.Header -->
+<!-- Livewire Component wire-end:malBOdstlksLUfRTEOZ0 -->    
+    <style>
+        /* Design professionnel et épuré */
+        
+        /* Typographie améliorée */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+        }
+        
+        /* Carrousel principal - Design professionnel */
+        .slider {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .slide-item {
+            position: relative;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #009ee1 0%, #0077b3 50%, #39cdc1 100%);
+        }
+        
+        .slide-item .bg-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .slide-item .bg-img::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.1) 100%);
+            z-index: 2;
+        }
+        
+        .slide-item .bg-img img {
+            display: none;
+        }
+        
+        .slide-item .container {
+            position: relative;
+            z-index: 15;
+        }
+        
+        .slide__content {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            z-index: 20;
+            backdrop-filter: blur(20px);
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+        
+        .slide__content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+        }
+        
+        .slide__title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #009ee1 0%, #0077b3 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .slide__desc {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #2d3748;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+        
+        /* Section contact - Design professionnel */
+        .contact-info {
+            background: #f8fafc;
+            padding: 3rem 0;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .contact-box {
+            background: white;
+            border-radius: 6px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease;
+            border: 1px solid #e2e8f0;
+            height: 100%;
+        }
+        
+        .contact-box:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border-color: #009ee1;
+        }
+        
+        .contact__icon {
+            background: linear-gradient(135deg, #009ee1 0%, #0077b3 100%);
+            border-radius: 8px;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+        
+        .contact__icon i {
+            color: white;
+            font-size: 1.25rem;
+        }
+        
+        .contact__title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact__desc {
+            color: #718096;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        /* Section packages - Design professionnel */
+        .mainBox-custom {
+            background: linear-gradient(135deg, #009ee1 0%, #0077b3 100%);
+            padding: 4rem 0;
+            position: relative;
+        }
+        
+        .mainBox-custom::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.05) 100%);
+        }
+        
+        .mainBox-custom .heading {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .mainBox-custom .heading__subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        
+        .mainBox-custom .heading__title {
+            color: white;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+        
+        .boxes {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(0, 158, 225, 0.1);
+        }
+        
+        .boxes:hover {
+            box-shadow: 0 12px 35px rgba(0, 158, 225, 0.15);
+            transform: translateY(-5px);
+            border-color: rgba(0, 158, 225, 0.3);
+        }
+        
+        .boxes h3 {
+            background: linear-gradient(135deg, #009ee1 0%, #0077b3 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+        
+        .img-style {
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .content-style {
+            flex-grow: 1;
+        }
+        
+        .content-style ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .content-style li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            align-items: flex-start;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .content-style li:last-child {
+            border-bottom: none;
+        }
+        
+        .content-style li i {
+            color: #39cdc1;
+            margin-right: 0.5rem;
+            font-size: 0.8rem;
+            margin-top: 0.2rem;
+        }
+        
+        .content-style li strong {
+            color: #2d3748;
+            font-weight: 600;
+        }
+        
+        /* Boutons professionnels modernisés */
+        .btn__primary, .btn__secondary {
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: none;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn__primary {
+            background: linear-gradient(135deg, #009ee1 0%, #0077b3 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 158, 225, 0.3);
+        }
+        
+        .btn__primary:hover {
+            background: linear-gradient(135deg, #0077b3 0%, #005a8b 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 158, 225, 0.4);
+        }
+        
+        .btn__secondary {
+            background: white;
+            color: #009ee1;
+            border: 2px solid #009ee1;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn__secondary:hover {
+            background: linear-gradient(135deg, #009ee1 0%, #0077b3 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 158, 225, 0.3);
+        }
+        
+        /* Bouton principal Assemble Curebox */
+        .btn__secondary.btn-lg {
+            background: white;
+            color: #009ee1;
+            border: 3px solid white;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn__secondary.btn-lg:hover {
+            background: linear-gradient(135deg, #009ee1 0%, #0077b3 100%);
+            color: white;
+            border-color: #009ee1;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0, 158, 225, 0.4);
+        }
+        
+        /* Animations subtiles */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        /* Responsive design professionnel */
+        @media (max-width: 768px) {
+            .slide__title {
+                font-size: 2rem;
+            }
+            
+            .slide__content {
+                padding: 2rem;
+                margin: 1rem;
+            }
+            
+            .contact-box {
+                margin-bottom: 1.5rem;
+            }
+            
+            .boxes {
+                margin-bottom: 1.5rem;
+            }
+        }
+    </style>
+
+    <!-- ============================  Sliders ============================== -->
+    <section class="slider">
+        <div class="slick-carousel m-slides-0"
+             data-slick='{"slidesToShow": 1, "arrows": true, "dots": false, "speed": 700,"fade": true,"cssEase": "linear", "autoplay": true, "autoplaySpeed": 2000, "infinite": true, "pauseOnHover": false, "pauseOnFocus": false}'>
+                            <div class="slide-item align-v-h">
+                    <div class="bg-img"><img src="http://127.0.0.1:8000/storage/images/dG48MOEo3CVUkzVSfRAGgtxN5xAh5rkAhiWcetOT.jpg" alt="Immer für Sie da"></div>
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-7">
+                                                            <div class="slide__content fade-in">
+                                <h2 class="slide__title">Wir sind gerne für Sie da!</h2>
+                                <p class="slide__desc">Wir sind Inhabergeführt und legen großen Wert auf einen einfühlsamen und respektvollen Umgang mit unseren Kunden.</p>
+                            </div><!-- /.slide-content -->
+                            </div><!-- /.col-xl-7 -->
+                        </div><!-- /.row -->
+                    </div><!-- /.container -->
+                </div><!-- /.slide-item -->
+                            <div class="slide-item align-v-h">
+                    <div class="bg-img"><img src="http://127.0.0.1:8000/storage/images/pBqTc35obNJ7xMwdHaFdcoJixhiHRi5ke2tAq61y.jpg" alt="Wunschbox frei Haus"></div>
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-7">
+                                                            <div class="slide__content fade-in">
+                                <h2 class="slide__title">Monatlich Ihre Wunschbox frei Haus geliefert</h2>
+                                <p class="slide__desc">Ihre kostenfreie Pflegebox im Wert von bis zu 40 Euro</p>
+                            </div><!-- /.slide-content -->
+                            </div><!-- /.col-xl-7 -->
+                        </div><!-- /.row -->
+                    </div><!-- /.container -->
+                </div><!-- /.slide-item -->
+                            <div class="slide-item align-v-h">
+                    <div class="bg-img"><img src="http://127.0.0.1:8000/storage/images/0xgXbDGYQg7psSdQO3OPux4KO3iow0XQCLs1fulY.jpg" alt="mehr Freiheit"></div>
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-7">
+                                                            <div class="slide__content fade-in">
+                                <h2 class="slide__title">Wieder mehr Freiheit genießen</h2>
+                                <p class="slide__desc">Mit kostenlosen Pflegehilfsmitteln ab Pflegegrad 1. Ganz nach Ihren Wünschen und Bedürfnissen zusammengestellt.</p>
+                            </div><!-- /.slide-content -->
+                            </div><!-- /.col-xl-7 -->
+                        </div><!-- /.row -->
+                    </div><!-- /.container -->
+                </div><!-- /.slide-item -->
+                    </div><!-- /.carousel -->
+    </section>
+    <!-- /.slider -->
+
+    <!-- ============================  contact info  ============================== -->
+    <section class="contact-info py-0">
+        <div class="container">
+            <div class="row row-no-gutter boxes-wrapper">
+                <div class="col-sm-12 col-md-4">
+                    <div class="contact-box d-flex fade-in" style="animation-delay: 0.2s;">
+                        <div class="contact__icon">
+                            <i class="icon-call3"></i>
+                        </div><!-- /.contact__icon -->
+                        <div class="contact__content">
+                            <h2 class="contact__title">Lorem Ipsum</h2>
+                            <p class="contact__desc">Lorem Ipsum is simply has survived not only five centuries looking
+                                at its layout the point of using.</p>
+                            <a href="tel:+201061245741" class="phone__number">
+                                <i class="icon-phone"></i> <span>01061245741</span>
+                            </a>
+                        </div><!-- /.contact__content -->
+                    </div><!-- /.contact-box -->
+                </div><!-- /.col-md-4 -->
+                <div class="col-sm-12 col-md-4">
+                    <div class="contact-box d-flex fade-in" style="animation-delay: 0.4s;">
+                        <div class="contact__icon">
+                            <i class="icon-health-report"></i>
+                        </div><!-- /.contact__icon -->
+                        <div class="contact__content">
+                            <h2 class="contact__title">Lorem Ipsum</h2>
+                            <p class="contact__desc">Lorem Ipsum is simply has survived not only five centuries looking
+                                at its layout the point of using.</p>
+                            <a href="#" class="btn btn__white btn__outlined btn__rounded">
+                                <span>Lorem Ipsum</span><i class="icon-arrow-right"></i>
+                            </a>
+                        </div><!-- /.contact__content -->
+                    </div><!-- /.contact-box -->
+                </div><!-- /.col-md-4 -->
+                <div class="col-sm-12 col-md-4">
+                    <div class="contact-box d-flex fade-in" style="animation-delay: 0.6s;">
+                        <div class="contact__icon">
+                            <i class="icon-heart2"></i>
+                        </div><!-- /.contact__icon -->
+                        <div class="contact__content">
+                            <h2 class="contact__title">Lorem Ipsum</h2>
+                            <ul class="time__list list-unstyled mb-0">
+                                <li><span>Monday - Friday</span><span>8.00 - 7:00 pm</span></li>
+                                <li><span>Saturday</span><span>9.00 - 10:00 pm</span></li>
+                                <li><span>Sunday</span><span>10.00 - 12:00 pm</span></li>
+                            </ul>
+                        </div><!-- /.contact__content -->
+                    </div><!-- /.contact-box -->
+                </div><!-- /.col-md-4 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </section>
+    <!-- /.contact-info -->
+    <section class="mainBox-custom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="heading text-center mb-60">
+                        <h2 class="heading__subtitle">Aus folgenden Pflege-Paketen können Sie auswählen:</h2>
+                        <h3 class="heading__title text-white">Aus folgenden Pflege-Paketen können Sie auswählen:</h3>
+                    </div>
+                </div>
+                                <div class="col-md-4 d-flex align-items-stretch">
+                    <div class="boxes fade-in" style="display: flex; flex-direction: column; border-radius: 8px; width: 100%; animation-delay: 0s;">
+                        <h3>BeleschBox 1</h3>
+                        <div class="img-style">
+                            <img src="http://127.0.0.1:8000/storage/images/MOmLf5qM7W1WK3Db8uK8ZpikrIqFltMwVE6d7Vuv.jpg" alt="BeleschBox1" class="img-fluid">
+                        </div>
+
+                        <div class="content-style" style="flex-grow: 1">
+                            <ul>
+                                                                <li><i class="fa fa-check"></i> <strong> 500 ml</strong> Händedesinfektion</li>
+                                                                    <li><i class="fa fa-check"></i> <strong> 1 Stück</strong> FFP 2 Mundschutz</li>
+                                                                    <li><i class="fa fa-check"></i> <strong> 100 Stück</strong> Einmalhandschuhe</li>
+                                                                    <li><i class="fa fa-check"></i> <strong> 500 ml</strong> Flächendesinfektion</li>
+                                                                </ul>
+                        </div>
+
+                        <a href="http://127.0.0.1:8000/assemble-pkg?package=1" class="btn btn__secondary btn__outlined btn__rounded" tabindex="-1">
+                            <span>Paket auswählen</span>
+                            <i class="icon-arrow-right"></i>
+                        </a>
+
+                        <!-- 
+                       
+                        <a href="http://127.0.0.1:8000/userLogin" class="btn btn__secondary btn__outlined btn__rounded" tabindex="-1">
+                            <span>Paket auswählen</span>
+                            <i class="icon-arrow-right"></i>
+                        </a>
+                         -->
+                        
+                    </div>
+                </div>
+                                <div class="col-md-4 d-flex align-items-stretch">
+                    <div class="boxes fade-in" style="display: flex; flex-direction: column; border-radius: 8px; width: 100%; animation-delay: 0.1s;">
+                        <h3>BeleschBox 2</h3>
+                        <div class="img-style">
+                            <img src="http://127.0.0.1:8000/storage/images/z479EWkVjd2sb4jbDIqJ5x1vh2lfQrjxsYn2h0xI.jpg" alt="BeleschBox2" class="img-fluid">
+                        </div>
+
+                        <div class="content-style" style="flex-grow: 1">
+                            <ul>
+                                                                <li><i class="fa fa-check"></i> <strong> 500 ml</strong> Händedesinfektion</li>
+                                                                    <li><i class="fa fa-check"></i> <strong> 1 Stück</strong> FFP 2 Mundschutz</li>
+                                                                    <li><i class="fa fa-check"></i> <strong> 100 Stück</strong> Einmalhandschuhe</li>
+                                                                    <li><i class="fa fa-check"></i> <strong> 25 Stück</strong> Bettschutzeinlagen zum Einmalgebrauch</li>
+                                                                </ul>
+                        </div>
+
+                        <a href="http://127.0.0.1:8000/assemble-pkg?package=3" class="btn btn__secondary btn__outlined btn__rounded" tabindex="-1">
+                            <span>Paket auswählen</span>
+                            <i class="icon-arrow-right"></i>
+                        </a>
+
+                        <!-- 
+                       
+                        <a href="http://127.0.0.1:8000/userLogin" class="btn btn__secondary btn__outlined btn__rounded" tabindex="-1">
+                            <span>Paket auswählen</span>
+                            <i class="icon-arrow-right"></i>
+                        </a>
+                         -->
+                        
+                    </div>
+                </div>
+                                <div class="col-md-4 d-flex align-items-stretch">
+                    <div class="boxes fade-in" style="display: flex; flex-direction: column; border-radius: 8px; width: 100%; animation-delay: 0.2s;">
+                        <h3>BeleschBox 3</h3>
+                        <div class="img-style">
+                            <img src="http://127.0.0.1:8000/storage/images/j0ylNzESO2TKaIAv2kYxOUmZgfrZVRnZQepjlWbP.jpg" alt="BeleschBox3" class="img-fluid">
+                        </div>
+
+                        <div class="content-style" style="flex-grow: 1">
+                            <ul>
+                                                                <li><i class="fa fa-check"></i> <strong> 500 ml</strong> Händedesinfektion</li>
+                                                                    <li><i class="fa fa-check"></i> <strong> 1 Stück</strong> FFP 2 Mundschutz</li>
+                                                                    <li><i class="fa fa-check"></i> <strong> 25 Stück</strong> Bettschutzeinlagen zum Einmalgebrauch</li>
+                                                                    <li><i class="fa fa-check"></i> <strong> 500 ml</strong> Flächendesinfektion</li>
+                                                                </ul>
+                        </div>
+
+                        <a href="http://127.0.0.1:8000/assemble-pkg?package=4" class="btn btn__secondary btn__outlined btn__rounded" tabindex="-1">
+                            <span>Paket auswählen</span>
+                            <i class="icon-arrow-right"></i>
+                        </a>
+
+                        <!-- 
+                       
+                        <a href="http://127.0.0.1:8000/userLogin" class="btn btn__secondary btn__outlined btn__rounded" tabindex="-1">
+                            <span>Paket auswählen</span>
+                            <i class="icon-arrow-right"></i>
+                        </a>
+                         -->
+                        
+                    </div>
+                </div>
+                                <div class="col-md-4 d-flex align-items-stretch">
+                    <div class="boxes fade-in" style="display: flex; flex-direction: column; border-radius: 8px; width: 100%; animation-delay: 0.3s;">
+                        <h3>BeleschBox 4</h3>
+                        <div class="img-style">
+                            <img src="http://127.0.0.1:8000/storage/images/oiZw4hXdmVLHgA1Cakj63Bbb0P5jLqtDXqBnRzxD.jpg" alt="BeleschBox4" class="img-fluid">
+                        </div>
+
+                        <div class="content-style" style="flex-grow: 1">
+                            <ul>
+                                                                <li><i class="fa fa-check"></i> <strong> 500 ml</strong> Händedesinfektion</li>
+                                                                    <li><i class="fa fa-check"></i> <strong> 1 Stück</strong> FFP 2 Mundschutz</li>
+                                                                    <li><i class="fa fa-check"></i> <strong> 500 ml</strong> Flächendesinfektion</li>
+                                                                </ul>
+                        </div>
+
+                        <a href="http://127.0.0.1:8000/assemble-pkg?package=5" class="btn btn__secondary btn__outlined btn__rounded" tabindex="-1">
+                            <span>Paket auswählen</span>
+                            <i class="icon-arrow-right"></i>
+                        </a>
+
+                        <!-- 
+                       
+                        <a href="http://127.0.0.1:8000/userLogin" class="btn btn__secondary btn__outlined btn__rounded" tabindex="-1">
+                            <span>Paket auswählen</span>
+                            <i class="icon-arrow-right"></i>
+                        </a>
+                         -->
+                        
+                    </div>
+                </div>
+                                <div class="col-md-4 d-flex align-items-stretch">
+                    <div class="boxes fade-in" style="display: flex; flex-direction: column; border-radius: 8px; width: 100%; animation-delay: 0.4s;">
+                        <h3>BeleschBox 5</h3>
+                        <div class="img-style">
+                            <img src="http://127.0.0.1:8000/storage/images/51yNWUlDPSofmIJmeNEd2mIxdpHNxeni47rYLy7E.jpg" alt="BeleschBox5" class="img-fluid">
+                        </div>
+
+                        <div class="content-style" style="flex-grow: 1">
+                            <ul>
+                                                                <li><i class="fa fa-check"></i> <strong> 1 Stück</strong> FFP 2 Mundschutz</li>
+                                                                    <li><i class="fa fa-check"></i> <strong> 100 Stück</strong> Einmalhandschuhe</li>
+                                                                    <li><i class="fa fa-check"></i> <strong> 500 ml</strong> Händedesinfektion</li>
+                                                                </ul>
+                        </div>
+
+                        <a href="http://127.0.0.1:8000/assemble-pkg?package=6" class="btn btn__secondary btn__outlined btn__rounded" tabindex="-1">
+                            <span>Paket auswählen</span>
+                            <i class="icon-arrow-right"></i>
+                        </a>
+
+                        <!-- 
+                       
+                        <a href="http://127.0.0.1:8000/userLogin" class="btn btn__secondary btn__outlined btn__rounded" tabindex="-1">
+                            <span>Paket auswählen</span>
+                            <i class="icon-arrow-right"></i>
+                        </a>
+                         -->
+                        
+                    </div>
+                </div>
+                                <div class="col-md-4 d-flex align-items-stretch">
+                    <div class="boxes fade-in" style="display: flex; flex-direction: column; border-radius: 8px; width: 100%; animation-delay: 0.5s;">
+                        <h3>BeleschBox 6</h3>
+                        <div class="img-style">
+                            <img src="http://127.0.0.1:8000/storage/images/IArLCYUK0mYl8VbSOYVLbaV5ttfwfaB69q6RqxVO.jpg" alt="BeleschBox6" class="img-fluid">
+                        </div>
+
+                        <div class="content-style" style="flex-grow: 1">
+                            <ul>
+                                                                <li><i class="fa fa-check"></i> <strong> 500 ml</strong> Händedesinfektion</li>
+                                                                    <li><i class="fa fa-check"></i> <strong> 1 Stück</strong> FFP 2 Mundschutz</li>
+                                                                    <li><i class="fa fa-check"></i> <strong> 100 Stück</strong> Einmalhandschuhe</li>
+                                                                    <li><i class="fa fa-check"></i> <strong> 25 Stück</strong> Bettschutzeinlagen zum Einmalgebrauch</li>
+                                                                    <li><i class="fa fa-check"></i> <strong> 500 ml</strong> Flächendesinfektion</li>
+                                                                </ul>
+                        </div>
+
+                        <a href="http://127.0.0.1:8000/assemble-pkg?package=7" class="btn btn__secondary btn__outlined btn__rounded" tabindex="-1">
+                            <span>Paket auswählen</span>
+                            <i class="icon-arrow-right"></i>
+                        </a>
+
+                        <!-- 
+                       
+                        <a href="http://127.0.0.1:8000/userLogin" class="btn btn__secondary btn__outlined btn__rounded" tabindex="-1">
+                            <span>Paket auswählen</span>
+                            <i class="icon-arrow-right"></i>
+                        </a>
+                         -->
+                        
+                    </div>
+                </div>
+                           </div>
+           
+           <!-- Bouton Assemble Curebox déplacé ici -->
+           <div class="row mt-5">
+               <div class="col-12 text-center">
+                   <a href="http://127.0.0.1:8000/assemble" class="btn btn__secondary btn__rounded btn-lg" style="font-size: 1.2rem; padding: 1.2rem 3.5rem; background: white; color: #009ee1; border: 3px solid white; box-shadow: 0 8px 25px rgba(0,0,0,0.15); font-weight: 600;">
+                       <i class="icon-container mr-2"></i>
+                       <span>Assemble Curebox</span>
+                   </a>
+               </div>
+           </div>
+        </div>
+    </section>
+    <!-- ========================  About Layout 2 =========================== -->
+    <section class="about-layout2 pb-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-7 offset-lg-1">
+                    <div class="heading-layout2">
+                        <h3 class="heading__title mb-60">Unser Anspruch: Exzellente Beratung und perfekter Service!</h3>
+                    </div><!-- /heading -->
+                </div><!-- /.col-12 -->
+            </div><!-- /.row -->
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-5">
+                    <div class="text-with-icon">
+                        <div class="text__icon">
+                            <i class="icon-doctor"></i>
+                        </div>
+                        <div class="text__content">
+                            <p class="heading__desc font-weight-bold color-secondary mb-30">Bei BeleschBox kommen ausschließlich hochwertige Produkte in die Box!</p>
+                            <a href="#" class="btn btn__secondary btn__rounded mb-70">
+                                <span>Assemble curabox</span> <i class="icon-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="video-banner-layout2 bg-overlay">
+                        <img src="http://127.0.0.1:8000/storage/images/pbSZZnVDzadxTUrUaKsgiKoC8kUAmYQn7wqWjBjX.jpg" alt="about" class="w-100">
+                        <a class="video__btn video__btn-white popup-video"
+                           href="https://www.youtube.com/watch?v=ppsWSYth0rE">
+                            <div class="video__player">
+                                <i class="fa fa-play"></i>
+                            </div>
+                            <span class="video__btn-title color-white">Watch Our Video!</span>
+                        </a>
+                    </div><!-- /.video-banner -->
+                </div><!-- /.col-lg-6 -->
+                <div class="col-sm-12 col-md-12 col-lg-7">
+                    <div class="about__text bg-white">
+                        <p>Seit 2019 helfen wir unseren Kunden dabei, ein unabhängigeres und aktiveres Leben zu führen. Einen besonderen Stellenwert legen wir auf die Beratung unserer Kunden, die oftmals unzureichend mit ihren Anrechten vertraut sind. Um dies zu ändern, klären, neben unserem eigenen Beratungsteam, auch Kooperationspartner aus dem Pflegebereich über Vermittlung und Unterstützung in der ambulanten Pflege auf und versorgen Sie mit relevanten Informationen.&nbsp;</p><p>Neben Kompetenz und Ehrlichkeit legen wir besonderen Wert auf Einfühlungsvermögen und eine familiäre Atmosphäre: „Uns ist bewusst, dass dies ein sensibler Bereich ist – umso wichtiger ist es, dass sich unsere Kunden wohlfühlen“.</p><p>Warum Sie sich für die Belesch-Box entscheiden sollten:</p><ul><li><strong>Hochwertige Produkte bekannter Markenhersteller</strong></li><li><strong>Inhabergeführtes mittelständisches Unternehmen mit starkem Wertekompass</strong></li><li><strong>Hohe Flexibilität und bestens geschulter Kundenservice</strong></li></ul>
+                    </div>
+                </div><!-- /.col-lg-6 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </section>
+    <!-- /.About Layout 2 -->
+
+    <!-- ======================== Modern Products Section =========================== -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-6 offset-lg-3">
+                    <div class="section-header">
+                        <h2>website.quality_products</h2>
+                        <p>website.quality_products_desc</p>
+                    </div><!-- /.heading -->
+                </div><!-- /.col-lg-6 -->
+            </div><!-- /.row -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="slick-carousel"
+                         data-slick='{"slidesToShow": 3, "slidesToScroll": 1, "autoplay": true, "arrows": true, "dots": true, "responsive": [ {"breakpoint": 992, "settings": {"slidesToShow": 2}}, {"breakpoint": 767, "settings": {"slidesToShow": 1}}, {"breakpoint": 480, "settings": {"slidesToShow": 1}}]}'>
+                                            <!-- Product item -->
+                            <div class="service-item">
+                                <div class="product-card modern-card h-100">
+                                    <div class="service__icon p-4">
+                                        <img src="http://127.0.0.1:8000/storage/images/GARUNVvtUJShLtM7qi0GPz4YU3V9MgRb0vOR8IKY.png"
+                                             class="img-fluid rounded" alt="Händedesinfektion">
+                                    </div><!-- /.service__icon -->
+                                    <div class="service__content p-4">
+                                        <h4 class="service__title h5 mb-3">Händedesinfektion</h4>
+                                        <div class="service__desc text-muted"><p>Actodermanol ist ein Hand- und Hautdesinfektionsmittel auf Alkoholbasis. Es ist hautfreundlich und einfach anzuwenden. Wirksam gegenüber behüllten Viren (zB: Vaccinia, Corona, HBV, HIV und HCV, Rotavirus).</p></div>
+                                        <a href="http://127.0.0.1:8000/assemble" class="btn btn-modern btn-sm mt-3">
+                                            <i class="icon-arrow-right mr-2"></i>website.add_to_cart
+                                        </a>
+                                    </div><!-- /service__content -->
+                                </div><!-- /.product-card -->
+                            </div><!-- /service-item -->
+                                                <!-- Product item -->
+                            <div class="service-item">
+                                <div class="product-card modern-card h-100">
+                                    <div class="service__icon p-4">
+                                        <img src="http://127.0.0.1:8000/storage/images/O21XBESa8aiRyJfpHZRer80F8FgRVkKhzLymbNyb.png"
+                                             class="img-fluid rounded" alt="FFP 2 Mundschutz">
+                                    </div><!-- /.service__icon -->
+                                    <div class="service__content p-4">
+                                        <h4 class="service__title h5 mb-3">FFP 2 Mundschutz</h4>
+                                        <div class="service__desc text-muted"><p>Acto FFP2 Masken mit 5 Schichten aus Non-Woven und Meltblown Gewebe und ergonomischem Design für hohen Tragekomfort. Die Masken sind Luftdurchlässig mit geringem Atemwiderstand und extra hautfreundlichem Vlies.</p></div>
+                                        <a href="http://127.0.0.1:8000/assemble" class="btn btn-modern btn-sm mt-3">
+                                            <i class="icon-arrow-right mr-2"></i>website.add_to_cart
+                                        </a>
+                                    </div><!-- /service__content -->
+                                </div><!-- /.product-card -->
+                            </div><!-- /service-item -->
+                                                <!-- Product item -->
+                            <div class="service-item">
+                                <div class="product-card modern-card h-100">
+                                    <div class="service__icon p-4">
+                                        <img src="http://127.0.0.1:8000/storage/images/dEWtWu8rhjpXJuREju8GqajZoMt5FmWLqiBgUudB.png"
+                                             class="img-fluid rounded" alt="Einmalhandschuhe">
+                                    </div><!-- /.service__icon -->
+                                    <div class="service__content p-4">
+                                        <h4 class="service__title h5 mb-3">Einmalhandschuhe</h4>
+                                        <div class="service__desc text-muted"><p>Einmalhandschuhe aus Vinyl in verschiedenen Größen.</p><ul><li>puderfrei</li><li>latexfrei</li><li>glatte Oberfläche</li><li>Handschuhe für medizinsche Anwendung</li></ul></div>
+                                        <a href="http://127.0.0.1:8000/assemble" class="btn btn-modern btn-sm mt-3">
+                                            <i class="icon-arrow-right mr-2"></i>website.add_to_cart
+                                        </a>
+                                    </div><!-- /service__content -->
+                                </div><!-- /.product-card -->
+                            </div><!-- /service-item -->
+                                                <!-- Product item -->
+                            <div class="service-item">
+                                <div class="product-card modern-card h-100">
+                                    <div class="service__icon p-4">
+                                        <img src="http://127.0.0.1:8000/storage/images/TYa8USW3Ai9eJq5UiTj0K7CcPOJdEApIRvksmhl1.png"
+                                             class="img-fluid rounded" alt="Bettschutzeinlagen zum Einmalgebrauch">
+                                    </div><!-- /.service__icon -->
+                                    <div class="service__content p-4">
+                                        <h4 class="service__title h5 mb-3">Bettschutzeinlagen zum Einmalgebrauch</h4>
+                                        <div class="service__desc text-muted"><p>Einmalbettschutzunterlagen mit Saugkörper aus Zellschutz-Flocken. Die Material-Oberseite besteht aus weichem Vliesstoff und bietet einen perfekten Liegekomfort. Das Material auf der Unterseite besteht aus feuchtigkeitsundurchlässiger und rutschfester Folie.</p></div>
+                                        <a href="http://127.0.0.1:8000/assemble" class="btn btn-modern btn-sm mt-3">
+                                            <i class="icon-arrow-right mr-2"></i>website.add_to_cart
+                                        </a>
+                                    </div><!-- /service__content -->
+                                </div><!-- /.product-card -->
+                            </div><!-- /service-item -->
+                                                <!-- Product item -->
+                            <div class="service-item">
+                                <div class="product-card modern-card h-100">
+                                    <div class="service__icon p-4">
+                                        <img src="http://127.0.0.1:8000/storage/images/kt1htQglrHf2P3gogzp9sbax3Q1p2GW5VCswInxa.jpg"
+                                             class="img-fluid rounded" alt="Flächendesinfektion">
+                                    </div><!-- /.service__icon -->
+                                    <div class="service__content p-4">
+                                        <h4 class="service__title h5 mb-3">Flächendesinfektion</h4>
+                                        <div class="service__desc text-muted"><p>Actoanid Spray ist eine alkoholfreie, schnelle Sprüh- und Wischdesinfektion auf Basis von Biguaniden und quartärenAmmoniumverbindungen. Actoanid Spray ist hautfreundlich, dermatologisch getestet und hat einen angenehmen Geruch. Geeignet für Schnelldesinfektion.</p></div>
+                                        <a href="http://127.0.0.1:8000/assemble" class="btn btn-modern btn-sm mt-3">
+                                            <i class="icon-arrow-right mr-2"></i>website.add_to_cart
+                                        </a>
+                                    </div><!-- /service__content -->
+                                </div><!-- /.product-card -->
+                            </div><!-- /service-item -->
+                                            </div><!-- /.col-12 -->
+                </div><!-- /.row -->
+            </div><!-- /.container -->
+    </section>
+    <!-- /.Services Layout 1 -->
+
+
+    <!-- ======================  Features Layout 2 ========================= -->
+    <section class="features-layout2 pt-130 bg-overlay bg-overlay-primary">
+        <div class="bg-img"><img src="http://127.0.0.1:8000/frontend/assets/images/backgrounds/2.jpg" alt="background"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-8">
+                    <div class="heading__layout2 mb-50">
+                        <h3 class="heading__title color-white">Lorem Ipsum is simply dummy text of the printing and
+                            typesetting industry. Lorem Ipsum has been the industry.</h3>
+                    </div>
+                </div><!-- /col-lg-5 -->
+            </div><!-- /.row -->
+            <div class="row">
+                <!-- Feature item #1 -->
+                <div class="col-sm-6 col-md-6 col-lg-3">
+                    <div class="feature-item">
+                        <div class="feature__img">
+                            <img src="http://127.0.0.1:8000/frontend/assets/images/services/1.jpg" alt="service" loading="lazy">
+                        </div><!-- /.feature__img -->
+                        <div class="feature__content">
+                            <div class="feature__icon">
+                                <i class="icon-heart"></i>
+                            </div>
+                            <h4 class="feature__title">Lorem Ipsum is simply dummy</h4>
+                        </div><!-- /.feature__content -->
+                        <a href="#" class="btn__link">
+                            <i class="icon-arrow-right icon-outlined"></i>
+                        </a>
+                    </div><!-- /.feature-item -->
+                </div><!-- /.col-lg-3 -->
+                <!-- Feature item #2 -->
+                <div class="col-sm-6 col-md-6 col-lg-3">
+                    <div class="feature-item">
+                        <div class="feature__img">
+                            <img src="http://127.0.0.1:8000/frontend/assets/images/services/2.jpg" alt="service" loading="lazy">
+                        </div><!-- /.feature__img -->
+                        <div class="feature__content">
+                            <div class="feature__icon">
+                                <i class="icon-doctor"></i>
+                            </div>
+                            <h4 class="feature__title">Lorem Ipsum is simply dummy</h4>
+                        </div><!-- /.feature__content -->
+                        <a href="#" class="btn__link">
+                            <i class="icon-arrow-right icon-outlined"></i>
+                        </a>
+                    </div><!-- /.feature-item -->
+                </div><!-- /.col-lg-3 -->
+                <!-- Feature item #3 -->
+                <div class="col-sm-6 col-md-6 col-lg-3">
+                    <div class="feature-item">
+                        <div class="feature__img">
+                            <img src="http://127.0.0.1:8000/frontend/assets/images/services/electric-van-courier.jpg"
+                                 alt="service" loading="lazy">
+                        </div><!-- /.feature__img -->
+                        <div class="feature__content">
+                            <div class="feature__icon">
+                                <i class="icon-ambulance"></i>
+                            </div>
+                            <h4 class="feature__title">Lorem Ipsum is simply dummy</h4>
+                        </div><!-- /.feature__content -->
+                        <a href="#" class="btn__link">
+                            <i class="icon-arrow-right icon-outlined"></i>
+                        </a>
+                    </div><!-- /.feature-item -->
+                </div><!-- /.col-lg-3 -->
+                <!-- Feature item #4 -->
+                <div class="col-sm-6 col-md-6 col-lg-3">
+                    <div class="feature-item">
+                        <div class="feature__img">
+                            <img
+                                src="http://127.0.0.1:8000/frontend/assets/images/services/idea_sized-kendal-l4ikccachoc-unsplash.jpg"
+                                alt="service" loading="lazy">
+                        </div><!-- /.feature__img -->
+                        <div class="feature__content">
+                            <div class="feature__icon">
+                                <i class="icon-drugs"></i>
+                            </div>
+                            <h4 class="feature__title">Lorem Ipsum is simply dummy</h4>
+                        </div><!-- /.feature__content -->
+                        <a href="#" class="btn__link">
+                            <i class="icon-arrow-right icon-outlined"></i>
+                        </a>
+                    </div><!-- /.feature-item -->
+                </div><!-- /.col-lg-3 -->
+                <!-- Feature item #5 -->
+                <div class="col-sm-6 col-md-6 col-lg-3">
+                    <div class="feature-item">
+                        <div class="feature__img">
+                            <img
+                                src="http://127.0.0.1:8000/frontend/assets/images/services/iStock-153061623-thumb.jpg"
+                                alt="service" loading="lazy">
+                        </div><!-- /.feature__img -->
+                        <div class="feature__content">
+                            <div class="feature__icon">
+                                <i class="icon-first-aid-kit"></i>
+                            </div>
+                            <h4 class="feature__title">Lorem Ipsum is simply dummy</h4>
+                        </div><!-- /.feature__content -->
+                        <a href="#" class="btn__link">
+                            <i class="icon-arrow-right icon-outlined"></i>
+                        </a>
+                    </div><!-- /.feature-item -->
+                </div><!-- /.col-lg-3 -->
+                <!-- Feature item #6 -->
+                <div class="col-sm-6 col-md-6 col-lg-3">
+                    <div class="feature-item">
+                        <div class="feature__img">
+                            <img src="http://127.0.0.1:8000/frontend/assets/images/services/electric-van-courier.jpg"
+                                 alt="service" loading="lazy">
+                        </div><!-- /.feature__img -->
+                        <div class="feature__content">
+                            <div class="feature__icon">
+                                <i class="icon-hospital"></i>
+                            </div>
+                            <h4 class="feature__title">Lorem Ipsum is simply dummy</h4>
+                        </div><!-- /.feature__content -->
+                        <a href="#" class="btn__link">
+                            <i class="icon-arrow-right icon-outlined"></i>
+                        </a>
+                    </div><!-- /.feature-item -->
+                </div><!-- /.col-lg-3 -->
+                <!-- Feature item #7 -->
+                <div class="col-sm-6 col-md-6 col-lg-3">
+                    <div class="feature-item">
+                        <div class="feature__img">
+                            <img
+                                src="http://127.0.0.1:8000/frontend/assets/images/services/senior-woman-caregiver-home-portrait-women-sitting-care-nurse-giving-medication-to-elderly-63341478.jpg"
+                                alt="service" loading="lazy">
+                        </div><!-- /.feature__img -->
+                        <div class="feature__content">
+                            <div class="feature__icon">
+                                <i class="icon-expenses"></i>
+                            </div>
+                            <h4 class="feature__title">Lorem Ipsum is simply dummy</h4>
+                        </div><!-- /.feature__content -->
+                        <a href="#" class="btn__link">
+                            <i class="icon-arrow-right icon-outlined"></i>
+                        </a>
+                    </div><!-- /.feature-item -->
+                </div><!-- /.col-lg-3 -->
+                <!-- Feature item #8 -->
+                <div class="col-sm-6 col-md-6 col-lg-3">
+                    <div class="feature-item">
+                        <div class="feature__img">
+                            <img
+                                src="http://127.0.0.1:8000/frontend/assets/images/services/young-woman-serving-dinner-elderly-living-room-senior-people-care-171932883.jpg"
+                                alt="service" loading="lazy">
+                        </div><!-- /.feature__img -->
+                        <div class="feature__content">
+                            <div class="feature__icon">
+                                <i class="icon-bandage"></i>
+                            </div>
+                            <h4 class="feature__title">Lorem Ipsum is simply dummy</h4>
+                        </div><!-- /.feature__content -->
+                        <a href="#" class="btn__link">
+                            <i class="icon-arrow-right icon-outlined"></i>
+                        </a>
+                    </div><!-- /.feature-item -->
+                </div><!-- /.col-lg-3 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </section>
+    <!-- /.Features Layout 2 -->
+
+    <!-- ======================  Team ========================= -->
+    <section class="team-layout2 pb-80">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-6 offset-lg-3">
+                    <div class="heading text-center mb-40">
+                        <h3 class="heading__title">Meet Our Team</h3>
+                        <p class="heading__desc">Lorem Ipsum is simply dummy text of the printing and typesetting
+                            industry. Lorem Ipsum has been the industry.
+                        </p>
+                    </div><!-- /.heading -->
+                </div><!-- /.col-lg-6 -->
+            </div><!-- /.row -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="slick-carousel"
+                         data-slick='{"slidesToShow": 3, "slidesToScroll": 1, "autoplay": true, "arrows": false, "dots": false, "responsive": [ {"breakpoint": 992, "settings": {"slidesToShow": 2}}, {"breakpoint": 767, "settings": {"slidesToShow": 1}}, {"breakpoint": 480, "settings": {"slidesToShow": 1}}]}'>
+                                            <!-- Member  -->
+                            <div class="member">
+                                <div class="member__img">
+                                    <img src="http://127.0.0.1:8000/storage/images/8NCubwLtkEMGpEH0wHNYFERLtB4uvnFI6L1Mwj9O.jpg"
+                                         alt="member img" style="height: 370px; object-fit: cover;">
+                                </div><!-- /.member-img -->
+                                <div class="member__info">
+                                    <h5 class="member__name"><a href="javascript:;">Maria Andaloro</a></h5>
+                                    <p class="member__job">Developer</p>
+                                    <p class="member__desc">Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum has been the industry&#039;s standard dummy text ever since.</p>
+                                    <div class="mt-20 d-flex flex-wrap justify-content-between align-items-center">
+                                        <a href="javascript:;" class="btn btn__secondary btn__link btn__rounded">
+                                            <span>Read More</span>
+                                            <i class="icon-arrow-right"></i>
+                                        </a>
+                                        <ul class="social-icons list-unstyled mb-0">
+                                            <li><a href="dsfsdfdsafsdfasd" target="_blank" class="facebook"><i
+                                                        class="fab fa-facebook-f"></i></a></li>
+                                            <li><a href="dsfsdfdsafsdfasd" class="twitter" target="_blank"><i
+                                                        class="fab fa-twitter"></i></a></li>
+                                            <li><a href="tel:546546546546" class="phone"><i
+                                                        class="fas fa-phone-alt"></i></a></li>
+                                        </ul><!-- /.social-icons -->
+                                    </div>
+                                </div><!-- /.member-info -->
+                            </div><!-- /.member -->
+                                                <!-- Member  -->
+                            <div class="member">
+                                <div class="member__img">
+                                    <img src="http://127.0.0.1:8000/storage/images/DUqO7T1R20zioePI4FkowpnNCp0HNMA5XLRnzXon.jpg"
+                                         alt="member img" style="height: 370px; object-fit: cover;">
+                                </div><!-- /.member-img -->
+                                <div class="member__info">
+                                    <h5 class="member__name"><a href="javascript:;">Karim Hasni</a></h5>
+                                    <p class="member__job">Geschäftsführer</p>
+                                    <p class="member__desc">Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum has been the industry&#039;s standard dummy text ever since.</p>
+                                    <div class="mt-20 d-flex flex-wrap justify-content-between align-items-center">
+                                        <a href="javascript:;" class="btn btn__secondary btn__link btn__rounded">
+                                            <span>Read More</span>
+                                            <i class="icon-arrow-right"></i>
+                                        </a>
+                                        <ul class="social-icons list-unstyled mb-0">
+                                            <li><a href="http://www.test.com" target="_blank" class="facebook"><i
+                                                        class="fab fa-facebook-f"></i></a></li>
+                                            <li><a href="http://www.test.com" class="twitter" target="_blank"><i
+                                                        class="fab fa-twitter"></i></a></li>
+                                            <li><a href="tel:+49 531 516 057 12" class="phone"><i
+                                                        class="fas fa-phone-alt"></i></a></li>
+                                        </ul><!-- /.social-icons -->
+                                    </div>
+                                </div><!-- /.member-info -->
+                            </div><!-- /.member -->
+                                                <!-- Member  -->
+                            <div class="member">
+                                <div class="member__img">
+                                    <img src="http://127.0.0.1:8000/storage/images/iZxmHNeOO2wMMEnttwmd7fE1rX594dqYJez4Ps1I.jpg"
+                                         alt="member img" style="height: 370px; object-fit: cover;">
+                                </div><!-- /.member-img -->
+                                <div class="member__info">
+                                    <h5 class="member__name"><a href="javascript:;">Sarhane Brahim</a></h5>
+                                    <p class="member__job">Geschäftsführer</p>
+                                    <p class="member__desc">Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum has been the industry&#039;s standard dummy text ever since.</p>
+                                    <div class="mt-20 d-flex flex-wrap justify-content-between align-items-center">
+                                        <a href="javascript:;" class="btn btn__secondary btn__link btn__rounded">
+                                            <span>Read More</span>
+                                            <i class="icon-arrow-right"></i>
+                                        </a>
+                                        <ul class="social-icons list-unstyled mb-0">
+                                            <li><a href="https://facebook.com" target="_blank" class="facebook"><i
+                                                        class="fab fa-facebook-f"></i></a></li>
+                                            <li><a href="https://facebook.com" class="twitter" target="_blank"><i
+                                                        class="fab fa-twitter"></i></a></li>
+                                            <li><a href="tel:+49 531 516 057 12" class="phone"><i
+                                                        class="fas fa-phone-alt"></i></a></li>
+                                        </ul><!-- /.social-icons -->
+                                    </div>
+                                </div><!-- /.member-info -->
+                            </div><!-- /.member -->
+                                            </div><!-- /.carousel -->
+                </div><!-- /.col-12 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </section>
+    <!-- /.Team -->
+
+
+    <!-- ==========================  contact layout 3 =========================== -->
+    <section class="contact-layout3 bg-overlay bg-overlay-primary-gradient pb-60">
+        <div class="bg-img"><img src="http://127.0.0.1:8000/frontend/assets/images/banners/3.jpg" alt="banner"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-7">
+                    <div class="contact-panel mb-50">
+                        <form class="contact-panel__form" id="contactForm" onsubmit="sendMail(); return false;">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h4 class="contact-panel__title">Drop Your Query</h4>
+                                    <p class="contact-panel__desc mb-30">Lorem Ipsum is simply dummy text of the
+                                        printing and typesetting industry.
+                                        Lorem Ipsum has been the industry's standard dummy text ever since.
+                                    </p>
+                                </div>
+                            
+                            <!-- /.col-lg-6 -->
+                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <i class="icon-news form-group-icon"></i>
+                                        <input type="text" class="form-control" placeholder="Full Name"
+                                               id="contact-fname" name="contact-Fname"
+                                               required>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <i class="icon-phone form-group-icon"></i>
+                                        <input type="text" class="form-control" placeholder="Phone" id="contact-phone"
+                                               name="contact-phone" required>
+                                    </div>
+                                </div>
+								<!-- /.col-lg-6 -->
+								<!--
+                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <i class="icon-news form-group-icon"></i>
+                                        <input type="text" class="form-control" placeholder="Last Name"
+                                               id="contact-lname" name="contact-Lname"
+                                               required>
+                                    </div>
+                                </div> --><!-- /.col-lg-6 -->
+                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                    <div class="form-group">
+                                        <i class="icon-email form-group-icon"></i>
+                                        <input type="email" class="form-control" placeholder="Email" id="contact-email"
+                                               name="contact-email" required>
+                                    </div>
+                                </div><!-- /.col-lg-6 -->
+								<!-- /.col-lg-6 -->
+                                <!--div class="col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group form-group-date">
+                                        <i class="icon-calendar form-group-icon"></i>
+                                        <input type="date" class="form-control" id="contact-date" name="contact-date"
+                                               required>
+                                    </div>
+                                </div><!-- /.col-lg-4 -->
+                                <!-- <div class="col-sm-4 col-md-4 col-lg-4">
+                                  <div class="form-group form-group-date">
+                                    <i class="icon-clock form-group-icon"></i>
+                                    <input type="time" class="form-control" id="contact-time" name="contact-time" required>
+                                  </div>
+                                </div> --><!-- /.col-lg-4 -->
+								<div class="col-sm-12 col-md-12 col-lg-12">
+                                    <div class="form-group">
+                                        <textarea class="form-control" placeholder="Message" id="contact-message" name="contact-message" rows="10" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit"
+                                            class="btn btn__secondary btn__rounded btn__block btn__xhight mt-10">
+                                        <span>Submit</span> <i class="icon-arrow-right"></i>
+                                    </button>
+                                    <!-- <div class="contact-result"></div> -->
+                                </div><!-- /.col-lg-12 -->
+                            </div><!-- /.row -->
+                        </form>
+                    </div>
+                </div><!-- /.col-lg-7 -->
+                <div class="col-sm-12 col-md-12 col-lg-5">
+                    <div class="heading heading-light mb-30">
+                        <h3 class="heading__title mb-30">Lorem Ipsum is simply dummy text !!</h3>
+                        <p class="heading__desc">Lorem Ipsum is simply dummy text of the printing and typesetting
+                            industry. Lorem Ipsum has been the industry's standard dummy text ever since.
+                        </p>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <a href="http://127.0.0.1:8000/assemble" class="btn btn__white btn__rounded mr-30">
+                            <i class="fas fa-heart"></i> <span>Make A Box</span>
+                        </a>
+                        <a class="video__btn video__btn-white popup-video"
+                           href="https://www.youtube.com/watch?v=nrJtHemSPW4">
+                            <div class="video__player">
+                                <i class="fa fa-play"></i>
+                            </div>
+                            <span class="video__btn-title color-white">Play Video</span>
+                        </a>
+                    </div>
+
+                    <div class="slick-carousel mt-20"
+                         data-slick='{"slidesToShow": 3, "arrows": false, "dots": false, "autoplay": true,"autoplaySpeed": 2000, "infinite": true, "responsive": [ {"breakpoint": 992, "settings": {"slidesToShow": 3}}, {"breakpoint": 767, "settings": {"slidesToShow": 2}}, {"breakpoint": 480, "settings": {"slidesToShow": 2}}]}'>
+                                                    <div class="client">
+                                <img src="http://127.0.0.1:8000/storage/images/T4F20HIyOZV9WU117Tr8TzpLgwPUs4wwlVZFRYs6.png" alt="Seni"
+                                     title="Seni Logo">
+                                <img src="http://127.0.0.1:8000/storage/images/T4F20HIyOZV9WU117Tr8TzpLgwPUs4wwlVZFRYs6.png" alt="Seni"
+                                     title="Seni Logo">
+                            </div><!-- /.client -->
+                                                    <div class="client">
+                                <img src="http://127.0.0.1:8000/storage/images/0PqqjNVPUK7kAeLgjxA9Sru4IEQJ6vH83ygzRfEc.jpg" alt="Acto"
+                                     title="Acto Logo">
+                                <img src="http://127.0.0.1:8000/storage/images/0PqqjNVPUK7kAeLgjxA9Sru4IEQJ6vH83ygzRfEc.jpg" alt="Acto"
+                                     title="Acto Logo">
+                            </div><!-- /.client -->
+                                                    <div class="client">
+                                <img src="http://127.0.0.1:8000/storage/images/bdMpA06ntkubiPz5aaRgDzIk0NlauJKKCMc0vVk4.png" alt="AOK"
+                                     title="AOK Logo">
+                                <img src="http://127.0.0.1:8000/storage/images/bdMpA06ntkubiPz5aaRgDzIk0NlauJKKCMc0vVk4.png" alt="AOK"
+                                     title="AOK Logo">
+                            </div><!-- /.client -->
+                                                    <div class="client">
+                                <img src="http://127.0.0.1:8000/storage/images/qM2AofAIaYqDN0fIAZLDofrLBizb7RKHx1fJOAK2.png" alt="Barmer"
+                                     title="Barmer Logo">
+                                <img src="http://127.0.0.1:8000/storage/images/qM2AofAIaYqDN0fIAZLDofrLBizb7RKHx1fJOAK2.png" alt="Barmer"
+                                     title="Barmer Logo">
+                            </div><!-- /.client -->
+                                                    <div class="client">
+                                <img src="http://127.0.0.1:8000/storage/images/GBi4KeGDYEx3yPSGua9GhIyTXO6sWpCmyaK3khIo.png" alt="IKK"
+                                     title="IKK Logo">
+                                <img src="http://127.0.0.1:8000/storage/images/GBi4KeGDYEx3yPSGua9GhIyTXO6sWpCmyaK3khIo.png" alt="IKK"
+                                     title="IKK Logo">
+                            </div><!-- /.client -->
+                                                    <div class="client">
+                                <img src="http://127.0.0.1:8000/storage/images/7rFcknddbCI97Vkzapnadx6hvVsAhrxRL5sEkuVz.png" alt="DAK"
+                                     title="DAK">
+                                <img src="http://127.0.0.1:8000/storage/images/7rFcknddbCI97Vkzapnadx6hvVsAhrxRL5sEkuVz.png" alt="DAK"
+                                     title="DAK">
+                            </div><!-- /.client -->
+                                                    <div class="client">
+                                <img src="http://127.0.0.1:8000/storage/images/tiEcSc87GWoUT0LFuuz0HouwJSdryMHUauJwKwjQ.png" alt="Techniker"
+                                     title="TK Logo">
+                                <img src="http://127.0.0.1:8000/storage/images/tiEcSc87GWoUT0LFuuz0HouwJSdryMHUauJwKwjQ.png" alt="Techniker"
+                                     title="TK Logo">
+                            </div><!-- /.client -->
+                                                    <div class="client">
+                                <img src="http://127.0.0.1:8000/storage/images/wVjUA5QK79PbRoSHkIf2t93kPLBt0Qrb8xkBhLHo.png" alt="Ottonova"
+                                     title="Ottonova Logo">
+                                <img src="http://127.0.0.1:8000/storage/images/wVjUA5QK79PbRoSHkIf2t93kPLBt0Qrb8xkBhLHo.png" alt="Ottonova"
+                                     title="Ottonova Logo">
+                            </div><!-- /.client -->
+                                            </div><!-- /.carousel -->
+                </div><!-- /.col-lg-5 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </section>
+    <!-- /.contact layout 3 -->
+
+
+    <!-- =========================   Testimonials layout 2  =========================  -->
+    <section class="testimonials-layout2 pt-130 pb-40">
+        <div class="container">
+            <div class="testimonials-wrapper">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-5">
+                        <div class="heading-layout2">
+                            <h3 class="heading__title">Clients words</h3>
+                        </div><!-- /.heading -->
+                    </div><!-- /.col-lg-5 -->
+                    <div class="col-sm-12 col-md-12 col-lg-7">
+                        <div class="slider-with-navs">
+                                                    <!-- Testimonial -->
+                                <div class="testimonial-item">
+                                    <h3 class="testimonial__title">“Ich bin sehr glücklich mit den Produkten in der BeleschBox. Alles ist hochwertig und wird immer pünktlich geliefert. Änderungen sind gar kein Problem und das Team vor Ort ist super freundlich. Ganz klare Empfehlung!”
+                                    </h3>
+                                </div><!-- /. testimonial-item -->
+                                                        <!-- Testimonial -->
+                                <div class="testimonial-item">
+                                    <h3 class="testimonial__title">“Uns wurde sehr schnell geholfen. Der Wechsel unseres vorherigen Anbieters zur Beleschbox hat auch wunderbar und einfach funktioniert. ”
+                                    </h3>
+                                </div><!-- /. testimonial-item -->
+                                                        <!-- Testimonial -->
+                                <div class="testimonial-item">
+                                    <h3 class="testimonial__title">“Mir wurde die BeleschBox durch meinen Pflegedienst empfohlen und ich bin sehr zufrieden damit. Die Produkte sind sehr hochwertig und alles kommt bequem und pünktlich zu mir nach Hause. Danke dafür!”
+                                    </h3>
+                                </div><!-- /. testimonial-item -->
+                                                        <!-- Testimonial -->
+                                <div class="testimonial-item">
+                                    <h3 class="testimonial__title">“Super Service! Ich habe die BeleschBox Online beantragt. Das ging ganz schnell und einfach. Wenige Tage später war auch schon das erste Paket da. Wenn ich mal etwas ändern möchte, kann ich das auch ganze einfach Online erledigen. ”
+                                    </h3>
+                                </div><!-- /. testimonial-item -->
+                                                    </div><!-- /.slick-carousel -->
+                        <div class="slider-nav mb-60">
+                                                            <div class="testimonial__meta">
+                                    <div class="testimonial__thmb">
+                                        <img src="http://127.0.0.1:8000/storage/images/UO5Q7kgmcmVKZrmSQ7FdX950iOW632OpMvb6itZd.jpg" alt="Kundenstimme 1 BeleschBox" style="width: 100%; height: 100%; object-fit: cover">
+                                    </div><!-- /.testimonial-thumb -->
+                                    <div>
+                                        <h4 class="testimonial__meta-title">Frau Weber</h4>
+                                        <p class="testimonial__meta-desc">Braunschweig</p>
+                                    </div>
+                                </div><!-- /.testimonial-meta -->
+                                                            <div class="testimonial__meta">
+                                    <div class="testimonial__thmb">
+                                        <img src="http://127.0.0.1:8000/storage/images/VAnDLx3v6p1Z7mvHuQB7ubbV0VQE3Eb9tDelRJ6k.jpg" alt="Kundenstimme 2 BeleschBox" style="width: 100%; height: 100%; object-fit: cover">
+                                    </div><!-- /.testimonial-thumb -->
+                                    <div>
+                                        <h4 class="testimonial__meta-title">Familie M</h4>
+                                        <p class="testimonial__meta-desc">Kassel</p>
+                                    </div>
+                                </div><!-- /.testimonial-meta -->
+                                                            <div class="testimonial__meta">
+                                    <div class="testimonial__thmb">
+                                        <img src="http://127.0.0.1:8000/storage/images/PTuZWcSItjdPWPOH4Fmk6SP7NmrpG0DowT7ytsw3.jpg" alt="Kundenstimme 3 BleschBox" style="width: 100%; height: 100%; object-fit: cover">
+                                    </div><!-- /.testimonial-thumb -->
+                                    <div>
+                                        <h4 class="testimonial__meta-title">Herbert K.</h4>
+                                        <p class="testimonial__meta-desc">Hannover</p>
+                                    </div>
+                                </div><!-- /.testimonial-meta -->
+                                                            <div class="testimonial__meta">
+                                    <div class="testimonial__thmb">
+                                        <img src="http://127.0.0.1:8000/storage/images/gJZsgcJuJT8mHGAAYbUVWOFxCiSVe7nRaFXHuy5G.jpg" alt="Kundenstimme 4 BeleschBox" style="width: 100%; height: 100%; object-fit: cover">
+                                    </div><!-- /.testimonial-thumb -->
+                                    <div>
+                                        <h4 class="testimonial__meta-title">Stefan M.</h4>
+                                        <p class="testimonial__meta-desc">Bad Neuenahr</p>
+                                    </div>
+                                </div><!-- /.testimonial-meta -->
+                                                    </div><!-- /.slider-nav -->
+                    </div><!-- /.col-lg-7 -->
+                </div><!-- /.row -->
+            </div><!-- /.testimonials-wrapper -->
+        </div><!-- /.container -->
+    </section>
+    <!-- /.testimonials layout 2 -->
+
+    <!-- ========================  gallery  =========================== -->
+    <section class="gallery pt-0 pb-90">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="slick-carousel"
+                         data-slick='{"slidesToShow": 4, "slidesToScroll": 1, "autoplay": true, "arrows": true, "dots": false, "responsive": [ {"breakpoint": 992, "settings": {"slidesToShow": 2}}, {"breakpoint": 767, "settings": {"slidesToShow": 2}}, {"breakpoint": 480, "settings": {"slidesToShow": 1}}]}'>
+                                                    <a class="popup-gallery-item" href="http://127.0.0.1:8000/storage/images/FY2zdJxJC13lf3oGCUbB2lW3y6FVT24i8d73GBX6.jpg" style="display: block;">
+                                <img src="http://127.0.0.1:8000/storage/images/FY2zdJxJC13lf3oGCUbB2lW3y6FVT24i8d73GBX6.jpg" alt="fdgsdfgsd" style="height: 200px; object-fit: cover;">
+                            </a>
+                                                    <a class="popup-gallery-item" href="http://127.0.0.1:8000/storage/images/k0EpEpXosAaZkIG2OQZO0hJMm1bI7PfFmaNkvBHs.jpg" style="display: block;">
+                                <img src="http://127.0.0.1:8000/storage/images/k0EpEpXosAaZkIG2OQZO0hJMm1bI7PfFmaNkvBHs.jpg" alt="dfdsfas" style="height: 200px; object-fit: cover;">
+                            </a>
+                                                    <a class="popup-gallery-item" href="http://127.0.0.1:8000/storage/images/9ihcoqwd52kNEOWesOZ45EwJbUBQbCPkeAhZR5pn.jpg" style="display: block;">
+                                <img src="http://127.0.0.1:8000/storage/images/9ihcoqwd52kNEOWesOZ45EwJbUBQbCPkeAhZR5pn.jpg" alt="fdgsdfgsdfds" style="height: 200px; object-fit: cover;">
+                            </a>
+                                                    <a class="popup-gallery-item" href="http://127.0.0.1:8000/storage/images/vaMZIMOEYlqnhiqemDFOT7WBCRsJ4ECICEweWTWY.jpg" style="display: block;">
+                                <img src="http://127.0.0.1:8000/storage/images/vaMZIMOEYlqnhiqemDFOT7WBCRsJ4ECICEweWTWY.jpg" alt="fgsdfgsdfgsdf" style="height: 200px; object-fit: cover;">
+                            </a>
+                                                    <a class="popup-gallery-item" href="http://127.0.0.1:8000/storage/images/G2DKca1I7ALchSCmOeEND9IoKuKrOUPfCdJwicyD.jpg" style="display: block;">
+                                <img src="http://127.0.0.1:8000/storage/images/G2DKca1I7ALchSCmOeEND9IoKuKrOUPfCdJwicyD.jpg" alt="AAAAA" style="height: 200px; object-fit: cover;">
+                            </a>
+                                            </div><!-- /.gallery-images-wrapper -->
+                </div><!-- /.col-xl-5 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </section>
+    <!-- /.gallery 2 -->
+
+    <!-- ========================  Footer  ========================== -->
+<footer wire:id="T5ax6B5oIcZGcrzHiBpE" wire:initial-data="{&quot;fingerprint&quot;:{&quot;id&quot;:&quot;T5ax6B5oIcZGcrzHiBpE&quot;,&quot;name&quot;:&quot;frontend.includes.footer&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;\/&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;v&quot;:&quot;acj&quot;},&quot;effects&quot;:{&quot;listeners&quot;:[]},&quot;serverMemo&quot;:{&quot;children&quot;:[],&quot;errors&quot;:[],&quot;htmlHash&quot;:&quot;9b96de1c&quot;,&quot;data&quot;:[],&quot;dataMeta&quot;:[],&quot;checksum&quot;:&quot;1b797ad1866dcfd7ecff1d23d6179088992aa10d7cbc9d9e0efe0e6b4e92e380&quot;}}" class="footer">
+    <div class="footer-primary">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-3">
+                    <div class="footer-widget-about">
+                        <img src="http://127.0.0.1:8000/frontend/assets/images/logo/belesch-logo-light.png" alt="logo" class="mb-30">
+                        <img src="http://127.0.0.1:8000/frontend/assets/images/logo/MedicCos_Inko_and_Care.png" alt="logo" class="ml-30 mb-0">
+                        <p class="color-gray"><p>Seit 2019 helfen wir unseren Kunden dabei, ein unabhängigeres und aktiveres Leben zu führen. Einen besonderen Stellenwert legen wir auf die Beratung unserer Kunden, </p>
+                    </div><!-- /.footer-widget__content -->
+                </div><!-- /.col-xl-2 -->
+                <div class="col-sm-6 col-md-6 col-lg-2 offset-lg-1">
+                    <div class="footer-widget-nav">
+                        <h6 class="footer-widget__title">Useful links</h6>
+                        <nav>
+                            <ul class="list-unstyled">
+                                                                <li><a href="https://mediccos.eu" target="_blank">MedicCos Inkontinenzhilfe</a></li>
+                                                                <li><a href="http://www.link2.com" target="_blank">Link2</a></li>
+                                                                <li><a href="http://www.link3.com" target="_blank">Link3</a></li>
+                                                                <li><a href="http://www.link4.com" target="_blank">Link4</a></li>
+                                                                <li><a href="http://www.link5.com" target="_blank">Link5</a></li>
+                                                            </ul>
+                        </nav>
+                    </div><!-- /.footer-widget__content -->
+                </div><!-- /.col-lg-2 -->
+                <div class="col-sm-6 col-md-6 col-lg-2">
+                    <div class="footer-widget-nav">
+                        <h6 class="footer-widget__title">Links</h6>
+                        <nav>
+                            <ul class="list-unstyled">
+                                <li><a href="http://127.0.0.1:8000">Home</a></li>
+                                <li><a href="http://127.0.0.1:8000/about">About Us</a></li>
+                                <li><a href="http://127.0.0.1:8000/contact">Contact Us</a></li>
+                                <li><a href="http://127.0.0.1:8000/assemble">Assemble Curebox</a></li>
+                                <li><a href="http://127.0.0.1:8000/terms-conditions">Terms & Conditions</a></li>
+                                <li><a href="http://127.0.0.1:8000/privacy-policy">Privacy Policy</a></li>
+                                <li><a href="http://127.0.0.1:8000/cookie">Cookie</a></li>
+                            </ul>
+                        </nav>
+                    </div><!-- /.footer-widget__content -->
+                </div><!-- /.col-lg-2 -->
+                <div class="col-sm-12 col-md-6 col-lg-4">
+                    <div class="footer-widget-contact">
+                        <h6 class="footer-widget__title color-heading">Quick Contacts</h6>
+                        <ul class="contact-list list-unstyled">
+                            <li>If you have any questions or need help, feel free to contact with our team.</li>
+                            <li>
+                                <a href="tel:01061245741" class="phone__number">
+                                    <i class="icon-phone"></i> <span>+49 531 516 057 12</span>
+                                </a>
+                            </li>
+                            <li class="color-body">Lorem Ipsum is simply dummy text of the printing.</li>
+                        </ul>
+                        <div class="d-flex align-items-center">
+                            <!-- <a href="contact-us.html" class="btn btn__primary btn__link mr-30">
+                              <i class="icon-arrow-right"></i> <span>Get Directions</span>
+                            </a> -->
+                            <ul class="social-icons list-unstyled mb-0">
+                                                                    <li><a href="https://www.youtube.com" target="_blank"><i class="fab fa-youtube"></i></a></li>
+                                                                    <li><a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a></li>
+                                                                    <li><a href="http://localhost/admin-master" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                                                                    <li><a href="http://localhost/admin-master" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                                                            </ul><!-- /.social-icons -->
+                        </div>
+                    </div><!-- /.footer-widget__content -->
+                </div><!-- /.col-lg-2 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </div><!-- /.footer-primary -->
+    <div class="footer-secondary">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-sm-12 col-md-6 col-lg-6">
+                    <span class="fz-14">&copy; 2025 Laravel , All Rights Reserved. </span>
+                    <span>Designed by <a class="fz-14 color-primary" href="#">infoicon technology</a></span>
+                </div><!-- /.col-lg-6 -->
+                <div class="col-sm-12 col-md-6 col-lg-6">
+                    <nav>
+                        <ul class="list-unstyled footer__copyright-links d-flex flex-wrap justify-content-end mb-0">
+                            <li><a href="http://127.0.0.1:8000/terms-conditions">Terms & Conditions</a></li>
+                            <li><a href="http://127.0.0.1:8000/privacy-policy">Privacy Policy</a></li>
+                            <li><a href="http://127.0.0.1:8000/cookie">Cookies</a></li>
+                        </ul>
+                    </nav>
+                </div><!-- /.col-lg-6 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </div><!-- /.footer-secondary -->
+</footer><!-- /.Footer -->
+<button id="scrollTopBtn"><i class="fas fa-long-arrow-alt-up"></i></button>
+<!-- Livewire Component wire-end:T5ax6B5oIcZGcrzHiBpE --></div>
+<!-- Livewire Component wire-end:IygSBSKYpBhbfWFC9oJC --></div>
+<!-- Livewire Scripts -->
+<script >
+    console.warn("Livewire: The published Livewire assets are out of date
+ See: https://laravel-livewire.com/docs/installation/")
+</script>
+<script src="http://localhost/vendor/livewire/livewire.js?id=de3fca26689cb5a39af4" data-turbo-eval="false" data-turbolinks-eval="false" ></script>
+<script data-turbo-eval="false" data-turbolinks-eval="false" >
+    if (window.livewire) {
+	    console.warn('Livewire: It looks like Livewire\'s @livewireScripts JavaScript assets have already been loaded. Make sure you aren\'t loading them twice.')
+	}
+
+    window.livewire = new Livewire();
+    window.livewire.devTools(true);
+    window.Livewire = window.livewire;
+    window.livewire_app_url = 'http://localhost';
+    window.livewire_token = 'Ji76AJ8dvpyQDqQQXFx5zg9FXiqZlmDg2DL5Xxqq';
+
+	/* Make sure Livewire loads first. */
+	if (window.Alpine) {
+	    /* Defer showing the warning so it doesn't get buried under downstream errors. */
+	    document.addEventListener("DOMContentLoaded", function () {
+	        setTimeout(function() {
+	            console.warn("Livewire: It looks like AlpineJS has already been loaded. Make sure Livewire\'s scripts are loaded before Alpine.\\n\\n Reference docs for more info: http://laravel-livewire.com/docs/alpine-js")
+	        })
+	    });
+	}
+
+	/* Make Alpine wait until Livewire is finished rendering to do its thing. */
+    window.deferLoadingAlpine = function (callback) {
+        window.addEventListener('livewire:load', function () {
+            callback();
+        });
+    };
+
+    let started = false;
+
+    window.addEventListener('alpine:initializing', function () {
+        if (! started) {
+            window.livewire.start();
+
+            started = true;
+        }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        if (! started) {
+            window.livewire.start();
+
+            started = true;
+        }
+    });
+</script>
+<script src="http://127.0.0.1:8000/frontend/assets/js/jquery-3.5.1.min.js"></script>
+<script src="http://127.0.0.1:8000/frontend/assets/js/plugins.js"></script>
+<script src="http://127.0.0.1:8000/frontend/assets/js/main.js"></script>
+<link rel="stylesheet" href="http://127.0.0.1:8000/frontend/assets/css/jquery.toast.css">
+<script src="http://127.0.0.1:8000/frontend/assets/js/jquery.toast.min.js"></script>
+<!-- Bootstrap DatePicker -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" type="text/css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js" type="text/javascript"></script>
+<script>
+    function toastMessage(message) {
+        $.toast({
+            heading: 'Alert Message',
+            text: message,
+            icon: 'error',
+            loader: true,        // Change it to false to disable loader
+            loaderBg: '#de1414',  // To change the background
+            showHideTransition: 'slide',
+            hideAfter: 5000,
+            allowToastClose: true,
+            stack: 4,
+            position: 'top-center',
+        })
+    }
+	
+	function sendMail() {
+        var fullname = document.getElementById("contact-fname").value;
+        var email = document.getElementById("contact-email").value;
+        var phone = document.getElementById("contact-phone").value;
+		var message = document.getElementById("contact-message").value;
+			
+		var mailtoLink = "mailto:info@beleschbox.de"
+						+ "?subject=" + encodeURIComponent("Contact from " + fullname)
+						+ "&body=" + encodeURIComponent("Full Name: " + fullname + "\n"
+						+ "Phone: " + phone + "\n"
+						+ "Email: " + email + "\n\n"
+						+ "Message: \n" + message);
+			
+        window.location.href = mailtoLink;
+    } 
+</script>
+</body>
+</html>
