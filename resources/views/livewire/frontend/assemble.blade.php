@@ -1,5 +1,8 @@
 <div>
     @livewire('frontend.includes.header')
+    
+    <!-- Livewire Component Content -->
+    <div wire:ignore.self>
     <style>
         .productOpacity {
             opacity: 0.5;
@@ -11,6 +14,49 @@
         :root {
             --sky-blu: #009ee1;
             --red: #d95053;
+        }
+
+        /* ===== STYLES FÜR DIE E-MAIL-SUCHE ===== */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        .fade-out {
+            animation: fadeOut 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-10px); }
+        }
+        
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        
+        .customer-found {
+            border: 2px solid #28a745 !important;
+            background-color: #f8fff9 !important;
+        }
+        
+        .password-fields {
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: var(--sky-blu);
+            box-shadow: 0 0 0 0.2rem rgba(0, 158, 225, 0.25);
+        }
+        
+        .alert {
+            border-radius: 8px;
+            padding: 15px;
         }
 
         body {
@@ -28,6 +74,7 @@
             display: flex;
             flex-wrap: wrap;
         }
+
 
         .d-flex {
             display: flex;
@@ -233,76 +280,48 @@
             margin-bottom: 1rem;
         }
 
-        /* Style pour forcer la couleur des étapes actives */
-        .progressbar-steps .step.active .step-number,
-        .progressbar-steps .step.active span.step-text {
-            color: #2ccdc0 !important;
-        }
-        
-        /* Style spécifique pour s'assurer que les étapes actives sont bien colorées */
-        .progressbar-steps .step.active .step-number {
-            color: #2ccdc0 !important;
-        }
-        
-        .progressbar-steps .step.active span.step-text {
-            color: #2ccdc0 !important;
+        /* Style pour les étapes actives en turquoise */
+        .step.active .step-text {
+            color: #20c997 !important; /* Turquoise */
         }
 
-        /* Style encore plus spécifique pour forcer la couleur */
-        .progressbar-steps .step.active .step-text {
-            color: #2ccdc0 !important;
+        .step.active .step-number {
+            background-color: #20c997 !important; /* Turquoise */
+            color: white !important;
         }
 
-        /* Style pour cibler directement le span avec la classe step-text */
-        .progressbar-steps .step.active span.step-text {
-            color: #2ccdc0 !important;
-            font-weight: bold !important;
+        .step.active .step-divider {
+            background-color: #20c997 !important; /* Turquoise */
         }
 
-        /* Style avec une spécificité maximale pour forcer la couleur */
-        div.progressbar-steps div.step.active span.step-text {
-            color: #2ccdc0 !important;
+        /* Style pour les étapes non-actives en gris - Force avec !important */
+        .step:not(.active) .step-text,
+        .step1:not(.active) .step-text,
+        .step2:not(.active) .step-text,
+        .step3:not(.active) .step-text,
+        .step4:not(.active) .step-text,
+        .step5:not(.active) .step-text {
+            color: #6c757d !important; /* Gris */
         }
 
-        /* Style inline pour forcer la couleur */
-        .progressbar-steps .step.active .step-text {
-            color: #2ccdc0 !important;
+        .step:not(.active) .step-number,
+        .step1:not(.active) .step-number,
+        .step2:not(.active) .step-number,
+        .step3:not(.active) .step-number,
+        .step4:not(.active) .step-number,
+        .step5:not(.active) .step-number {
+            background-color: #6c757d !important; /* Gris */
+            color: white !important;
         }
 
-
-
-        /* Style pour s'assurer que les étapes non-actives restent en noir */
-        .progressbar-steps .step:not(.active) .step-number,
-        .progressbar-steps .step:not(.active) span.step-text {
-            color: #343434 !important;
+        .step:not(.active) .step-divider,
+        .step1:not(.active) .step-divider,
+        .step2:not(.active) .step-divider,
+        .step3:not(.active) .step-divider,
+        .step4:not(.active) .step-divider,
+        .step5:not(.active) .step-divider {
+            background-color: #6c757d !important; /* Gris */
         }
-        
-
-
-        /* Style pour forcer la couleur des étapes actives avec une spécificité très élevée */
-        .progressbar-steps .step.active .step-number,
-        .progressbar-steps .step.active .step-text,
-        .progressbar-steps .step.active span.step-text {
-            color: #2ccdc0 !important;
-        }
-
-        /* Masquer les boutons einreichen dupliqués dans les mauvaises étapes */
-        #step2 .deliveryAddress,
-        #step2 .signature_btn,
-        #step2 .checkout_btn,
-        #step2 .checkout_btn_pkg {
-            display: none !important;
-        }
-
-        /* Masquer complètement la section step1 dupliquée */
-        #step1:nth-of-type(2) {
-            display: none !important;
-        }
-
-
-
-
-
 
         .btn-back {
             border-radius: 100%;
@@ -343,128 +362,45 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap: 16px;
-    flex-wrap: wrap;
 }
 
-        .btn__primary {
-            white-space: nowrap !important;
-            word-wrap: normal !important;
-            overflow: visible !important;
-            min-width: 280px !important;
-            padding: 12px 20px !important;
-            font-size: 16px !important;
+        /* E-Mail-Suchbereich Styles */
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
         }
-
-        /* CSS SIMPLE ET EFFICACE */
-        .cure-box-modal-content .prod-count span {
-            width: 50px !important;
-            height: 50px !important;
-            border: 2px solid #39cdc1 !important;
-            border-radius: 8px !important;
-            background: #ffffff !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
+        
+        .card-header {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #ddd;
+            padding: 15px;
         }
-
-        .cure-box-modal-content .prod-count span p {
-            color: transparent !important;
-            font-size: 18px !important;
-            font-weight: bold !important;
-            margin: 0 !important;
-            visibility: hidden !important;
-            opacity: 0 !important;
+        
+        .card-header h5 {
+            margin: 0;
+            color: var(--sky-blu);
         }
-
-        .cure-box-modal-content .prod-count input[type="radio"]:checked + span {
-            background: #39cdc1 !important;
+        
+        .btn_secondary {
+            background-color: #6c757d;
+            color: white;
+            border: none;
         }
-
-        .cure-box-modal-content .prod-count input[type="radio"]:checked + span p {
-            color: #ffffff !important;
+        
+        .btn_secondary:hover {
+            background-color: #5a6268;
         }
-
-        /* FORCER L'AFFICHAGE DES NUMÉROS AVEC PSEUDO-ÉLÉMENTS */
-        .cure-box-modal-content .product-count-list .lengend-action-buttons:nth-child(1) .prod-count span::after {
-            content: "1";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #333;
-            font-size: 18px;
-            font-weight: bold;
-            z-index: 1000;
-            text-align: center;
-            line-height: 1;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        
+        .alert {
+            border-radius: 8px;
+            padding: 15px;
         }
-
-        .cure-box-modal-content .product-count-list .lengend-action-buttons:nth-child(2) .prod-count span::after {
-            content: "2";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #333;
-            font-size: 18px;
-            font-weight: bold;
-            z-index: 1000;
-            text-align: center;
-            line-height: 1;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .cure-box-modal-content .product-count-list .lengend-action-buttons:nth-child(3) .prod-count span::after {
-            content: "3";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #333;
-            font-size: 18px;
-            font-weight: bold;
-            z-index: 1000;
-            text-align: center;
-            line-height: 1;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .cure-box-modal-content .product-count-list .lengend-action-buttons:nth-child(4) .prod-count span::after {
-            content: "4";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #333;
-            font-size: 18px;
-            font-weight: bold;
-            z-index: 1000;
-            text-align: center;
-            line-height: 1;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* CHANGEMENT DE COULEUR POUR LES CASES SÉLECTIONNÉES */
-        .cure-box-modal-content .prod-count input[type="radio"]:checked + span::after {
-            color: #ffffff !important;
+        
+        .form-control:focus {
+            border-color: var(--sky-blu);
+            box-shadow: 0 0 0 0.2rem rgba(0, 158, 225, 0.25);
         }
 
         /*@media only screen and (min-width:768px){
@@ -472,171 +408,6 @@
                 max-width: 33%;
             }
         }*/
-
-        /* MODERNISATION DE LA PAGE PERSONAL DATA */
-        #step2 {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 20px;
-            padding: 40px;
-            margin: 20px 0;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        #step2 h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, #009ee1 0%, #0077b3 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        #step2 p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: #495057;
-            margin-bottom: 30px;
-        }
-
-        .why-asking {
-            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-            border-radius: 15px;
-            padding: 20px;
-            margin: 25px 0;
-            border-left: 5px solid #009ee1;
-            box-shadow: 0 5px 15px rgba(0, 158, 225, 0.1);
-        }
-
-        .why-asking span {
-            font-weight: 600;
-            color: #009ee1;
-            font-size: 1.1rem;
-        }
-
-        .iAm-question {
-            color: #009ee1;
-            font-size: 1.2rem;
-            margin-left: 10px;
-            transition: all 0.3s ease;
-        }
-
-        .iAm-question:hover {
-            transform: scale(1.2);
-            color: #0077b3;
-        }
-
-        .iAm-question-ans {
-            background: #ffffff;
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 15px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            border: 1px solid #e9ecef;
-        }
-
-        .iAm-question-ans h5 {
-            color: #009ee1;
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-
-        .iAm-question-ans p {
-            color: #495057;
-            line-height: 1.6;
-            margin: 0;
-        }
-
-        #iAm h5 {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 25px;
-            position: relative;
-        }
-
-        #iAm h5::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background: linear-gradient(135deg, #009ee1 0%, #0077b3 100%);
-            border-radius: 2px;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .form-check-inline {
-            margin-right: 20px;
-        }
-
-        .form-check-input {
-            width: 20px;
-            height: 20px;
-            border: 2px solid #009ee1;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-
-        .form-check-input:checked {
-            background-color: #009ee1;
-            border-color: #009ee1;
-            box-shadow: 0 0 0 3px rgba(0, 158, 225, 0.2);
-        }
-
-        .form-check-label {
-            font-weight: 500;
-            color: #333;
-            margin-left: 8px;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .form-check-label:hover {
-            color: #009ee1;
-        }
-
-        .form-label {
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 8px;
-            font-size: 1rem;
-        }
-
-        .form-control {
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            padding: 12px 15px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            background: #ffffff;
-        }
-
-        .form-control:focus {
-            border-color: #009ee1;
-            box-shadow: 0 0 0 3px rgba(0, 158, 225, 0.1);
-            outline: none;
-        }
-
-        .form-control:hover {
-            border-color: #009ee1;
-        }
-
-        .insured_error_msg,
-        .title_name_error_msg,
-        .first_name_error_msg,
-        .last_name_error_msg,
-        .streetno_error_msg,
-        .houseno_error_msg {
-            font-size: 0.9rem;
-            font-weight: 500;
-            margin-top: 5px;
-            display: block;
-        }
     </style>
 
     <!-- ========================
@@ -676,37 +447,37 @@
 
                 <button onclick="getSetpData()" class="btn btn-info btn-back"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
 
-                <div class="step step1">
+                <div class="step step1 active">
                     <span class="step-text">Box wählen</span>
                     <div class="step-number"><span>1</span></div>
                     <div class="step-divider"></div>
                 </div>
                 @if(Route::currentRouteName() != 'assemble')
                 <div class="step step2 active">
-                    <span class="step-text">Personal Data</span>
+                    <span class="step-text">Persönliche Daten</span>
                     <div class="step-number"><span>2</span></div>
                     <div class="step-divider"></div>
                 </div>
 
                 @else
                 <div class="step step2">
-                    <span class="step-text">Personal Data</span>
+                    <span class="step-text">Persönliche Daten</span>
                     <div class="step-number"><span>2</span></div>
                     <div class="step-divider"></div>
                 </div>
                 @endif
                 <div class="step step3">
-                    <span class="step-text">Delivery Adress</span>
+                    <span class="step-text">Lieferadresse</span>
                     <div class="step-number"><span>3</span></div>
                     <div class="step-divider"></div>
                 </div>
                 <div class="step step4">
-                    <span class="step-text">summary + signature</span>
+                    <span class="step-text">Zusammenfassung + Unterschrift</span>
                     <div class="step-number"><span>4</span></div>
                     <div class="step-divider"></div>
                 </div>
                 <div class="step step5">
-                    <span class="step-text">Confirmation</span>
+                    <span class="step-text">Bestätigung</span>
                     <div class="step-number"><span>5</span></div>
                 </div>
             </div>
@@ -758,9 +529,15 @@
                     <div class="col-lg-12 text-center mt-3">
 
                         @if(isset($_GET['updt']))
-                        <a href="{{url('update-cart-order')}}" class="btn btn__primary btn__rounded">Weiter zu Ihren Kontaktdaten</a>
+                        <a href="{{url('update-cart-order')}}" class="btn btn__primary btn__rounded"> Weiter zu
+                            Ihren
+                            Kontaktdaten
+                        </a>
                         @else
-                        <button type="button" class="btn btn__primary btn__rounded bed_protector_modal">Weiter zu Ihren Kontaktdaten</button>
+                        <button type="button" class="btn btn__primary btn__rounded bed_protector_modal"> Weiter zu
+                            Ihren
+                            Kontaktdaten
+                        </button>
                         @endif
                        
 
@@ -768,10 +545,7 @@
                         <div class="modal " style="display: none" id="bed_protector_modal" tabindex="-1" aria-labelledby="add_bed_protector" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                 <div class="modal-content">
-                                    <div class="modal-header d-block text-center position-relative">
-                                        <button type="button" class="btn-close position-absolute" style="top: 10px; right: 15px; z-index: 1050;" onclick="closeBedProtectorModal()" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
+                                    <div class="modal-header d-block text-center">
                                         <h4 class="modal-title" id="add_bed_protector">Wiederverwendbare
                                             Bettschutzeinlagen</h4>
                                         <p>Bis zu 250 Mal waschbar.</p>
@@ -824,15 +598,13 @@
                                                 </div>
 
                                             </div>
-                                            <p><i class="fa fa-exclamation-circle"> </i> You can apply for up to 4
-                                                bed
-                                                protectors once a year.</p>
+                                            <p><i class="fa fa-exclamation-circle"> </i> Sie können bis zu 4
+                                                Bettschutzeinlagen
+                                                einmal pro Jahr beantragen.</p>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn_secondary btn__rounded without-bed-protection">Weiter
-                                            ohne
-                                            Bettschutzeinlagen
+                                        <button type="button" class="btn btn_secondary btn__rounded" onclick="closeBedProtectorModal(); return false;">Schließen
                                         </button>
                                         <button type="button" class="btn btn__primary btn__rounded with-bed-protection">
                                             Weiter mit
@@ -851,32 +623,69 @@
                     <div class="col-md-12">
                         <h2>
                             <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;">Personal
-                                    Data</font>
+                                <font style="vertical-align: inherit;">Persönliche
+                                    Daten</font>
                             </font>
                         </h2>
                         <p>
                             <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;">Your box is
-                                    created. </font>
-                                <font style="vertical-align: inherit;">Now submit your personal
-                                    data
-                                    so that we can contact you for further application and processing of the
-                                    curabox. </font>
-                                <font style="vertical-align: inherit;">After saving your contact
-                                    details, you can enter all other data at your leisure. </font>
-                                <font style="vertical-align: inherit;">You have not yet submitted an
-                                    order.</font>
+                                <font style="vertical-align: inherit;">Ihre Box wurde
+                                    erstellt. </font>
+                                <font style="vertical-align: inherit;">Geben Sie nun Ihre persönlichen
+                                    Daten
+                                    ein, damit wir Sie für die weitere Beantragung und Bearbeitung der
+                                    Curabox kontaktieren können. </font>
+                                <font style="vertical-align: inherit;">Nach dem Speichern Ihrer Kontaktdaten
+                                    können Sie alle anderen Daten in Ruhe eingeben. </font>
+                                <font style="vertical-align: inherit;">Sie haben noch keine
+                                    Bestellung aufgegeben.</font>
                             </font>
                         </p>
                     </div>
 
 
                     <div id="basket-form">
+                        <!-- E-Mail-Suchbereich - Gleiches Prinzip wie test-modal-final -->
+                        <div class="col-md-12 mb-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5><i class="fas fa-search"></i> E-Mail-Adresse eingeben</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <label for="search_email" class="form-label">E-Mail-Adresse*</label>
+                                            <input type="email" 
+                                                   class="form-control" 
+                                                   id="search_email" 
+                                                   placeholder="Geben Sie Ihre E-Mail-Adresse ein"
+                                                   value="">
+                                        </div>
+                                        <div class="col-md-4 d-flex align-items-end">
+                                            <button type="button" 
+                                                    class="btn btn__primary btn__rounded me-2" 
+                                                    onclick="testSearchCustomer()">
+                                                <i class="fas fa-search"></i> Suchen
+                                            </button>
+                                            <button type="button" 
+                                                    class="btn btn_secondary btn__rounded" 
+                                                    onclick="clearCustomerData()"
+                                                    id="clearBtn"
+                                                    style="display: none;">
+                                                <i class="fas fa-times"></i> Löschen
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div id="alertMessage"></div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-md-12 why-asking">
                             <span>Warum fragen wir das? </span><a class="fa fa-question iAm-question"></a>
                             <div class="iAm-question-ans" style="top: -50px; display: none;">
-                                <h5>Beantragung der curabox</h5>
+                                <h5>Beantragung der Curabox</h5>
                                 <p>Ihre Kontaktdaten benötigen wir zur weiteren Beantragung und für Rückfragen im
                                     Rahmen
                                     Ihrer kostenlosen Versorgung mit Pflegehilfsmitteln. Sie senden mit der Angabe
@@ -886,41 +695,32 @@
                         </div>
                         <div class="col-md-12 " id="iAm">
                             <h5 class="mb-50 ">Ich bin*</h5>
-                            @if(\Session::get('Customer'))
+                            
+                            
                             <div class="form-group">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" onclick="optperson()" name="insured" id="inlineRadio1" value="Versicherter" @if(\Session::get('Customer')->surname =="Versicherter") checked @endif
+                                    <input class="form-check-input" type="radio" onclick="optperson()" name="insured" id="inlineRadio1" value="Versicherter" 
+                                           @if($emailFound && $customerData && $customerData->surname == "Versicherter") checked @endif>
                                     <label class="form-check-label" for="inlineRadio1">Versicherter</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="insured" onclick="optperson()" id="inlineRadio2" value="Pflegeperson" @if(\Session::get('Customer')->surname =="Pflegeperson") checked @endif>
+                                    <input class="form-check-input" type="radio" name="insured" onclick="optperson()" id="inlineRadio2" value="Pflegeperson"
+                                           @if($emailFound && $customerData && $customerData->surname == "Pflegeperson") checked @endif>
                                     <label class="form-check-label" for="inlineRadio2">Angehöriger /
                                         Pflegeperson</label>
                                 </div>
                                 <span class="insured_error_msg" style="color: red;"></span>
                             </div>
-                            @else
-                            <div class="form-group">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" onclick="optperson()" name="insured" id="inlineRadio1" value="Versicherter" checked>
-                                    <label class="form-check-label" for="inlineRadio1">Versicherter</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="insured" onclick="optperson()" id="inlineRadio2" value="Pflegeperson">
-                                    <label class="form-check-label" for="inlineRadio2">Angehöriger /
-                                        Pflegeperson</label>
-                                </div>
-                                <span class="insured_error_msg" style="color: red;"></span>
-                            </div>
-                            @endif
 
                             <div class="form-group">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="title_name" id="inlineRadio3" value="Herr" @if(\Session::get('Customer')->surname =="Pflegeperson") checked @endif>
+                                    <input class="form-check-input" type="radio" name="title_name" id="inlineRadio3" value="Herr" 
+                                           @if($emailFound && $customerData && $customerData->title == "Herr") checked @endif>
                                     <label class="form-check-label" for="inlineRadio3">Herr</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="title_name" id="inlineRadio4" value="Frau">
+                                    <input class="form-check-input" type="radio" name="title_name" id="inlineRadio4" value="Frau"
+                                           @if($emailFound && $customerData && $customerData->title == "Frau") checked @endif>
                                     <label class="form-check-label" for="inlineRadio4">Frau</label>
                                 </div>
                                 <span class="title_name_error_msg" style="color: red;"></span>
@@ -928,52 +728,38 @@
 
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label for="first_name" class="form-label">Vorname Der Versicherte</label>
-                                    <input type="text" class="form-control" id="first_name" @if(isset($customer_sess['firstName'])) value="{{$customer_sess['firstName']}}" @endif>
+                                    <label for="first_name" class="form-label">Vorname des Versicherten</label>
+                                    <input type="text" class="form-control" id="first_name" value="">
                                     <span class="first_name_error_msg" style="color: red;"></span>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="last_name" class="form-label">Nachname Der Versicherte</label>
-                                    <input type="text" class="form-control" id="last_name" @if(isset($customer_sess['lastName'])) value="{{$customer_sess['lastName']}}" @endif>
+                                    <label for="last_name" class="form-label">Nachname des Versicherten</label>
+                                    <input type="text" class="form-control" id="last_name" value="">
                                     <span class="last_name_error_msg" style="color: red;"></span>
                                 </div>
-                                <div class="col-md-6 mt-2">
-                                    <label for="email2" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="email2" @if(isset($customer_sess['email'])) value="{{$customer_sess['email']}}" @endif>
-                                    <span class="email2_error_msg" style="color: red;"></span>
-                                </div>
-                                @if(Session::get('Customer'))
-                                <input type="hidden" name="password" id="password" @if(isset($customer_sess['view_password'])) value="{{$customer_sess['view_password']}}" @endif>
-                                @else
-                                <div class="col-md-6 mt-2">
-                                    <label for="password2" class="form-label">Password</label>
-                                    <input type="password" class="form-control" id="password" @if(isset($customer_sess['view_password'])) value="{{$customer_sess['view_password']}}" @endif>
-                                    <span class="password_error_msg" style="color: red;"></span>
-                                </div>
-                                @endif
                                 <div class="col-md-8 mt-2">
-                                    <label for="streetno" class="form-label">Strasse</label>
-                                    <input type="text" class="form-control" id="streetno" @if(isset($customer_sess['street'])) value="{{$customer_sess['street']}}" @endif>
+                                    <label for="streetno" class="form-label">Straße</label>
+                                    <input type="text" class="form-control" id="streetno" value="">
                                     <span class="streetno_error_msg" style="color: red;"></span>
                                 </div>
                                 <div class="col-md-4 mt-2">
                                     <label for="houseno" class="form-label">Hausnummer</label>
-                                    <input type="text" class="form-control" id="houseno" @if(isset($customer_sess['houseNo'])) value="{{$customer_sess['houseNo']}}" @endif>
+                                    <input type="text" class="form-control" id="houseno" value="">
                                     <span class="houseno_error_msg" style="color: red;"></span>
                                 </div>
                                 <div class="col-md-4 mt-2">
                                     <label for="zip" class="form-label">PLZ</label>
-                                    <input type="text" class="form-control" id="zip" @if(isset($customer_sess['zipcode'])) value="{{$customer_sess['zipcode']}}" @endif>
+                                    <input type="text" class="form-control" id="zip" value="">
                                     <span class="zip_error_msg" style="color: red;"></span>
                                 </div>
                                 <div class="col-md-8 mt-2">
                                     <label for="city" class="form-label">Ort</label>
-                                    <input type="text" class="form-control" id="city" @if(isset($customer_sess['city'])) value="{{$customer_sess['city']}}" @endif>
+                                    <input type="text" class="form-control" id="city" value="">
                                     <span class="city_error_msg" style="color: red;"></span>
                                 </div>
                                 <div class="col-md-4 mt-2">
                                     <label for="Gaburtadatum" class="form-label">Gaburtadatum</label>
-                                    <input type="date" class="form-control" id="Gaburtadatum" @if(isset($customer_sess['dob'])) value="{{$customer_sess['dob']}}" @endif>
+                                    <input type="date" class="form-control" id="Gaburtadatum" max="{{ date('Y-m-d') }}" min="1900-01-01" style="cursor: pointer;" title="Cliquez pour ouvrir le calendrier">
                                     <span class="gaburtadatum_error_msg" style="color: red;"></span>
                                 </div>
                             </div>
@@ -984,17 +770,31 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="telno" class="form-label">telefunnummer</label>
-                                    <input type="text" class="form-control" id="telno" @if(isset($customer_sess['telephone'])) value="{{$customer_sess['telephone']}}" @endif>
+                                    <input type="text" class="form-control" id="telno" value="">
                                     <span class="telno_error_msg" style="color: red;"></span>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label for="password2" class="form-label">Confirm Password</label>
-                                    <input type="password" class="form-control" id="confirm_password" @if(isset($customer_sess['view_password'])) value="{{$customer_sess['view_password']}}" @endif>
+                                    <label for="email2" class="form-label">E-Mail</label>
+                                    <input type="text" class="form-control" id="email2" value="" onblur="checkEmailExistsInForm()">
+                                    <span class="email2_error_msg" style="color: red;"></span>
+                                </div>
+                                  
+                                <!-- Passwort-Felder - von JavaScript gesteuert -->
+                                <div class="col-md-6 password-fields">
+                                    <label for="password2" class="form-label">Passwort</label>
+                                    <input type="password" class="form-control" id="password" value="">
+                                    <span class="password_error_msg" style="color: red;"></span>
+                                </div>
+
+                                <div class="col-md-6 password-fields">
+                                    <label for="password2" class="form-label">Passwort bestätigen</label>
+                                    <input type="password" class="form-control" id="confirm_password" value="">
                                     <span class="password2_error_msg" style="color: red;"></span>
                                 </div>
                                 
                             </div>
+
 
                             <div class="row">
                                 <div class="col-md-12">
@@ -1007,7 +807,7 @@
                                             <img src="{{asset('frontend/assets/images/banners/Krankenkasse_Nummer.png')}}" class="tooltip-img">
                                         </div>
                                     </div>
-                                    <input type="text" class="form-control" id="health-insurance" @if(isset($customer_sess['insuranceName'])) value="{{$customer_sess['insuranceName']}}" @endif>
+                                    <input type="text" class="form-control" id="health-insurance" value="">
                                     <span class="hinsurance_error_msg" style="color: red;"></span>
                                 </div>
                                 <div class="col-md-6">
@@ -1017,35 +817,17 @@
                                             <img src="{{asset('frontend/assets/images/banners/versicherungsnummer.png')}}" class="tooltip-img">
                                         </div>
                                     </div>
-                                    <input type="text" class="form-control" id="insurance-no" placeholder="This number is always 10 digits" @if(isset($customer_sess['insuranceNumber'])) value="{{$customer_sess['insuranceNumber']}}" @endif>
+                                    <input type="text" class="form-control" id="insurance-no" placeholder="Diese Nummer hat immer 10 Ziffern" value="" onblur="checkInsuranceNumberExists()">
                                     <span class="insuranceno_error_msg" style="color: red;"></span>
                                 </div>
 
                                 <div class="col-md-6 mt-2">
-                                    <label for="insurance-no" class="form-label">Krankenkasse Nummer </label>
-                                    <input type="text" class="form-control" id="KrankenkasseNummer" placeholder="This number is always 10 digits" @if(isset($customer_sess['healthInsuranceNo'])) value="{{$customer_sess['healthInsuranceNo']}}" @endif>
+                                    <label for="insurance-no" class="form-label">Krankenkassen-Nummer </label>
+                                    <input type="text" class="form-control" id="KrankenkasseNummer" placeholder="Diese Nummer hat immer 10 Ziffern" value="" onblur="checkKrankenkasseNumberExists()">
                                     <span class="krankenkasse_error_msg" style="color: red;"></span>
                                 </div>
                             </div>
 
-                            <div class="row optional d-none">
-                                <div class="col-md-12">
-                                    <h5 class="mt-50 ">Kontaktdaten Angehöriger/Pflegeperson</h5>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="carer-name" class="form-label">Name</label>
-                                    <input type="text" class="form-control" id="carer-name">
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="carer-no" class="form-label">Telefonnummer</label>
-                                    <input type="text" class="form-control" id="carer-no" @if(isset($customer_sess['telephone'])) value="{{$customer_sess['telephone']}}" @endif>
-                                </div>
-
-                                <div class="col-md-6 mt-2">
-                                    <label for="carer-mail" class="form-label">Email</label>
-                                    <input type="text" class="form-control" id="carer-mail" @if(isset($customer_sess['email'])) value="{{$customer_sess['email']}}" @endif>
-                                </div>
-                            </div>
                         </div>
 
 
@@ -1083,34 +865,28 @@
                             <h5 class="mb-50 ">Pflegegrad</h5>
                             <div class="form-group">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" checked name="pflegegrad" id="pflegegrad1" value="1" checked>
+                                    <input class="form-check-input" type="radio" name="pflegegrad" onchange="pflegegrad()" id="pflegegrad1" value="1">
                                     <label class="form-check-label" for="pflegegrad1">1</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="pflegegrad" id="pflegegrad2" value="2">
+                                    <input class="form-check-input" type="radio" name="pflegegrad" onchange="pflegegrad()" id="pflegegrad2" value="2">
                                     <label class="form-check-label" for="pflegegrad2">2</label>
                                 </div>
 
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="pflegegrad" id="pflegegrad3" value="3">
+                                    <input class="form-check-input" type="radio" name="pflegegrad" onchange="pflegegrad()" id="pflegegrad3" value="3">
                                     <label class="form-check-label" for="pflegegrad3">3</label>
                                 </div>
 
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="pflegegrad" id="pflegegrad4" value="4">
+                                    <input class="form-check-input" type="radio" name="pflegegrad" onchange="pflegegrad()" id="pflegegrad4" value="4">
                                     <label class="form-check-label" for="pflegegrad4">4</label>
                                 </div>
 
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="pflegegrad" id="pflegegrad5" value="5">
+                                    <input class="form-check-input" type="radio" name="pflegegrad" onchange="pflegegrad()" id="pflegegrad5" value="5">
                                     <label class="form-check-label" for="pflegegrad5">5</label>
                                 </div>
-                                
-                                <!-- Champ caché pour stocker le Pflegegrad -->
-                                <input type="hidden" id="selected_pflegegrad" name="selected_pflegegrad" value="1">
-                                
-                                <!-- Bouton de test pour initialiser les Pflegegrad -->
-                
 
                             </div>
                         </div>
@@ -1207,13 +983,12 @@
                                                 <input type="hidden" id="qty_p_{{$cart['product']['id']}}" value="1"><input type="hidden" class="cartPrice" id="price_p_{{$cart['product']['id']}}" value="{{$cart['product']['price']}}"><i class="fas fa-minus-circle"></i>
                                             </div>
                                         </div>
-                                        @if(stripos($cart['product']['name'], 'handschuh') !== false || stripos($cart['product']['name'], 'glove') !== false || stripos($cart['product']['name'], 'gant') !== false)
+                                        @if($cart['product']['size_availability'] != '')
                                         <div class="glove-options">
                                             <div class="d-flex"><img src="{{URL::asset('frontend/assets/images/icon-handschuh.svg')}}"><label>Welche Handschuhgröße haben Sie?</label></div>
                                         </div>
                                         @endif
 
-                                        @if(stripos($cart['product']['name'], 'handschuh') !== false || stripos($cart['product']['name'], 'glove') !== false || stripos($cart['product']['id'], 'gant') !== false)
                                         @if($cart['product']['size_availability'] != '')
                                         @php
                                         $size_arr = explode (",", $cart['product']['size_availability']);
@@ -1224,11 +999,15 @@
                                             <div class="productss" id="checkData-{{$cart['product']['id']}}">
 
                                                 <div class="lengend-action-buttons lengend-action-buttons-first">
-                                                    <label class="prod-count" style="display: inline-block; margin: 0 8px; cursor: pointer;" for="d3_graph_chart{{$cart['product']['id']}}{{$size}}">
-                                                        <input onclick="fetchSize({{$cart['product']['id']}})" class="SIZE{{$key}}" id="d3_graph_chart{{$cart['product']['id']}}{{$size}}" name="size{{$cart['product']['id']}}" type="radio" value="{{$size}}" style="display: none;">
-                                                        <div style="width: 64px; height: 64px; background: #ffffff; border: 2px solid #39cdc1; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 700; color: #111111; transition: all 0.3s ease; cursor: pointer;" class="size-box" onclick="changeSize(this)">
-                                                            {{$size}}
-                                                        </div>
+                                                    <label class="prod-count bg-white" for="d3_graph_chart{{$cart['product']['id']}}{{$size}}">
+                                                        <input onclick="fetchSize({{$cart['product']['id']}})" class="SIZE{{$key}}" id="d3_graph_chart{{$cart['product']['id']}}{{$size}}" name="size{{$cart['product']['id']}}" type="radio" value="{{$size}}">
+                                                        <span>
+                                                            <p>
+                                                                <font class="page_speed_808076681">
+                                                                    <font class="page_speed_808076681">{{$size}}</font>
+                                                                </font>
+                                                            </p>
+                                                        </span>
                                                     </label>
                                                 </div>
 
@@ -1237,7 +1016,6 @@
                                         </div>
                                         @endforeach
                                         </div>
-                                        @endif
                                         @endif
 
 
@@ -1253,9 +1031,15 @@
                     <div class="col-lg-12 text-center mt-3">
 
                     @if(isset($_GET['updt']))
-                        <a href="{{url('update-cart-order')}}" class="btn btn__primary btn__rounded">Weiter zu Ihren Kontaktdaten</a>
+                        <a href="{{url('update-cart-order')}}" class="btn btn__primary btn__rounded"> Weiter zu
+                            Ihren
+                            Kontaktdaten
+                        </a>
                         @else
-                        <button type="button" class="btn btn__primary btn__rounded bed_protector_modal">Weiter zu Ihren Kontaktdaten</button>
+                        <button type="button" class="btn btn__primary btn__rounded bed_protector_modal"> Weiter zu
+                            Ihren
+                            Kontaktdaten
+                        </button>
                         @endif
                        
 
@@ -1263,10 +1047,7 @@
                         <div class="modal " style="display: none" id="bed_protector_modal" tabindex="-1" aria-labelledby="add_bed_protector" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                 <div class="modal-content">
-                                    <div class="modal-header d-block text-center position-relative">
-                                        <button type="button" class="btn-close position-absolute" style="top: 10px; right: 15px; z-index: 1050;" onclick="closeBedProtectorModal()" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
+                                    <div class="modal-header d-block text-center">
                                         <h4 class="modal-title" id="add_bed_protector">Wiederverwendbare
                                             Bettschutzeinlagen</h4>
                                         <p>Bis zu 250 Mal waschbar.</p>
@@ -1319,15 +1100,13 @@
                                                 </div>
 
                                             </div>
-                                            <p><i class="fa fa-exclamation-circle"> </i> You can apply for up to 4
-                                                bed
-                                                protectors once a year.</p>
+                                            <p><i class="fa fa-exclamation-circle"> </i> Sie können bis zu 4
+                                                Bettschutzeinlagen
+                                                einmal pro Jahr beantragen.</p>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn_secondary btn__rounded without-bed-protection">Weiter
-                                            ohne
-                                            Bettschutzeinlagen
+                                        <button type="button" class="btn btn_secondary btn__rounded" onclick="closeBedProtectorModal(); return false;">Schließen
                                         </button>
                                         <button type="button" class="btn btn__primary btn__rounded with-bed-protection">
                                             Weiter mit
@@ -1346,32 +1125,69 @@
                     <div class="col-md-12">
                         <h2>
                             <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;">Personal
-                                    Data</font>
+                                <font style="vertical-align: inherit;">Persönliche
+                                    Daten</font>
                             </font>
                         </h2>
                         <p>
                             <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;">Your box is
-                                    created. </font>
-                                <font style="vertical-align: inherit;">Now submit your personal
-                                    data
-                                    so that we can contact you for further application and processing of the
-                                    curabox. </font>
-                                <font style="vertical-align: inherit;">After saving your contact
-                                    details, you can enter all other data at your leisure. </font>
-                                <font style="vertical-align: inherit;">You have not yet submitted an
-                                    order.</font>
+                                <font style="vertical-align: inherit;">Ihre Box wurde
+                                    erstellt. </font>
+                                <font style="vertical-align: inherit;">Geben Sie nun Ihre persönlichen
+                                    Daten
+                                    ein, damit wir Sie für die weitere Beantragung und Bearbeitung der
+                                    Curabox kontaktieren können. </font>
+                                <font style="vertical-align: inherit;">Nach dem Speichern Ihrer Kontaktdaten
+                                    können Sie alle anderen Daten in Ruhe eingeben. </font>
+                                <font style="vertical-align: inherit;">Sie haben noch keine
+                                    Bestellung aufgegeben.</font>
                             </font>
                         </p>
                     </div>
 
 
                     <div id="basket-form">
+                        <!-- E-Mail-Suchbereich - Gleiches Prinzip wie test-modal-final -->
+                        <div class="col-md-12 mb-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5><i class="fas fa-search"></i> E-Mail-Adresse eingeben</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <label for="search_email" class="form-label">E-Mail-Adresse*</label>
+                                            <input type="email" 
+                                                   class="form-control" 
+                                                   id="search_email" 
+                                                   placeholder="Geben Sie Ihre E-Mail-Adresse ein"
+                                                   value="">
+                                        </div>
+                                        <div class="col-md-4 d-flex align-items-end">
+                                            <button type="button" 
+                                                    class="btn btn__primary btn__rounded me-2" 
+                                                    onclick="testSearchCustomer()">
+                                                <i class="fas fa-search"></i> Suchen
+                                            </button>
+                                            <button type="button" 
+                                                    class="btn btn_secondary btn__rounded" 
+                                                    onclick="clearCustomerData()"
+                                                    id="clearBtn"
+                                                    style="display: none;">
+                                                <i class="fas fa-times"></i> Löschen
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div id="alertMessage"></div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-md-12 why-asking">
                             <span>Warum fragen wir das? </span><a class="fa fa-question iAm-question"></a>
                             <div class="iAm-question-ans" style="top: -50px; display: none;">
-                                <h5>Beantragung der curabox</h5>
+                                <h5>Beantragung der Curabox</h5>
                                 <p>Ihre Kontaktdaten benötigen wir zur weiteren Beantragung und für Rückfragen im
                                     Rahmen
                                     Ihrer kostenlosen Versorgung mit Pflegehilfsmitteln. Sie senden mit der Angabe
@@ -1383,12 +1199,12 @@
                             <h5 class="mb-50 ">Ich bin*</h5>
                             <div class="form-group">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" onclick="optperson()" name="insured" id="inlineRadio1" value="Versicherter" checked>
+                                    <input class="form-check-input" type="radio" onclick="optperson()" name="insured" id="inlineRadio1" value="Versicherter">
                                     <label class="form-check-label" for="inlineRadio1">Versicherter</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="insured" onclick="optperson()" id="inlineRadio2" value="Pflegeperson">
-                                    <label class="form-check-label" for="inlineRadio2">Angehöriger /
+                                    <input class="form-check-input" type="radio" name="insured" onclick="optperson()" id="inlineRadio2_2" value="Pflegeperson">
+                                    <label class="form-check-label" for="inlineRadio2_2">Angehöriger /
                                         Pflegeperson</label>
                                 </div>
                                 <span class="insured_error_msg" style="color: red;"></span>
@@ -1396,11 +1212,13 @@
 
                             <div class="form-group">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="title_name" id="inlineRadio3" value="Herr" checked>
+                                    <input class="form-check-input" type="radio" name="title_name" id="inlineRadio3" value="Herr" 
+                                           @if($emailFound && $customerData && $customerData->title == "Herr") checked @endif>
                                     <label class="form-check-label" for="inlineRadio3">Herr</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="title_name" id="inlineRadio4" value="Frau">
+                                    <input class="form-check-input" type="radio" name="title_name" id="inlineRadio4" value="Frau"
+                                           @if($emailFound && $customerData && $customerData->title == "Frau") checked @endif>
                                     <label class="form-check-label" for="inlineRadio4">Frau</label>
                                 </div>
                                 <span class="title_name_error_msg" style="color: red;"></span>
@@ -1408,50 +1226,46 @@
 
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label for="first_name" class="form-label">Vorname Der Versicherte</label>
-                                    <input type="text" class="form-control" id="first_name" @if(isset($customer_sess['firstName'])) value="{{$customer_sess['firstName']}}" @endif>
+                                    <label for="first_name" class="form-label">Vorname des Versicherten</label>
+                                    <input type="text" class="form-control" id="first_name" value="">
                                     <span class="first_name_error_msg" style="color: red;"></span>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="last_name" class="form-label">Nachname Der Versicherte</label>
-                                    <input type="text" class="form-control" id="last_name" @if(isset($customer_sess['lastName'])) value="{{$customer_sess['lastName']}}" @endif>
+                                    <label for="last_name" class="form-label">Nachname des Versicherten</label>
+                                    <input type="text" class="form-control" id="last_name" value="">
                                     <span class="last_name_error_msg" style="color: red;"></span>
                                 </div>
+                                <div class="col-md-8 mt-2">
+                                    <label for="streetno" class="form-label">Straße</label>
+                                    <input type="text" class="form-control" id="streetno" value="">
+                                    <span class="streetno_error_msg" style="color: red;"></span>
+                                </div>
                                 <div class="col-md-4 mt-2">
-                                    <label for="Geburtsdatum" class="form-label">Geburtsdatum</label>
-                                    <input type="date" class="form-control" id="Geburtsdatum" @if(isset($customer_sess['dob'])) value="{{$customer_sess['dob']}}" @endif>
-                                    <span class="geburtsdatum_error_msg" style="color: red;"></span>
+                                    <label for="houseno" class="form-label">Hausnummer</label>
+                                    <input type="text" class="form-control" id="houseno" value="">
+                                    <span class="houseno_error_msg" style="color: red;"></span>
+                                </div>
+                                <div class="col-md-4 mt-2">
+                                    <label for="zip" class="form-label">PLZ</label>
+                                    <input type="text" class="form-control" id="zip" value="">
+                                    <span class="zip_error_msg" style="color: red;"></span>
                                 </div>
                                 <div class="col-md-8 mt-2">
                                     <label for="city" class="form-label">Ort</label>
-                                    <input type="text" class="form-control" id="city" @if(isset($customer_sess['city'])) value="{{$customer_sess['city']}}" @endif>
+                                    <input type="text" class="form-control" id="city" value="">
                                     <span class="city_error_msg" style="color: red;"></span>
                                 </div>
-                                <div class="col-md-6 mt-2">
-                                    <label for="email2" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="email2" @if(isset($customer_sess['email'])) value="{{$customer_sess['email']}}" @endif>
-                                    <span class="email2_error_msg" style="color: red;"></span>
+                                <div class="col-md-4 mt-2">
+                                    <label for="Gaburtadatum" class="form-label">Gaburtadatum</label>
+                                    <input type="date" class="form-control" id="Gaburtadatum" max="{{ date('Y-m-d') }}" min="1900-01-01" style="cursor: pointer;" title="Cliquez pour ouvrir le calendrier">
+                                    <span class="gaburtadatum_error_msg" style="color: red;"></span>
                                 </div>
-                                @if(\Session::get('Customer'))
-                                <input type="hidden" name="password" id="password" @if(isset($customer_sess['view_password'])) value="{{$customer_sess['view_password']}}" @endif>
-                                @else
-                                <div class="col-md-6 mt-2">
-                                    <label for="password2" class="form-label">Password</label>
-                                    <input type="password" class="form-control" id="password" @if(isset($customer_sess['view_password'])) value="{{$customer_sess['view_password']}}" @endif>
-                                    <span class="password_error_msg" style="color: red;"></span>
-                                </div>
-                                <div class="col-md-6 mt-2">
-                                    <label for="password2" class="form-label">Confirm Password</label>
-                                    <input type="password" class="form-control" id="confirm_password" @if(isset($customer_sess['view_password'])) value="{{$customer_sess['view_password']}}" @endif>
-                                    <span class="password2_error_msg" style="color: red;"></span>
-                                </div>
-                                @endif
 
                                 <div class="col-md-4 mt-2">
                                     <label for="Pflegegrad" class="form-label">Pflegegrad</label>
                                     <div class="form-group">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="Pflegegrad" id="inlineRadio1" value="Pflegegrad1" checked>
+                                            <input class="form-check-input" type="radio" name="Pflegegrad" id="inlineRadio1" value="Pflegegrad1">
                                             <label class="form-check-label" for="inlineRadio5">Pflegegrad 1</label>
                                         </div>
                                         <div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="Pflegegrad" id="Pflegegrad" value="Pflegegrad2">
@@ -1477,29 +1291,27 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="telno" class="form-label">telefunnummer</label>
-                                    <input type="text" class="form-control" id="telno" @if(isset($customer_sess['telephone'])) value="{{$customer_sess['telephone']}}" @endif>
+                                    <input type="text" class="form-control" id="telno" value="">
                                     <span class="telno_error_msg" style="color: red;"></span>
                                 </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <label for="streetno" class="form-label">Strasse</label>
-                                    <input type="text" class="form-control" id="streetno" @if(isset($customer_sess['street'])) value="{{$customer_sess['street']}}" @endif>
-                                    <span class="streetno_error_msg" style="color: red;"></span>
+                                <div class="col-md-6">
+                                    <label for="email2" class="form-label">E-Mail</label>
+                                    <input type="text" class="form-control" id="email2" value="" onblur="checkEmailExistsInForm()">
+                                    <span class="email2_error_msg" style="color: red;"></span>
                                 </div>
-                                <div class="col-md-4">
-                                    <label for="houseno" class="form-label">Hausnummer</label>
-                                    <input type="text" class="form-control" id="houseno" @if(isset($customer_sess['houseNo'])) value="{{$customer_sess['houseNo']}}" @endif>
-                                    <span class="houseno_error_msg" style="color: red;"></span>
-                                </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label for="zip" class="form-label">PLZ</label>
-                                    <input type="text" class="form-control" id="zip" @if(isset($customer_sess['zipcode'])) value="{{$customer_sess['zipcode']}}" @endif>
-                                    <span class="zip_error_msg" style="color: red;"></span>
+                                <!-- Passwort-Felder - von JavaScript gesteuert -->
+                                <div class="col-md-6 password-fields">
+                                    <label for="password2" class="form-label">Passwort</label>
+                                    <input type="password" class="form-control" id="password" value="">
+                                    <span class="password_error_msg" style="color: red;"></span>
+                                </div>
+
+                                <div class="col-md-6 password-fields">
+                                    <label for="password2" class="form-label">Passwort bestätigen</label>
+                                    <input type="password" class="form-control" id="confirm_password" value="">
+                                    <span class="password2_error_msg" style="color: red;"></span>
                                 </div>
                             </div>
 
@@ -1512,7 +1324,7 @@
                                         <label for="health-insurance" class="form-label ">Krankenkasse</label>
 
                                     </div>
-                                    <input type="text" class="form-control" id="health-insurance" @if(isset($customer_sess['insuranceName'])) value="{{$customer_sess['insuranceName']}}" @endif>
+                                    <input type="text" class="form-control" id="health-insurance" value="">
                                     <span class="hinsurance_error_msg" style="color: red;"></span>
                                 </div>
                                 <div class="col-md-6">
@@ -1522,40 +1334,46 @@
                                             <img src="{{asset('frontend/assets/images/banners/versicherungsnummer.png')}}" class="tooltip-img">
                                         </div>
                                     </div>
-                                    <input type="text" class="form-control" id="insurance-no" placeholder="This number is always 10 digits" @if(isset($customer_sess['insuranceNumber'])) value="{{$customer_sess['insuranceNumber']}}" @endif>
+                                    <input type="text" class="form-control" id="insurance-no" placeholder="Diese Nummer hat immer 10 Ziffern" value="" onblur="checkInsuranceNumberExists()">
                                     <span class="insuranceno_error_msg" style="color: red;"></span>
                                 </div>
 
                                 <div class="col-md-6 mt-2">
                                     <div class="form-label-tooltip">
-                                        <label for="insurance-no" class="form-label ">Krankenkasse Nummer</label>
+                                        <label for="insurance-no" class="form-label ">Krankenkassen-Nummer</label>
                                         <div class="tooltip-img-wrap">
                                             <img src="{{asset('frontend/assets/images/banners/Krankenkasse_Nummer.png')}}" class="tooltip-img">
                                         </div>
                                     </div>
-                                    <input type="text" class="form-control" id="KrankenkasseNummer" placeholder="This number is always 10 digits" @if(isset($customer_sess['healthInsuranceNo'])) value="{{$customer_sess['healthInsuranceNo']}}" @endif>
+                                    <input type="text" class="form-control" id="KrankenkasseNummer" placeholder="Diese Nummer hat immer 10 Ziffern" value="" onblur="checkKrankenkasseNumberExists()">
                                     <span class="krankenkasse_error_msg" style="color: red;"></span>
                                 </div>
                             </div>
 
-                            <div class="row optional d-none">
-                                <div class="col-md-12">
-                                    <h5 class="mt-50 ">Kontaktdaten Angehöriger/Pflegeperson</h5>
+                            <!-- Bloc pour Angehöriger/Pflegeperson - Affiché seulement si sélectionné -->
+                            <div class="col-md-12 optional d-none" id="angehoriger-contact">
+                                <h5 class="mt-50 mb-3">Kontaktdaten Angehöriger/Pflegeperson</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="angehoriger_name" class="form-label">Name</label>
+                                        <input type="text" class="form-control" id="angehoriger_name" value="">
+                                        <span class="angehoriger_name_error_msg" style="color: red;"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="angehoriger_telefon" class="form-label">Telefonnummer</label>
+                                        <input type="text" class="form-control" id="angehoriger_telefon" value="">
+                                        <span class="angehoriger_telefon_error_msg" style="color: red;"></span>
+                                    </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <label for="carer-name" class="form-label">Name</label>
-                                    <input type="text" class="form-control" id="carer-name">
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="carer-no" class="form-label">Telefonnummer</label>
-                                    <input type="text" class="form-control" id="carer-no">
-                                </div>
-
-                                <div class="col-md-6 mt-2">
-                                    <label for="carer-mail" class="form-label">Email</label>
-                                    <input type="text" class="form-control" id="carer-mail">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="angehoriger_email" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="angehoriger_email" value="">
+                                        <span class="angehoriger_email_error_msg" style="color: red;"></span>
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
 
 
@@ -1613,7 +1431,7 @@
                         </div>
                         <div class="col-md-12 text-right">
                             <p class="mt-30 mb-5">Sie senden noch keine Bestellung ab</p>
-                            <button class="btn btn__primary btn__rounded second-button">Weiter im Antrag</button>
+                            <button class="btn btn__primary btn__rounded second-button">Weiter im Antrag </button>
                         </div>
                     </div>
                 </div>
@@ -1624,7 +1442,6 @@
                 <div class="row">
                     <div class="col-md-12 mt-4">
                         <h2>Lieferadresse</h2>
-                        <p>Geben Sie die Details der Lieferadresse ein</p>
                     </div>
                     <div id="delivery-form">
                         <div class="col-md-12">
@@ -1640,7 +1457,7 @@
                                     <input type="text" class="form-control" id="bill_Drecipient_name">
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="streetno" class="form-label">Strasse</label>
+                                    <label for="streetno" class="form-label">Straße</label>
                                     <input type="text" class="form-control" id="bill_Dstreetno">
                                 </div>
                                 <div class="col-md-6">
@@ -1662,38 +1479,40 @@
                         --}}
 
 
-
-                        <div class="col-md-12" id="getDiffAddr">
+                        <div class="col-md-12" style="display:block" id="getDiffAddr">
 
 
                             <div class="row">
                                 <div class="col-md-12">
                                     <label for="recipient-name" class="form-label">Empfängername</label>
-                                    <input type="text" class="form-control" id="Drecipient_name">
+                                    <input type="text" class="form-control" id="Drecipient_name" readonly>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="streetno" class="form-label">Strasse</label>
-                                    <input type="text" class="form-control" id="Dstreetno">
+                                    <label for="streetno" class="form-label">Straße</label>
+                                    <input type="text" class="form-control" id="Dstreetno" readonly>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="houseno" class="form-label">Hausnummer</label>
-                                    <input type="text" class="form-control" id="Dhouseno">
+                                    <input type="text" class="form-control" id="Dhouseno" readonly>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="zip" class="form-label">PLZ</label>
-                                    <input type="text" class="form-control" id="Dzip">
+                                    <input type="text" class="form-control" id="Dzip" readonly>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="city" class="form-label">Ort</label>
-                                    <input type="text" class="form-control" id="Dcity">
+                                    <input type="text" class="form-control" id="Dcity" readonly>
                                 </div>
                             </div>
                         </div>
 
+
                         <div class="col-md-12 text-right mt-50">
+                            <button type="button" class="btn btn-outline-primary mr-3" id="editDeliveryAddress">
+                                <i class="fas fa-edit"></i> Modifier l'adresse
+                            </button>
                             <button class="btn btn__primary btn__rounded deliveryAddress">einreichen</button>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -1709,6 +1528,8 @@
                             <button onclick="sketchpad.redo();" class="btn btn-primary">Redo</button>
                             <button onclick="DownloadCanvasAsImage()" class="btn btn-primary">Save</button>
                             <button onclick="deletesign()" class="btn btn-primary">Remove</button>
+                            <button class="btn btn-primary" onclick="printPageArea('printableArea')" title="Download PDF file"><i class="fa fa-download"></i> PDF
+                            </button>
                         </p>
                     </div>
                     <div class="col-md-6">
@@ -1716,9 +1537,6 @@
                             <img src="" id="signatureImg">
                         </div>
                         <div class="text-right mt10">
-                            <a href="{{ route('generate-pdf') }}" class="btn btn__secondary btn__rounded mr-2">
-                                <i class="fa fa-download"></i> PDF herunterladen
-                            </a>
                             <button class="btn btn__primary btn__rounded signature_btn" onclick="signature()">einreichen</button>
                         </div>
                     </div>
@@ -1770,12 +1588,12 @@
 
                                                 <td style="height: 50px;border: 1px solid #222;padding: 0px 10px; ">
                                                     <label style="font-weight: 600;margin-right: 5px;">Vorname:</label>
-                                                    <span id="first_name_pd">Jhon</span>
+                                                    <span id="first_name_pd">Max</span>
                                                 </td>
 
                                                 <td style="height: 50px;border: 1px solid #222;padding: 0px 10px; ">
                                                     <label style="font-weight: 600;margin-right: 5px; ">Nachname:</label>
-                                                    <span id="last_name_pd">Doe</span>
+                                                    <span id="last_name_pd">Mustermann</span>
                                                 </td>
                                             </tr>
 
@@ -1819,12 +1637,12 @@
                                             <tr>
                                                 <td style="height: 50px;border: 1px solid #222;padding: 0px 10px; " colspan="2">
                                                     <label style="font-weight: 600;margin-right: 5px; ">Krankenkasse:</label>
-                                                    <span id="health-insurance_pd">Assurance name</span>
+                                                    <span id="health-insurance_pd">Krankenkassenname</span>
                                                 </td>
 
                                                 <td style="height: 50px;border: 1px solid #222;padding: 0px 10px; ">
                                                     <label style="font-weight: 600;margin-right: 5px; ">Versichertennr.:</label>
-                                                    <span id="insurance_no_pd">Assurance number</span>
+                                                    <span id="insurance_no_pd">Versicherungsnummer</span>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -1853,7 +1671,7 @@
                                                     Verbrauch bestimmte Pflegehilfsmittel
                                                 </th>
                                                 <th style="height: 40px;border-bottom: 1px solid #000;padding: 5px;">
-                                                    Quantity
+                                                    Menge
                                                 </th>
                                                 <th style="height: 40px;border-bottom: 1px solid #000;padding: 5px;">
                                                     Positionsnummer
@@ -2219,6 +2037,120 @@ display: flex;align-items: center; justify-content: center; "></div>
 
             <div id="step5" style="display: none" data-step5="0">
                 <div class="row">
+                    <div class="col-md-12 mt-4">
+                        <h2>Zusammenfassung Ihrer Anfrage</h2>
+                        <p>Bitte überprüfen Sie alle Informationen, bevor Sie Ihre Anfrage einreichen.</p>
+                    </div>
+                    
+                    <!-- Zusammenfassung der persönlichen Informationen -->
+                    <div class="col-md-12">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5><i class="fas fa-user"></i> Persönliche Informationen</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p><strong>Vollständiger Name:</strong> <span id="summary_full_name"></span></p>
+                                        <p><strong>E-Mail:</strong> <span id="summary_email"></span></p>
+                                        <p><strong>Telefon:</strong> <span id="summary_phone"></span></p>
+                                        <p><strong>Geburtsdatum:</strong> <span id="summary_birth_date"></span></p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><strong>Adresse:</strong> <span id="summary_address"></span></p>
+                                        <p><strong>Postleitzahl:</strong> <span id="summary_zip"></span></p>
+                                        <p><strong>Stadt:</strong> <span id="summary_city"></span></p>
+                                        <p><strong>Pflegegrad:</strong> <span id="summary_pflegegrad"></span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Zusammenfassung der Versicherungsinformationen -->
+                    <div class="col-md-12">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5><i class="fas fa-shield-alt"></i> Versicherungsinformationen</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p><strong>Versicherungstyp:</strong> <span id="summary_insurance_type"></span></p>
+                                        <p><strong>Name der Versicherung:</strong> <span id="summary_insurance_name"></span></p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><strong>Versicherungsnummer:</strong> <span id="summary_insurance_number"></span></p>
+                                        <p><strong>Krankenkasse Nummer:</strong> <span id="summary_krankenkasse_number"></span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Résumé de l'adresse de livraison -->
+                    <div class="col-md-12">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5><i class="fas fa-truck"></i> Lieferadresse</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p><strong>Name des Empfängers:</strong> <span id="summary_delivery_name"></span></p>
+                                        <p><strong>Straße:</strong> <span id="summary_delivery_street"></span></p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><strong>Hausnummer:</strong> <span id="summary_delivery_number"></span></p>
+                                        <p><strong>Postleitzahl:</strong> <span id="summary_delivery_zip"></span></p>
+                                        <p><strong>Stadt:</strong> <span id="summary_delivery_city"></span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Résumé du bleshbox et produits sélectionnés -->
+                    <div class="col-md-12">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5><i class="fas fa-box"></i> Ihre BeleschBox</h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="summary_products_list">
+                                    <p class="text-muted">Keine Produkte ausgewählt</p>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        <p><strong>Anzahl der Produkte:</strong> <span id="summary_products_count">0</span></p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><strong>Gesamtwert:</strong> <span id="summary_total_value">0€</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Résumé de la signature -->
+                    <div class="col-md-12">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5><i class="fas fa-signature"></i> Unterschrift</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p><strong>Ihre Unterschrift:</strong></p>
+                                        <div class="signature-display">
+                                            <img id="summary_signature" src="" alt="Signature" style="max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 5px; background: white;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="col-md-12">
                         <div class="condition-check-wrap mt-20"><input type="checkbox" id="agreement" name="agreement">
                             <label for="condition-chcek">Hiermit stimme ich zu, dass pflege.de (web care LBJ GmbH) meine
@@ -2229,23 +2161,7 @@ display: flex;align-items: center; justify-content: center; "></div>
                             </label>
                         </div>
                     </div>
-                    
-                    <!-- Section PDF avec iframe -->
-                    <div class="col-md-12 mt-30">
-                        <div class="pdf-preview-section" style="border: 1px solid #ccc; padding: 20px; background: white;">
-                            <h4 style="color: #009ee1; margin-bottom: 20px; text-align: center;">Vorschau Ihres Bestellformulars</h4>
-                            <div id="pdf-container" style="width: 100%; height: 600px; border: 1px solid #ddd;">
-                                <iframe id="pdf-iframe" src="" style="width: 100%; height: 100%; border: none;"></iframe>
-                            </div>
-                            <div class="text-center mt-3">
-                                <button type="button" class="btn btn__secondary btn__rounded" onclick="downloadPdf()">
-                                    <i class="fas fa-download"></i> PDF herunterladen
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-12 text-right mt-30">
+                    <div class="col-md-12 text-right">
                         @if(Route::currentRouteName() == 'assemble')
                         <button class="btn btn__primary btn__rounded checkout_btn" onclick="checkout_btn()">einreichen</button>
                         @else
@@ -2258,9 +2174,318 @@ display: flex;align-items: center; justify-content: center; "></div>
             </div>
         </div>
     </div>
+    </div> <!-- End Livewire Component Content -->
     @livewire('frontend.includes.footer')
 
     <script src="{{asset('/frontend/assets/js/jquery-3.5.1.min.js')}}"></script>
+
+    <!-- Email Search JavaScript -->
+    <script>
+        // Données réelles de la base de données (ID: 133)
+        const customers = [
+            {
+                email: 'karim.hasni@medic-cos.de',
+                firstName: 'karim',
+                lastName: 'hasni',
+                street: 'lindern',
+                houseNo: '6a',
+                zip: '38100',
+                city: 'braunschweig',
+                dob: '1978-02-28',
+                telephone: '0531',
+                insuranceName: 'Barmer',
+                insuranceNumber: '2154h24',
+                healthInsuranceNo: '123454'
+            }
+        ];
+
+        let currentCustomer = null;
+        let emailExists = false; // Variable pour indiquer si l'email existe déjà
+        let insuranceNumberExists = false; // Variable pour indiquer si le numéro d'assurance existe déjà
+        let krankenkasseNumberExists = false; // Variable pour indiquer si le numéro de Krankenkasse existe déjà
+        let emailFoundBySearch = false; // Variable pour indiquer si l'email a été trouvé par recherche
+        let insuranceNumberFoundBySearch = false; // Variable pour indiquer si le numéro d'assurance a été trouvé par recherche
+        let krankenkasseNumberFoundBySearch = false; // Variable pour indiquer si le numéro de Krankenkasse a été trouvé par recherche
+
+        // Fonction pour vérifier si l'email existe dans le formulaire
+        function checkEmailExistsInForm() {
+            const email = document.getElementById('email2').value;
+            const errorSpan = document.querySelector('.email2_error_msg');
+            
+            if (!email) {
+                emailExists = false;
+                if (errorSpan) errorSpan.textContent = '';
+                return;
+            }
+            
+            // Appel à l'API pour vérifier l'email
+            fetch('/check-email-exists', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({
+                    email: email
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.exists) {
+                    emailExists = true;
+                    if (errorSpan) {
+                        errorSpan.textContent = '⚠️ Diese E-Mail-Adresse existiert bereits in unserer Datenbank.';
+                        errorSpan.style.color = 'red';
+                    }
+                } else {
+                    emailExists = false;
+                    if (errorSpan) {
+                        errorSpan.textContent = '';
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Fehler bei der E-Mail-Überprüfung:', error);
+                emailExists = false;
+            });
+        }
+
+        // Fonction pour vérifier si le numéro d'assurance existe
+        function checkInsuranceNumberExists() {
+            const insuranceNumber = document.getElementById('insurance-no').value;
+            const errorSpan = document.querySelector('.insuranceno_error_msg');
+            
+            if (!insuranceNumber) {
+                insuranceNumberExists = false;
+                if (errorSpan) errorSpan.textContent = '';
+                return;
+            }
+            
+            // Appel à l'API pour vérifier le numéro d'assurance
+            fetch('/check-insurance-number-exists', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({
+                    insurance_number: insuranceNumber
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.exists) {
+                    insuranceNumberExists = true;
+                    if (errorSpan) {
+                        errorSpan.textContent = '⚠️ Diese Versichertennummer existiert bereits in unserer Datenbank.';
+                        errorSpan.style.color = 'red';
+                    }
+                } else {
+                    insuranceNumberExists = false;
+                    if (errorSpan) {
+                        errorSpan.textContent = '';
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Fehler bei der Versicherungsnummer-Überprüfung:', error);
+                insuranceNumberExists = false;
+            });
+        }
+
+        // Fonction pour vérifier si le numéro de Krankenkasse existe
+        function checkKrankenkasseNumberExists() {
+            const krankenkasseNumber = document.getElementById('KrankenkasseNummer').value;
+            const errorSpan = document.querySelector('.krankenkasse_error_msg');
+            
+            if (!krankenkasseNumber) {
+                krankenkasseNumberExists = false;
+                if (errorSpan) errorSpan.textContent = '';
+                return;
+            }
+            
+            // Appel à l'API pour vérifier le numéro de Krankenkasse
+            fetch('/check-krankenkasse-number-exists', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({
+                    krankenkasse_number: krankenkasseNumber
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.exists) {
+                    krankenkasseNumberExists = true;
+                    if (errorSpan) {
+                        errorSpan.textContent = '⚠️ Diese Krankenkassen-Nummer existiert bereits in unserer Datenbank.';
+                        errorSpan.style.color = 'red';
+                    }
+                } else {
+                    krankenkasseNumberExists = false;
+                    if (errorSpan) {
+                        errorSpan.textContent = '';
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Fehler bei der Krankenkassen-Nummer-Überprüfung:', error);
+                krankenkasseNumberExists = false;
+            });
+        }
+
+        function searchCustomerByEmail() {
+            const email = document.getElementById('search_email').value;
+            const alertMessage = document.getElementById('alertMessage');
+            const clearBtn = document.getElementById('clearBtn');
+            const debugInfo = document.getElementById('debugInfo');
+            
+            debugInfo.textContent = 'Suche läuft...';
+            debugInfo.style.color = '#ffc107';
+            
+            // Simulate loading
+            setTimeout(() => {
+                if (!email) {
+                    showAlert('Bitte geben Sie eine Email-Adresse ein.', 'warning');
+                    debugInfo.textContent = 'Fehler - E-Mail fehlt';
+                    debugInfo.style.color = '#dc3545';
+                    return;
+                }
+                
+                // Check if email matches our real data
+                const customer = customers.find(c => c.email === email);
+                
+                if (customer) {
+                    currentCustomer = customer;
+                    
+                    // Fill form fields
+                    fillField('first_name', customer.firstName);
+                    fillField('last_name', customer.lastName);
+                    fillField('streetno', customer.street);
+                    fillField('houseno', customer.houseNo);
+                    fillField('zip', customer.zip);
+                    fillField('city', customer.city);
+                    fillField('dob', customer.dob);
+                    fillField('telno', customer.telephone);
+                    fillField('email2', customer.email);
+                    fillField('health_insurance', customer.insuranceName);
+                    fillField('insurance_no', customer.insuranceNumber);
+                    fillField('krankenkasse_nummer', customer.healthInsuranceNo);
+                    
+                    // Hide password fields
+                    hidePasswordFields();
+                    
+                    // Show success message
+                    showAlert('✅ Kunde gefunden! Données réelles de la base : Karim Hasni', 'success');
+                    
+                    // Show clear button
+                    clearBtn.style.display = 'inline-block';
+                    
+                    // Update debug info
+                    debugInfo.textContent = '✅ Client trouvé dans la base de données (ID: 133)';
+                    debugInfo.style.color = '#28a745';
+                    
+                } else {
+                    currentCustomer = null;
+                    
+                    // Clear form fields
+                    clearForm();
+                    
+                    // Show password fields
+                    showPasswordFields();
+                    
+                    // Show warning message
+                    showAlert('⚠️ Kein Kunde gefunden! Email nicht in der Datenbank.', 'warning');
+                    
+                    // Hide clear button
+                    clearBtn.style.display = 'none';
+                    
+                    // Update debug info
+                    debugInfo.textContent = '❌ Client non trouvé';
+                    debugInfo.style.color = '#dc3545';
+                }
+            }, 800);
+        }
+        
+        function fillField(fieldId, value) {
+            const field = document.getElementById(fieldId);
+            if (field) {
+                field.style.transition = 'all 0.3s ease';
+                field.style.transform = 'scale(1.05)';
+                field.style.borderColor = '#28a745';
+                
+                setTimeout(() => {
+                    field.value = value;
+                    field.style.transform = 'scale(1)';
+                    field.style.borderColor = '';
+                }, 200);
+            }
+        }
+        
+        function hidePasswordFields() {
+            const passwordSection = document.querySelector('.row:has(#password)');
+            if (passwordSection) {
+                passwordSection.style.display = 'none';
+            }
+        }
+        
+        function showPasswordFields() {
+            const passwordSection = document.querySelector('.row:has(#password)');
+            if (passwordSection) {
+                passwordSection.style.display = 'flex';
+            }
+        }
+        
+        function clearCustomerData() {
+            currentCustomer = null;
+            clearForm();
+            document.getElementById('search_email').value = '';
+            showPasswordFields();
+            document.getElementById('clearBtn').style.display = 'none';
+            document.getElementById('alertMessage').innerHTML = '';
+            document.getElementById('debugInfo').textContent = 'Données effacées';
+            document.getElementById('debugInfo').style.color = '#6c757d';
+        }
+        
+        function clearForm() {
+            const fields = [
+                'first_name', 'last_name', 'streetno', 'houseno', 'zip', 'city', 
+                'dob', 'telno', 'email2', 'health_insurance', 'insurance_no', 'krankenkasse_nummer'
+            ];
+            fields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (field) {
+                    field.value = '';
+                }
+            });
+        }
+        
+        function showAlert(message, type) {
+            const alertMessage = document.getElementById('alertMessage');
+            alertMessage.innerHTML = `
+                <div class="alert alert-${type} mt-3">
+                    <strong>${message}</strong>
+                </div>
+            `;
+        }
+        
+        // Auto-search when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                if (document.getElementById('search_email').value) {
+                    searchCustomerByEmail();
+                } else {
+                    // Vérifier l'état initial des boutons radio "Ich bin" et afficher la section si nécessaire
+                    optperson();
+                }
+            }, 1000);
+        });
+    </script>
+
+    <script>
+    </script>
 
     <script>
 		// Display Title and descruption for the current Step (data is in steps.json file)
@@ -2274,13 +2499,6 @@ display: flex;align-items: center; justify-content: center; "></div>
                             currentStep = parseInt(target.id.replace('step', ''));
 				            document.getElementById('current-step-title').innerText = infos[currentStep-1]['title'];
 				            document.getElementById('current-step-description').innerText = infos[currentStep-1]['description'];
-                            
-                            // Mettre à jour le PDF quand on arrive à l'étape 5
-                            if (currentStep === 5) {
-                                setTimeout(function() {
-                                    updatePDFWithUserData();
-                                }, 500);
-                            }
                         }
                     }
                 });
@@ -2290,6 +2508,8 @@ display: flex;align-items: center; justify-content: center; "></div>
                     observer.observe(stepDiv, { attributes: true });
                 }
             });
+            
+            // L'état initial est géré par le script séparé ci-dessus
         });
 	
         $("#same_address").change(function() {
@@ -2305,23 +2525,30 @@ display: flex;align-items: center; justify-content: center; "></div>
             if ($(".step5").hasClass("active") == true) {
                 $("#step4").css("display", "block");
                 $(".step5").removeClass("active");
+                $(".step4").addClass("active");
                 $("#step5").css("display", "none");
             } else if ($(".step4").hasClass("active") == true) {
                 $("#step3").css("display", "block");
                 $(".step4").removeClass("active");
+                $(".step3").addClass("active");
                 $("#step4").css("display", "none");
             } else if ($(".step3").hasClass("active") == true) {
                 $("#step2").css("display", "block");
                 $(".step3").removeClass("active");
+                $(".step2").addClass("active");
                 $("#step3").css("display", "none");
-                
-
             } else if ($(".step2").hasClass("active") == true) {
                 $("#step1").css("display", "block");
                 $(".step2").removeClass("active");
+                $(".step1").addClass("active");
                 $("#step2").css("display", "none");
 
             }
+            
+            // Forcer les couleurs après changement d'étape
+            setTimeout(function() {
+                forceStepColors();
+            }, 100);
 
             //  if($(".step1").hasClass("active") == true)
             //  {
@@ -2332,123 +2559,335 @@ display: flex;align-items: center; justify-content: center; "></div>
 
     <script>
         $(".second-button").click(function() {
+            // Variable pour vérifier si tous les champs sont valides
+            var isValid = true;
+            var errorMessages = [];
 
+            // Fonction pour ajouter/enlever la classe error
+            function addErrorClass(selector) {
+                $(selector).addClass('error');
+            }
+            
+            function removeErrorClass(selector) {
+                $(selector).removeClass('error');
+            }
+
+            // Validation des champs requis
             if ($('input[type=radio][name=insured]:checked').length == 0) {
-                $('.insured_error_msg').text("Please select Insured");
+                $('.insured_error_msg').text("Bitte wählen Sie aus, ob Sie versichert oder Pflegeperson sind");
+                addErrorClass('input[type=radio][name=insured]');
+                isValid = false;
+                errorMessages.push("Bitte wählen Sie aus, ob Sie versichert oder Pflegeperson sind");
             } else {
                 $('.insured_error_msg').text("");
+                removeErrorClass('input[type=radio][name=insured]');
             }
 
             if ($('input[type=radio][name=title_name]:checked').length == 0) {
-                $('.title_name_error_msg').text("Please select Insured");
+                $('.title_name_error_msg').text("Bitte wählen Sie Ihre Anrede (Herr/Frau)");
+                addErrorClass('input[type=radio][name=title_name]');
+                isValid = false;
+                errorMessages.push("Bitte wählen Sie Ihre Anrede (Herr/Frau)");
             } else {
                 $('.title_name_error_msg').text("");
+                removeErrorClass('input[type=radio][name=title_name]');
             }
 
-            var fname = $("#first_name").val();
-            //alert(fname);
             if ($("#first_name").val() == '') {
-                $('.first_name_error_msg').text("Please enter First Name");
+                $('.first_name_error_msg').text("Bitte geben Sie den Vornamen ein");
+                addErrorClass('#first_name');
+                isValid = false;
+                errorMessages.push("Bitte geben Sie den Vornamen ein");
             } else {
                 $('.first_name_error_msg').text("");
+                removeErrorClass('#first_name');
             }
-
 
             if ($("#last_name").val() == '') {
-                $('.last_name_error_msg').text("Please enter Last Name");
+                $('.last_name_error_msg').text("Bitte geben Sie den Nachnamen ein");
+                addErrorClass('#last_name');
+                isValid = false;
+                errorMessages.push("Bitte geben Sie den Nachnamen ein");
             } else {
                 $('.last_name_error_msg').text("");
+                removeErrorClass('#last_name');
             }
 
-
             if ($("#streetno").val() == '') {
-                $('.streetno_error_msg').text("Please enter Street Number");
+                $('.streetno_error_msg').text("Bitte geben Sie die Straße ein");
+                addErrorClass('#streetno');
+                isValid = false;
+                errorMessages.push("Bitte geben Sie die Straße ein");
             } else {
                 $('.streetno_error_msg').text("");
+                removeErrorClass('#streetno');
             }
 
             if ($("#houseno").val() == '') {
-                $('.houseno_error_msg').text("Please enter House Number");
+                $('.houseno_error_msg').text("Bitte geben Sie die Hausnummer ein");
+                addErrorClass('#houseno');
+                isValid = false;
+                errorMessages.push("Bitte geben Sie die Hausnummer ein");
             } else {
                 $('.houseno_error_msg').text("");
+                removeErrorClass('#houseno');
             }
 
             if ($("#zip").val() == '') {
-                $('.zip_error_msg').text("Please enter Zip Code");
+                $('.zip_error_msg').text("Bitte geben Sie die PLZ ein");
+                addErrorClass('#zip');
+                isValid = false;
+                errorMessages.push("Bitte geben Sie die PLZ ein");
             } else {
                 $('.zip_error_msg').text("");
+                removeErrorClass('#zip');
             }
 
             if ($("#city").val() == '') {
-                $('.city_error_msg').text("Please enter City Name");
+                $('.city_error_msg').text("Bitte geben Sie den Ort ein");
+                addErrorClass('#city');
+                isValid = false;
+                errorMessages.push("Bitte geben Sie den Ort ein");
             } else {
                 $('.city_error_msg').text("");
+                removeErrorClass('#city');
             }
 
             if ($("#Gaburtadatum").val() == '') {
-                $('.gaburtadatum_error_msg').text("Please enter Gaburtadatum");
+                $('.gaburtadatum_error_msg').text("Bitte geben Sie das Geburtsdatum ein");
+                addErrorClass('#Gaburtadatum');
+                isValid = false;
+                errorMessages.push("Bitte geben Sie das Geburtsdatum ein");
             } else {
                 $('.gaburtadatum_error_msg').text("");
+                removeErrorClass('#Gaburtadatum');
             }
 
             if ($("#telno").val() == '') {
-                $('.telno_error_msg').text("Please enter Phone Number");
+                $('.telno_error_msg').text("Bitte geben Sie die Telefonnummer ein");
+                addErrorClass('#telno');
+                isValid = false;
+                errorMessages.push("Bitte geben Sie die Telefonnummer ein");
             } else {
                 $('.telno_error_msg').text("");
+                removeErrorClass('#telno');
             }
 
             if ($("#email2").val() == '') {
-                $('.email2_error_msg').text("Please enter Email Id");
+                $('.email2_error_msg').text("Bitte geben Sie die E-Mail-Adresse ein");
+                addErrorClass('#email2');
+                isValid = false;
+                errorMessages.push("Bitte geben Sie die E-Mail-Adresse ein");
             } else {
                 $('.email2_error_msg').text("");
+                removeErrorClass('#email2');
             }
 
-            if ($("#password").val() == '') {
-                $('.password_error_msg').text("Please enter Password");
-            } 
-             else {
+            // Validation des mots de passe seulement si les champs sont visibles
+            var passwordFieldsVisible = $('.password-fields').is(':visible');
+            if (passwordFieldsVisible) {
+                if ($("#password").val() == '') {
+                    $('.password_error_msg').text("Bitte geben Sie das Passwort ein");
+                    addErrorClass('#password');
+                    isValid = false;
+                    errorMessages.push("Bitte geben Sie das Passwort ein");
+                } else {
+                    $('.password_error_msg').text("");
+                    removeErrorClass('#password');
+                }
+
+                if ($("#confirm_password").val() == '') {
+                    $('.password2_error_msg').text("Bitte bestätigen Sie das Passwort");
+                    addErrorClass('#confirm_password');
+                    isValid = false;
+                    errorMessages.push("Bitte bestätigen Sie das Passwort");
+                } else if ($("#password").val() != $("#confirm_password").val()) {
+                    $('.password2_error_msg').text("Passwort-Bestätigung stimmt nicht überein.");
+                    addErrorClass('#confirm_password');
+                    isValid = false;
+                    errorMessages.push("Passwort-Bestätigung stimmt nicht überein");
+                } else {
+                    $('.password2_error_msg').text("");
+                    removeErrorClass('#confirm_password');
+                }
+            } else {
+                // Si les champs de mot de passe sont masqués, on les efface
                 $('.password_error_msg').text("");
-            }
-
-            if ($("#confirm_password").val() == '') {
-                $('.password2_error_msg').text("Please enter Confirm Password");
-            } else if ($("#password").val() != $("#confirm_password").val()) {
-                $('.password2_error_msg').text("Confirm Password does not matched.");
-            }
-             else {
                 $('.password2_error_msg').text("");
+                removeErrorClass('#password');
+                removeErrorClass('#confirm_password');
             }
 
+            // Validation des champs Angehöriger/Pflegeperson (seulement si le bloc est visible)
+            var angehorigerBlockVisible = $('#angehoriger-contact').is(':visible');
+            if (angehorigerBlockVisible) {
+                if ($("#angehoriger_name").val() == '') {
+                    $('.angehoriger_name_error_msg').text("Bitte geben Sie den Namen des Angehörigen ein");
+                    addErrorClass('#angehoriger_name');
+                    isValid = false;
+                    errorMessages.push("Bitte geben Sie den Namen des Angehörigen ein");
+                } else {
+                    $('.angehoriger_name_error_msg').text("");
+                    removeErrorClass('#angehoriger_name');
+                }
 
+                if ($("#angehoriger_telefon").val() == '') {
+                    $('.angehoriger_telefon_error_msg').text("Bitte geben Sie die Telefonnummer des Angehörigen ein");
+                    addErrorClass('#angehoriger_telefon');
+                    isValid = false;
+                    errorMessages.push("Bitte geben Sie die Telefonnummer des Angehörigen ein");
+                } else {
+                    $('.angehoriger_telefon_error_msg').text("");
+                    removeErrorClass('#angehoriger_telefon');
+                }
+
+                if ($("#angehoriger_email").val() == '') {
+                    $('.angehoriger_email_error_msg').text("Bitte geben Sie die E-Mail-Adresse des Angehörigen ein");
+                    addErrorClass('#angehoriger_email');
+                    isValid = false;
+                    errorMessages.push("Bitte geben Sie die E-Mail-Adresse des Angehörigen ein");
+                } else {
+                    $('.angehoriger_email_error_msg').text("");
+                    removeErrorClass('#angehoriger_email');
+                }
+            } else {
+                // Si le bloc Angehöriger n'est pas visible, effacer les erreurs
+                $('.angehoriger_name_error_msg').text("");
+                $('.angehoriger_telefon_error_msg').text("");
+                $('.angehoriger_email_error_msg').text("");
+                removeErrorClass('#angehoriger_name');
+                removeErrorClass('#angehoriger_telefon');
+                removeErrorClass('#angehoriger_email');
+            }
 
             if ($("#health-insurance").val() == '') {
-                $('.hinsurance_error_msg').text("Please enter Health Insurance Number");
+                $('.hinsurance_error_msg').text("Bitte geben Sie den Krankenkassen-Namen ein");
+                addErrorClass('#health-insurance');
+                isValid = false;
+                errorMessages.push("Bitte geben Sie den Krankenkassen-Namen ein");
             } else {
                 $('.hinsurance_error_msg').text("");
+                removeErrorClass('#health-insurance');
             }
 
             if ($("#insurance-no").val() == '') {
-                $('.insuranceno_error_msg').text("Please enter Health Insurance Number");
+                $('.insuranceno_error_msg').text("Bitte geben Sie die Versicherungsnummer ein");
+                addErrorClass('#insurance-no');
+                isValid = false;
+                errorMessages.push("Bitte geben Sie die Versicherungsnummer ein");
             } else {
                 $('.insuranceno_error_msg').text("");
+                removeErrorClass('#insurance-no');
             }
 
             if ($("#KrankenkasseNummer").val() == '') {
-                $('.krankenkasse_error_msg').text("Please enter Krankenkasse Number");
+                $('.krankenkasse_error_msg').text("Bitte geben Sie die Krankenkassen-Nummer ein");
+                addErrorClass('#KrankenkasseNummer');
+                isValid = false;
+                errorMessages.push("Bitte geben Sie die Krankenkassen-Nummer ein");
             } else {
                 $('.krankenkasse_error_msg').text("");
+                removeErrorClass('#KrankenkasseNummer');
             }
-            ///alert($('input[type=radio][name=inlineRadioOptions5]:checked').length);
+
+            // Validation des champs Angehöriger/Pflegeperson (seulement si le bloc est visible)
+            var angehorigerBlockVisible = !$('#angehoriger-contact').hasClass('d-none');
+            if (angehorigerBlockVisible) {
+                if ($("#angehoriger_name").val() == '') {
+                    $('.angehoriger_name_error_msg').text("Bitte geben Sie den Namen des Angehörigen ein");
+                    addErrorClass('#angehoriger_name');
+                    isValid = false;
+                    errorMessages.push("Bitte geben Sie den Namen des Angehörigen ein");
+                } else {
+                    $('.angehoriger_name_error_msg').text("");
+                    removeErrorClass('#angehoriger_name');
+                }
+
+                if ($("#angehoriger_telefon").val() == '') {
+                    $('.angehoriger_telefon_error_msg').text("Bitte geben Sie die Telefonnummer des Angehörigen ein");
+                    addErrorClass('#angehoriger_telefon');
+                    isValid = false;
+                    errorMessages.push("Bitte geben Sie die Telefonnummer des Angehörigen ein");
+                } else {
+                    $('.angehoriger_telefon_error_msg').text("");
+                    removeErrorClass('#angehoriger_telefon');
+                }
+
+                if ($("#angehoriger_email").val() == '') {
+                    $('.angehoriger_email_error_msg').text("Bitte geben Sie die E-Mail des Angehörigen ein");
+                    addErrorClass('#angehoriger_email');
+                    isValid = false;
+                    errorMessages.push("Bitte geben Sie die E-Mail des Angehörigen ein");
+                } else {
+                    $('.angehoriger_email_error_msg').text("");
+                    removeErrorClass('#angehoriger_email');
+                }
+            } else {
+                // Si le bloc Angehöriger n'est pas visible, effacer les erreurs
+                $('.angehoriger_name_error_msg').text("");
+                $('.angehoriger_telefon_error_msg').text("");
+                $('.angehoriger_email_error_msg').text("");
+                removeErrorClass('#angehoriger_name');
+                removeErrorClass('#angehoriger_telefon');
+                removeErrorClass('#angehoriger_email');
+            }
+
             if ($('input[type=radio][name=inlineRadioOptions5]:checked').length == 0) {
-                $('.inlineRadioOptions5_error_msg').text("Please select Insured");
+                $('.inlineRadioOptions5_error_msg').text("Bitte wählen Sie den Versicherungstyp");
+                addErrorClass('input[type=radio][name=inlineRadioOptions5]');
+                isValid = false;
+                errorMessages.push("Bitte wählen Sie den Versicherungstyp");
             } else {
                 $('.inlineRadioOptions5_error_msg').text("");
+                removeErrorClass('input[type=radio][name=inlineRadioOptions5]');
             }
 
             if ($('input[type=checkbox][name=condition_chcek]:checked').length == 0) {
-                $('.condition_chcek_error_msg').text("Please select Terms & Condition");
+                $('.condition_chcek_error_msg').text("Please accept the terms and conditions");
+                addErrorClass('input[type=checkbox][name=condition_chcek]');
+                isValid = false;
+                errorMessages.push("Please accept the terms and conditions");
             } else {
                 $('.condition_chcek_error_msg').text("");
+                removeErrorClass('input[type=checkbox][name=condition_chcek]');
+            }
+
+            // Validation du Pflegegrad
+            if ($('input[type=radio][name=Pflegegrad]:checked').length == 0) {
+                $('.pflegegrad_error_msg').text("Bitte wählen Sie einen Pflegegrad");
+                addErrorClass('input[type=radio][name=Pflegegrad]');
+                isValid = false;
+                errorMessages.push("Bitte wählen Sie einen Pflegegrad");
+            } else {
+                $('.pflegegrad_error_msg').text("");
+                removeErrorClass('input[type=radio][name=Pflegegrad]');
+            }
+
+            // Vérifier si l'email existe déjà (seulement si pas trouvé par recherche)
+            if (emailExists && !emailFoundBySearch) {
+                showValidationErrorModal(['Diese E-Mail-Adresse existiert bereits in unserer Datenbank. Bitte verwenden Sie eine andere E-Mail-Adresse oder suchen Sie den bestehenden Kunden.']);
+                return false;
+            }
+
+            // Vérifier si le numéro d'assurance existe déjà (seulement si pas trouvé par recherche)
+            if (insuranceNumberExists && !insuranceNumberFoundBySearch) {
+                showValidationErrorModal(['Diese Versichertennummer existiert bereits in unserer Datenbank. Bitte verwenden Sie eine andere Versichertennummer.']);
+                return false;
+            }
+
+            // Vérifier si le numéro de Krankenkasse existe déjà (seulement si pas trouvé par recherche)
+            if (krankenkasseNumberExists && !krankenkasseNumberFoundBySearch) {
+                showValidationErrorModal(['Diese Krankenkassen-Nummer existiert bereits in unserer Datenbank. Bitte verwenden Sie eine andere Krankenkassen-Nummer.']);
+                return false;
+            }
+
+            // Si la validation échoue, afficher le modal d'erreur et empêcher le passage à l'étape 3
+            if (!isValid) {
+                // Afficher le modal moderne avec les erreurs
+                showValidationErrorModal(errorMessages);
+                
+                // Empêcher le passage à l'étape 3
+                return false;
             }
 
             // var test_h = $("#houseno").val();
@@ -2469,14 +2908,16 @@ display: flex;align-items: center; justify-content: center; "></div>
             var u_city = $("#city").val();
             $('#Dcity').val(u_city);
 
-            // Passer à l'étape 3 (Delivery Address)
+            // Transition vers l'étape 3 après validation réussie
             $("#step2").css("display", "none");
             $("#step3").css("display", "block");
             $(".step2").removeClass("active");
             $(".step3").addClass("active");
             
-            // Forcer la couleur du texte de l'étape active
-            $(".step3.active .step-text").css("color", "#2ccdc0");
+            // Forcer les couleurs après changement d'étape
+            setTimeout(function() {
+                forceStepColors();
+            }, 100);
 
         });
     </script>
@@ -2486,6 +2927,13 @@ display: flex;align-items: center; justify-content: center; "></div>
             var personalInformation = [];
             var userDetails = {};
             userDetails['surname'] = $('input[name="title_name"]:checked').val();
+            var insuredTypeValue = $('input[name="insured"]:checked').val();
+            // Transformer "Pflegeperson" en "Angehöriger / Pflegeperson"
+            if (insuredTypeValue === 'Pflegeperson') {
+                insuredTypeValue = 'Angehöriger / Pflegeperson';
+            }
+            userDetails['insured_type'] = insuredTypeValue;
+            userDetails['pflegegrad'] = $('input[name="Pflegegrad"]:checked').val();
             userDetails['first_name'] = $('#first_name').val();
             userDetails['last_name'] = $('#last_name').val();
             userDetails['streetno'] = $('#streetno').val();
@@ -2496,6 +2944,9 @@ display: flex;align-items: center; justify-content: center; "></div>
             userDetails['telno'] = $('#telno').val();
             userDetails['email'] = $('#email2').val();
             userDetails['password'] = $('#password').val();
+            userDetails['angehoriger_name'] = $('#angehoriger_name').val();
+            userDetails['angehoriger_telefon'] = $('#angehoriger_telefon').val();
+            userDetails['angehoriger_email'] = $('#angehoriger_email').val();
             userDetails['health_insurance'] = $('#health-insurance').val();
             userDetails['insurance_no'] = $('#insurance-no').val();
             userDetails['KrankenkasseNummer'] = $('#KrankenkasseNummer').val();
@@ -2534,278 +2985,1608 @@ display: flex;align-items: center; justify-content: center; "></div>
                 height: $("#signPad").outerHeight()
             });
         }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"></script>
+    <script src="{{asset('frontend/assets/js/plugins.js')}}"></script>
+    <script src="{{asset('frontend/assets/js/main.js')}}"></script>
+    <script src="{{asset('frontend/assets/js/sketchpad.js')}}"></script>
+    <script src="{{asset('frontend/assets/js/assemble-box.js')}}"></script>
+    
+    <!-- Modal moderne pour les erreurs de validation -->
+    <div class="modal fade" id="validationErrorModal" tabindex="-1" aria-labelledby="validationErrorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <div class="d-flex align-items-center">
+                        <div class="error-icon me-3">
+                            <i class="fas fa-exclamation-triangle text-danger"></i>
+                        </div>
+                        <h5 class="modal-title text-danger" id="validationErrorModalLabel">
+                            Fehlende Felder
+                        </h5>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-3 text-muted">Bitte füllen Sie alle Pflichtfelder aus, bevor Sie fortfahren:</p>
+                    <div id="errorList" class="error-list">
+                        <!-- Fehler werden hier dynamisch hinzugefügt -->
+                    </div>
+                </div>
+                <div class="modal-footer border-0 justify-content-center">
+                    <button type="button" id="closeModalBtn" class="btn btn-secondary" data-bs-dismiss="modal" onclick="closeModal(); return false;">
+                        <i class="fas fa-times me-2"></i>Schließen
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        // Fonction pour mettre à jour le PDF avec les données utilisateur
-        function updatePDFWithUserData() {
-            // Stocker les données utilisateur pour le PDF
-            storeUserDataForPdf();
-            
-            // Générer le PDF et l'afficher dans l'iframe
-            generateAndDisplayPdf();
+    <!-- Modal d'erreur pour les Bettschutzeinlagen -->
+    <div class="modal fade" id="bedProtectionErrorModal" tabindex="-1" aria-labelledby="bedProtectionErrorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content error-modal-content">
+                <div class="modal-header error-modal-header">
+                    <div class="d-flex align-items-center">
+                        <div class="error-icon-large me-3">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </div>
+                        <h4 class="modal-title text-white" id="bedProtectionErrorModalLabel">
+                            ⚠️ Auswahl erforderlich
+                        </h4>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" onclick="closeBedProtectionErrorModal(); return false;"></button>
+                </div>
+                <div class="modal-body error-modal-body">
+                    <div class="error-message-box">
+                        <h5 class="text-danger mb-3">
+                            <i class="fas fa-times-circle me-2"></i>
+                            Fehlende Auswahl
+                        </h5>
+                        <p class="mb-3">Sie haben vergessen, eine Anzahl für die Bettschutzeinlagen auszuwählen!</p>
+                        <div class="error-instruction">
+                            <i class="fas fa-hand-point-right text-warning me-2"></i>
+                            <strong>Bitte wählen Sie eine Anzahl (1, 2, 3 oder 4) aus, bevor Sie fortfahren.</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer error-modal-footer">
+                    <button type="button" class="btn btn-danger btn-lg" data-bs-dismiss="modal" onclick="closeBedProtectionErrorModal(); return false;">
+                        <i class="fas fa-check me-2"></i>Verstanden
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Styles pour le modal -->
+    <style>
+        .error-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 2s infinite;
         }
+        
+        .error-icon i {
+            font-size: 24px;
+            color: white;
+        }
+        
+        .error-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .error-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            background: #fff5f5;
+            border-left: 4px solid #ff6b6b;
+            border-radius: 4px;
+            animation: slideInLeft 0.3s ease-out;
+        }
+        
+        .error-item i {
+            color: #ff6b6b;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+        
+        .error-item span {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .modal-content {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 15px 15px 0 0;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,123,255,0.3);
+        }
+        
+        .btn-secondary {
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-weight: 500;
+        }
+        
+        /* Effet visuel pour les boutons de sélection des Bettschutzeinlagen */
+        .prod-count.error-highlight {
+            border: 3px solid #dc3545 !important;
+            background-color: #f8d7da !important;
+            animation: shake 0.5s ease-in-out;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        /* Styles pour le modal d'erreur Bettschutzeinlagen */
+        .error-modal-content {
+            border: 3px solid #dc3545;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(220, 53, 69, 0.3);
+            animation: errorPulse 2s infinite;
+        }
+        
+        .error-modal-header {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            border-radius: 12px 12px 0 0;
+            padding: 20px;
+        }
+        
+        .error-icon-large {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            animation: errorIconPulse 1.5s infinite;
+        }
+        
+        .error-modal-body {
+            background: #fff5f5;
+            padding: 25px;
+        }
+        
+        .error-message-box {
+            background: white;
+            border: 2px solid #dc3545;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.1);
+        }
+        
+        .error-instruction {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        
+        .error-modal-footer {
+            background: #f8f9fa;
+            border-radius: 0 0 12px 12px;
+            padding: 20px;
+            justify-content: center;
+        }
+        
+        @keyframes errorPulse {
+            0%, 100% { 
+                box-shadow: 0 10px 30px rgba(220, 53, 69, 0.3);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 15px 40px rgba(220, 53, 69, 0.5);
+                transform: scale(1.02);
+            }
+        }
+        
+        @keyframes errorIconPulse {
+            0%, 100% { 
+                transform: scale(1);
+                background: rgba(255, 255, 255, 0.2);
+            }
+            50% { 
+                transform: scale(1.1);
+                background: rgba(255, 255, 255, 0.3);
+            }
+        }
+        
+        /* Styles pour les champs en erreur */
+        .form-control.error {
+            border: 2px solid #dc3545 !important;
+            box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+        }
+        
+        .form-check-input.error {
+            border: 2px solid #dc3545 !important;
+        }
+        
+        .form-check.error {
+            border: 2px solid #dc3545 !important;
+            border-radius: 4px;
+            padding: 8px;
+            background-color: rgba(220, 53, 69, 0.05);
+        }
+        
+        /* Style cohérent pour le champ de date HTML5 */
+        input[type="date"] {
+            position: relative;
+            background: white !important;
+            border: 1px solid #ced4da !important;
+            border-radius: 0.375rem !important;
+            padding: 0.375rem 0.75rem !important;
+            font-size: 1rem !important;
+            font-weight: 400 !important;
+            color: #212529 !important;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
+        }
+        
+        input[type="date"]:focus {
+            border-color: #86b7fe !important;
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25) !important;
+            background: white !important;
+            outline: 0 !important;
+        }
+        
+        input[type="date"]:hover {
+            border-color: #86b7fe !important;
+        }
+        
+        /* Style de l'icône calendrier */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%236c757d'%3e%3cpath fill-rule='evenodd' d='M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z' clip-rule='evenodd'/%3e%3c/svg%3e") no-repeat center !important;
+            background-size: 16px 16px !important;
+            cursor: pointer !important;
+            width: 16px !important;
+            height: 16px !important;
+            margin-left: 8px !important;
+            opacity: 0.6 !important;
+            transition: opacity 0.2s ease !important;
+        }
+        
+        input[type="date"]::-webkit-calendar-picker-indicator:hover {
+            opacity: 0.8 !important;
+        }
+        
+        /* Style des champs de date */
+        input[type="date"]::-webkit-datetime-edit {
+            padding: 0 !important;
+            color: #212529 !important;
+            font-weight: 400 !important;
+        }
+        
+        input[type="date"]::-webkit-datetime-edit-fields-wrapper {
+            padding: 0 !important;
+        }
+        
+        input[type="date"]::-webkit-datetime-edit-text {
+            color: #6c757d !important;
+            padding: 0 1px !important;
+            font-weight: 400 !important;
+        }
+        
+        input[type="date"]::-webkit-datetime-edit-month-field {
+            color: #212529 !important;
+            font-weight: 400 !important;
+            background: transparent !important;
+            border-radius: 0 !important;
+            padding: 0 !important;
+        }
+        
+        input[type="date"]::-webkit-datetime-edit-day-field {
+            color: #212529 !important;
+            font-weight: 400 !important;
+            background: transparent !important;
+            border-radius: 0 !important;
+            padding: 0 !important;
+        }
+        
+        input[type="date"]::-webkit-datetime-edit-year-field {
+            color: #212529 !important;
+            font-weight: 400 !important;
+            background: transparent !important;
+            border-radius: 0 !important;
+            padding: 0 !important;
+        }
+        
+        /* Style pour Firefox */
+        input[type="date"]::-moz-placeholder {
+            color: #6c757d !important;
+            opacity: 1 !important;
+        }
+        
+        /* Style pour les navigateurs qui supportent le calendrier */
+        @supports (-webkit-appearance: none) {
+            input[type="date"] {
+                background: linear-gradient(135deg, #f8f9fa, #e9ecef) !important;
+            }
+        }
+        
+        /* Style pour les champs readonly */
+        input[readonly] {
+            background-color: #f8f9fa !important;
+            color: #6c757d !important;
+            cursor: not-allowed !important;
+        }
+        
+        input[readonly]:focus {
+            background-color: #f8f9fa !important;
+            border-color: #ced4da !important;
+            box-shadow: none !important;
+        }
+        
+        /* Style pour les cartes de résumé */
+        .card {
+            border: 1px solid #e3e6f0;
+            border-radius: 0.35rem;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+        }
+        
+        .card-header {
+            background-color: #f8f9fc;
+            border-bottom: 1px solid #e3e6f0;
+            padding: 0.75rem 1.25rem;
+        }
+        
+        .card-header h5 {
+            margin: 0;
+            color: #5a5c69;
+            font-weight: 600;
+        }
+        
+        .card-body {
+            padding: 1.25rem;
+        }
+        
+        .card-body p {
+            margin-bottom: 0.5rem;
+            color: #858796;
+        }
+        
+        .card-body strong {
+            color: #5a5c69;
+        }
+        
+        /* Style pour les éléments de produits dans le résumé */
+        .product-summary-item {
+            background-color: #f8f9fc;
+            border: 1px solid #e3e6f0 !important;
+        }
+        
+        .product-summary-item:hover {
+            background-color: #e3f2fd;
+        }
+        
+        .badge-primary {
+            background-color: #007bff;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+        }
+        
+        .text-success {
+            color: #28a745 !important;
+            font-weight: bold;
+        }
+        
+        .text-info {
+            color: #17a2b8 !important;
+        }
+        
+        .badge-success {
+            background-color: #28a745;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+        }
+        
+        .bg-light {
+            background-color: #f8f9fa !important;
+        }
+        
+        /* Styles pour les messages d'erreur */
+        .pflegegrad_error_msg,
+        .first_name_error_msg,
+        .last_name_error_msg,
+        .streetno_error_msg,
+        .houseno_error_msg,
+        .zip_error_msg,
+        .city_error_msg,
+        .gaburtadatum_error_msg,
+        .telno_error_msg,
+        .email2_error_msg,
+        .password_error_msg,
+        .password2_error_msg,
+        .angehoriger_name_error_msg,
+        .angehoriger_telefon_error_msg,
+        .angehoriger_email_error_msg,
+        .hinsurance_error_msg,
+        .insuranceno_error_msg,
+        .krankenkasse_error_msg,
+        .inlineRadioOptions5_error_msg,
+        .condition_chcek_error_msg,
+        .insured_error_msg,
+        .title_name_error_msg {
+            font-size: 12px;
+            color: #dc3545;
+            margin-top: 5px;
+            display: block;
+            clear: both;
+        }
+    </style>
 
-        // Fonction pour générer et afficher le PDF
-        function generateAndDisplayPdf() {
-            $.ajax({
-                url: '{{ route("generate-pdf-base64") }}',
-                type: 'GET',
-                dataType: 'json',
-                success: function(response) {
-                    if (response.success && response.pdf_base64) {
-                        // Créer l'URL data pour le PDF
-                        var pdfUrl = 'data:application/pdf;base64,' + response.pdf_base64;
-                        
-                        // Afficher le PDF dans l'iframe
-                        $('#pdf-iframe').attr('src', pdfUrl);
-                    } else {
-                        console.error('Erreur lors de la génération du PDF:', response.error);
-                        $('#pdf-iframe').attr('src', 'about:blank');
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error('Erreur AJAX:', error);
-                    $('#pdf-iframe').attr('src', 'about:blank');
+    <!-- Test direct des fonctions de recherche d'email -->
+    <script>
+        // Fonction pour effacer les erreurs des champs
+        function clearFieldErrors(fieldIds) {
+            fieldIds.forEach(fieldId => {
+                // Effacer la classe error
+                const field = document.getElementById(fieldId);
+                if (field) {
+                    field.classList.remove('error');
                 }
-            });
-        }
-
-        // Fonction pour télécharger le PDF
-        function downloadPdf() {
-            window.open('{{ route("generate-pdf") }}', '_blank');
-        }
-
-        // Fonction pour déterminer le numéro de BeleschBox
-        function determineBeleschBoxNumber() {
-            // Vérifier s'il y a un paramètre package dans l'URL
-            var urlParams = new URLSearchParams(window.location.search);
-            var package = urlParams.get('package');
-            
-            // Vérifier aussi l'ID du package dans l'URL (request()->id)
-            var packageId = '{{request()->id ?? ""}}';
-            
-            // Vérifier l'ID du package dans la session
-            var sessionPackageId = '{{Session::get("selected_package_id") ?? ""}}';
-            
-
-            
-            console.log('=== DÉTECTION PACKAGE ===');
-            console.log('Paramètre package dans URL:', package);
-            console.log('ID du package (request()->id):', packageId);
-            console.log('ID du package dans session:', sessionPackageId);
-
-            
-            if (package) {
-                console.log('→ Package détecté via paramètre URL:', package);
-                return 'BeleschBox ' + package;
-            }
-            
-            if (packageId && packageId !== '') {
-                console.log('→ Package détecté via request()->id:', packageId);
-                return 'BeleschBox ' + packageId;
-            }
-            
-            if (sessionPackageId && sessionPackageId !== '') {
-                console.log('→ Package détecté via session (ID):', sessionPackageId);
                 
-                // Correspondance entre l'ID du package et le numéro de BeleschBox
-                // Correction du décalage : BeleschBox 2 → ID 3, BeleschBox 5 → ID 6
-                var beleschBoxMapping = {
-                    '1': 'BeleschBox 1',
-                    '3': 'BeleschBox 2',  // ID 3 correspond à BeleschBox 2
-                    '4': 'BeleschBox 3',  // ID 4 correspond à BeleschBox 3
-                    '5': 'BeleschBox 4',  // ID 5 correspond à BeleschBox 4
-                    '6': 'BeleschBox 5',  // ID 6 correspond à BeleschBox 5
-                    '7': 'BeleschBox 6'   // ID 7 correspond à BeleschBox 6
+                // Mapper les IDs vers les bonnes classes d'erreur
+                const errorClassMap = {
+                    'first_name': 'first_name_error_msg',
+                    'last_name': 'last_name_error_msg',
+                    'streetno': 'streetno_error_msg',
+                    'houseno': 'houseno_error_msg',
+                    'zip': 'zip_error_msg',
+                    'city': 'city_error_msg',
+                    'Gaburtadatum': 'gaburtadatum_error_msg',
+                    'telno': 'telno_error_msg',
+                    'email2': 'email2_error_msg',
+                    'password': 'password_error_msg',
+                    'confirm_password': 'password2_error_msg',
+                    'angehoriger_name': 'angehoriger_name_error_msg',
+                    'angehoriger_telefon': 'angehoriger_telefon_error_msg',
+                    'angehoriger_email': 'angehoriger_email_error_msg',
+                    'health-insurance': 'hinsurance_error_msg',
+                    'insurance-no': 'insuranceno_error_msg',
+                    'KrankenkasseNummer': 'krankenkasse_error_msg',
+                    'insured': 'insured_error_msg',
+                    'title_name': 'title_name_error_msg',
+                    'inlineRadioOptions5': 'inlineRadioOptions5_error_msg',
+                    'condition_chcek': 'condition_chcek_error_msg',
+                    'Pflegegrad': 'pflegegrad_error_msg'
                 };
                 
-                var mappedName = beleschBoxMapping[sessionPackageId];
-                if (mappedName) {
-                    console.log('→ BeleschBox mappée:', mappedName);
-                    return mappedName;
-                } else {
-                    return 'BeleschBox ' + sessionPackageId;
+                const errorClassName = errorClassMap[fieldId] || fieldId + '_error_msg';
+                const errorMsg = document.querySelector('.' + errorClassName);
+                if (errorMsg) {
+                    errorMsg.textContent = '';
                 }
-            }
+            });
+        }
+        
+        // Fonction pour effacer toutes les erreurs
+        function clearAllFieldErrors() {
+            console.log('clearAllFieldErrors appelée');
             
-            // Analyser les produits dans le panier
-            var productNames = [];
-            $('.cartItem').each(function() {
-                var productName = $(this).find('.prod-name').text().trim();
-                productNames.push(productName);
+            // Effacer toutes les classes error
+            const errorElements = document.querySelectorAll('.error');
+            console.log('Éléments avec classe error trouvés:', errorElements.length);
+            errorElements.forEach(element => {
+                element.classList.remove('error');
+                console.log('Classe error supprimée de:', element.id || element.className);
             });
             
-            console.log('=== ANALYSE BELESCHBOX ===');
-            console.log('Produits dans le panier:', productNames);
+            // Effacer tous les messages d'erreur
+            const errorMessages = document.querySelectorAll('[class*="_error_msg"]');
+            console.log('Messages d\'erreur trouvés:', errorMessages.length);
+            errorMessages.forEach(element => {
+                element.textContent = '';
+                console.log('Message d\'erreur effacé:', element.className);
+            });
             
-            // Fonction pour vérifier si un produit contient certains mots-clés
-            function hasProduct(keywords) {
-                return productNames.some(function(name) {
-                    var nameLower = name.toLowerCase();
-                    return keywords.some(function(keyword) {
-                        return nameLower.includes(keyword.toLowerCase());
-                    });
-                });
-            }
-            
-            // Détecter chaque type de produit
-            var hasHandDesinfektion = hasProduct(['händedesinfektion', 'handdesinfektion']);
-            var hasFFP2 = hasProduct(['ffp 2', 'ffp2', 'mundschutz']);
-            var hasHandschuhe = hasProduct(['einmalhandschuhe', 'handschuhe']);
-            var hasBettschutz = hasProduct(['bettschutzeinlagen', 'bettschutz']);
-            var hasFlaechendesinfektion = hasProduct(['flächendesinfektion', 'flaechendesinfektion']);
-            
-            console.log('Détection des produits:');
-            console.log('- Händedesinfektion:', hasHandDesinfektion);
-            console.log('- FFP2 Mundschutz:', hasFFP2);
-            console.log('- Einmalhandschuhe:', hasHandschuhe);
-            console.log('- Bettschutzeinlagen:', hasBettschutz);
-            console.log('- Flächendesinfektion:', hasFlaechendesinfektion);
-            
-            // Logique de détermination de la BeleschBox
-            var beleschBoxNumber = 'Individuell';
-            
-            // Si aucun package n'est détecté, afficher "Individuell"
-            if (!package && !packageId && !sessionPackageId) {
-                console.log('→ Aucun package détecté → Individuell forcé');
-                beleschBoxNumber = 'Individuell';
-            } else {
-                console.log('→ Package détecté, pas de détection automatique nécessaire');
-            }
-            
-            /*
-            // BeleschBox 1: Tous les produits (5 produits)
-            if (hasHandDesinfektion && hasFFP2 && hasHandschuhe && hasBettschutz && hasFlaechendesinfektion) {
-                beleschBoxNumber = 'BeleschBox 1';
-                console.log('→ BeleschBox 1 détectée (tous les produits)');
-            }
-            // BeleschBox 2: Händedesinfektion + FFP2 + Handschuhe (3 produits)
-            else if (hasHandDesinfektion && hasFFP2 && hasHandschuhe) {
-                beleschBoxNumber = 'BeleschBox 2';
-                console.log('→ BeleschBox 2 détectée (Händedesinfektion + FFP2 + Handschuhe)');
-            }
-            // BeleschBox 3: Händedesinfektion + Handschuhe (2 produits)
-            else if (hasHandDesinfektion && hasHandschuhe) {
-                beleschBoxNumber = 'BeleschBox 3';
-                console.log('→ BeleschBox 3 détectée (Händedesinfektion + Handschuhe)');
-            }
-            // BeleschBox 4: FFP2 + Handschuhe (2 produits)
-            else if (hasFFP2 && hasHandschuhe) {
-                beleschBoxNumber = 'BeleschBox 4';
-                console.log('→ BeleschBox 4 détectée (FFP2 + Handschuhe)');
-            }
-            // BeleschBox 5: Seulement Händedesinfektion (1 produit)
-            else if (hasHandDesinfektion) {
-                beleschBoxNumber = 'BeleschBox 5';
-                console.log('→ BeleschBox 5 détectée (Händedesinfektion seulement)');
-            }
-            // BeleschBox 6: Seulement Handschuhe (1 produit)
-            else if (hasHandschuhe) {
-                beleschBoxNumber = 'BeleschBox 6';
-                console.log('→ BeleschBox 6 détectée (Handschuhe seulement)');
-            }
-            else {
-                console.log('→ Aucune combinaison standard détectée → Individuell');
-            }
-            */
-            
-            console.log('=== RÉSULTAT FINAL ===');
-            console.log('BeleschBox déterminée:', beleschBoxNumber);
-            console.log('========================');
-            
-            return beleschBoxNumber;
-        }
-
-        // Fonction pour stocker les données utilisateur pour le PDF
-        function storeUserDataForPdf() {
-            var userData = {
-                gender: $('input[name="title_name"]:checked').val(),
-                first_name: $('#first_name').val(),
-                last_name: $('#last_name').val(),
-                pflegegrad: $('input[name="pflegegrad"]:checked').val() || $('input[name="Pflegegrad"]:checked').val(),
-                street: $('#streetno').val(),
-                zip: $('#zip').val(),
-                city: $('#city').val(),
-                phone: $('#telno').val(),
-                glove_size: $('input[name^="size"]:checked').val() || 'M (Standard)',
-                signature: $('#signatureImg').attr('src')
-            };
-            
-            // Envoyer les données au serveur via AJAX
-            $.ajax({
-                url: '{{ route("store-user-data") }}',
-                method: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    user_data: userData
-                },
-                success: function(response) {
-                    console.log('Données utilisateur stockées pour le PDF');
-                },
-                error: function(xhr, status, error) {
-                    console.error('Erreur lors du stockage des données:', error);
+            // Effacement spécifique pour les champs de formulaire
+            const formFields = ['first_name', 'last_name', 'streetno', 'houseno', 'zip', 'city', 'Gaburtadatum', 'telno', 'email2', 'angehoriger_name', 'angehoriger_telefon', 'angehoriger_email', 'health-insurance', 'insurance-no', 'KrankenkasseNummer'];
+            formFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (field) {
+                    field.classList.remove('error');
+                    console.log('Champ nettoyé:', fieldId);
                 }
             });
         }
 
-        $(document).ready(function() {
+        // Fonction pour fermer le modal
+        function closeValidationModal() {
+            console.log('closeValidationModal appelée !');
+            const modalElement = document.getElementById('validationErrorModal');
+            console.log('Modal element:', modalElement);
             
-            $(".deliveryAddress").click(function() {
-                $("#step3").css("display", "none");
-                $("#step4").css("display", "block");
-                $(".step3").removeClass("active");
-                $(".step4").addClass("active");
+            // Méthode 1: Bootstrap
+            if (typeof bootstrap !== 'undefined') {
+                const modal = bootstrap.Modal.getInstance(modalElement);
+                console.log('Bootstrap modal instance:', modal);
+                if (modal) {
+                    modal.hide();
+                    console.log('Modal fermé avec Bootstrap');
+                    return;
+                }
+            }
+            
+            // Méthode 2: Fallback direct
+            modalElement.style.display = 'none';
+            modalElement.classList.remove('show');
+            
+            // Supprimer le backdrop
+            const backdrop = document.querySelector('.modal-backdrop');
+            if (backdrop) {
+                backdrop.remove();
+            }
+            
+            // Restaurer le body
+            document.body.classList.remove('modal-open');
+            document.body.style.overflow = '';
+            
+            console.log('Modal fermé manuellement');
+        }
+
+        // Fonction pour afficher le modal d'erreur de validation
+        function showValidationErrorModal(errorMessages) {
+            const errorList = document.getElementById('errorList');
+            errorList.innerHTML = '';
+            
+            // Ajouter chaque erreur
+            errorMessages.forEach((error, index) => {
+                setTimeout(() => {
+                    const errorItem = document.createElement('div');
+                    errorItem.className = 'error-item';
+                    errorItem.innerHTML = `
+                        <i class="fas fa-times-circle"></i>
+                        <span>${error}</span>
+                    `;
+                    errorList.appendChild(errorItem);
+                }, index * 100);
+            });
+            
+            // Afficher le modal manuellement
+            const modalElement = document.getElementById('validationErrorModal');
+            if (modalElement) {
+                console.log('Showing validation modal...');
                 
-                // Forcer la couleur du texte de l'étape active
-                $(".step4.active .step-text").css("color", "#2ccdc0");
+                // Créer le backdrop
+                const backdrop = document.createElement('div');
+                backdrop.className = 'modal-backdrop fade show';
+                backdrop.id = 'modalBackdrop';
+                document.body.appendChild(backdrop);
                 
-                // Initialiser le sketchpad quand l'étape 4 devient visible
-                setTimeout(function() {
-                    initializeSignaturePad();
+                // Afficher le modal
+                modalElement.style.display = 'block';
+                modalElement.classList.add('show');
+                modalElement.classList.add('fade');
+                document.body.classList.add('modal-open');
+                document.body.style.overflow = 'hidden';
+                
+                // Ajouter le gestionnaire d'événement après l'affichage du modal
+                setTimeout(() => {
+                    const closeBtn = document.getElementById('closeModalBtn');
+                    if (closeBtn) {
+                        closeBtn.onclick = function(e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            console.log('Schließen-Button geklickt (onclick)!');
+                            closeModal();
+                        };
+                    }
+                    
+                    // Gestionnaire pour fermer en cliquant sur le backdrop
+                    const backdrop = document.getElementById('modalBackdrop');
+                    if (backdrop) {
+                        backdrop.onclick = function() {
+                            console.log('Backdrop geklickt!');
+                            closeModal();
+                        };
+                    }
+                    
+                    // Gestionnaire pour fermer en cliquant en dehors du modal
+                    modalElement.onclick = function(e) {
+                        if (e.target === modalElement) {
+                            console.log('Modal backdrop geklickt!');
+                            closeModal();
+                        }
+                    };
                 }, 100);
-            });
-
-            // Fonction pour corriger les couleurs des étapes au chargement
-            function updateStepColors() {
-                // Mettre toutes les étapes non-actives en noir
-                $(".progressbar-steps .step:not(.active) .step-number").css("color", "#343434");
-                $(".progressbar-steps .step:not(.active) .step-text").css("color", "#343434");
-                $(".progressbar-steps .step:not(.active) span.step-text").css("color", "#343434");
-                
-                // Mettre toutes les étapes actives en bleu-vert
-                $(".progressbar-steps .step.active .step-number").css("color", "#2ccdc0");
-                $(".progressbar-steps .step.active .step-text").css("color", "#2ccdc0");
-                $(".progressbar-steps .step.active span.step-text").css("color", "#2ccdc0");
             }
+        }
+        
 
-            // Fonction pour déterminer quelle étape devrait être active selon la page
-            function setActiveStep() {
-                // Retirer la classe active de toutes les étapes
-                $(".progressbar-steps .step").removeClass("active");
+        // Fonction pour la recherche d'email avec votre vraie base de données
+        function testSearchCustomer() {
+            console.log('Search function called');
+            const email = document.getElementById('search_email').value;
+            console.log('Email:', email);
+            
+            if (!email) {
+                alert('Bitte geben Sie eine Email-Adresse ein.');
+                return;
+            }
+            
+            // Afficher l'état de chargement
+            const searchButton = document.querySelector('button[onclick="testSearchCustomer()"]');
+            const originalText = searchButton.innerHTML;
+            searchButton.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Suche...';
+            searchButton.disabled = true;
+            
+            // Appel à votre API Laravel
+            fetch('/check-email-exists', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({
+                    email: email
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('API Response:', data);
                 
-                // Déterminer quelle étape devrait être active selon le contenu affiché
-                if ($("#step1").is(":visible")) {
-                    $(".step1").addClass("active");
-                } else if ($("#step2").is(":visible")) {
-                    $(".step2").addClass("active");
-                } else if ($("#step3").is(":visible")) {
-                    $(".step3").addClass("active");
-                } else if ($("#step4").is(":visible")) {
-                    $(".step4").addClass("active");
-                } else if ($("#step5").is(":visible")) {
-                    $(".step5").addClass("active");
+                if (data.exists && data.customer) {
+                    console.log('Customer found:', data.customer);
+                    
+                    // Afficher un message d'information
+                    showAlert('✅ Email trouvé ! Les données du client ont été chargées automatiquement.', 'success');
+                    emailExists = false; // Pour la recherche, on autorise le passage à l'étape suivante
+                    emailFoundBySearch = true; // Marquer que l'email a été trouvé par recherche
+                    insuranceNumberFoundBySearch = true; // Marquer que le numéro d'assurance a été trouvé par recherche
+                    krankenkasseNumberFoundBySearch = true; // Marquer que le numéro de Krankenkasse a été trouvé par recherche
+                    
+                    // Remplir les champs
+                    document.getElementById('first_name').value = data.customer.firstName;
+                    document.getElementById('last_name').value = data.customer.lastName;
+                    document.getElementById('streetno').value = data.customer.street;
+                    document.getElementById('houseno').value = data.customer.houseNo;
+                    document.getElementById('zip').value = data.customer.zipcode;
+                    document.getElementById('city').value = data.customer.city;
+                    // Convertir la date au format yyyy-mm-dd pour HTML5
+                    if (data.customer.dob) {
+                        const date = new Date(data.customer.dob);
+                        const formattedDate = date.getFullYear() + '-' + 
+                                            (date.getMonth() + 1).toString().padStart(2, '0') + '-' + 
+                                            date.getDate().toString().padStart(2, '0');
+                        document.getElementById('Gaburtadatum').value = formattedDate;
+                    }
+                    document.getElementById('telno').value = data.customer.telephone;
+                    document.getElementById('email2').value = email;
+                    document.getElementById('health-insurance').value = data.customer.insuranceName;
+                    document.getElementById('insurance-no').value = data.customer.insuranceNumber;
+                    document.getElementById('KrankenkasseNummer').value = data.customer.healthInsuranceNo;
+                    
+                    // Remplir les champs Angehöriger/Pflegeperson si disponibles
+                    if (data.customer.angehorigerName) {
+                        document.getElementById('angehoriger_name').value = data.customer.angehorigerName;
+                    }
+                    if (data.customer.angehorigerTelefon) {
+                        document.getElementById('angehoriger_telefon').value = data.customer.angehorigerTelefon;
+                    }
+                    if (data.customer.angehorigerEmail) {
+                        document.getElementById('angehoriger_email').value = data.customer.angehorigerEmail;
+                    }
+                    
+                    // Pré-sélectionner Herr ou Frau selon les données du client (surname)
+                    if (data.customer.surname) {
+                        if (data.customer.surname === 'Herr') {
+                            document.querySelector('input[name="title_name"][value="Herr"]').checked = true;
+                        } else if (data.customer.surname === 'Frau') {
+                            document.querySelector('input[name="title_name"][value="Frau"]').checked = true;
+                        }
+                        console.log('Titre pré-sélectionné:', data.customer.surname);
+                    }
+                    
+                    // Pré-sélectionner Versicherter ou Pflegeperson selon les données du client (insured_type)
+                    if (data.customer.insured_type) {
+                        if (data.customer.insured_type === 'Versicherter') {
+                            document.querySelector('input[name="insured"][value="Versicherter"]').checked = true;
+                        } else if (data.customer.insured_type === 'Angehöriger / Pflegeperson' || data.customer.insured_type === 'Pflegeperson') {
+                            document.querySelector('input[name="insured"][value="Pflegeperson"]').checked = true;
+                        }
+                        console.log('Statut pré-sélectionné:', data.customer.insured_type);
+                        
+                        // Appeler optperson() pour gérer l'affichage de la section "Kontaktdaten Angehöriger/Pflegeperson"
+                        optperson();
+                    }
+                    
+                    // Pré-sélectionner le Pflegegrad selon les données du client
+                    if (data.customer.pflegegrad) {
+                        // Extraire le numéro de "Pflegegrad3" -> "3"
+                        const pflegegradValue = data.customer.pflegegrad.toString().replace('Pflegegrad', '');
+                        console.log('Tentative de sélection Pflegegrad:', pflegegradValue);
+                        
+                        // Essayer plusieurs approches pour sélectionner le radio button
+                        setTimeout(() => {
+                            // Approche 1: Par ID (première section)
+                            const pflegegradById = document.getElementById(`pflegegrad${pflegegradValue}`);
+                            console.log('Élément par ID (première section):', pflegegradById);
+                            
+                            // Approche 2: Par name et value (première section - minuscule)
+                            const pflegegradByName = document.querySelector(`input[name="pflegegrad"][value="${pflegegradValue}"]`);
+                            console.log('Élément par name/value (première section):', pflegegradByName);
+                            
+                            // Approche 3: Par name et value (deuxième section - majuscule)
+                            const pflegegradByNameUpper = document.querySelector(`input[name="Pflegegrad"][value="Pflegegrad${pflegegradValue}"]`);
+                            console.log('Élément par name/value (deuxième section):', pflegegradByNameUpper);
+                            
+                            // Approche 4: Lister tous les radio buttons pflegegrad (minuscule)
+                            const allPflegegradRadios = document.querySelectorAll('input[name="pflegegrad"]');
+                            console.log('Tous les radio buttons pflegegrad (minuscule):', allPflegegradRadios);
+                            
+                            // Approche 5: Lister tous les radio buttons Pflegegrad (majuscule)
+                            const allPflegegradRadiosUpper = document.querySelectorAll('input[name="Pflegegrad"]');
+                            console.log('Tous les radio buttons Pflegegrad (majuscule):', allPflegegradRadiosUpper);
+                            
+                            // Essayer de sélectionner
+                            if (pflegegradById) {
+                                pflegegradById.checked = true;
+                                console.log('Pflegegrad sélectionné par ID (première section):', pflegegradValue);
+                                if (pflegegradById.onchange) {
+                                    pflegegradById.onchange();
+                                }
+                            } else if (pflegegradByName) {
+                                pflegegradByName.checked = true;
+                                console.log('Pflegegrad sélectionné par name/value (première section):', pflegegradValue);
+                                if (pflegegradByName.onchange) {
+                                    pflegegradByName.onchange();
+                                }
+                            } else if (pflegegradByNameUpper) {
+                                pflegegradByNameUpper.checked = true;
+                                console.log('Pflegegrad sélectionné par name/value (deuxième section):', pflegegradValue);
+                                if (pflegegradByNameUpper.onchange) {
+                                    pflegegradByNameUpper.onchange();
+                                }
+                            } else {
+                                console.log('Aucun élément radio Pflegegrad trouvé pour la valeur:', pflegegradValue);
+                            }
+                        }, 500); // Augmenter le délai
+                    }
+                    
+                    // Effacer toutes les erreurs et bordures rouges
+                    console.log('Effacement des erreurs après remplissage...');
+                    clearAllFieldErrors();
+                    
+                    // Effacement manuel des champs spécifiques
+                    const fieldsToClear = ['first_name', 'last_name', 'streetno', 'houseno', 'zip', 'city', 'Gaburtadatum', 'telno', 'email2', 'angehoriger_name', 'angehoriger_telefon', 'angehoriger_email', 'health-insurance', 'insurance-no', 'KrankenkasseNummer'];
+                    fieldsToClear.forEach(fieldId => {
+                        const field = document.getElementById(fieldId);
+                        if (field) {
+                            field.classList.remove('error');
+                            // Forcer le style normal avec !important
+                            field.style.setProperty('border', '1px solid #ced4da', 'important');
+                            field.style.setProperty('box-shadow', 'none', 'important');
+                            console.log('Classe error supprimée de:', fieldId);
+                        }
+                    });
+                    
+                    // Debug spécifique pour first_name
+                    const firstNameField = document.getElementById('first_name');
+                    if (firstNameField) {
+                        console.log('first_name trouvé:', firstNameField);
+                        console.log('Classes avant:', firstNameField.className);
+                        firstNameField.classList.remove('error');
+                        console.log('Classes après:', firstNameField.className);
+                        
+                        // Forcer le style inline pour enlever la bordure rouge
+                        firstNameField.style.setProperty('border', '1px solid #ced4da', 'important');
+                        firstNameField.style.setProperty('box-shadow', 'none', 'important');
+                        console.log('Style inline forcé pour first_name');
+                    }
+                    
+                    // Masquer les champs de mot de passe
+                    const passwordFields = document.querySelectorAll('.password-fields');
+                    passwordFields.forEach(field => field.style.display = 'none');
+                    
+                    // Afficher le bouton de suppression
+                    document.getElementById('clearBtn').style.display = 'inline-block';
+                    
+                    // Message de succès
+                    const alertDiv = document.getElementById('alertMessage');
+                    alertDiv.innerHTML = '<div class="alert alert-success mt-3">✅ Kunde gefunden! Die Formularfelder werden automatisch ausgefüllt.</div>';
+                    
+                    console.log('Customer data filled successfully');
+                } else {
+                    console.log('Customer not found');
+                    
+                    // Afficher les champs de mot de passe
+                    const passwordFields = document.querySelectorAll('.password-fields');
+                    passwordFields.forEach(field => field.style.display = 'block');
+                    
+                    // Masquer le bouton de suppression
+                    document.getElementById('clearBtn').style.display = 'none';
+                    
+                    // Message d'information - email n'existe pas
+                    const alertDiv = document.getElementById('alertMessage');
+                    alertDiv.innerHTML = '<div class="alert alert-info mt-3">ℹ️ E-Mail nicht gefunden. Sie können ein neues Konto erstellen, indem Sie das untenstehende Formular ausfüllen.</div>';
+                    emailExists = false; // Marquer que l'email n'existe pas
                 }
-            }
+            })
+            .catch(error => {
+                console.error('API-Fehler:', error);
+                const alertDiv = document.getElementById('alertMessage');
+                alertDiv.innerHTML = '<div class="alert alert-danger mt-3">❌ Fehler bei der Suche. Bitte versuchen Sie es erneut.</div>';
+            })
+            .finally(() => {
+                // Restaurer le bouton
+                searchButton.innerHTML = originalText;
+                searchButton.disabled = false;
+            });
+        }
 
-            // Appliquer les couleurs au chargement
-            setActiveStep();
-            updateStepColors();
+                    // Automatische Suche beim Laden
+            document.addEventListener('DOMContentLoaded', function() {
+                // Datumsfeld initialisieren
+                const dateField = document.getElementById('Gaburtadatum');
+                if (dateField) {
+                    console.log('Champ de date HTML5 initialisé');
+                }
+                
+                // Gestionnaire pour le bouton de modification d'adresse
+                const editButton = document.getElementById('editDeliveryAddress');
+                if (editButton) {
+                    let isEditing = false;
+                    
+                    editButton.addEventListener('click', function() {
+                        const addressFields = ['Drecipient_name', 'Dstreetno', 'Dhouseno', 'Dzip', 'Dcity'];
+                        
+                        if (!isEditing) {
+                            // Mode édition - rendre les champs modifiables
+                            addressFields.forEach(fieldId => {
+                                const field = document.getElementById(fieldId);
+                                if (field) {
+                                    field.removeAttribute('readonly');
+                                    field.classList.remove('form-control');
+                                    field.classList.add('form-control');
+                                    field.style.backgroundColor = 'white';
+                                    field.style.color = '#212529';
+                                    field.style.cursor = 'text';
+                                }
+                            });
+                            
+                            // Changer le bouton en mode sauvegarde
+                            this.innerHTML = '<i class="fas fa-save"></i> Sauvegarder';
+                            this.classList.remove('btn-outline-primary');
+                            this.classList.add('btn-success');
+                            isEditing = true;
+                        } else {
+                            // Mode sauvegarde - remettre en readonly
+                            addressFields.forEach(fieldId => {
+                                const field = document.getElementById(fieldId);
+                                if (field) {
+                                    field.setAttribute('readonly', 'readonly');
+                                    field.style.backgroundColor = '#f8f9fa';
+                                    field.style.color = '#6c757d';
+                                    field.style.cursor = 'not-allowed';
+                                }
+                            });
+                            
+                            // Remettre le bouton en mode édition
+                            this.innerHTML = '<i class="fas fa-edit"></i> Modifier l\'adresse';
+                            this.classList.remove('btn-success');
+                            this.classList.add('btn-outline-primary');
+                            isEditing = false;
+                        }
+                    });
+                }
+                
+                console.log('DOM loaded, checking for email');
+                const emailField = document.getElementById('search_email');
+                if (emailField && emailField.value) {
+                    console.log('Email found, auto-searching...');
+                    setTimeout(() => {
+                        testSearchCustomer();
+                    }, 1000);
+                }
+                
+                // Effacer les erreurs quand l'utilisateur tape dans un champ
+                const formFields = [
+                    'first_name', 'last_name', 'streetno', 'houseno', 'zip', 'city', 
+                    'Gaburtadatum', 'telno', 'email2', 'health-insurance', 'insurance-no', 'KrankenkasseNummer'
+                ];
+                
+                formFields.forEach(fieldId => {
+                    const field = document.getElementById(fieldId);
+                    if (field) {
+                        field.addEventListener('input', function() {
+                            if (this.value.trim() !== '') {
+                                this.classList.remove('error');
+                                
+                                // Mapper les IDs vers les bonnes classes d'erreur
+                                const errorClassMap = {
+                                    'first_name': 'first_name_error_msg',
+                                    'last_name': 'last_name_error_msg',
+                                    'streetno': 'streetno_error_msg',
+                                    'houseno': 'houseno_error_msg',
+                                    'zip': 'zip_error_msg',
+                                    'city': 'city_error_msg',
+                                    'Gaburtadatum': 'gaburtadatum_error_msg',
+                                    'telno': 'telno_error_msg',
+                                    'email2': 'email2_error_msg',
+                                    'password': 'password_error_msg',
+                                    'confirm_password': 'password2_error_msg',
+                                    'health-insurance': 'hinsurance_error_msg',
+                                    'insurance-no': 'insuranceno_error_msg',
+                                    'KrankenkasseNummer': 'krankenkasse_error_msg'
+                                };
+                                
+                                const errorClassName = errorClassMap[fieldId] || fieldId + '_error_msg';
+                                const errorMsg = document.querySelector('.' + errorClassName);
+                                if (errorMsg) {
+                                    errorMsg.textContent = '';
+                                }
+                            }
+                        });
+                    }
+                });
+                
+                // Fonction simple pour fermer le modal (globale)
+                window.closeModal = function() {
+                    console.log('closeModal function called');
+                    const modalElement = document.getElementById('validationErrorModal');
+                    if (modalElement) {
+                        console.log('Modal element found, closing...');
+                        
+                        // Fermeture manuelle simple
+                        modalElement.style.display = 'none';
+                        modalElement.classList.remove('show');
+                        modalElement.classList.remove('fade');
+                        document.body.classList.remove('modal-open');
+                        document.body.style.overflow = '';
+                        document.body.style.paddingRight = '';
+                        
+                        // Supprimer tous les backdrops
+                        const backdrops = document.querySelectorAll('.modal-backdrop');
+                        backdrops.forEach(backdrop => backdrop.remove());
+                        
+                        console.log('Modal closed successfully');
+                    } else {
+                        console.log('Modal element not found');
+                    }
+                }
+                
+                // Gestionnaire direct pour le bouton Schließen avec ID
+                const closeBtn = document.getElementById('closeModalBtn');
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        console.log('Schließen-Button geklickt!');
+                        closeModal();
+                    });
+                }
+                
+                // Gestionnaire de secours avec event delegation
+                document.addEventListener('click', function(e) {
+                    if (e.target.closest('#validationErrorModal .btn-secondary')) {
+                        e.preventDefault();
+                        console.log('Schließen-Button geklickt (delegation)!');
+                        closeModal();
+                    }
+                });
+                
+                // Gestionnaire pour le bouton X
+                document.addEventListener('click', function(e) {
+                    if (e.target.closest('#validationErrorModal .btn-close')) {
+                        e.preventDefault();
+                        console.log('X-Button geklickt!');
+                        closeModal();
+                    }
+                });
+                
+                // Fonction pour afficher le modal d'erreur des Bettschutzeinlagen
+                window.showBedProtectionErrorModal = function() {
+                    const modalElement = document.getElementById('bedProtectionErrorModal');
+                    if (modalElement) {
+                        console.log('Affichage du modal d\'erreur Bettschutzeinlagen...');
+                        
+                        // Créer le backdrop
+                        const backdrop = document.createElement('div');
+                        backdrop.className = 'modal-backdrop fade show';
+                        backdrop.id = 'bedProtectionErrorBackdrop';
+                        document.body.appendChild(backdrop);
+                        
+                        // Afficher le modal
+                        modalElement.style.display = 'block';
+                        modalElement.classList.add('show');
+                        modalElement.classList.add('fade');
+                        document.body.classList.add('modal-open');
+                        document.body.style.overflow = 'hidden';
+                        
+                        // Ajouter le gestionnaire d'événement pour le bouton Verstanden
+                        setTimeout(() => {
+                            const closeBtn = modalElement.querySelector('.btn-danger');
+                            if (closeBtn) {
+                                closeBtn.onclick = function(e) {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    console.log('Bouton Verstanden cliqué');
+                                    closeBedProtectionErrorModal();
+                                };
+                            }
+                            
+                            // Gestionnaire pour fermer en cliquant sur le backdrop
+                            const backdropElement = document.getElementById('bedProtectionErrorBackdrop');
+                            if (backdropElement) {
+                                backdropElement.onclick = function() {
+                                    console.log('Backdrop geklickt!');
+                                    closeBedProtectionErrorModal();
+                                };
+                            }
+                        }, 100);
+                    }
+                };
+                
+                // Fonction pour fermer le modal d'erreur des Bettschutzeinlagen
+                window.closeBedProtectionErrorModal = function() {
+                    const modalElement = document.getElementById('bedProtectionErrorModal');
+                    if (modalElement) {
+                        console.log('Fermeture du modal d\'erreur Bettschutzeinlagen...');
+                        
+                        // Fermeture manuelle simple
+                        modalElement.style.display = 'none';
+                        modalElement.classList.remove('show');
+                        modalElement.classList.remove('fade');
+                        document.body.classList.remove('modal-open');
+                        document.body.style.overflow = '';
+                        document.body.style.paddingRight = '';
+                        
+                        // Supprimer le backdrop
+                        const backdrop = document.getElementById('bedProtectionErrorBackdrop');
+                        if (backdrop) {
+                            backdrop.remove();
+                        }
+                        
+                        console.log('Modal d\'erreur Bettschutzeinlagen fermé');
+                    }
+                };
 
-            // Appliquer les couleurs toutes les 100ms pour s'assurer qu'elles restent correctes
-            setInterval(function() {
-                setActiveStep();
-                updateStepColors();
-            }, 100);
+                // Gestionnaire pour les boutons Fermer des modals Bettschutzeinlagen (globale)
+                window.closeBedProtectorModal = function() {
+                    // Fermer tous les modals Bettschutzeinlagen
+                    const modals = document.querySelectorAll('[id*="bed_protector_modal"]');
+                    modals.forEach(modal => {
+                        modal.style.display = 'none';
+                        modal.classList.remove('show');
+                    });
+                    
+                    // Supprimer les backdrops
+                    const backdrops = document.querySelectorAll('.modal-backdrop');
+                    backdrops.forEach(backdrop => backdrop.remove());
+                    
+                    // Restaurer le body
+                    document.body.classList.remove('modal-open');
+                    document.body.style.overflow = '';
+                    document.body.style.paddingRight = '';
+                    
+                    console.log('Modal Bettschutzeinlagen fermé');
+                }
+                
+                // Ajouter les gestionnaires d'événements pour les boutons Schließen
+                document.addEventListener('click', function(e) {
+                    if (e.target.textContent.trim() === 'Schließen' && e.target.closest('.modal-footer')) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        console.log('Bouton Schließen cliqué dans modal Bettschutzeinlagen');
+                        closeBedProtectorModal();
+                    }
+                });
+                
+                // Gestionnaire de secours pour le bouton du modal d'erreur Bettschutzeinlagen
+                document.addEventListener('click', function(e) {
+                    if (e.target.textContent.trim() === 'Verstanden' && e.target.closest('#bedProtectionErrorModal')) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        console.log('Bouton Verstanden cliqué (delegation)');
+                        closeBedProtectionErrorModal();
+                    }
+                });
+            });
+    </script>
+    <script>
+        function base_url() {
+            var i = location.pathname.split("/");
+            if ("localhost" == location.host) var a = location.origin + "/" + i[1].trim("/") + "/";
+            else var a = location.origin + '/';
+            return a
+        };
+
+        function getProduct(i) {
+            $.ajax({
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+                },
+                type: "POST",
+                url: base_url() + "getProductCart?type=add",
+                data: "productId=" + i,
+                success: function(a) {
+                    if (parseInt($(".cartPriceValue").val()) + parseFloat(a.price) <= 42) {
+                        if ($(".recProduct" + i).length < 1) {
+                            $('#qty_pd_' + a.id).html('1');
+                            $('#pd_' + a.id).html('&#10003;');
+                            if ($(".receiver").append('<div data-id="' + a.id + '" class="content border-1 cartItem recProduct' + a.id + '" ><div class="product mb-3"><img src="<?= asset("storage") ?>/' + a.image + '"><div class="prod-info"><div class="prod-name">' + a.name + '</div><div class="prod-size">' + a.product_title + '</div></div><div class="prod-btn" onclick="less(' + a.id + ')" ><span class="qty quantity' + a.id + '">1</span><input type="hidden" id="qty_p_' + a.id + '" value="1"><input type="hidden" class="cartPrice" id="price_p_' + a.id + '" value="' + a.price + '"><i class="fas fa-minus-circle"></i></div></div>' + ("" != a.size_availability ? '<div class="glove-options"><div class="d-flex"><img src="{{asset("frontend/assets/images/icon-handschuh.svg")}}"><label>Welche Handschuhgr\xf6\xdfe haben Sie?</label></div></div>' : '') + '<div class="base-click-box size' + a.id + '" id="bx-' + a.id + '"></div></div>'), $(".cartPriceValue").attr("value", (parseFloat(a.price) + parseFloat($(".cartPriceValue").val())).toLocaleString("en-US", {
+                                    maximumFractionDigits: 2,
+                                    minimumFractionDigits: 2
+                                })), "" != a.size_availability) {
+                                $(".size" + a.id).prepend('<div class="productss" id="checkData-' + a.id + '"></div>');
+                                var t = a.size_availability.split(",");
+                                $.each(t, function(i) {
+                                    $("#checkData-" + a.id).append('<div class="lengend-action-buttons lengend-action-buttons-first"><label class="prod-count bg-white" for="d3_graph_chart' + a.id + t[i] + '"><input onclick="fetchSize(' + a.id + ')" class="SIZE' + a.id + '" id="d3_graph_chart' + a.id + t[i] + '" name="size' + a.id + '" type="radio" value="' + t[i] + '"> <span><p><font style="vertical-align:inherit"><font style="vertical-align:inherit">' + t[i] + "</font></span></label></div>")
+                                });
+
+                            }
+                            $(".progress-bar").css("width", 100 * parseFloat($(".cartPriceValue").val()) / 42 + "%"), cartItemBlur()
+                        } else {
+                            var e = parseFloat($("#qty_p_" + i).val()) + 1;
+                            $('#qty_pd_' + a.id).html(e);
+                            $("#qty_p_" + i).attr("value", e), $("#price_p_" + i).attr("value", (parseFloat(e) * parseInt(a.price)).toLocaleString("en-US", {
+                                maximumFractionDigits: 2,
+                                minimumFractionDigits: 2
+                            })), $(".cartPriceValue").attr("value", (parseFloat(a.price) + parseFloat($(".cartPriceValue").val())).toLocaleString("en-US", {
+                                maximumFractionDigits: 2,
+                                minimumFractionDigits: 2
+                            })), $(".quantity" + i).html(e), $(".progress-bar").css("width", 100 * parseFloat($(".cartPriceValue").val()) / 42 + "%"), cartItemBlur()
+                        }
+                    }
+                }
+            })
+        };
+
+        // Variable globale pour stocker les tailles sélectionnées
+        window.selectedSizes = window.selectedSizes || {};
+        console.log('Variable globale selectedSizes initialisée:', window.selectedSizes);
+        
+        // Debug: Afficher tous les inputs de taille au chargement
+        $(document).ready(function() {
+            console.log('=== SEITENLADUNG: Suche nach Größen-Eingaben ===');
+            $('input[name^="size"]').each(function(index) {
+                console.log('Input de taille ' + index + ':', {
+                    name: $(this).attr('name'),
+                    value: $(this).val(),
+                    checked: $(this).is(':checked'),
+                    id: $(this).attr('id'),
+                    element: $(this)
+                });
+            });
+            console.log('Gesamtanzahl gefundener Größen-Eingaben:', $('input[name^="size"]').length);
+            console.log('=== SEITENLADUNG BEENDET ===');
+            
+            // Status des Angehöriger/Pflegeperson-Blocks initialisieren
+            optperson();
+            
+            // Forcer les couleurs au chargement de la page
+            forceStepColors();
+            
+            // FORCER AUSSI APRÈS UN DÉLAI POUR ÊTRE SÛR
+            setTimeout(function() {
+                forceStepColors();
+                optperson(); // Vérifier à nouveau l'état du bloc
+            }, 500);
+            
+            // FORCER ENCORE APRÈS UN AUTRE DÉLAI
+            setTimeout(function() {
+                forceStepColors();
+                optperson(); // Vérifier à nouveau l'état du bloc
+            }, 1000);
         });
+        
+        // Fonction pour forcer les couleurs des étapes - APPROCHE DIRECTE
+        function forceStepColors() {
+            console.log('=== FORCEMENT DES COULEURS - APPROCHE DIRECTE ===');
+            
+            // FORCER TOUTES LES ÉTAPES EN GRIS D'ABORD
+            $('.step1 .step-text, .step2 .step-text, .step3 .step-text, .step4 .step-text, .step5 .step-text').css('color', '#6c757d !important');
+            $('.step1 .step-number, .step2 .step-number, .step3 .step-number, .step4 .step-number, .step5 .step-number').css('background-color', '#6c757d !important');
+            $('.step1 .step-divider, .step2 .step-divider, .step3 .step-divider, .step4 .step-divider, .step5 .step-divider').css('background-color', '#6c757d !important');
+            
+            console.log('Toutes les étapes forcées en gris');
+            
+            // PUIS FORCER SEULEMENT L'ÉTAPE ACTIVE EN TURQUOISE
+            $('.step.active .step-text').css('color', '#20c997 !important');
+            $('.step.active .step-number').css('background-color', '#20c997 !important');
+            $('.step.active .step-divider').css('background-color', '#20c997 !important');
+            
+            console.log('Étape active forcée en turquoise');
+            console.log('=== FIN FORCEMENT DES COULEURS ===');
+        }
+
+        // Fonction pour gérer l'affichage du bloc Angehöriger/Pflegeperson
+        function optperson() {
+            console.log('=== optperson() appelée ===');
+            
+            // Vérifier quelle option est sélectionnée
+            const selectedOption = $('input[name="insured"]:checked').val();
+            console.log('Option sélectionnée:', selectedOption);
+            
+            // Récupérer le bloc Angehöriger/Pflegeperson
+            const angehorigerBlock = $('#angehoriger-contact');
+            console.log('Bloc trouvé:', angehorigerBlock.length > 0);
+            console.log('Classes actuelles:', angehorigerBlock.attr('class'));
+            
+            if (selectedOption === 'Pflegeperson') {
+                // Afficher le bloc si "Angehöriger / Pflegeperson" est sélectionné
+                angehorigerBlock.removeClass('d-none');
+                console.log('Bloc affiché - Classes après:', angehorigerBlock.attr('class'));
+            } else {
+                // Masquer le bloc si "Versicherter" est sélectionné
+                angehorigerBlock.addClass('d-none');
+                console.log('Bloc masqué - Classes après:', angehorigerBlock.attr('class'));
+            }
+            
+            console.log('=== FIN optperson() ===');
+        }
+        
+        // Fonction de test
+        function testOptperson() {
+            console.log('=== TEST optperson() ===');
+            optperson();
+        }
+        
+        // Fonction pour forcer l'affichage du bloc
+        function forceShowBlock() {
+            console.log('=== FORCER AFFICHAGE ===');
+            const block = $('#angehoriger-contact');
+            block.removeClass('d-none');
+            block.css('display', 'block');
+            block.css('background-color', 'lime');
+            console.log('Bloc forcé visible');
+        }
+
+        // Debug: Écouter les clics sur les inputs de taille
+        $(document).on('change', 'input[name^="size"]', function() {
+            const productId = $(this).attr('name').replace('size', '');
+            const selectedSize = $(this).val();
+            console.log('=== ÉTAPE 1: Sélection de taille ===');
+            console.log('Input de taille cliqué - Produit ID:', productId, 'Taille:', selectedSize);
+            console.log('Élément cliqué:', $(this));
+            console.log('Nom de l\'input:', $(this).attr('name'));
+            console.log('Valeur de l\'input:', $(this).val());
+            console.log('Input est checked:', $(this).is(':checked'));
+            
+            // Stocker directement dans la variable globale
+            window.selectedSizes[productId] = selectedSize;
+            console.log('Taille stockée dans window.selectedSizes:', window.selectedSizes);
+            
+            // Stocker aussi dans localStorage comme backup
+            localStorage.setItem('selectedSizes', JSON.stringify(window.selectedSizes));
+            console.log('Taille stockée dans localStorage:', localStorage.getItem('selectedSizes'));
+            console.log('=== FIN ÉTAPE 1 ===');
+        });
+
+        function fetchSize(id) {
+            console.log('=== fetchSize appelée ===');
+            console.log('ID du produit:', id);
+            
+            const selectedSize = $('input[name="size' + id + '"]:checked').val();
+            console.log('Taille trouvée avec fetchSize:', selectedSize);
+            console.log('Sélecteur utilisé:', 'input[name="size' + id + '"]:checked');
+            console.log('Nombre d\'inputs trouvés:', $('input[name="size' + id + '"]').length);
+            console.log('Inputs checked:', $('input[name="size' + id + '"]:checked').length);
+            
+            $('#pd_size_' + id).html(" (" + selectedSize + ") ");
+            console.log('Élément pd_size_' + id + ' mis à jour avec:', " (" + selectedSize + ") ");
+            
+            // Stocker la taille dans la variable globale
+            window.selectedSizes[id] = selectedSize;
+            console.log('Taille stockée dans fetchSize pour produit', id, ':', selectedSize);
+            console.log('Variable globale mise à jour dans fetchSize:', window.selectedSizes);
+            console.log('=== FIN fetchSize ===');
+        }
+
+        function less(i) {
+            $.ajax({
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+                },
+                type: "POST",
+                url: base_url() + "getProductCart?type=remove",
+                data: "productId=" + i,
+                success: function(a) {
+
+                    $('#qty_pd_' + a.id).html($("#qty_p_" + i).val() - 1);
+                    parseInt($("#qty_p_" + i).val()) > 1 ? ($("#qty_p_" + i).attr("value", $("#qty_p_" + i).val() - 1), $(".quantity" + i).html($("#qty_p_" + i).val()), $(".cartPriceValue").attr("value", (parseInt($(".cartPriceValue").val()) - parseInt(a.price)).toLocaleString("en-US", {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2
+                    })), $(".progress-bar").css("width", 100 * parseFloat($(".cartPriceValue").val()) / 42 + "%"), cartItemBlur()) : ($(".cartPriceValue").attr("value", (parseInt($(".cartPriceValue").val()) - parseInt(a.price)).toLocaleString("en-US", {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2
+                    })), $(".recProduct" + i).remove(), $(".progress-bar").css("width", 100 * parseFloat($(".cartPriceValue").val()) / 42 + "%"), cartItemBlur(), $('#pd_' + a.id).empty(), $('#qty_pd_' + a.id).empty(), $('#pd_size_' + id).empty(), delete window.selectedSizes[i])
+                }
+            })
+        };
+
+        function signature() {
+            console.log('=== Passage à l\'étape 5 - Résumé ===');
+            
+            // Remplir le résumé avec les données du formulaire
+            fillSummaryData();
+            
+            $("#step4").css("display", "none");
+            $("#step5").css("display", "block");
+            $(".step4").removeClass("active");
+            $(".step5").addClass("active");
+            
+            // Forcer les couleurs après changement d'étape
+            setTimeout(function() {
+                forceStepColors();
+                // Remplir à nouveau le résumé après un délai pour s'assurer que tout est chargé
+                fillSummaryData();
+            }, 100);
+        }
+        
+        // Fonction pour remplir le résumé des données
+        function fillSummaryData() {
+            console.log('=== DEBUG: Remplissage du résumé des données ===');
+            
+            // Informations personnelles
+            const firstName = $("#first_name").val() || '';
+            const lastName = $("#last_name").val() || '';
+            const fullName = firstName + ' ' + lastName;
+            
+            console.log('Prénom:', firstName);
+            console.log('Nom:', lastName);
+            console.log('Nom complet:', fullName);
+            
+            $("#summary_full_name").text(fullName);
+            $("#summary_email").text($("#email2").val() || '');
+            $("#summary_phone").text($("#telno").val() || '');
+            $("#summary_birth_date").text($("#Gaburtadatum").val() || '');
+            $("#summary_address").text($("#streetno").val() || '');
+            $("#summary_zip").text($("#zip").val() || '');
+            $("#summary_city").text($("#city").val() || '');
+            
+            // Pflegegrad
+            const selectedPflegegrad = $('input[name="Pflegegrad"]:checked').val();
+            console.log('Pflegegrad sélectionné:', selectedPflegegrad);
+            $("#summary_pflegegrad").text(selectedPflegegrad || 'Nicht ausgewählt');
+            
+            // Versicherungstyp (Der Versicherte ist)
+            const selectedInsuranceType = $('input[name="inlineRadioOptions5"]:checked').val();
+            console.log('Ausgewählter Versicherungstyp:', selectedInsuranceType);
+            
+            // Convertir les valeurs en texte lisible
+            let insuranceTypeText = 'Nicht ausgewählt';
+            if (selectedInsuranceType === 'option5') {
+                insuranceTypeText = 'Gesetzlich versichert (Kostenübernahme durch die Pflegekasse)';
+            } else if (selectedInsuranceType === 'option6') {
+                insuranceTypeText = 'Privat versichert';
+            }
+            
+            $("#summary_insurance_type").text(insuranceTypeText);
+            
+            // Statut de la personne (Ich bin)
+            const selectedPersonStatus = $('input[name="insured"]:checked').val();
+            console.log('Statut de la personne sélectionné:', selectedPersonStatus);
+            
+            // Convertir les valeurs en texte lisible
+            let personStatusText = 'Nicht ausgewählt';
+            if (selectedPersonStatus === 'Versicherter') {
+                personStatusText = 'Versicherter';
+            } else if (selectedPersonStatus === 'Pflegeperson') {
+                personStatusText = 'Angehöriger / Pflegeperson';
+            }
+            
+            // Ajouter cette information au résumé si elle n'existe pas déjà
+            if ($("#summary_person_status").length === 0) {
+                $("#summary_insurance_type").parent().before('<p><strong>Ich bin:</strong> <span id="summary_person_status"></span></p>');
+            }
+            $("#summary_person_status").text(personStatusText);
+            
+            // Versicherungsinformationen
+            $("#summary_insurance_name").text($("#health-insurance").val() || '');
+            $("#summary_insurance_number").text($("#insurance-no").val() || '');
+            $("#summary_krankenkasse_number").text($("#KrankenkasseNummer").val() || '');
+            
+            // Adresse de livraison
+            $("#summary_delivery_name").text($("#Drecipient_name").val() || '');
+            $("#summary_delivery_street").text($("#Dstreetno").val() || '');
+            $("#summary_delivery_number").text($("#Dhouseno").val() || '');
+            $("#summary_delivery_zip").text($("#Dzip").val() || '');
+            $("#summary_delivery_city").text($("#Dcity").val() || '');
+            
+            // Produits sélectionnés
+            fillProductsSummary();
+            
+            // Signature
+            const signatureSrc = $("#signatureImg").attr('src');
+            if (signatureSrc && signatureSrc !== '') {
+                $("#summary_signature").attr('src', signatureSrc);
+                $("#summary_signature").show();
+            } else {
+                $("#summary_signature").hide();
+            }
+            
+            console.log('=== ZUSAMMENFASSUNG AUSGEFÜLLT ===');
+        }
+        
+        // Fonction pour remplir le résumé des produits
+        function fillProductsSummary() {
+            const productsList = $("#summary_products_list");
+            let totalValue = 0;
+            let productsCount = 0;
+            let productsHtml = '';
+            
+            console.log('=== DEBUG: Remplissage du résumé des produits ===');
+            console.log('Tailles stockées dans window.selectedSizes:', window.selectedSizes);
+            console.log('Nombre d\'éléments .cartItem trouvés:', $('.cartItem').length);
+            
+            // Toujours afficher les tailles stockées
+            console.log('Tailles disponibles:', window.selectedSizes);
+            
+            // Ajouter les tailles aux produits existants
+            if (Object.keys(window.selectedSizes).length > 0) {
+                console.log('Ajout des tailles aux produits existants');
+                
+                // Attendre un peu pour que les éléments soient créés
+                setTimeout(function() {
+                    Object.keys(window.selectedSizes).forEach(function(productId) {
+                        const selectedSize = window.selectedSizes[productId];
+                        console.log('Ajout de la taille pour produit', productId, ':', selectedSize);
+                        
+                        // Chercher le produit dans le résumé et ajouter la taille
+                        const productElement = $(`#summary_products_list .product-summary-item`).filter(function() {
+                            return $(this).text().includes('Einmalhandschuhe') || $(this).text().includes('Gants');
+                        });
+                        
+                        if (productElement.length > 0) {
+                            // Vérifier si la taille n'est pas déjà ajoutée
+                            if (!productElement.find('.text-info').length) {
+                                // Ajouter la taille au produit existant
+                                const sizeInfo = `<br><small class="text-info"><i class="fas fa-hand-paper"></i> Taille: ${selectedSize}</small>`;
+                                productElement.find('.col-md-8').append(sizeInfo);
+                                console.log('Taille ajoutée au produit existant');
+                            } else {
+                                console.log('Taille déjà présente, pas d\'ajout');
+                            }
+                        } else {
+                            console.log('Produit Einmalhandschuhe non trouvé dans le résumé');
+                        }
+                    });
+                }, 100);
+            }
+            
+            // Debug: Afficher tous les inputs de taille disponibles
+            $('input[name^="size"]').each(function() {
+                console.log('Input de taille trouvé:', $(this).attr('name'), 'checked:', $(this).is(':checked'), 'value:', $(this).val());
+            });
+            
+            // Parcourir tous les éléments cartItem
+            $(".cartItem").each(function() {
+                const productId = $(this).attr('data-id');
+                const productName = $(this).find('.prod-name').text();
+                const productTitle = $(this).find('.prod-size').text();
+                const quantity = $(this).find('.qty').text() || '1';
+                const price = $(this).find('.cartPrice').val() || '0';
+                
+                if (productName && productName.trim() !== '') {
+                    productsCount++;
+                    totalValue += parseFloat(price) * parseInt(quantity);
+                    
+                    // Vérifier si c'est un produit avec des tailles (gants)
+                    let sizeInfo = '';
+                    console.log('Produit ID:', productId, 'Nom:', productName);
+                    
+                    // Récupérer la taille depuis la variable globale ou localStorage
+                    let selectedSize = window.selectedSizes[productId];
+                    if (!selectedSize) {
+                        // Essayer de récupérer depuis localStorage
+                        const storedSizes = localStorage.getItem('selectedSizes');
+                        if (storedSizes) {
+                            const parsedSizes = JSON.parse(storedSizes);
+                            selectedSize = parsedSizes[productId];
+                            console.log('Taille récupérée depuis localStorage:', selectedSize);
+                        }
+                    }
+                    console.log('Endgültige Größe für Produkt', productId, ':', selectedSize);
+                    
+                    if (selectedSize) {
+                        sizeInfo = `<br><small class="text-info"><i class="fas fa-hand-paper"></i> Taille: ${selectedSize}</small>`;
+                        console.log('Taille trouvée:', selectedSize);
+                    }
+                    
+                    productsHtml += `
+                        <div class="product-summary-item mb-2 p-2 border rounded">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <strong>${productName}</strong><br>
+                                    <small class="text-muted">${productTitle}</small>
+                                    ${sizeInfo}
+                                </div>
+                                <div class="col-md-4 text-right">
+                                    <span class="badge badge-primary">Quantité: ${quantity}</span><br>
+                                    <small class="text-success">${price}€</small>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+            
+            // Ajouter les protège-lits réutilisables si sélectionnés
+            const bedProtectionCount = $('input[name="number_of_bed"]:checked').val();
+            if (bedProtectionCount && bedProtectionCount > 0) {
+                productsCount++;
+                productsHtml += `
+                    <div class="product-summary-item mb-2 p-2 border rounded bg-light">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <strong>Réutilisable Protège-lits</strong><br>
+                                <small class="text-muted">Bettschutzeinlagen - Jusqu'à 250 lavages</small>
+                            </div>
+                            <div class="col-md-4 text-right">
+                                <span class="badge badge-success">Quantité: ${bedProtectionCount}</span><br>
+                                <small class="text-success">Gratuit</small>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // Afficher les produits ou le message par défaut
+            if (productsHtml) {
+                productsList.html(productsHtml);
+            } else {
+                productsList.html('<p class="text-muted">Aucun produit sélectionné</p>');
+            }
+            
+            // Mettre à jour les compteurs
+            $("#summary_products_count").text(productsCount);
+            $("#summary_total_value").text(totalValue.toFixed(2) + '€');
+        }
     </script>
     @if(Route::currentRouteName() == 'assemble')
     <script>
@@ -2814,11 +4595,8 @@ display: flex;align-items: center; justify-content: center; "></div>
             //console.log('test demo2');
             if ($("#agreement").prop('checked') != true) {
                 $("#agreement").addClass('border-red-checkbox');
-                alert('Veuillez accepter les conditions avant de continuer.');
-                return;
             } else {
                 $("#agreement").removeClass('border-red-checkbox');
-                
                 var o = {};
                 o.product = [];
                 $(".cartItem").each(function() {
@@ -2835,6 +4613,13 @@ display: flex;align-items: center; justify-content: center; "></div>
                 var personalInformation = [];
                 var userDetails = {};
                 userDetails['surname'] = $('input[name="title_name"]:checked').val();
+                var insuredTypeValue = $('input[name="insured"]:checked').val();
+                // Transformer "Pflegeperson" en "Angehöriger / Pflegeperson"
+                if (insuredTypeValue === 'Pflegeperson') {
+                    insuredTypeValue = 'Angehöriger / Pflegeperson';
+                }
+                userDetails['insured_type'] = insuredTypeValue;
+                userDetails['pflegegrad'] = $('input[name="Pflegegrad"]:checked').val();
                 userDetails['first_name'] = $('#first_name').val();
                 userDetails['last_name'] = $('#last_name').val();
                 userDetails['streetno'] = $('#streetno').val();
@@ -2845,6 +4630,9 @@ display: flex;align-items: center; justify-content: center; "></div>
                 userDetails['telno'] = $('#telno').val();
                 userDetails['email'] = $('#email2').val();
                 userDetails['password'] = $('#password').val();
+                userDetails['angehoriger_name'] = $('#angehoriger_name').val();
+                userDetails['angehoriger_telefon'] = $('#angehoriger_telefon').val();
+                userDetails['angehoriger_email'] = $('#angehoriger_email').val();
                 userDetails['health_insurance'] = $('#health-insurance').val();
                 userDetails['insurance_no'] = $('#insurance-no').val();
                 userDetails['KrankenkasseNummer'] = $('#KrankenkasseNummer').val();
@@ -2860,12 +4648,16 @@ display: flex;align-items: center; justify-content: center; "></div>
                 deliveryAddress['city'] = $('#Dcity').val();
                 customerDeliveryAddress.push(deliveryAddress);
 
+                // Debug: Afficher les données avant envoi
+                console.log('Données userDetails avant envoi:', personalInformation);
+                console.log('Pflegegrad dans userDetails:', personalInformation[0].pflegegrad);
+
                 $.ajax({
                     headers: {
                         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
                     },
                     type: "POST",
-                    url: "{{route('product.checkout')}}",
+                    url: "{{ route('product.checkout') }}",
                     data: "productDetails=" + JSON.stringify(o) + '&userDetails=' + JSON.stringify(personalInformation) + '&deliveryAddress=' + JSON.stringify(customerDeliveryAddress) + '&signature=' + $('#signatureImg').attr('src'),
                     success: function(a) {
                         if (a.status == '1') {
@@ -2879,7 +4671,7 @@ display: flex;align-items: center; justify-content: center; "></div>
                         setTimeout(function() {
 
                             if (a.status == '1') {
-                                window.location.href = 'https://www.belesch-box.de/order-success';
+                                window.location.href = '/order-success';
                             }
                             else
                             {
@@ -2897,16 +4689,21 @@ display: flex;align-items: center; justify-content: center; "></div>
         function checkout_btn_pkg() {
             if ($("#agreement").prop('checked') != true) {
                 $("#agreement").addClass('border-red-checkbox');
-                alert('Veuillez accepter les conditions avant de continuer.');
-                return;
             } else {
                 $("#agreement").removeClass('border-red-checkbox');
-                
+
                 ///alert(userDetails['houseno']);
 
                 var personalInformation = [];
                 var userDetails = {};
                 userDetails['surname'] = $('input[name="title_name"]:checked').val();
+                var insuredTypeValue = $('input[name="insured"]:checked').val();
+                // Transformer "Pflegeperson" en "Angehöriger / Pflegeperson"
+                if (insuredTypeValue === 'Pflegeperson') {
+                    insuredTypeValue = 'Angehöriger / Pflegeperson';
+                }
+                userDetails['insured_type'] = insuredTypeValue;
+                userDetails['pflegegrad'] = $('input[name="Pflegegrad"]:checked').val();
                 userDetails['first_name'] = $('#first_name').val();
                 userDetails['last_name'] = $('#last_name').val();
                 userDetails['streetno'] = $('#streetno').val();
@@ -2916,6 +4713,9 @@ display: flex;align-items: center; justify-content: center; "></div>
                 userDetails['dob'] = $('#Gaburtadatum').val();
                 userDetails['telno'] = $('#telno').val();
                 userDetails['email'] = $('#email2').val();
+                userDetails['angehoriger_name'] = $('#angehoriger_name').val();
+                userDetails['angehoriger_telefon'] = $('#angehoriger_telefon').val();
+                userDetails['angehoriger_email'] = $('#angehoriger_email').val();
                 userDetails['health_insurance'] = $('#health-insurance').val();
                 userDetails['insurance_no'] = $('#insurance-no').val();
                 userDetails['KrankenkasseNummer'] = $('#KrankenkasseNummer').val();
@@ -2936,7 +4736,7 @@ display: flex;align-items: center; justify-content: center; "></div>
                         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
                     },
                     type: "POST",
-                    url: "{{route('product.checkout')}}",
+                    url: "{{ route('product.checkout') }}",
                     data: 'packageDetails={{request()->id}}&userDetails=' + JSON.stringify(personalInformation) + '&deliveryAddress=' + JSON.stringify(customerDeliveryAddress) + '&signature=' + $('#signatureImg').attr('src'),
                     success: function(a) {
                         if (a.status == '1') {
@@ -2949,7 +4749,7 @@ display: flex;align-items: center; justify-content: center; "></div>
                         }
                         setTimeout(function() {
                             if (a.status == '1') {
-                                window.location.href = 'https://www.belesch-box.de/order-success';
+                                window.location.href = '/order-success';
                             }
                             else
                             {
@@ -2962,813 +4762,4 @@ display: flex;align-items: center; justify-content: center; "></div>
         };
     </script>
     @endif
-
-    <style>
-        /* Modal amélioré et modernisé */
-        .modal-content {
-            border-radius: 16px;
-            border: none;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-            overflow: hidden;
-        }
-        
-        .modal-header {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-bottom: 1px solid #dee2e6;
-            padding: 25px 30px 20px;
-            position: relative;
-        }
-        
-        .modal-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #2c3e50;
-            margin-bottom: 8px;
-        }
-        
-        .modal-header p {
-            color: #6c757d;
-            font-size: 0.95rem;
-            margin: 0;
-            font-weight: 500;
-        }
-        
-        .modal-body {
-            padding: 30px;
-        }
-        
-        .cure-box-modal-content {
-            text-align: center;
-        }
-        
-        .cure-box-modal-content img {
-            border-radius: 12px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            margin-bottom: 25px;
-            max-width: 100%;
-            height: auto;
-        }
-        
-        .image-content {
-            background: linear-gradient(135deg, #009ee1 0%, #0077b3 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 12px;
-            margin: 20px 0;
-            box-shadow: 0 6px 20px rgba(0, 142, 225, 0.3);
-        }
-        
-        .image-content h6 {
-            font-size: 0.9rem;
-            margin-bottom: 8px;
-            opacity: 0.9;
-        }
-        
-        .image-content h4 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .image-content p {
-            font-size: 0.85rem;
-            margin: 0;
-            opacity: 0.8;
-        }
-        
-        .cure-box-modal-content h6 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #2c3e50;
-            margin: 25px 0 20px;
-        }
-        
-        .product-count-list {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 25px 0;
-            flex-wrap: wrap;
-        }
-        
-        .lengend-action-buttons {
-            margin: 0;
-        }
-        
-        .prod-count {
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .prod-count input[type="radio"] {
-            /* masquer visuellement mais conserver l'espace pour éviter le décalage du texte */
-            position: absolute;
-            opacity: 0;
-            pointer-events: none;
-        }
-        
-        .prod-count span {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 65px;
-            height: 65px;
-            border: 2px solid #009ee1;
-            border-radius: 16px;
-            background: white;
-            transition: all 0.3s ease;
-            font-weight: 700;
-            font-size: 1.4rem;
-            color: #009ee1;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .prod-count span::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, #009ee1 0%, #0077b3 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: -1;
-        }
-        
-        .prod-count:hover span {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(0, 142, 225, 0.25);
-            border-color: #0077b3;
-        }
-        
-        .prod-count input[type="radio"]:checked + span {
-            background: linear-gradient(135deg, #009ee1 0%, #0077b3 100%);
-            color: white;
-            transform: scale(1.08);
-            box-shadow: 0 12px 30px rgba(0, 142, 225, 0.4);
-            border-color: #0077b3;
-        }
-        
-        .prod-count input[type="radio"]:checked + span::before {
-            opacity: 1;
-        }
-
-        /* Fix affichage des tailles gants: rétablir le texte et adapter la taille des puces */
-        .box__sixe .prod-count span,
-        .box__sixe .size-box {
-            width: 64px;
-            height: 64px;
-            padding: 0;
-            border-radius: 6px;
-            border: 2px solid #39cdc1 !important;
-            background: #ffffff !important;
-            color: #111111 !important;
-            font-size: 22px;
-            font-weight: 700;
-            line-height: 1;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            text-align: center !important;
-            overflow: visible !important;
-            position: relative !important;
-            z-index: 10 !important;
-        }
-        /* Désactiver l'overlay décoratif sur ces carrés pour éviter tout recouvrement du texte */
-        .box__sixe .prod-count span::before {
-            display: none !important;
-            opacity: 0 !important;
-            visibility: hidden !important;
-        }
-        .box__sixe .prod-count span p {
-            margin: 0;
-            line-height: 1;
-            display: block !important;
-            font-size: 22px !important;
-            font-weight: 700 !important;
-            color: #111111 !important;
-            z-index: 20 !important;
-            position: relative !important;
-            text-align: center !important;
-        }
-        .box__sixe .prod-count input[type="radio"]:checked + span {
-            background: #39cdc1 !important;
-            border-color: #39cdc1 !important;
-            color: #ffffff !important;
-            box-shadow: 0 8px 20px rgba(57, 205, 193, 0.25);
-        }
-        .box__sixe .prod-count:hover span {
-            transform: none !important;
-            border-color: #39cdc1 !important;
-            box-shadow: 0 6px 16px rgba(57, 205, 193, 0.2);
-        }
-        .box__sixe .prod-count span *,
-        .box__sixe .prod-count span font {
-            color: inherit !important;
-        }
-        
-        /* Style pour les nouvelles cases de taille */
-        .size-box {
-            cursor: pointer !important;
-            transition: all 0.3s ease !important;
-        }
-        
-        .size-box:hover {
-            transform: scale(1.05) !important;
-            box-shadow: 0 4px 15px rgba(57, 205, 193, 0.3) !important;
-        }
-        
-        .size-box.selected {
-            background: #39cdc1 !important;
-            color: #ffffff !important;
-        }
-        
-        .cure-box-modal-content p {
-            color: #495057;
-            font-size: 0.9rem;
-            margin: 25px 0;
-            padding: 18px 20px;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 12px;
-            /* Suppression de l'accent bleu à gauche dans le modal */
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            position: relative;
-            font-weight: 500;
-            line-height: 1.5;
-        }
-        
-        .cure-box-modal-content p i {
-            color: #009ee1;
-            margin-right: 10px;
-            font-size: 1rem;
-            vertical-align: middle;
-        }
-        
-        .cure-box-modal-content p::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(0, 142, 225, 0.05) 0%, rgba(0, 119, 179, 0.05) 100%);
-            border-radius: 12px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .cure-box-modal-content p:hover::before {
-            opacity: 1;
-        }
-        
-        .modal-footer {
-            background: #f8f9fa !important;
-            border-top: 1px solid #dee2e6 !important;
-            padding: 25px 30px !important;
-            display: flex !important;
-            gap: 15px !important;
-            justify-content: center !important;
-            align-items: center !important;
-            flex-wrap: wrap !important;
-        }
-        
-        .btn {
-            padding: 14px 35px;
-            border-radius: 36px;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            border: none;
-            min-width: 180px;
-            max-width: 200px;
-            position: relative;
-            overflow: hidden;
-            text-transform: none;
-            letter-spacing: 0.5px;
-        }
-        
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s ease;
-        }
-        
-        .btn:hover::before {
-            left: 100%;
-        }
-        
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
-        }
-        
-        .btn__primary {
-            background: linear-gradient(135deg, #00d4aa 0%, #00b894 100%);
-            color: #ffffff;
-            box-shadow: 0 10px 30px rgba(0, 212, 170, 0.35);
-            font-weight: 700;
-        }
-        
-        .btn__primary:hover {
-            background: linear-gradient(135deg, #00c4a0 0%, #00a085 100%);
-            box-shadow: 0 14px 36px rgba(0, 212, 170, 0.45);
-        }
-        
-        .btn_secondary {
-            background: #ffffff;
-            color: #2c3e50;
-            border: 2px solid #2c3e50;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-            font-weight: 700;
-        }
-        
-        .btn_secondary:hover {
-            background: #ffffff;
-            color: #2c3e50;
-            border-color: #2c3e50;
-            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
-            transform: translateY(-3px);
-        }
-        
-        /* Bouton de fermeture modernisé */
-        .btn-close {
-            background: rgba(255, 255, 255, 0.9);
-            border: none;
-            font-size: 20px;
-            color: #6c757d;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .btn-close:hover {
-            background: white;
-            color: #dc3545;
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-        }
-        
-        .btn-close:focus {
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.25);
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .modal-body {
-                padding: 20px;
-            }
-            
-            .modal-header {
-                padding: 20px 20px 15px;
-            }
-            
-            .modal-footer {
-                padding: 20px;
-                flex-direction: column;
-            }
-            
-            .btn {
-                min-width: 100%;
-            }
-            
-            .product-count-list {
-                gap: 10px;
-            }
-            
-            .prod-count span {
-                width: 50px;
-                height: 50px;
-                font-size: 1rem;
-            }
-        }
-        
-        /* Améliorations supplémentaires */
-        .modal-dialog {
-            max-width: 600px;
-        }
-        
-        .header-content {
-            padding-right: 50px;
-        }
-        
-        .modal-title {
-            line-height: 1.3;
-        }
-        
-        .cure-box-modal-content img {
-            transition: transform 0.3s ease;
-        }
-        
-        .cure-box-modal-content img:hover {
-            transform: scale(1.02);
-        }
-        
-        .product-count-list {
-            animation: fadeInUp 0.6s ease-out;
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .modal-content {
-            animation: modalSlideIn 0.4s ease-out;
-        }
-        
-        @keyframes modalSlideIn {
-            from {
-                opacity: 0;
-                transform: scale(0.95) translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
-        }
-
-        /* Styles pour le formulaire BeleschBox dans l'étape 5 */
-        .beleschbox-form-section {
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            border: 2px solid #009ee1 !important;
-            border-radius: 10px !important;
-            background: #ffffff !important;
-            padding: 30px !important;
-            margin: 20px 0 !important;
-        }
-
-        .beleschbox-form-section:hover {
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
-        }
-
-        .beleschbox-option {
-            transition: all 0.3s ease;
-        }
-
-        .beleschbox-option:hover {
-            border-color: #009ee1 !important;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 142, 225, 0.15);
-        }
-
-        .beleschbox-option input[type="radio"]:checked + span {
-            background: #009ee1 !important;
-            color: white !important;
-        }
-
-        .beleschbox-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .gender-selection label,
-        .care-level-options label,
-        .glove-size-options label {
-            transition: all 0.3s ease;
-        }
-
-        .gender-selection label:hover,
-        .care-level-options label:hover,
-        .glove-size-options label:hover {
-            color: #009ee1;
-        }
-
-        .info-text-section {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-left: 4px solid #009ee1;
-        }
-
-        .signature-section {
-            border-top: 1px solid #e0e0e0;
-            padding-top: 20px;
-        }
-
-        .footer-section {
-            background: #f8f9fa;
-            border-radius: 8px;
-            padding: 15px;
-        }
-
-        /* Styles pour la section signature */
-        .signature-section {
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .signature-section:hover {
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
-        }
-
-        .signature-pad-container {
-            background: white;
-            border-radius: 8px;
-            padding: 15px;
-        }
-
-        .signature-controls .btn {
-            margin: 0 5px;
-            font-size: 12px;
-            padding: 5px 10px;
-        }
-
-        .signature-preview {
-            background: white;
-            border-radius: 8px;
-            padding: 15px;
-        }
-
-        .date-section input {
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            transition: all 0.3s ease;
-        }
-
-        .date-section input:focus {
-            border-color: #009ee1;
-            box-shadow: 0 0 0 3px rgba(0, 142, 225, 0.1);
-        }
-
-        .signature-confirmation {
-            border-left: 4px solid #009ee1;
-        }
-
-        .form-check-input:checked {
-            background-color: #009ee1;
-            border-color: #009ee1;
-        }
-
-        /* Styles pour le canvas de signature */
-        #sketchpad {
-            border: 2px solid #ccc;
-            border-radius: 8px;
-            cursor: crosshair;
-            background: white;
-        }
-
-        .signatureImg {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-
-    </style>
-
-    <script>
-        // Fonction pour ouvrir la modal bed_protector
-        $(document).ready(function() {
-            $('.bed_protector_modal').click(function() {
-                $('#bed_protector_modal').show();
-            });
-
-            // Fonction pour le bouton "Weiter ohne Bettschutzeinlagen"
-            $('.without-bed-protection').click(function() {
-                $('#bed_protector_modal').hide();
-                // Passer à l'étape suivante sans ajouter de protection de lit
-                $("#step1").css("display", "none");
-                $("#step2").css("display", "block");
-                $(".step1").removeClass("active");
-                $(".step2").addClass("active");
-            });
-
-            // Fonction pour le bouton "Weiter mit Bettschutzeinlagen"
-            $('.with-bed-protection').click(function() {
-                $('#bed_protector_modal').hide();
-                // Ajouter la protection de lit sélectionnée au panier
-                var selectedQuantity = $('input[name="number_of_bed"]:checked').val();
-                if (selectedQuantity) {
-                    // Logique pour ajouter au panier
-                    console.log('Ajout de', selectedQuantity, 'protection(s) de lit au panier');
-                }
-                // Passer à l'étape suivante
-                $("#step1").css("display", "none");
-                $("#step2").css("display", "block");
-                $(".step1").removeClass("active");
-                $(".step2").addClass("active");
-            });
-        });
-
-        function closeBedProtectorModal() {
-            document.getElementById('bed_protector_modal').style.display = 'none';
-        }
-
-
-        
-        // Gestion simple des tailles de gants
-        function changeSize(element) {
-            // Réinitialiser toutes les cases
-            document.querySelectorAll('.size-box').forEach(box => {
-                box.classList.remove('selected');
-            });
-            
-            // Activer la case cliquée
-            element.classList.add('selected');
-            
-            // Cocher le radio correspondant
-            const radio = element.parentElement.querySelector('input[type="radio"]');
-            if (radio) {
-                radio.checked = true;
-            }
-        }
-
-        // Gestion de la sélection des quantités de protections de lit
-        function pdBedProtection() {
-            // Réinitialiser toutes les cases
-            document.querySelectorAll('.cure-box-modal-content .prod-count span').forEach(function(span) {
-                span.style.background = '#ffffff';
-                span.style.color = '#333';
-            });
-            
-            // Mettre à jour la case sélectionnée
-            const checkedRadio = document.querySelector('input[name="number_of_bed"]:checked');
-            if (checkedRadio) {
-                const selectedSpan = checkedRadio.nextElementSibling;
-                selectedSpan.style.background = '#39cdc1';
-                selectedSpan.style.color = '#ffffff';
-            }
-        }
-
-        // Implémentation basique du Sketchpad
-        function Sketchpad(options) {
-            this.element = document.querySelector(options.element);
-            this.width = options.width || 400;
-            this.height = options.height || 200;
-            this.isDrawing = false;
-            this.context = null;
-            
-            this.init();
-        }
-        
-        Sketchpad.prototype.init = function() {
-            this.element.width = this.width;
-            this.element.height = this.height;
-            this.context = this.element.getContext('2d');
-            this.context.strokeStyle = '#000';
-            this.context.lineWidth = 2;
-            this.context.lineCap = 'round';
-            
-            this.element.addEventListener('mousedown', this.startDrawing.bind(this));
-            this.element.addEventListener('mousemove', this.draw.bind(this));
-            this.element.addEventListener('mouseup', this.stopDrawing.bind(this));
-            this.element.addEventListener('mouseout', this.stopDrawing.bind(this));
-        };
-        
-        Sketchpad.prototype.startDrawing = function(e) {
-            this.isDrawing = true;
-            this.context.beginPath();
-            this.context.moveTo(e.offsetX, e.offsetY);
-        };
-        
-        Sketchpad.prototype.draw = function(e) {
-            if (!this.isDrawing) return;
-            this.context.lineTo(e.offsetX, e.offsetY);
-            this.context.stroke();
-        };
-        
-        Sketchpad.prototype.stopDrawing = function() {
-            this.isDrawing = false;
-        };
-        
-        Sketchpad.prototype.clear = function() {
-            this.context.clearRect(0, 0, this.width, this.height);
-        };
-        
-        Sketchpad.prototype.undo = function() {
-            // Implémentation simple - efface tout
-            this.clear();
-        };
-        
-        Sketchpad.prototype.redo = function() {
-            // Implémentation simple - ne fait rien
-        };
-        
-        Sketchpad.prototype.destroy = function() {
-            // Nettoyer les événements si nécessaire
-        };
-
-        // Variable globale pour le sketchpad
-        var sketchpad;
-
-        // Fonction pour initialiser le sketchpad
-        function initializeSignaturePad() {
-            if (sketchpad) {
-                sketchpad.destroy();
-            }
-            sketchpad = new Sketchpad({
-                element: "#sketchpad",
-                width: $("#signPad").outerWidth(),
-                height: $("#signPad").outerHeight()
-            });
-        }
-
-        // Fonction pour la signature
-        function signature() {
-            // Sauvegarder la signature d'abord
-            DownloadCanvasAsImage();
-            
-            // Passer à l'étape suivante
-            $("#step4").css("display", "none");
-            $("#step5").css("display", "block");
-            $(".step4").removeClass("active");
-            $(".step5").addClass("active");
-            
-            // Mettre à jour le PDF avec les données
-            updatePDFWithUserData();
-            
-            console.log('Signature submitted and moving to step 5');
-        }
-
-        // Fonction pour télécharger le canvas comme image
-        function DownloadCanvasAsImage() {
-            if (sketchpad) {
-                var canvas = document.getElementById('sketchpad');
-                var image = canvas.toDataURL('image/png');
-                $('#signatureImg').attr('src', image);
-                console.log('Signature saved');
-            }
-        }
-
-        // Fonction pour supprimer la signature
-        function deletesign() {
-            if (sketchpad) {
-                sketchpad.clear();
-                $('#signatureImg').attr('src', '');
-                console.log('Signature cleared');
-            }
-        }
-
-        // Fonction pour diminuer la quantité
-        function less(productId) {
-            // Logique pour diminuer la quantité
-            console.log('Less function called for product:', productId);
-        }
-
-        // Fonction pour augmenter la quantité
-        function more(productId) {
-            // Logique pour augmenter la quantité
-            console.log('More function called for product:', productId);
-        }
-
-        // Fonction pour ajouter un produit au panier
-        function getProduct(productId) {
-            // Logique pour ajouter un produit au panier
-            console.log('Adding product to cart:', productId);
-            // Ici vous pouvez ajouter la logique AJAX pour ajouter au panier
-        }
-
-        // Fonction pour récupérer la taille sélectionnée
-        function fetchSize(productId) {
-            // Logique pour récupérer la taille sélectionnée
-            console.log('Fetching size for product:', productId);
-        }
-
-        // Initialisation au chargement de la page
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialiser l'état visuel
-            pdBedProtection();
-            
-            // Initialiser le sketchpad si l'étape 4 est déjà visible
-            if ($("#step4").is(":visible")) {
-                setTimeout(function() {
-                    initializeSignaturePad();
-                }, 100);
-            }
-            
-            // Ajouter des événements pour mettre à jour l'aperçu PDF automatiquement
-            $('input[name="title_name"], input[name="pflegegrad"], input[name="Pflegegrad"]').on('change', function() {
-                if ($("#step5").is(":visible")) {
-                    updatePDFWithUserData();
-                }
-            });
-            
-            // Mettre à jour l'aperçu quand on arrive à l'étape 5
-            if ($("#step5").is(":visible")) {
-                updatePDFWithUserData();
-            }
-        });
-    </script>
-
 </div>
