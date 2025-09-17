@@ -1,4 +1,4 @@
-<div>
+﻿<div>
     @livewire('frontend.includes.header')
     
     <!-- Livewire Component Content -->
@@ -13,7 +13,17 @@
     <style>
         :root {
             --sky-blu: #009ee1;
+            --turquoise: #39cdc1;
+            --blue-gradient: linear-gradient(135deg, #009ee1 0%, #39cdc1 100%);
+            --blue-gradient-hover: linear-gradient(135deg, #0088cc 0%, #2fb8b0 100%);
+            --light-blue: #e3f2fd;
+            --dark-blue: #0056b3;
             --red: #d95053;
+            --white: #ffffff;
+            --light-gray: #f8f9fc;
+            --border-radius: 12px;
+            --shadow: 0 4px 20px rgba(0, 158, 225, 0.15);
+            --shadow-hover: 0 8px 30px rgba(0, 158, 225, 0.25);
         }
 
         /* ===== STYLES FÜR DIE E-MAIL-SUCHE ===== */
@@ -49,14 +59,340 @@
             transition: all 0.3s ease;
         }
         
+        /* Cacher le formulaire principal par défaut - garder visible seulement la recherche d'email */
+        .main-form-content {
+            display: none;
+        }
+        
+        /* S'assurer que les champs de mot de passe sont visibles par défaut */
+        .password-fields {
+            display: block !important;
+        }
+        
+        /* Masquer seulement les blocs de consentement par défaut - ils s'afficheront avec le formulaire */
+        #consent-section-3,
+        #submit-section,
+        #submit-section-2 {
+            display: none !important;
+        }
+        
+        /* ===== MODERN FORM STYLES ===== */
+        .form-control {
+            border: 2px solid #e9ecef;
+            border-radius: var(--border-radius);
+            padding: 12px 16px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+        
         .form-control:focus {
             border-color: var(--sky-blu);
             box-shadow: 0 0 0 0.2rem rgba(0, 158, 225, 0.25);
+            background: var(--white);
+            outline: none;
         }
         
+        .form-control:hover {
+            border-color: var(--turquoise);
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: var(--dark-blue);
+            margin-bottom: 8px;
+        }
+        
+        .form-check-input:checked {
+            background-color: var(--sky-blu);
+            border-color: var(--sky-blu);
+        }
+        
+        .form-check-input:focus {
+            box-shadow: 0 0 0 0.2rem rgba(0, 158, 225, 0.25);
+        }
+        
+        /* ===== MODERN ALERT STYLES ===== */
         .alert {
+            border-radius: var(--border-radius);
+            padding: 20px;
+            border: none;
+            font-weight: 500;
+            box-shadow: var(--shadow);
+        }
+        
+        .alert-success {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+        
+        .alert-danger {
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+        
+        .alert-info {
+            background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
+            color: #0c5460;
+            border-left: 4px solid var(--sky-blu);
+        }
+        
+        .alert-warning {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            color: #856404;
+            border-left: 4px solid #ffc107;
+        }
+        
+        /* ===== MODERN MODAL STYLES ===== */
+        .modern-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modern-modal.show {
+            opacity: 1;
+        }
+        
+        .modal-backdrop {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .modal-container {
+            position: relative;
+            z-index: 1;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+        
+        .modern-modal.show .modal-content {
+            transform: scale(1);
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+        }
+        
+        .modal-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .modal-title {
+            flex: 1;
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+        
+        .modal-body {
+            padding: 2rem 1.5rem;
+        }
+        
+        .modal-body p {
+            margin: 0;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #2c3e50;
+            text-align: center;
+        }
+        
+        .modal-footer {
+            padding: 1rem 1.5rem 1.5rem;
+            text-align: center;
+        }
+        
+        .btn-modal-close {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-modal-close:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(79, 172, 254, 0.6);
+        }
+        
+        .btn-modal-close:active {
+            transform: translateY(0);
+        }
+        
+        /* Animation d'entrée */
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .modern-modal.show .modal-content {
+            animation: modalSlideIn 0.4s ease-out;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .modal-container {
+                width: 95%;
+                margin: 1rem;
+            }
+            
+            .modal-header {
+                padding: 1rem;
+            }
+            
+            .modal-body {
+                padding: 1.5rem 1rem;
+            }
+            
+            .modal-footer {
+                padding: 1rem;
+            }
+            
+            .modal-title {
+                font-size: 1.1rem;
+            }
+            
+            .modal-body p {
+                font-size: 1rem;
+            }
+        }
+        
+        /* ===== STYLES SPÉCIFIQUES POUR LE MODAL BETTSCHUTZEINLAGEN ===== */
+        .quantity-selection {
+            margin-top: 1.5rem;
+        }
+        
+        .selection-label {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .quantity-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .quantity-btn {
+            width: 60px;
+            height: 60px;
+            border: 2px solid #4facfe;
+            background: white;
+            color: #4facfe;
+            border-radius: 50%;
+            font-size: 1.25rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quantity-btn:hover {
+            background: #4facfe;
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+        }
+        
+        .quantity-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .info-text {
+            background: rgba(79, 172, 254, 0.1);
+            border: 1px solid rgba(79, 172, 254, 0.2);
             border-radius: 8px;
-            padding: 15px;
+            padding: 1rem;
+            margin: 0;
+            color: #2c3e50;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        .info-text i {
+            color: #4facfe;
+            margin-right: 0.5rem;
         }
 
         body {
@@ -123,7 +459,7 @@
 
         .table-form table td {
             height: 50px;
-            border: 1px solid #222;
+            border: 1px solid var(--sky-blu);
             padding: 0px 10px;
         }
 
@@ -276,32 +612,42 @@
             font-size: 12px;
         }
 
+        /* ===== MODERN PROGRESS BAR STYLES ===== */
         .progressbar-steps {
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
         }
 
-        /* Style pour les étapes actives en turquoise */
+        /* Style pour les étapes actives avec dégradé bleu-turquoise */
         .step.active .step-text {
-            color: #20c997 !important; /* Turquoise */
+            color: var(--sky-blu) !important;
+            font-weight: 700;
         }
 
         .step.active .step-number {
-            background-color: #20c997 !important; /* Turquoise */
-            color: white !important;
+            background: var(--blue-gradient) !important;
+            color: var(--white) !important;
+            box-shadow: var(--shadow);
+            transform: scale(1.1);
         }
 
         .step.active .step-divider {
-            background-color: #20c997 !important; /* Turquoise */
+            background: var(--blue-gradient) !important;
+            height: 3px;
         }
 
-        /* Style pour les étapes non-actives en gris - Force avec !important */
+        /* Style pour les étapes non-actives en gris moderne */
         .step:not(.active) .step-text,
         .step1:not(.active) .step-text,
         .step2:not(.active) .step-text,
         .step3:not(.active) .step-text,
         .step4:not(.active) .step-text,
         .step5:not(.active) .step-text {
-            color: #6c757d !important; /* Gris */
+            color: var(--turquoise) !important;
+            font-weight: 500;
         }
 
         .step:not(.active) .step-number,
@@ -310,8 +656,9 @@
         .step3:not(.active) .step-number,
         .step4:not(.active) .step-number,
         .step5:not(.active) .step-number {
-            background-color: #6c757d !important; /* Gris */
-            color: white !important;
+            background: var(--light-blue) !important;
+            color: var(--sky-blu) !important;
+            transition: all 0.3s ease;
         }
 
         .step:not(.active) .step-divider,
@@ -320,42 +667,434 @@
         .step3:not(.active) .step-divider,
         .step4:not(.active) .step-divider,
         .step5:not(.active) .step-divider {
-            background-color: #6c757d !important; /* Gris */
+            background: var(--light-blue) !important;
+            height: 2px;
         }
 
+        /* ===== MODERN BUTTON BACK STYLES ===== */
         .btn-back {
-            border-radius: 100%;
+            border-radius: 50%;
             width: 60px;
             height: 60px;
             min-width: 60px;
+            background: var(--blue-gradient);
+            border: none;
+            color: var(--white);
+            font-size: 18px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-back:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: var(--shadow-hover);
+            background: var(--blue-gradient-hover);
+        }
+        
+        .btn-back:active {
+            transform: translateY(0) scale(0.95);
         }
 
+        /* ===== MODERN PRODUCT STYLES ===== */
         .product-overview .content .product {
             justify-content: flex-start;
-            padding-right: 60px;
-            border-radius: 5px;
+            padding: 20px;
+            padding-right: 80px;
+            border-radius: var(--border-radius);
+            background: var(--blue-gradient);
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .product-overview .content .product::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            pointer-events: none;
+        }
+
+        .product-overview .content .product:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            border-color: rgba(255, 255, 255, 0.6);
         }
 
         .product-overview .content .product img {
             margin-right: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .product-overview .content .product:hover img {
+            transform: scale(1.05);
         }
 
         .product-overview .content .product .prod-btn {
             position: absolute;
-            right: 10px;
+            right: 20px;
             top: 50%;
             transform: translateY(-50%);
+            background: var(--white);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
 
+        .product-overview .content .product .prod-btn:hover {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .product-overview .content .product .prod-btn i {
+            color: var(--sky-blu);
+            font-size: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .product-overview .content .product .prod-btn:hover i {
+            color: var(--turquoise);
+        }
 
         .product-overview .content .product .prod-info .prod-name {
-            font-size: 16px;
-            font-weight: bold;
-            color: #fff;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--white);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 5px;
         }
 
         .product-overview .content .product .prod-info .prod-size {
-            color: #39cdc1;
+            color: var(--white);
+            opacity: 0.9;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        /* ===== MODERN CURABOX STYLES ===== */
+        .cartItem {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 15px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--light-blue);
+        }
+        
+        .cartItem:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--sky-blu);
+            border-width: 3px;
+        }
+        
+        .cartItem .product {
+            display: flex;
+            align-items: center;
+            padding: 0;
+            background: none;
+            box-shadow: none;
+        }
+        
+        .cartItem .product img {
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-right: 15px;
+        }
+        
+        .cartItem .prod-info .prod-name {
+            color: var(--sky-blu);
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        
+        .cartItem .prod-info .prod-size {
+            color: var(--sky-blu);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .cartItem .prod-btn {
+            background: var(--blue-gradient);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .cartItem .prod-btn:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .cartItem .prod-btn i {
+            color: var(--white);
+            font-size: 16px;
+        }
+        
+        .cartItem .qty {
+            background: var(--white);
+            color: var(--sky-blu);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            margin-right: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        /* ===== MODERN QUANTITY BUTTONS ===== */
+        .quantity-btn {
+            width: 60px;
+            height: 60px;
+            border: 2px solid var(--sky-blu);
+            background: var(--white);
+            color: var(--sky-blu);
+            border-radius: 50%;
+            font-size: 18px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+        
+        .quantity-btn:hover {
+            background: var(--blue-gradient);
+            color: var(--white);
+            transform: scale(1.1);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .quantity-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .quantity-btn.selected {
+            background: var(--blue-gradient);
+            color: var(--white);
+            transform: scale(1.05);
+        }
+        
+        /* ===== MODERN PROGRESS BAR STYLES ===== */
+        .progress {
+            height: 12px;
+            background: var(--light-blue);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .progress-bar {
+            background: var(--blue-gradient);
+            border-radius: 10px;
+            transition: width 0.6s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.2) 100%);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        /* ===== MODERN TITLE STYLES ===== */
+        .pagetitle__heading {
+            background: var(--blue-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .pagetitle__desc {
+            color: var(--dark-blue);
+            font-size: 1.2rem;
+            font-weight: 500;
+            opacity: 0.8;
+        }
+        
+        /* ===== MODERN SECTION TITLES ===== */
+        .section-title {
+            color: var(--dark-blue);
+            font-weight: 700;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--blue-gradient);
+            border-radius: 2px;
+        }
+        
+        /* ===== MODERN HINT/PRICE BADGE STYLES ===== */
+        .hint {
+            background: var(--blue-gradient) !important;
+            color: var(--white) !important;
+            padding: 8px 16px !important;
+            border-radius: 20px !important;
+            font-weight: 700 !important;
+            font-size: 16px !important;
+            box-shadow: var(--shadow) !important;
+            display: inline-block !important;
+            margin: 10px 0 !important;
+            border: none !important;
+        }
+        
+        .hint span {
+            color: var(--white) !important;
+            font-weight: 700 !important;
+        }
+        
+        /* ===== FORCE PRICE BADGE STYLES ===== */
+        .product-overview .header .hint {
+            background: var(--blue-gradient) !important;
+            color: var(--white) !important;
+            padding: 8px 16px !important;
+            border-radius: 20px !important;
+            font-weight: 700 !important;
+            font-size: 16px !important;
+            box-shadow: var(--shadow) !important;
+            display: inline-block !important;
+            margin: 10px 0 !important;
+            border: none !important;
+        }
+        
+        .product-overview .header .hint span {
+            color: var(--white) !important;
+            font-weight: 700 !important;
+        }
+        
+        /* ===== OVERRIDE ANY BLACK BACKGROUNDS ON HINT ===== */
+        .hint, .hint *, .hint span, .hint div {
+            background: var(--blue-gradient) !important;
+            color: var(--white) !important;
+        }
+        
+        /* ===== SPECIFIC 42€ BADGE OVERRIDE ===== */
+        div.hint, .product-overview div.hint, .header div.hint {
+            background: var(--blue-gradient) !important;
+            color: var(--white) !important;
+            padding: 8px 16px !important;
+            border-radius: 20px !important;
+            font-weight: 700 !important;
+            font-size: 16px !important;
+            box-shadow: var(--shadow) !important;
+            display: inline-block !important;
+            margin: 10px 0 !important;
+            border: none !important;
+        }
+        
+        div.hint span, .product-overview div.hint span, .header div.hint span {
+            color: var(--white) !important;
+            font-weight: 700 !important;
+        }
+        
+        /* ===== OVERRIDE BLACK BACKGROUNDS ===== */
+        .badge, .badge-black, .badge-dark {
+            background: var(--blue-gradient) !important;
+            color: var(--white) !important;
+            border: none !important;
+        }
+        
+        /* ===== OVERRIDE BLACK TEXT COLORS ===== */
+        h1, h2, h3, h4, h5, h6, p, span, div {
+            color: inherit !important;
+        }
+        
+        /* ===== SPECIFIC OVERRIDES FOR BLACK ELEMENTS ===== */
+        .product-overview .header .hint {
+            background: var(--blue-gradient) !important;
+            color: var(--white) !important;
+        }
+        
+        /* ===== OVERRIDE ANY REMAINING BLACK STYLES ===== */
+        * {
+            color: inherit !important;
+        }
+        
+        .text-black, .text-dark {
+            color: var(--dark-blue) !important;
+        }
+        
+        .bg-black, .bg-dark {
+            background: var(--blue-gradient) !important;
+        }
+        
+        /* ===== CURABOX RECEIVER BACKGROUND ===== */
+        .receiver {
+            background: var(--light-blue) !important;
+            padding: 20px !important;
+            border-radius: var(--border-radius) !important;
+            min-height: 200px !important;
+        }
+        
+        .product-overview .receiver {
+            background: var(--light-blue) !important;
+            padding: 20px !important;
+            border-radius: 0 0 var(--border-radius) var(--border-radius) !important;
+            border: 1px solid rgba(0, 158, 225, 0.2) !important;
+            border-top: none !important;
+        }
+        
+        /* ===== OVERRIDE ANY DARK BACKGROUNDS ===== */
+        .product-overview {
+            background: var(--white) !important;
+        }
+        
+        .product-overview .content {
+            background: var(--light-blue) !important;
+        }
+        
+        /* ===== FORCE LIGHT BACKGROUNDS ===== */
+        .receiver, .receiver * {
+            background: inherit !important;
+        }
+        
+        .receiver {
+            background: var(--light-blue) !important;
         }
 
         .box__sixe {
@@ -364,33 +1103,96 @@
     justify-content: flex-start;
 }
 
-        /* E-Mail-Suchbereich Styles */
+        /* ===== MODERN CARD STYLES ===== */
         .card {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
+            border: 2px solid var(--light-blue);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 25px;
+            background: var(--white);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--sky-blu);
         }
         
         .card-header {
-            background-color: #f8f9fa;
-            border-bottom: 1px solid #ddd;
+            background: var(--blue-gradient);
+            color: var(--white);
+            border: none;
+            padding: 20px;
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .card-body {
+            padding: 25px;
+            background: var(--white);
+        }
+        
+        /* ===== MODERN SECTION STYLES ===== */
+        .product-wrapper {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-bottom: 30px;
+            border: 2px solid var(--light-blue);
+        }
+        
+        .product-overview .header {
+            background: var(--blue-gradient);
+            color: var(--white);
+            padding: 25px;
+            margin: 0;
+            border-radius: 0;
+        }
+        
+        .product-overview .header i {
+            font-size: 24px;
+            margin-right: 15px;
+            opacity: 0.9;
+            color: var(--white) !important;
+        }
+        
+        .product-overview .header h5 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .product-overview .content {
+            padding: 30px;
+            background: var(--light-blue);
+            border: 1px solid rgba(0, 158, 225, 0.2);
+            border-top: none;
+        }
+        
+        .card-header {
+            background: var(--blue-gradient);
+            color: var(--white);
+            border-bottom: none;
             padding: 15px;
         }
         
         .card-header h5 {
             margin: 0;
-            color: var(--sky-blu);
+            color: var(--white);
         }
         
         .btn_secondary {
-            background-color: #6c757d;
-            color: white;
+            background: var(--blue-gradient);
+            color: var(--white);
             border: none;
         }
         
         .btn_secondary:hover {
-            background-color: #5a6268;
+            background: var(--blue-gradient-hover);
         }
         
         .alert {
@@ -489,6 +1291,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="product-wrapper">
+                            @if($mode === 'custom')
                             <div class="product-overview mt-2">
                                 <div class="header">
                                     <i class="fas fa-box"></i>
@@ -510,13 +1313,25 @@
                                     @endforeach
                                 </div>
                             </div>
+                            @endif
                             <div class="product-overview mt-2">
                                 <div class="header">
                                     <i class="fas fa-box"></i>
                                     <h5>Ihre BeleschBox</h5>
+                                    @if($mode === 'package')
+                                    <div class="mode-indicator package-mode">
+                                        <i class="fas fa-package"></i>
+                                        <span>Mode Package</span>
+                                    </div>
+                                    @else
+                                    <div class="mode-indicator custom-mode">
+                                        <i class="fas fa-cog"></i>
+                                        <span>Mode Personnalisé</span>
+                                    </div>
+                                    @endif
                                     <input type="hidden" class="cartPriceValue" value="0">
                                     <div class="hint">
-                                        <span>42 &euro;</span>
+                                        <span id="cart-total-display">0.00 &euro;</span>
                                     </div>
                                     <div class="progress" style="height: 20px;">
                                         <div class="progress-bar" role="progressbar" aria-label="Example 20px high" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
@@ -524,6 +1339,35 @@
                                 </div>
                                 <div class="receiver"></div>
                             </div>
+                            
+                            <!-- Section produits supplémentaires en mode Custom -->
+                            @if($mode === 'custom')
+                            <div class="product-overview mt-2 custom-mode-products" id="custom-products-section">
+                                <div class="header">
+                                    <i class="fas fa-plus-circle"></i>
+                                    <h5>Produits supplémentaires disponibles</h5>
+                                    <small class="text-muted">Vous pouvez maintenant ajouter d'autres produits</small>
+                                </div>
+                                <div class="content">
+                                    @foreach(getAllProducts() as $product)
+                                    <div class="product mb-3 custom-product" id="customProductId{{$product->id}}" data-id="{{$product->id}}">
+                                        <img src="{{asset('storage/'.$product->image)}}">
+                                        <div class="prod-info">
+                                            <div class="prod-name">{{$product->name}}</div>
+                                            <div class="prod-size">{{$product->product_title}}</div>
+                                        </div>
+                                        <div class="prod-btn custom-add-btn" onclick="addCustomProduct('{{$product->id}}')">
+                                            <i class="fas fa-plus-circle"></i>
+                                            <span>Ajouter</span>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                            @endif
+                            
+                            <!-- Bouton caché pour déclencher le basculement -->
+                            <button id="switch-mode-btn" wire:click="switchToCustomMode" style="display: none;"></button>
                         </div>
                     </div>
                     <div class="col-lg-12 text-center mt-3">
@@ -627,6 +1471,40 @@
                                     Daten</font>
                             </font>
                         </h2>
+                        
+                        <!-- DEBUG INFO -->
+                        <div style="background: #ff0000; color: white; padding: 20px; margin: 20px 0; border: 3px solid #000; font-size: 16px; font-weight: bold;">
+                            <strong>🔴 DEBUG INFO VISIBLE 🔴</strong><br>
+                            Email Found: {{ $emailFound ? 'YES' : 'NO' }}<br>
+                            Customer Data: {{ $customerData ? 'YES' : 'NO' }}<br>
+                            @if($customerData)
+                                First Name: {{ $customerData->firstName ?? $customerData->first_name ?? 'NULL' }}<br>
+                                Last Name: {{ $customerData->lastName ?? $customerData->last_name ?? 'NULL' }}<br>
+                                Pflegegrad: {{ $customerData->pflegegrad ?? 'NULL' }}<br>
+                                Pflegegrad Type: {{ gettype($customerData->pflegegrad ?? 'NULL') }}<br>
+                                Insurance Type: {{ $customerData->insurance_type ?? 'NULL' }}<br>
+                                Street: {{ $customerData->street ?? $customerData->streetno ?? 'NULL' }}<br>
+                                City: {{ $customerData->city ?? 'NULL' }}<br>
+                                <br>
+                                <strong>Pflegegrad Tests:</strong><br>
+                                1 match: {{ ($customerData->pflegegrad == '1') ? 'YES' : 'NO' }}<br>
+                                2 match: {{ ($customerData->pflegegrad == '2') ? 'YES' : 'NO' }}<br>
+                                3 match: {{ ($customerData->pflegegrad == '3') ? 'YES' : 'NO' }}<br>
+                                4 match: {{ ($customerData->pflegegrad == '4') ? 'YES' : 'NO' }}<br>
+                                5 match: {{ ($customerData->pflegegrad == '5') ? 'YES' : 'NO' }}<br>
+                                <br>
+                                <strong>Insurance Type Tests:</strong><br>
+                                G match: {{ ($customerData->insurance_type == 'G') ? 'YES' : 'NO' }}<br>
+                                P match: {{ ($customerData->insurance_type == 'P') ? 'YES' : 'NO' }}<br>
+                            @else
+                                <strong>No Customer Data Available</strong><br>
+                            @endif
+                            <br>
+                            <button onclick="testSessionData()" class="btn btn-warning btn-sm">Test Session Data</button>
+                            <button onclick="setTestData()" class="btn btn-success btn-sm">Set Test Data</button>
+                            <button onclick="reloadPage()" class="btn btn-info btn-sm">Reload Page</button>
+                        </div>
+                        
                         <p>
                             <font style="vertical-align: inherit;">
                                 <font style="vertical-align: inherit;">Ihre Box wurde
@@ -662,11 +1540,17 @@
                                                    value="">
                                         </div>
                                         <div class="col-md-4 d-flex align-items-end">
-                                            <button type="button" 
-                                                    class="btn btn__primary btn__rounded me-2" 
-                                                    onclick="testSearchCustomer()">
-                                                <i class="fas fa-search"></i> Suchen
-                                            </button>
+                                            <div class="d-flex flex-column align-items-start">
+                                                <button type="button" 
+                                                        class="btn btn__primary btn__rounded mb-2" 
+                                                        onclick="testSearchCustomer()">
+                                                    <i class="fas fa-sign-in-alt"></i> Anmelden
+                                                </button>
+                                                <a href="#" onclick="showNewAccountForm(); return false;" 
+                                                   style="color: #007bff; text-decoration: underline; cursor: pointer; font-size: 14px;">
+                                                    Neues Konto erstellen
+                                                </a>
+                                            </div>
                                             <button type="button" 
                                                     class="btn btn_secondary btn__rounded" 
                                                     onclick="clearCustomerData()"
@@ -700,12 +1584,12 @@
                             <div class="form-group">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" onclick="optperson()" name="insured" id="inlineRadio1" value="Versicherter" 
-                                           @if($emailFound && $customerData && $customerData->surname == "Versicherter") checked @endif>
+                                           @if($emailFound && $customerData && ($customerData->surname == "Versicherter" || $customerData->insured_type == "Versicherter")) checked @endif>
                                     <label class="form-check-label" for="inlineRadio1">Versicherter</label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="insured" onclick="optperson()" id="inlineRadio2" value="Pflegeperson"
-                                           @if($emailFound && $customerData && $customerData->surname == "Pflegeperson") checked @endif>
+                                           @if($emailFound && $customerData && ($customerData->surname == "Pflegeperson" || $customerData->insured_type == "Angehöriger / Pflegeperson" || $customerData->insured_type == "Pflegeperson")) checked @endif>
                                     <label class="form-check-label" for="inlineRadio2">Angehöriger /
                                         Pflegeperson</label>
                                 </div>
@@ -729,37 +1613,37 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label for="first_name" class="form-label">Vorname des Versicherten</label>
-                                    <input type="text" class="form-control" id="first_name" value="">
+                                    <input type="text" class="form-control" id="first_name" value="{{ $emailFound && $customerData ? ($customerData->firstName ?? $customerData->first_name ?? '') : '' }}">
                                     <span class="first_name_error_msg" style="color: red;"></span>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="last_name" class="form-label">Nachname des Versicherten</label>
-                                    <input type="text" class="form-control" id="last_name" value="">
+                                    <input type="text" class="form-control" id="last_name" value="{{ $emailFound && $customerData ? ($customerData->lastName ?? $customerData->last_name ?? '') : '' }}">
                                     <span class="last_name_error_msg" style="color: red;"></span>
                                 </div>
                                 <div class="col-md-8 mt-2">
                                     <label for="streetno" class="form-label">Straße</label>
-                                    <input type="text" class="form-control" id="streetno" value="">
+                                    <input type="text" class="form-control" id="streetno" value="{{ $emailFound && $customerData ? ($customerData->street ?? $customerData->streetno ?? '') : '' }}">
                                     <span class="streetno_error_msg" style="color: red;"></span>
                                 </div>
                                 <div class="col-md-4 mt-2">
                                     <label for="houseno" class="form-label">Hausnummer</label>
-                                    <input type="text" class="form-control" id="houseno" value="">
+                                    <input type="text" class="form-control" id="houseno" value="{{ $emailFound && $customerData ? ($customerData->houseNo ?? $customerData->houseno ?? '') : '' }}">
                                     <span class="houseno_error_msg" style="color: red;"></span>
                                 </div>
                                 <div class="col-md-4 mt-2">
                                     <label for="zip" class="form-label">PLZ</label>
-                                    <input type="text" class="form-control" id="zip" value="">
+                                    <input type="text" class="form-control" id="zip" value="{{ $emailFound && $customerData ? ($customerData->zipcode ?? $customerData->zip ?? '') : '' }}">
                                     <span class="zip_error_msg" style="color: red;"></span>
                                 </div>
                                 <div class="col-md-8 mt-2">
                                     <label for="city" class="form-label">Ort</label>
-                                    <input type="text" class="form-control" id="city" value="">
+                                    <input type="text" class="form-control" id="city" value="{{ $emailFound && $customerData ? $customerData->city : '' }}">
                                     <span class="city_error_msg" style="color: red;"></span>
                                 </div>
                                 <div class="col-md-4 mt-2">
                                     <label for="Gaburtadatum" class="form-label">Gaburtadatum</label>
-                                    <input type="date" class="form-control" id="Gaburtadatum" max="{{ date('Y-m-d') }}" min="1900-01-01" style="cursor: pointer;" title="Cliquez pour ouvrir le calendrier">
+                                    <input type="date" class="form-control" id="Gaburtadatum" max="{{ date('Y-m-d') }}" min="1900-01-01" style="cursor: pointer;" title="Cliquez pour ouvrir le calendrier" value="{{ $emailFound && $customerData ? $customerData->dob : '' }}">
                                     <span class="gaburtadatum_error_msg" style="color: red;"></span>
                                 </div>
                             </div>
@@ -844,16 +1728,18 @@
                                     SGB XI einen Anspruch auf volle Rückerstattung.</p>
                             </div>
                         </div>
-                        <div class="col-md-12 " id="insured">
+                        <div class="col-md-12 " id="insured" style="display: block;">
                             <h5 class="mb-50 ">Der Versicherte ist</h5>
                             <div class="form-group">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions5" id="inlineRadio1" value="option5">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions5" id="inlineRadio1" value="option5"
+                                           @if($emailFound && $customerData && $customerData->insurance_type == 'G') checked @endif>
                                     <label class="form-check-label" for="inlineRadio5">Gesetzlich versichert
                                         (Kostenübernahme durch die Pflegekasse)</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions5" id="inlineRadio2" value="option6">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions5" id="inlineRadio2" value="option6"
+                                           @if($emailFound && $customerData && $customerData->insurance_type == 'P') checked @endif>
                                     <label class="form-check-label" for="inlineRadio6">Privat versichert</label>
                                 </div>
 
@@ -861,30 +1747,48 @@
                             </div>
                         </div>
 
+                        <!-- TEST BLOC CONSENTEMENT TRÈS VISIBLE -->
+                        <div class="col-md-12" style="background: #ff0000; color: white; padding: 30px; margin: 30px 0; border: 5px solid #000; border-radius: 10px; font-size: 20px; font-weight: bold;">
+                            <div style="text-align: center;">
+                                <h3>🔴 BLOC CONSENTEMENT TEST 🔴</h3>
+                                <p>Ce bloc doit être visible !</p>
+                                <input type="checkbox" id="test-consent" style="transform: scale(2);">
+                                <label for="test-consent" style="font-size: 18px; margin-left: 10px;">
+                                    Hiermit stimme ich zu, dass pflege.de meine personenbezogenen Informationen speichert und verarbeitet.
+                                </label>
+                            </div>
+                        </div>
+
                         <div class="col-md-12 mb-3" id="pflegegrad">
                             <h5 class="mb-50 ">Pflegegrad</h5>
                             <div class="form-group">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="pflegegrad" onchange="pflegegrad()" id="pflegegrad1" value="1">
+                                    <input class="form-check-input" type="radio" name="pflegegrad" onchange="pflegegrad()" id="pflegegrad1" value="1"
+                                           @if($emailFound && $customerData && $customerData->pflegegrad == '1') checked @endif>
                                     <label class="form-check-label" for="pflegegrad1">1</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="pflegegrad" onchange="pflegegrad()" id="pflegegrad2" value="2">
+                                    <input class="form-check-input" type="radio" name="pflegegrad" onchange="pflegegrad()" id="pflegegrad2" value="2"
+                                           @if($emailFound && $customerData && $customerData->pflegegrad == '2') checked @endif>
                                     <label class="form-check-label" for="pflegegrad2">2</label>
                                 </div>
 
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="pflegegrad" onchange="pflegegrad()" id="pflegegrad3" value="3">
+                                    <input class="form-check-input" type="radio" name="pflegegrad" onchange="pflegegrad()" id="pflegegrad3" value="3"
+                                           @if($emailFound && $customerData && $customerData->pflegegrad == '3') checked @endif>
                                     <label class="form-check-label" for="pflegegrad3">3</label>
                                 </div>
 
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="pflegegrad" onchange="pflegegrad()" id="pflegegrad4" value="4">
+                                    <input class="form-check-input" type="radio" name="pflegegrad" onchange="pflegegrad()" id="pflegegrad4" value="4"
+                                           @if($emailFound && $customerData && $customerData->pflegegrad == '4') checked @endif>
                                     <label class="form-check-label" for="pflegegrad4">4</label>
+                                    <!-- DEBUG: {{ $emailFound && $customerData && $customerData->pflegegrad == '4' ? 'SHOULD BE CHECKED' : 'NOT CHECKED' }} -->
                                 </div>
 
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="pflegegrad" onchange="pflegegrad()" id="pflegegrad5" value="5">
+                                    <input class="form-check-input" type="radio" name="pflegegrad" onchange="pflegegrad()" id="pflegegrad5" value="5"
+                                           @if($emailFound && $customerData && $customerData->pflegegrad == '5') checked @endif>
                                     <label class="form-check-label" for="pflegegrad5">5</label>
                                 </div>
 
@@ -893,10 +1797,63 @@
 
                         <!-- CHECKBOX WITH CONDITION -->
 
-                        <div class="col-md-12">
+                        <!-- Bloc de consentement -->
+                        <div class="col-md-12" style="background: #f8f9fa; padding: 20px; margin: 20px 0; border: 2px solid #007bff; border-radius: 8px;">
                             <div class="condition-check-wrap">
-                                <input type="checkbox" id="condition-chcek" name="condition_chcek"><label for="condition-chcek">
+                                <input type="checkbox" id="condition-chcek" name="condition_chcek">
+                                <label for="condition-chcek">
                                     <span class="condition_chcek_error_msg" style="color: red;"></span>
+                                    Hiermit stimme ich zu, dass pflege.de (web care LBJ GmbH) meine personenbezogenen (ggf.
+                                    auch gesundheitsbezogenen) Informationen, v.a. Kontaktinfos/Versichertenstatus, für
+                                    die Bearbeitung des Antrages (zum Erhalt der Pflegehilfsmittel) sowie für eine
+                                    Kontaktaufnahme in diesem Zusammenhang via E-Mail speichert und verarbeitet.<br>
+
+                                    Hinweis: Die Zustimmung ist freiwillig und kann jederzeit mit Wirkung für die
+                                    Zukunft per E-Mail an <a href="#">betroffenenrechte@pflege.de</a> widerrufen
+                                    werden.
+                                    Im Falle eines Widerrufs können wir Ihnen gegenüber die entsprechenden
+                                    Serviceleistungen nicht mehr erbringen. Weitere Informationen zum Datenschutz
+                                    finden
+                                    Sie <a href="#">hier.</a></label>
+                            </div>
+                        </div>
+                        
+                        <!-- Bloc de consentement RGPD -->
+                        <div class="col-md-12" style="background: #f8f9fa; padding: 20px; margin: 20px 0; border: 2px solid #007bff; border-radius: 8px;">
+                            <div class="condition-check-wrap">
+                                <input type="checkbox" id="condition-chcek" name="condition_chcek">
+                                <label for="condition-chcek">
+                                    <span class="condition_chcek_error_msg" style="color: red;"></span>
+                                    Hiermit stimme ich zu, dass pflege.de (web care LBJ GmbH) meine personenbezogenen (ggf.
+                                    auch gesundheitsbezogenen) Informationen, v.a. Kontaktinfos/Versichertenstatus, für
+                                    die Bearbeitung des Antrages (zum Erhalt der Pflegehilfsmittel) sowie für eine
+                                    Kontaktaufnahme in diesem Zusammenhang via E-Mail speichert und verarbeitet.<br>
+
+                                    Hinweis: Die Zustimmung ist freiwillig und kann jederzeit mit Wirkung für die
+                                    Zukunft per E-Mail an <a href="#">betroffenenrechte@pflege.de</a> widerrufen
+                                    werden.
+                                    Im Falle eines Widerrufs können wir Ihnen gegenüber die entsprechenden
+                                    Serviceleistungen nicht mehr erbringen. Weitere Informationen zum Datenschutz
+                                    finden
+                                    Sie <a href="#">hier.</a></label>
+                            </div>
+                        </div>
+                        
+
+
+                        <div class="col-md-12 text-right" id="submit-section" style="display: none;">
+                            <p class="mt-30 mb-5">Sie senden noch keine Bestellung ab</p>
+                            <button class="btn btn__primary btn__rounded second-button">Weiter im Antrag</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bloc de consentement - masqué par défaut, affiché après validation -->
+                <div class="col-md-12" id="consent-section" style="display: none !important; background: #f8f9fa; padding: 20px; margin: 20px 0; border: 2px solid #007bff; border-radius: 8px;">
+                            <div class="condition-check-wrap">
+                                <input type="checkbox" id="condition-chcek" name="condition_chcek" onchange="handleConsentChange()"><label for="condition-chcek">
+                                    <span class="condition_chcek_error_msg" style="color: red;"></span>
+                            <strong>CONSENTEMENT RGPD :</strong><br>
                                     Hiermit
                                     stimme ich zu, dass pflege.de (web care LBJ GmbH) meine personenbezogenen (ggf.
                                     auch
@@ -912,12 +1869,6 @@
                                     Serviceleistungen nicht mehr erbringen. Weitere Informationen zum Datenschutz
                                     finden
                                     Sie <a href="#">hier.</a></label>
-                            </div>
-                        </div>
-                        <div class="col-md-12 text-right">
-                            <p class="mt-30 mb-5">Sie senden noch keine Bestellung ab</p>
-                            <button class="btn btn__primary btn__rounded second-button">Weiter im Antrag</button>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -930,6 +1881,11 @@
                                 <div class="header">
                                     <i class="fas fa-box"></i>
                                     <h5>Unsere Produkte</h5>
+                                    <div class="custom-mode-toggle">
+                                        <button type="button" class="btn btn-outline-primary btn-sm" id="toggleCustomMode" onclick="toggleCustomMode()">
+                                            <i class="fas fa-cog"></i> Assemble Curebox
+                                        </button>
+                                    </div>
                                 </div>
                                 <div class="content">
                                     @foreach(getAllProducts() as $product)
@@ -938,9 +1894,16 @@
                                         <div class="prod-info">
                                             <div class="prod-name">{{$product->name}}</div>
                                             <div class="prod-size">{{$product->product_title}}</div>
+                                            <div class="prod-price">{{$product->price}}€</div>
                                         </div>
                                         <div class="prod-btn">
                                             <i class="fas fa-plus-circle"></i>
+                                        </div>
+                                        <!-- Contrôles de quantité pour le mode custom -->
+                                        <div class="quantity-controls" style="display: none;">
+                                            <button class="quantity-button" onclick="decreaseQuantity({{$product->id}})" type="button">-</button>
+                                            <input type="number" class="quantity-input" id="qty_{{$product->id}}" value="0" min="0" max="10" onchange="updateQuantity({{$product->id}}, this.value)">
+                                            <button class="quantity-button" onclick="increaseQuantity({{$product->id}})" type="button">+</button>
                                         </div>
                                         {{--$product->price--}}
                                     </div>
@@ -957,7 +1920,7 @@
                                     <h5>Ihre curabox</h5>
                                     <input type="hidden" class="cartPriceValue" value="{{$total_amount}}">
                                     <div class="hint">
-                                        <span>42 &euro;</span>
+                                        <span id="cart-total-display-2">{{number_format($total_amount, 2)}} &euro;</span>
                                     </div>
 
                                     <div class="progress" style="height: 20px;">
@@ -972,7 +1935,7 @@
                                     @foreach($carts as $cart)
                                     <?php //print_r($cart)
                                     ?>
-                                    <div data-id="1" class="content border-1 cartItem recProduct{{$cart['product']['id']}}">
+                                    <div data-id="{{$cart['product']['id']}}" class="content border-1 cartItem recProduct{{$cart['product']['id']}}">
                                         <div class="product mb-3">
                                             <img src="{{URL::asset('storage/'.$cart['product']['image'])}}">
                                             <div class="prod-info">
@@ -1164,11 +2127,17 @@
                                                    value="">
                                         </div>
                                         <div class="col-md-4 d-flex align-items-end">
-                                            <button type="button" 
-                                                    class="btn btn__primary btn__rounded me-2" 
-                                                    onclick="testSearchCustomer()">
-                                                <i class="fas fa-search"></i> Suchen
-                                            </button>
+                                            <div class="d-flex flex-column align-items-start">
+                                                <button type="button" 
+                                                        class="btn btn__primary btn__rounded mb-2" 
+                                                        onclick="testSearchCustomer()">
+                                                    <i class="fas fa-sign-in-alt"></i> Anmelden
+                                                </button>
+                                                <a href="#" onclick="showNewAccountForm(); return false;" 
+                                                   style="color: #007bff; text-decoration: underline; cursor: pointer; font-size: 14px;">
+                                                    Neues Konto erstellen
+                                                </a>
+                                            </div>
                                             <button type="button" 
                                                     class="btn btn_secondary btn__rounded" 
                                                     onclick="clearCustomerData()"
@@ -1390,25 +2359,54 @@
                                     SGB XI einen Anspruch auf volle Rückerstattung.</p>
                             </div>
                         </div>
-                        <div class="col-md-12 " id="insured">
+                        <div class="col-md-12 " id="insured-1">
                             <h5 class="mb-50 ">Der Versicherte ist</h5>
                             <div class="form-group">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions5" id="inlineRadio1" value="option5">
-                                    <label class="form-check-label" for="inlineRadio5">Gesetzlich versichert
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions5_2" id="inlineRadio1_2" value="option5"
+                                           @if($emailFound && $customerData && $customerData->insurance_type == 'G') checked @endif>
+                                    <label class="form-check-label" for="inlineRadio5_2">Gesetzlich versichert
                                         (Kostenübernahme durch die Pflegekasse)</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions5" id="inlineRadio2" value="option6">
-                                    <label class="form-check-label" for="inlineRadio6">Privat versichert</label>
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions5_2" id="inlineRadio2_2" value="option6"
+                                           @if($emailFound && $customerData && $customerData->insurance_type == 'P') checked @endif>
+                                    <label class="form-check-label" for="inlineRadio6_2">Privat versichert</label>
                                 </div>
                             </div>
-                            <span class="inlineRadioOptions5_error_msg" style="color: red;"></span>
+                            <span class="inlineRadioOptions5_2_error_msg" style="color: red;"></span>
+                            <div id="insurance-type-display" style="margin-top: 10px; padding: 10px; background-color: #f0f0f0; border-radius: 5px; display: none;">
+                                <strong>Valeur sélectionnée :</strong> <span id="insurance-type-value"></span>
+                            </div>
+                        </div>
+
+
+                        <!-- BLOC DE CONSENTEMENT - MASQUÉ PAR DÉFAUT -->
+                        <div class="col-md-12" id="consent-form-block" style="display: none; background: #e3f2fd; padding: 25px; margin: 25px 0; border: 2px solid #2196f3; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            <div class="condition-check-wrap" style="display: flex; align-items: flex-start; gap: 15px;">
+                                <input type="checkbox" id="consent-checkbox" name="condition_chcek" onchange="handleConsentChange()" style="margin-top: 5px; transform: scale(1.2);">
+                                <label for="consent-checkbox" style="font-size: 16px; line-height: 1.5; color: #333; cursor: pointer;">
+                                    <span class="consent_error_msg" style="color: red; display: block; margin-bottom: 10px;"></span>
+                                    <strong style="color: #1976d2;">Hiermit stimme ich zu, dass pflege.de (web care LBJ GmbH) meine personenbezogenen (ggf. auch gesundheitsbezogenen) Informationen, v.a. Kontaktinfos/Versichertenstatus, für die Bearbeitung des Antrages (zum Erhalt der Pflegehilfsmittel) sowie für eine Kontaktaufnahme in diesem Zusammenhang via E-Mail speichert und verarbeitet.</strong><br><br>
+                                    <span style="font-size: 14px; color: #666;">
+                                        <strong>Hinweis:</strong> Die Zustimmung ist freiwillig und kann jederzeit mit Wirkung für die Zukunft per E-Mail an <a href="mailto:betroffenenrechte@pflege.de" style="color: #1976d2;">betroffenenrechte@pflege.de</a> widerrufen werden. Im Falle eines Widerrufs können wir Ihnen gegenüber die entsprechenden Serviceleistungen nicht mehr erbringen. Weitere Informationen zum Datenschutz finden Sie <a href="#" style="color: #1976d2;">hier</a>.
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+
+                        
+                        <!-- Bouton pour passer à l'étape 3 -->
+                        <div class="col-md-12 text-right" style="margin: 30px 0; display: none;" id="submit-section-main">
+                            <p style="margin-bottom: 15px; color: #666;">Sie senden noch keine Bestellung ab</p>
+                            <button class="btn btn__primary btn__rounded second-button" style="padding: 12px 30px; font-size: 16px; font-weight: 600;">
+                                Weiter im Antrag
+                            </button>
                         </div>
 
                         <!-- CHECKBOX WITH CONDITION -->
 
-                        <div class="col-md-12">
+                        <div class="col-md-12" id="consent-block-step2" style="display: none; background: #f8f9fa; padding: 20px; margin: 20px 0; border: 2px solid #007bff; border-radius: 8px;">
                             <div class="condition-check-wrap">
                                 <input type="checkbox" id="condition-chcek" name="condition_chcek"><label for="condition-chcek">
                                     <span class="condition_chcek_error_msg" style="color: red;"></span>
@@ -1429,7 +2427,28 @@
                                     Sie <a href="#">hier.</a></label>
                             </div>
                         </div>
-                        <div class="col-md-12 text-right">
+                        
+                        <!-- Bloc de consentement - masqué par défaut, affiché seulement avec le formulaire -->
+                        <div class="col-md-12" id="consent-form-block-duplicate" style="display: none; background: #f8f9fa; padding: 20px; margin: 20px 0; border: 2px solid #007bff; border-radius: 8px;">
+                            <div class="condition-check-wrap">
+                                <input type="checkbox" id="condition-chcek" name="condition_chcek" onchange="handleConsentChange()">
+                                <label for="condition-chcek">
+                                    <span class="condition_chcek_error_msg" style="color: red;"></span>
+                                    Hiermit stimme ich zu, dass pflege.de (web care LBJ GmbH) meine personenbezogenen (ggf.
+                                    auch gesundheitsbezogenen) Informationen, v.a. Kontaktinfos/Versichertenstatus, für
+                                    die Bearbeitung des Antrages (zum Erhalt der Pflegehilfsmittel) sowie für eine
+                                    Kontaktaufnahme in diesem Zusammenhang via E-Mail speichert und verarbeitet.<br>
+                                    Hinweis: Die Zustimmung ist freiwillig und kann jederzeit mit Wirkung für die
+                                    Zukunft per E-Mail an <a href="#">betroffenenrechte@pflege.de</a> widerrufen
+                                    werden.
+                                    Im Falle eines Widerrufs können wir Ihnen gegenüber die entsprechenden
+                                    Serviceleistungen nicht mehr erbringen. Weitere Informationen zum Datenschutz
+                                    finden
+                                    Sie <a href="#">hier.</a></label>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-12 text-right" id="submit-section-2" style="display: none;">
                             <p class="mt-30 mb-5">Sie senden noch keine Bestellung ab</p>
                             <button class="btn btn__primary btn__rounded second-button">Weiter im Antrag </button>
                         </div>
@@ -1569,7 +2588,7 @@
                                     <table style="width: 100%;border: 1px solid #000;">
                                         <tbody>
                                             <tr>
-                                                <td style="height: 50px;border: 1px solid #222;padding: 0px 10px; display: flex; max-width: 100%;" class="multiple-checkboxes">
+                                                <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; display: flex; max-width: 100%;" class="multiple-checkboxes">
                                                     <div class="checkbox-wrap" style="display: flex;align-items: center;margin-right: 10px;">
                                                         <div class="checkbox title_name_pd" style="border: 2px solid #009ee1;text-align: center;color: #009ee1;
 									height: 25px; width: 25px;margin-right: 10px; display: flex;align-items: center; justify-content: center;" id="title_name_fr_pd">
@@ -1586,24 +2605,24 @@
 
                                                 </td>
 
-                                                <td style="height: 50px;border: 1px solid #222;padding: 0px 10px; ">
+                                                <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">
                                                     <label style="font-weight: 600;margin-right: 5px;">Vorname:</label>
                                                     <span id="first_name_pd">Max</span>
                                                 </td>
 
-                                                <td style="height: 50px;border: 1px solid #222;padding: 0px 10px; ">
+                                                <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">
                                                     <label style="font-weight: 600;margin-right: 5px; ">Nachname:</label>
                                                     <span id="last_name_pd">Mustermann</span>
                                                 </td>
                                             </tr>
 
                                             <tr>
-                                                <td style="height: 50px;border: 1px solid #222;padding: 0px 10px; " colspan="2">
+                                                <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; " colspan="2">
                                                     <label style="font-weight: 600;margin-right: 5px; ">Straße,
                                                         Nr.:</label>
                                                     <span id="street_pd">Main street, street no-13B</span>
                                                 </td>
-                                                <td style="height: 50px;border: 1px solid #222;padding: 0px 10px; ">
+                                                <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">
                                                     <label style="font-weight: 600;margin-right: 5px; ">Telefon /
                                                         Mobil:</label>
                                                     <span id="mobile_pd">+97-9854632185</span>
@@ -1611,36 +2630,36 @@
                                             </tr>
 
                                             <tr>
-                                                <td style="height: 50px;border: 1px solid #222;padding: 0px 10px; ">
+                                                <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">
                                                     <label style="font-weight: 600;margin-right: 5px; ">PLZ:</label>
                                                     <span id="zip_pd">1100251</span>
                                                 </td>
 
-                                                <td style="height: 50px;border: 1px solid #222;padding: 0px 10px; " colspan="2">
+                                                <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; " colspan="2">
                                                     <label style="font-weight: 600;margin-right: 5px; ">Ort:</label>
                                                     <span id="city_pd">Boston</span>
                                                 </td>
                                             </tr>
 
                                             <tr>
-                                                <td style="height: 50px;border: 1px solid #222;padding: 0px 10px; " colspan="2">
+                                                <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; " colspan="2">
                                                     <label style="font-weight: 600;margin-right: 5px; ">Email:</label>
                                                     <span id="email_pd">info@bleschbox.com</span>
                                                 </td>
 
-                                                <td style="height: 50px;border: 1px solid #222;padding: 0px 10px; ">
+                                                <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">
                                                     <label style="font-weight: 600;margin-right: 5px; ">Geburtsdatum:</label>
                                                     <span id="dob_pd">30-01-1993</span>
                                                 </td>
                                             </tr>
 
                                             <tr>
-                                                <td style="height: 50px;border: 1px solid #222;padding: 0px 10px; " colspan="2">
+                                                <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; " colspan="2">
                                                     <label style="font-weight: 600;margin-right: 5px; ">Krankenkasse:</label>
                                                     <span id="health-insurance_pd">Krankenkassenname</span>
                                                 </td>
 
-                                                <td style="height: 50px;border: 1px solid #222;padding: 0px 10px; ">
+                                                <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">
                                                     <label style="font-weight: 600;margin-right: 5px; ">Versichertennr.:</label>
                                                     <span id="insurance_no_pd">Versicherungsnummer</span>
                                                 </td>
@@ -1681,16 +2700,16 @@
                                         <tbody>
                                             @foreach(getAllProducts() as $qualityPtoduct)
                                             <tr>
-                                                <td style="height: 50px;border: 1px solid #222;padding: 0px 10px;display: flex;justify-content: center;align-items: center; " class="checkbox-td">
+                                                <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px;display: flex;justify-content: center;align-items: center; " class="checkbox-td">
                                                     <div class="checkbox" style="border: 2px solid #009ee1;text-align: center;color: #009ee1;height: 25px; width: 25px;margin-right: 10px;display: flex;align-items: center; justify-content: center;">
                                                         <span id="pd_{{$qualityPtoduct->id}}"></span>
                                                     </div>
                                                 </td>
-                                                <td style="height: 50px;border: 1px solid #222;padding: 0px 10px; ">{{$qualityPtoduct->name}}
+                                                <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">{{$qualityPtoduct->name}}
                                                     <span id="pd_size_{{$qualityPtoduct->id}}"></span>
                                                 </td>
-                                                <td style="height: 50px;border: 1px solid #222;padding: 0px 10px; " id="qty_pd_{{$qualityPtoduct->id}}"></td>
-                                                <td style="height: 50px;border: 1px solid #222;padding: 0px 10px; ">{{$qualityPtoduct->positionNumber}}</td>
+                                                <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; " id="qty_pd_{{$qualityPtoduct->id}}"></td>
+                                                <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">{{$qualityPtoduct->positionNumber}}</td>
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -1723,7 +2742,7 @@ display: flex;align-items: center; justify-content: center; "></div>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td style="height: 50px;border: 1px solid #222;padding: 0px 10px;display: flex;justify-content: center;align-items: center; " class=" checkbox-td">
+                                                <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px;display: flex;justify-content: center;align-items: center; " class=" checkbox-td">
                                                     <div class="checkbox-wrap" style="display: flex;align-items: center;margin-right: 10px;">
                                                         <div class="checkbox" style="border: 2px solid #009ee1;text-align: center;color: #009ee1; height: 25px; width: 25px;margin-right: 10px; display: flex;align-items: center; justify-content: center; ">
                                                             <span id="bed1" class="bed_pd"></span>
@@ -1751,10 +2770,10 @@ display: flex;align-items: center; justify-content: center; "></div>
                                                     </div>
 
                                                 </td>
-                                                <td style="height: 50px;border: 1px solid #222;padding: 0px 10px; ">
+                                                <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">
                                                     Wiederverwendbare Bettschutzeinlagen
                                                 </td>
-                                                <td style="height: 50px;border: 1px solid #222;padding: 0px 10px; ">
+                                                <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">
                                                     51.40.01.4
                                                 </td>
                                             </tr>
@@ -1800,42 +2819,42 @@ display: flex;align-items: center; justify-content: center; "></div>
                                     <table style="width: 100%;">
                                         <tbody>
                                             <tr>
-                                                <td style="height: 50px;border: 1px solid #222;padding: 0px 10px; ">
+                                                <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">
                                                     <div class="checkbox-wrap" style="display: flex;align-items: center;margin-right: 10px;">
-                                                        <div class="checkbox" style="border: 2px solid #009ee1;text-align: center;color: #009ee1;height: 25px; width: 25px;margin-right: 10px;display: flex;align-items: center; justify-content: center;"></div>
+                                                        <div class="checkbox" style="border: 2px solid var(--sky-blu);text-align: center;color: var(--sky-blu);height: 25px; width: 25px;margin-right: 10px;display: flex;align-items: center; justify-content: center;"></div>
                                                         PG 54 bis 42,- € monatlich
                                                     </div>
                                                 </td>
-                                                <td style="height: 50px;border: 1px solid #222;padding: 0px 10px; ">
+                                                <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">
                                                     <div class="checkbox-wrap" style="display: flex;align-items: center;margin-right: 10px;">
-                                                        <div class="checkbox" style="border: 2px solid #009ee1;text-align: center;color: #009ee1;height: 25px; width: 25px;margin-right: 10px;display: flex;align-items: center; justify-content: center;"></div>
+                                                        <div class="checkbox" style="border: 2px solid var(--sky-blu);text-align: center;color: var(--sky-blu);height: 25px; width: 25px;margin-right: 10px;display: flex;align-items: center; justify-content: center;"></div>
                                                         PG 51 ohne Zzgl./Beihilfeberechtigter
                                                     </div>
                                                 </td>
-                                                <td style="height: 50px;border: 1px solid #222;padding: 0px 10px; " colspan="2">
+                                                <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; " colspan="2">
                                                     IK 330302697
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="height: 50px;border: 1px solid #222;padding: 0px 10px; ">
+                                                <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">
                                                     <div class="checkbox-wrap" style="display: flex;align-items: center;margin-right: 10px;">
                                                         <div class="checkbox" style="border: 2px solid #009ee1;text-align: center;color: #009ee1;height: 25px; width: 25px;margin-right: 10px;display: flex;align-items: center; justify-content: center;"></div>
                                                         PG 54 bis 20,- € monatlich
                                                     </div>
                                                 </td>
-                                                <td style="height: 50px;border: 1px solid #222;padding: 0px 10px; ">
+                                                <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">
                                                     <div class="checkbox-wrap" style="display: flex;align-items: center;margin-right: 10px;">
                                                         <div class="checkbox" style="border: 2px solid #009ee1;text-align: center;color: #009ee1;height: 25px; width: 25px;margin-right: 10px;display: flex;align-items: center; justify-content: center;"></div>
                                                         PG 51 mit Zzgl./Beihilfeberechtigter
                                                     </div>
                                                 </td>
-                                                <td style="height: 50px;border: 1px solid #222;padding: 0px 10px; ">
+                                                <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">
                                                     <div class="checkbox-wrap" style="display: flex;align-items: center;margin-right: 10px;">
                                                         <div class="checkbox" style="border: 2px solid #009ee1;text-align: center;color: #009ee1;height: 25px; width: 25px;margin-right: 10px;display: flex;align-items: center; justify-content: center;"></div>
                                                         PG 51 Ohne Zzgl.
                                                     </div>
                                                 </td>
-                                                <td style="height: 50px;border: 1px solid #222;padding: 0px 10px; ">
+                                                <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">
                                                     <div class="checkbox-wrap" style="display: flex;align-items: center;margin-right: 10px;">
                                                         <div class="checkbox" style="border: 2px solid #009ee1;text-align: center;color: #009ee1;height: 25px; width: 25px;margin-right: 10px;display: flex;align-items: center; justify-content: center;"></div>
                                                         PG 51 mit Zzgl.
@@ -1865,13 +2884,13 @@ display: flex;align-items: center; justify-content: center; "></div>
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <h5 style="font-size:24px;color:#000000;font-weight:100;margin:0;font-family: Georgia, 'Times New Roman', Times, serif;">
+                                            <h5 style="font-size:24px;color:var(--dark-blue);font-weight:100;margin:0;font-family: Georgia, 'Times New Roman', Times, serif;">
                                                 Auswahl der gewünschten</h5>
-                                            <h3 style="font-size:30px;color: #000000;font-weight:400;margin:0;font-family: Georgia, 'Times New Roman', Times, serif;">
+                                            <h3 style="font-size:30px;color: var(--dark-blue);font-weight:400;margin:0;font-family: Georgia, 'Times New Roman', Times, serif;">
                                                 BeleschBox</h3>
-                                            <h6 style="font-size:24px;color: #0d9bda;margin-bottom:0;font-weight:200;margin-top:10px;font-family: Georgia, 'Times New Roman', Times, serif;">
+                                            <h6 style="font-size:24px;color: var(--sky-blu);margin-bottom:0;font-weight:200;margin-top:10px;font-family: Georgia, 'Times New Roman', Times, serif;">
                                                 Lieferinformationen angeben</h6>
-                                            <p style="font-family: Arial, Helvetica, sans-serif;font-size:18px;color:#000000;margin-top:0px;">
+                                            <p style="font-family: Arial, Helvetica, sans-serif;font-size:18px;color:var(--dark-blue);margin-top:0px;">
                                                 Versicherte/r (gemäß Antrag auf Kostenübernahme):</p>
                                         </td>
                                         <td style="text-align: right;">
@@ -2151,31 +3170,338 @@ display: flex;align-items: center; justify-content: center; "></div>
                         </div>
                     </div>
                     
-                    <div class="col-md-12">
-                        <div class="condition-check-wrap mt-20"><input type="checkbox" id="agreement" name="agreement">
-                            <label for="condition-chcek">Hiermit stimme ich zu, dass pflege.de (web care LBJ GmbH) meine
-                                personenbezogenen (ggf. auch gesundheitsbezogenen) Informationen, v.a.
-                                Kontaktinfos/Versichertenstatus, für die Bearbeitung des Antrages (zum Erhalt der
-                                Pflegehilfsmittel) sowie für eine Kontaktaufnahme in diesem Zusammenhang via E-Mail
-                                speichert und verarbeitet.
-                            </label>
-                        </div>
+                    <!-- Bouton PDF1 -->
+                    <div class="col-md-12 text-center mb-4">
+                        <button class="btn btn-success btn-lg" onclick="printPageArea1('printPageArea1')" title="Download PDF1 file">
+                            <i class="fa fa-download"></i> PDF1 - Antrag herunterladen
+                        </button>
                     </div>
+                    
                     <div class="col-md-12 text-right">
-                        @if(Route::currentRouteName() == 'assemble')
-                        <button class="btn btn__primary btn__rounded checkout_btn" onclick="checkout_btn()">einreichen</button>
-                        @else
+                        @if(isset($package_data) && $package_data['isPackage'])
                         <button class="btn btn__primary btn__rounded checkout_btn_pkg" onclick="checkout_btn_pkg()">einreichen</button>
+                        @else
+                        <button class="btn btn__primary btn__rounded checkout_btn" onclick="checkout_btn()">einreichen</button>
                         @endif
                     </div>
                 </div>
             </div>
-            <div id="printPageArea1">
+            
+            <!-- Bloc de consentement - masqué par défaut -->
+            <div id="consent-section-3" style="display: none !important;">
+                <div class="condition-check-wrap mt-20">
+                    <input type="checkbox" id="agreement" name="agreement">
+                    <label for="condition-chcek">Hiermit stimme ich zu, dass pflege.de (web care LBJ GmbH) meine
+                        personenbezogenen (ggf. auch gesundheitsbezogenen) Informationen, v.a.
+                        Kontaktinfos/Versichertenstatus, für die Bearbeitung des Antrages (zum Erhalt der
+                        Pflegehilfsmittel) sowie für eine Kontaktaufnahme in diesem Zusammenhang via E-Mail
+                        speichert und verarbeitet.
+                    </label>
+                </div>
+            </div>
+            
+            <div id="printPageArea1" style="display: none;">
+                <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: white;">
+                    <!-- Header -->
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px;">
+                        <div>
+                            <h1 style="color: #333; font-size: 28px; font-weight: bold; margin: 0 0 10px 0; font-family: serif;">
+                                Auswahl der gewünschten BeleschBox
+                            </h1>
+                            <div style="color: #009ee1; font-size: 16px; font-weight: bold; margin-bottom: 8px;">
+                                Lieferinformationen angeben
+                            </div>
+                            <div style="font-size: 14px; margin-bottom: 20px;">
+                                Versicherte/r (gemäß Antrag auf Kostenübernahme):
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #009ee1 0%, #4A90E2 100%); position: relative; margin-bottom: 10px;">
+                                <div style="position: absolute; top: -8px; left: 8px; width: 60px; height: 60px; background: linear-gradient(135deg, #66C2FF 0%, #009ee1 100%); transform: skewX(-30deg);"></div>
+                                <div style="position: absolute; top: 8px; right: -8px; width: 60px; height: 60px; background: linear-gradient(135deg, #004499 0%, #003366 100%); transform: skewY(-30deg);"></div>
+                            </div>
+                            <div style="color: #009ee1; font-size: 18px; font-weight: bold; font-family: serif;">BeleschBox</div>
+                        </div>
+                    </div>
+
+                    <!-- Personal Information -->
+                    <div style="margin-bottom: 30px;">
+                        <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                            <div style="display: flex; align-items: center; margin-right: 30px;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;" id="title_name_fr_pd1"></div>
+                                <span>Frau</span>
+                            </div>
+                            <div style="display: flex; align-items: center; margin-right: 30px;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;" id="title_name_her_pd1"></div>
+                                <span>Herr</span>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; margin-bottom: 15px;">
+                            <div style="margin-right: 40px;">
+                                <span>Vorname:</span>
+                                <div style="border-bottom: 1px solid #333; width: 200px; display: inline-block; margin-left: 10px;">
+                                    <span id="first_name_pd1" style="padding: 0 5px;"></span>
+                                </div>
+                            </div>
+                            <div>
+                                <span>Nachname:</span>
+                                <div style="border-bottom: 1px solid #333; width: 200px; display: inline-block; margin-left: 10px;">
+                                    <span id="last_name_pd1" style="padding: 0 5px;"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 15px;">
+                            <span>Pflegegrad:</span>
+                            <div style="display: inline-flex; margin-left: 20px;">
+                                <div style="display: flex; align-items: center; margin-right: 20px;">
+                                    <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;" id="pflegegrad_1_pd1"></div>
+                                    <span>1</span>
+                                </div>
+                                <div style="display: flex; align-items: center; margin-right: 20px;">
+                                    <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;" id="pflegegrad_2_pd1"></div>
+                                    <span>2</span>
+                                </div>
+                                <div style="display: flex; align-items: center; margin-right: 20px;">
+                                    <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;" id="pflegegrad_3_pd1"></div>
+                                    <span>3</span>
+                                </div>
+                                <div style="display: flex; align-items: center; margin-right: 20px;">
+                                    <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;" id="pflegegrad_4_pd1"></div>
+                                    <span>4</span>
+                                </div>
+                                <div style="display: flex; align-items: center;">
+                                    <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;" id="pflegegrad_5_pd1"></div>
+                                    <span>5</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BeleschBox Selection -->
+                    <div style="margin-bottom: 30px;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                            <!-- BeleschBox 1 -->
+                            <div style="border: 1px solid #ddd; padding: 15px; position: relative;">
+                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                                    <div class="beleschbox-checkbox" style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 10px; display: flex; align-items: center; justify-content: center;" id="bb1_pd1"></div>
+                                    <div style="width: 30px; height: 30px; background: linear-gradient(135deg, #009ee1 0%, #4A90E2 100%); position: relative; margin-right: 10px;">
+                                        <div style="position: absolute; top: -4px; left: 4px; width: 30px; height: 30px; background: linear-gradient(135deg, #66C2FF 0%, #009ee1 100%); transform: skewX(-30deg);"></div>
+                                        <div style="position: absolute; top: 4px; right: -4px; width: 30px; height: 30px; background: linear-gradient(135deg, #004499 0%, #003366 100%); transform: skewY(-30deg);"></div>
+                                    </div>
+                                    <strong style="color: #009ee1;">BeleschBox 1</strong>
+                                </div>
+                                <div style="font-size: 12px; line-height: 1.4;">
+                                    2x 100 Stück Einmalhandschuhe<br>
+                                    500 ml Handdesinfektion<br>
+                                    500 ml Flächendesinfektion<br>
+                                    12 Stück FFP2 Masken
+                                </div>
+                            </div>
+
+                            <!-- BeleschBox 2 -->
+                            <div style="border: 1px solid #ddd; padding: 15px; position: relative;">
+                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                                    <div class="beleschbox-checkbox" style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 10px; display: flex; align-items: center; justify-content: center;" id="bb2_pd1"></div>
+                                    <div style="width: 30px; height: 30px; background: linear-gradient(135deg, #009ee1 0%, #4A90E2 100%); position: relative; margin-right: 10px;">
+                                        <div style="position: absolute; top: -4px; left: 4px; width: 30px; height: 30px; background: linear-gradient(135deg, #66C2FF 0%, #009ee1 100%); transform: skewX(-30deg);"></div>
+                                        <div style="position: absolute; top: 4px; right: -4px; width: 30px; height: 30px; background: linear-gradient(135deg, #004499 0%, #003366 100%); transform: skewY(-30deg);"></div>
+                                    </div>
+                                    <strong style="color: #009ee1;">BeleschBox 2</strong>
+                                </div>
+                                <div style="font-size: 12px; line-height: 1.4;">
+                                    100 Stück Einmalhandschuhe<br>
+                                    2x 500 ml Handdesinfektion<br>
+                                    25 Stück Bettschutzeinlagen<br>
+                                    8 Stück FFP2 Masken
+                                </div>
+                            </div>
+
+                            <!-- BeleschBox 3 -->
+                            <div style="border: 1px solid #ddd; padding: 15px; position: relative;">
+                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                                    <div class="beleschbox-checkbox" style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 10px; display: flex; align-items: center; justify-content: center;" id="bb3_pd1"></div>
+                                    <div style="width: 30px; height: 30px; background: linear-gradient(135deg, #009ee1 0%, #4A90E2 100%); position: relative; margin-right: 10px;">
+                                        <div style="position: absolute; top: -4px; left: 4px; width: 30px; height: 30px; background: linear-gradient(135deg, #66C2FF 0%, #009ee1 100%); transform: skewX(-30deg);"></div>
+                                        <div style="position: absolute; top: 4px; right: -4px; width: 30px; height: 30px; background: linear-gradient(135deg, #004499 0%, #003366 100%); transform: skewY(-30deg);"></div>
+                                    </div>
+                                    <strong style="color: #009ee1;">BeleschBox 3</strong>
+                                </div>
+                                <div style="font-size: 12px; line-height: 1.4;">
+                                    1 Pack Desinfektionstücher<br>
+                                    1x 500 ml Handdesinfektion<br>
+                                    1x 500 ml Flächendesinfektion<br>
+                                    10 Stück FFP2 Masken
+                                </div>
+                            </div>
+
+                            <!-- BeleschBox 4 -->
+                            <div style="border: 1px solid #ddd; padding: 15px; position: relative;">
+                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                                    <div class="beleschbox-checkbox" style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 10px; display: flex; align-items: center; justify-content: center;" id="bb4_pd1"></div>
+                                    <div style="width: 30px; height: 30px; background: linear-gradient(135deg, #009ee1 0%, #4A90E2 100%); position: relative; margin-right: 10px;">
+                                        <div style="position: absolute; top: -4px; left: 4px; width: 30px; height: 30px; background: linear-gradient(135deg, #66C2FF 0%, #009ee1 100%); transform: skewX(-30deg);"></div>
+                                        <div style="position: absolute; top: 4px; right: -4px; width: 30px; height: 30px; background: linear-gradient(135deg, #004499 0%, #003366 100%); transform: skewY(-30deg);"></div>
+                                    </div>
+                                    <strong style="color: #009ee1;">BeleschBox 4</strong>
+                                </div>
+                                <div style="font-size: 12px; line-height: 1.4;">
+                                    2x 500 ml Flächendesinfektion<br>
+                                    2x 500 ml Handdesinfektion<br>
+                                    25 Stück Bettschutzeinlagen<br>
+                                    FFP2 Masken
+                                </div>
+                            </div>
+
+                            <!-- BeleschBox 5 -->
+                            <div style="border: 1px solid #ddd; padding: 15px; position: relative;">
+                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                                    <div class="beleschbox-checkbox" style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 10px; display: flex; align-items: center; justify-content: center;" id="bb5_pd1"></div>
+                                    <div style="width: 30px; height: 30px; background: linear-gradient(135deg, #009ee1 0%, #4A90E2 100%); position: relative; margin-right: 10px;">
+                                        <div style="position: absolute; top: -4px; left: 4px; width: 30px; height: 30px; background: linear-gradient(135deg, #66C2FF 0%, #009ee1 100%); transform: skewX(-30deg);"></div>
+                                        <div style="position: absolute; top: 4px; right: -4px; width: 30px; height: 30px; background: linear-gradient(135deg, #004499 0%, #003366 100%); transform: skewY(-30deg);"></div>
+                                    </div>
+                                    <strong style="color: #009ee1;">BeleschBox 5</strong>
+                                </div>
+                                <div style="font-size: 12px; line-height: 1.4;">
+                                    2x 100 Stück Einmalhandschuhe<br>
+                                    500 ml Handdesinfektion<br>
+                                    1 Pack Desinfektionstücher<br>
+                                    4 Stück FFP2 Masken
+                                </div>
+                            </div>
+
+                            <!-- BeleschBox 6 -->
+                            <div style="border: 1px solid #ddd; padding: 15px; position: relative;">
+                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                                    <div class="beleschbox-checkbox" style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 10px; display: flex; align-items: center; justify-content: center;" id="bb6_pd1"></div>
+                                    <div style="width: 30px; height: 30px; background: linear-gradient(135deg, #009ee1 0%, #4A90E2 100%); position: relative; margin-right: 10px;">
+                                        <div style="position: absolute; top: -4px; left: 4px; width: 30px; height: 30px; background: linear-gradient(135deg, #66C2FF 0%, #009ee1 100%); transform: skewX(-30deg);"></div>
+                                        <div style="position: absolute; top: 4px; right: -4px; width: 30px; height: 30px; background: linear-gradient(135deg, #004499 0%, #003366 100%); transform: skewY(-30deg);"></div>
+                                    </div>
+                                    <strong style="color: #009ee1;">BeleschBox 6</strong>
+                                </div>
+                                <div style="font-size: 12px; line-height: 1.4;">
+                                    100 Stück Einmalhandschuhe<br>
+                                    500 ml Handdesinfektion<br>
+                                    500 ml Flächendesinfektion<br>
+                                    25 Stück Bettschutzeinlagen<br>
+                                    6 Stück FFP2 Masken
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- BeleschBox Individuell -->
+                        <div style="border: 1px solid #ddd; padding: 15px; margin-bottom: 20px;">
+                            <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                                <div class="beleschbox-checkbox" style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 10px; display: flex; align-items: center; justify-content: center;" id="bb_individuell_pd1"></div>
+                                <div style="width: 30px; height: 30px; background: linear-gradient(135deg, #009ee1 0%, #4A90E2 100%); position: relative; margin-right: 10px;">
+                                    <div style="position: absolute; top: -4px; left: 4px; width: 30px; height: 30px; background: linear-gradient(135deg, #66C2FF 0%, #009ee1 100%); transform: skewX(-30deg);"></div>
+                                    <div style="position: absolute; top: 4px; right: -4px; width: 30px; height: 30px; background: linear-gradient(135deg, #004499 0%, #003366 100%); transform: skewY(-30deg);"></div>
+                                </div>
+                                <strong style="color: #009ee1;">BeleschBox Individuell</strong>
+                            </div>
+                            <div style="margin-top: 5px;" id="custom-products-container">
+                                <!-- Les produits personnalisés seront insérés ici -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bettschutzeinlagen -->
+                    <div style="margin-bottom: 30px;">
+                        <div style="margin-bottom: 10px;">
+                            <span style="font-weight: bold;">Wiederverwendbare Bettschutzeinlagen:</span>
+                            <div style="display: inline-flex; margin-left: 20px;">
+                                <div style="display: flex; align-items: center; margin-right: 20px;">
+                                    <div class="bed-protection-checkbox" style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;" id="bed_protection_1_pd1"></div>
+                                    <span>1</span>
+                                </div>
+                                <div style="display: flex; align-items: center; margin-right: 20px;">
+                                    <div class="bed-protection-checkbox" style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;" id="bed_protection_2_pd1"></div>
+                                    <span>2</span>
+                                </div>
+                                <div style="display: flex; align-items: center; margin-right: 20px;">
+                                    <div class="bed-protection-checkbox" style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;" id="bed_protection_3_pd1"></div>
+                                    <span>3</span>
+                                </div>
+                                <div style="display: flex; align-items: center; margin-right: 20px;">
+                                    <div class="bed-protection-checkbox" style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;" id="bed_protection_4_pd1"></div>
+                                    <span>4</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="font-size: 12px; color: #666; margin-top: 5px;">
+                            (Bis zu 250 Mal waschbar - Kostenfrei)
+                        </div>
+                    </div>
+
+                    <!-- Handschuhgröße -->
+                    <div id="glove_section_pd1" style="margin-bottom: 30px; display: none;">
+                        <div style="margin-bottom: 10px;">
+                            <span style="font-weight: bold;">Handschuhgröße:</span>
+                            <div style="display: inline-flex; margin-left: 20px;">
+                                <div style="display: flex; align-items: center; margin-right: 20px;">
+                                    <div class="glove-checkbox" style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;" id="glove_s_pd1"></div>
+                                    <span>S</span>
+                                </div>
+                                <div style="display: flex; align-items: center; margin-right: 20px;">
+                                    <div class="glove-checkbox" style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;" id="glove_m_pd1"></div>
+                                    <span>M</span>
+                                </div>
+                                <div style="display: flex; align-items: center; margin-right: 20px;">
+                                    <div class="glove-checkbox" style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;" id="glove_l_pd1"></div>
+                                    <span>L</span>
+                                </div>
+                                <div style="display: flex; align-items: center;">
+                                    <div class="glove-checkbox" style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;" id="glove_xl_pd1"></div>
+                                    <span>XL</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="font-size: 12px; color: #666; margin-left: 20px;">
+                            (Bei fehlender Angabe wird Größe M geliefert)
+                        </div>
+                    </div>
+
+                    <!-- Agreement Text -->
+                    <div style="margin-bottom: 30px; padding: 15px; border: 1px solid #ddd; background-color: #f9f9f9;">
+                        <p style="margin: 0; font-size: 14px; line-height: 1.5;">
+                            Die von mir getroffene Auswahl der BeleschBox kann ich jeden Monat neu festlegen.<br>
+                            Änderungen werde ich der MedicCos Inko&Care GmbH rechtzeitig mitteilen.
+                        </p>
+                    </div>
+
+                    <!-- Signature and Date -->
+                    <div style="margin-bottom: 20px;">
+                        <div id="signature_display_pd1" style="margin-bottom: 8px;">
+                            <!-- La signature sera ajoutée ici -->
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                            <div style="display: flex; flex-direction: column; align-items: center;">
+                                <div style="border-bottom: 1px solid #333; width: 200px; height: 20px; margin-bottom: 5px;"></div>
+                                <span>Unterschrift</span>
+                            </div>
+                            <div style="display: flex; flex-direction: column; align-items: center;">
+                                <div style="border-bottom: 1px solid #333; width: 150px; height: 20px; margin-bottom: 5px;">
+                                    <span id="date_display_pd1" style="font-size: 12px; color: #333;"></span>
+                                </div>
+                                <span>Datum</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <div style="text-align: center; font-size: 12px; color: #666; border-top: 1px solid #ddd; padding-top: 10px;">
+                        MedicCos Inko&Care GmbH Lindenbergplatz 1 - 38126 Braunschweig | +49 (0) 531 51605712 | info@belesch-box.de
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     </div> <!-- End Livewire Component Content -->
     @livewire('frontend.includes.footer')
+
 
     <script src="{{asset('/frontend/assets/js/jquery-3.5.1.min.js')}}"></script>
 
@@ -2463,16 +3789,184 @@ display: flex;align-items: center; justify-content: center; "></div>
         }
         
         function showAlert(message, type) {
-            const alertMessage = document.getElementById('alertMessage');
-            alertMessage.innerHTML = `
-                <div class="alert alert-${type} mt-3">
-                    <strong>${message}</strong>
-                </div>
-            `;
+            showModernModal(message, type);
         }
         
+        function showModernModal(message, type) {
+            // Créer le modal s'il n'existe pas
+            let modal = document.getElementById('modernAlertModal');
+            if (!modal) {
+                modal = createModernModal();
+            }
+            
+            // Définir les couleurs selon le type
+            let iconClass, bgColor, iconColor, title;
+            switch(type) {
+                case 'success':
+                    iconClass = 'fas fa-check-circle';
+                    bgColor = 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)';
+                    iconColor = '#11998e';
+                    title = 'Erfolg';
+                    break;
+                case 'warning':
+                    iconClass = 'fas fa-exclamation-triangle';
+                    bgColor = 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)';
+                    iconColor = '#f5576c';
+                    title = 'Warnung';
+                    break;
+                case 'danger':
+                    iconClass = 'fas fa-times-circle';
+                    bgColor = 'linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%)';
+                    iconColor = '#ee5a52';
+                    title = 'Fehler';
+                    break;
+                case 'info':
+                default:
+                    iconClass = 'fas fa-info-circle';
+                    bgColor = 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)';
+                    iconColor = '#4facfe';
+                    title = 'Information';
+                    break;
+            }
+            
+            // Mettre à jour le contenu du modal
+            modal.querySelector('.modal-header').style.background = bgColor;
+            modal.querySelector('.modal-icon i').className = iconClass;
+            modal.querySelector('.modal-icon i').style.color = iconColor;
+            modal.querySelector('.modal-title').textContent = title;
+            modal.querySelector('.modal-body p').textContent = message;
+            
+            // Afficher le modal
+            modal.style.display = 'flex';
+            modal.classList.add('show');
+            
+            // Auto-fermer après 5 secondes pour les messages de succès
+            if (type === 'success') {
+                setTimeout(() => {
+                    closeModernModal();
+                }, 5000);
+            }
+        }
+        
+        function createModernModal() {
+            const modal = document.createElement('div');
+            modal.id = 'modernAlertModal';
+            modal.className = 'modern-modal';
+            modal.innerHTML = `
+                <div class="modal-backdrop"></div>
+                <div class="modal-container">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="modal-icon">
+                                <i class="fas fa-info-circle"></i>
+                            </div>
+                            <h4 class="modal-title">Information</h4>
+                            <button class="modal-close" onclick="closeModernModal()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Message</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn-modal-close" onclick="closeModernModal()">
+                                <i class="fas fa-check"></i> Verstanden
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            return modal;
+        }
+        
+        function closeModernModal() {
+            const modal = document.getElementById('modernAlertModal');
+            if (modal) {
+                modal.classList.remove('show');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 300);
+            }
+        }
+        
+        // Gestion des événements pour le modal
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fermer le modal en cliquant sur le backdrop
+            document.addEventListener('click', function(e) {
+                const modal = document.getElementById('modernAlertModal');
+                if (modal && modal.classList.contains('show')) {
+                    if (e.target.classList.contains('modal-backdrop')) {
+                        closeModernModal();
+                    }
+                }
+            });
+            
+            // Fermer le modal avec la touche Escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeModernModal();
+                }
+            });
+        });
+        
+        // Fonction pour cacher le formulaire principal au chargement
+        function hideMainFormOnLoad() {
+            console.log('hideMainFormOnLoad called');
+            
+            // Cacher seulement les sections spécifiques du formulaire principal
+            // Ne pas toucher au bloc de recherche d'email
+            const elementsToHide = [
+                document.querySelectorAll('.col-md-12.why-asking')[0], // Première occurrence seulement
+                document.getElementById('iAm'),
+                document.getElementById('insured-1'), // Bloc "Der Versicherte ist"
+                document.getElementById('submit-section'), // Bouton "Weiter im Antrag"
+                document.getElementById('submit-section-2'), // Deuxième bouton "Weiter im Antrag"
+                document.getElementById('consent-section-3'), // Troisième bloc de consentement
+                document.getElementById('consent-block-step2'), // Bloc de consentement step2
+                document.getElementById('consent-form-block') // Bloc de consentement formulaire
+            ];
+            
+            elementsToHide.forEach(element => {
+                if (element) {
+                    console.log('Hiding element:', element);
+                    element.style.display = 'none';
+                }
+            });
+        }
+        
+
         // Auto-search when page loads
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('=== DEBUG CHARGEMENT PAGE ===');
+            console.log('Page chargée, recherche du bloc de consentement...');
+            
+            // Vérifier si le bloc de consentement existe
+            const consentBlock = document.querySelector('.condition-check-wrap');
+            if (consentBlock) {
+                console.log('✅ Bloc de consentement trouvé:', consentBlock);
+                console.log('Style display:', consentBlock.style.display);
+                console.log('Parent display:', consentBlock.parentElement.style.display);
+            } else {
+                console.log('❌ Bloc de consentement NON trouvé');
+            }
+            
+            // Vérifier toutes les divs avec condition-check-wrap
+            const allConsentBlocks = document.querySelectorAll('.condition-check-wrap');
+            console.log('Nombre de blocs condition-check-wrap trouvés:', allConsentBlocks.length);
+            allConsentBlocks.forEach((block, index) => {
+                console.log(`Bloc ${index}:`, block);
+                console.log(`  - Visible:`, block.offsetParent !== null);
+                console.log(`  - Display:`, window.getComputedStyle(block).display);
+            });
+            
+            console.log('=== FIN DEBUG CHARGEMENT PAGE ===');
+            // Ajouter le champ mot de passe dynamiquement
+            addPasswordField();
+            
+            // Cacher le formulaire principal au chargement
+            hideMainFormOnLoad();
+            
             setTimeout(() => {
                 if (document.getElementById('search_email').value) {
                     searchCustomerByEmail();
@@ -2482,9 +3976,542 @@ display: flex;align-items: center; justify-content: center; "></div>
                 }
             }, 1000);
         });
+        
+        // Fonction pour ajouter le champ mot de passe
+        function addPasswordField() {
+            const emailContainer = document.querySelector('#search_email').closest('.col-md-8');
+            if (emailContainer && !document.getElementById('search_password')) {
+                // Modifier la largeur du champ email
+                emailContainer.className = 'col-md-6';
+                
+                // Créer le champ mot de passe
+                const passwordContainer = document.createElement('div');
+                passwordContainer.className = 'col-md-6';
+                passwordContainer.innerHTML = `
+                    <label for="search_password" class="form-label">Mot de passe*</label>
+                    <input type="password" 
+                           class="form-control" 
+                           id="search_password" 
+                           placeholder="Geben Sie Ihr Passwort ein"
+                           value="">
+                `;
+                
+                // Insérer le champ mot de passe après le champ email
+                emailContainer.parentNode.insertBefore(passwordContainer, emailContainer.nextSibling);
+                
+                console.log('Champ mot de passe ajouté dynamiquement');
+            }
+        }
     </script>
 
     <script>
+        // Fonction pour afficher le formulaire de nouveau compte
+        function showNewAccountForm() {
+            console.log('=== DEBUG AFFICHAGE FORMULAIRE ===');
+            console.log('Affichage du formulaire de nouveau compte');
+            
+            // Vérifier le bloc de consentement avant affichage
+            const consentBlock = document.querySelector('.condition-check-wrap');
+            if (consentBlock) {
+                console.log('✅ Bloc de consentement trouvé avant affichage:', consentBlock);
+                console.log('Style display avant:', consentBlock.style.display);
+                console.log('Parent display avant:', consentBlock.parentElement.style.display);
+            } else {
+                console.log('❌ Bloc de consentement NON trouvé avant affichage');
+            }
+            
+            // Afficher les sections du formulaire principal
+            const sectionsToShow = document.querySelectorAll('.col-md-12.why-asking, #iAm, #insured-1, #submit-section, #submit-section-2');
+            sectionsToShow.forEach(section => {
+                if (section) {
+                    section.style.display = 'block';
+                }
+            });
+            
+            // Afficher le bloc de consentement avec le formulaire
+            const consentFormBlock = document.getElementById('consent-form-block');
+            if (consentFormBlock) {
+                console.log('✅ Affichage du bloc de consentement');
+                consentFormBlock.style.display = 'block';
+            } else {
+                console.log('❌ Bloc de consentement non trouvé');
+            }
+            
+            // Test simple - ajouter un bloc visible
+            const testBlock = document.createElement('div');
+            testBlock.innerHTML = '<div style="background: #ff0000; color: white; padding: 20px; margin: 20px 0; border: 3px solid #000; font-size: 18px; font-weight: bold; text-align: center;">🔴 BLOC DE TEST - FORMULAIRE AFFICHÉ 🔴</div>';
+            const insuredSection = document.getElementById('insured-1');
+            if (insuredSection && insuredSection.parentNode) {
+                insuredSection.parentNode.insertBefore(testBlock, insuredSection.nextSibling);
+            }
+            
+            
+            // Masquer les champs de mot de passe du formulaire principal (pour nouveau compte)
+            const passwordFields = document.querySelectorAll('.password-fields');
+            passwordFields.forEach(field => {
+                field.style.display = 'none';
+            });
+            
+            // Scroll vers le formulaire
+            const formElement = document.querySelector('.col-md-12.why-asking');
+            if (formElement) {
+                formElement.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            // Vérifier le bloc de consentement après affichage
+            setTimeout(() => {
+                const consentBlock = document.querySelector('.condition-check-wrap');
+                if (consentBlock) {
+                    console.log('✅ Bloc de consentement trouvé après affichage:', consentBlock);
+                    console.log('Style display après:', consentBlock.style.display);
+                    console.log('Parent display après:', consentBlock.parentElement.style.display);
+                    console.log('Visible:', consentBlock.offsetParent !== null);
+                } else {
+                    console.log('❌ Bloc de consentement NON trouvé après affichage');
+                }
+                console.log('=== FIN DEBUG AFFICHAGE FORMULAIRE ===');
+            }, 100);
+        }
+
+        // Fonction pour afficher le modal d'erreur de login
+        function showLoginErrorModal() {
+            const modalHtml = `
+                <div class="modal fade" id="loginErrorModal" tabindex="-1" role="dialog" aria-labelledby="loginErrorModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header bg-danger text-white">
+                                <h5 class="modal-title" id="loginErrorModalLabel">
+                                    <i class="fas fa-exclamation-triangle"></i> Erreur de Connexion
+                                </h5>
+                                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="alert alert-danger">
+                                    <h6><i class="fas fa-user-times"></i> Email ou mot de passe incorrect</h6>
+                                    <p>Veuillez vérifier vos identifiants et réessayer.</p>
+                                    <ul>
+                                        <li>Vérifiez que votre adresse email est correcte</li>
+                                        <li>Vérifiez que votre mot de passe est correct</li>
+                                        <li>Assurez-vous que votre compte existe</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                    <i class="fas fa-times"></i> Fermer
+                                </button>
+                                <button type="button" class="btn btn-primary" onclick="clearLoginForm()">
+                                    <i class="fas fa-edit"></i> Réessayer
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Supprimer l'ancien modal s'il existe
+            const existingModal = document.getElementById('loginErrorModal');
+            if (existingModal) {
+                existingModal.remove();
+            }
+            
+            // Ajouter le nouveau modal au body
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+            
+            // Afficher le modal
+            $('#loginErrorModal').modal('show');
+        }
+        
+        // Fonction pour afficher le modal d'erreur technique
+        function showTechnicalErrorModal() {
+            const modalHtml = `
+                <div class="modal fade" id="technicalErrorModal" tabindex="-1" role="dialog" aria-labelledby="technicalErrorModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header bg-warning text-dark">
+                                <h5 class="modal-title" id="technicalErrorModalLabel">
+                                    <i class="fas fa-tools"></i> Erreur Technique
+                                </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="alert alert-warning">
+                                    <h6><i class="fas fa-exclamation-circle"></i> Problème de connexion</h6>
+                                    <p>Une erreur technique s'est produite. Veuillez réessayer dans quelques instants.</p>
+                                    <p class="mb-0">Si le problème persiste, contactez le support technique.</p>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                    <i class="fas fa-times"></i> Fermer
+                                </button>
+                                <button type="button" class="btn btn-primary" onclick="retryConnection()">
+                                    <i class="fas fa-redo"></i> Réessayer
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Supprimer l'ancien modal s'il existe
+            const existingModal = document.getElementById('technicalErrorModal');
+            if (existingModal) {
+                existingModal.remove();
+            }
+            
+            // Ajouter le nouveau modal au body
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+            
+            // Afficher le modal
+            $('#technicalErrorModal').modal('show');
+        }
+        
+        // Fonction pour vider le formulaire de login
+        function clearLoginForm() {
+            document.getElementById('search_email').value = '';
+            const passwordField = document.getElementById('search_password');
+            if (passwordField) {
+                passwordField.value = '';
+            }
+            $('#loginErrorModal').modal('hide');
+        }
+        
+        // Fonction pour réessayer la connexion
+        function retryConnection() {
+            $('#technicalErrorModal').modal('hide');
+            // Optionnel : relancer automatiquement la recherche
+            // testSearchCustomer();
+        }
+        
+
+        // Fonction de recherche simplifiée et fonctionnelle
+        function testSearchCustomer() {
+            console.log('=== FONCTION testSearchCustomer APPELÉE ===');
+            console.log('Timestamp:', new Date().toISOString());
+            
+            const email = document.getElementById('search_email').value;
+            const password = document.getElementById('search_password') ? document.getElementById('search_password').value : '';
+            console.log('Email saisi:', email);
+            console.log('Mot de passe saisi:', password);
+            
+            if (!email) {
+                alert('Veuillez saisir une adresse email.');
+                return;
+            }
+            
+            if (!password) {
+                alert('Veuillez saisir un mot de passe.');
+                return;
+            }
+            
+            // Appel API pour vérifier l'email et le mot de passe
+            const requestData = { 
+                email: email,
+                password: password
+            };
+            console.log('Données envoyées à l\'API:', requestData);
+            
+            fetch('/check-email-exists', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify(requestData)
+            })
+            .then(response => {
+                console.log('Statut de la réponse:', response.status);
+                return response.json();
+            })
+            .then(data => {
+                console.log('Réponse API complète:', data);
+                console.log('Client existe:', data.exists);
+                console.log('Données client:', data.customer);
+                
+                if (data.exists && data.customer) {
+                    console.log('Client trouvé:', data.customer);
+                    
+                    // Remplir les champs avec logs de débogage
+                    const fieldsToFill = [
+                        { id: 'first_name', value: data.customer.firstName, name: 'Prénom' },
+                        { id: 'last_name', value: data.customer.lastName, name: 'Nom' },
+                        { id: 'streetno', value: data.customer.street, name: 'Rue' },
+                        { id: 'houseno', value: data.customer.houseNo, name: 'Numéro' },
+                        { id: 'zip', value: data.customer.zipcode, name: 'Code postal' },
+                        { id: 'city', value: data.customer.city, name: 'Ville' },
+                        { id: 'Gaburtadatum', value: data.customer.dob, name: 'Date de naissance' },
+                        { id: 'telno', value: data.customer.telephone, name: 'Téléphone' },
+                        { id: 'email2', value: data.customer.email, name: 'Email' },
+                        { id: 'health-insurance', value: data.customer.insuranceName, name: 'Assurance' },
+                        { id: 'insurance-no', value: data.customer.insuranceNumber, name: 'Numéro assurance' },
+                        { id: 'KrankenkasseNummer', value: data.customer.healthInsuranceNo, name: 'Numéro Krankenkasse' }
+                    ];
+                    
+                    fieldsToFill.forEach(field => {
+                        const element = document.getElementById(field.id);
+                        if (element) {
+                            element.value = field.value || '';
+                            console.log(`✅ ${field.name} rempli: ${field.value}`);
+                        } else {
+                            console.log(`❌ Champ ${field.name} (${field.id}) non trouvé`);
+                        }
+                    });
+                    
+                    // Remplir les radio buttons
+                    console.log('Remplissage des radio buttons...');
+                    
+                    // Radio button "Versicherter" / "Angehöriger / Pflegeperson"
+                    if (data.customer.insured_type) {
+                        console.log('Type assuré:', data.customer.insured_type);
+                        if (data.customer.insured_type === 'Versicherter') {
+                            const versicherterRadio = document.querySelector('input[name="insured"][value="Versicherter"]');
+                            if (versicherterRadio) {
+                                versicherterRadio.checked = true;
+                                console.log('✅ Radio Versicherter sélectionné');
+                            } else {
+                                console.log('❌ Radio Versicherter non trouvé');
+                            }
+                        } else if (data.customer.insured_type === 'Angehöriger / Pflegeperson' || data.customer.insured_type === 'Pflegeperson') {
+                            const pflegepersonRadio = document.querySelector('input[name="insured"][value="Pflegeperson"]');
+                            if (pflegepersonRadio) {
+                                pflegepersonRadio.checked = true;
+                                console.log('✅ Radio Pflegeperson sélectionné');
+                            } else {
+                                console.log('❌ Radio Pflegeperson non trouvé');
+                            }
+                        }
+                    }
+                    
+                    // Radio button "Herr" / "Frau"
+                    if (data.customer.surname) {
+                        console.log('Titre:', data.customer.surname);
+                        if (data.customer.surname === 'Herr') {
+                            const herrRadio = document.querySelector('input[name="title_name"][value="Herr"]');
+                            if (herrRadio) {
+                                herrRadio.checked = true;
+                                console.log('✅ Radio Herr sélectionné');
+                            } else {
+                                console.log('❌ Radio Herr non trouvé');
+                            }
+                        } else if (data.customer.surname === 'Frau') {
+                            const frauRadio = document.querySelector('input[name="title_name"][value="Frau"]');
+                            if (frauRadio) {
+                                frauRadio.checked = true;
+                                console.log('✅ Radio Frau sélectionné');
+                            } else {
+                                console.log('❌ Radio Frau non trouvé');
+                            }
+                        }
+                    }
+                    
+                    // Radio button Pflegegrad
+                    console.log('=== DÉBUT DEBUG PFLEGEGRAD ===');
+                    console.log('Données client complètes:', data.customer);
+                    console.log('Pflegegrad dans les données:', data.customer.pflegegrad);
+                    console.log('Type de pflegegrad:', typeof data.customer.pflegegrad);
+                    console.log('=== DEBUG INSURANCE TYPE ===');
+                    console.log('Insurance_type dans les données:', data.customer.insurance_type);
+                    console.log('Type de insurance_type:', typeof data.customer.insurance_type);
+                    
+                    if (data.customer.pflegegrad) {
+                        console.log('Pflegegrad reçu de la base de données:', data.customer.pflegegrad);
+                        
+                        // Extraire le numéro du pflegegrad (ex: "Pflegegrad3" -> "3" ou "3" -> "3")
+                        let pflegegradValue = data.customer.pflegegrad.toString();
+                        if (pflegegradValue.startsWith('Pflegegrad')) {
+                            pflegegradValue = pflegegradValue.replace('Pflegegrad', '');
+                        }
+                        
+                        console.log('Valeur Pflegegrad extraite:', pflegegradValue);
+                        
+                        // Essayer plusieurs approches pour sélectionner le Pflegegrad
+                        function trySelectPflegegrad() {
+                            console.log('Tentative de sélection du Pflegegrad...');
+                            
+                            // Méthode 1: Sélection avec le bon nom et la bonne valeur
+                            const pflegegradRadio = document.querySelector(`input[name="Pflegegrad"][value="Pflegegrad${pflegegradValue}"]`);
+                        if (pflegegradRadio) {
+                            pflegegradRadio.checked = true;
+                                console.log(`✅ Radio Pflegegrad ${pflegegradValue} sélectionné (méthode 1)`);
+                                pflegegradRadio.dispatchEvent(new Event('change'));
+                                return true;
+                            }
+                            
+                            // Méthode 2: Par ID (essayer les différents IDs possibles)
+                            const pflegegradById = document.getElementById(`pflegegrad${pflegegradValue}`) || 
+                                                  document.getElementById(`Pflegegrad`) ||
+                                                  document.getElementById(`inlineRadio${pflegegradValue}`);
+                            if (pflegegradById) {
+                                pflegegradById.checked = true;
+                                console.log(`✅ Radio Pflegegrad ${pflegegradValue} sélectionné (méthode 2)`);
+                                pflegegradById.dispatchEvent(new Event('change'));
+                                return true;
+                            }
+                            
+                            // Méthode 3: Lister tous les boutons et chercher avec le bon nom
+                            const allRadios = document.querySelectorAll('input[type="radio"]');
+                            console.log('Tous les boutons radio trouvés:', allRadios.length);
+                            allRadios.forEach((radio, index) => {
+                                console.log(`Radio ${index}: name="${radio.name}", value="${radio.value}", id="${radio.id}"`);
+                                if (radio.name === 'Pflegegrad' && radio.value === `Pflegegrad${pflegegradValue}`) {
+                                    radio.checked = true;
+                                    console.log(`✅ Radio Pflegegrad ${pflegegradValue} sélectionné (méthode 3)`);
+                                    radio.dispatchEvent(new Event('change'));
+                                    return true;
+                                }
+                            });
+                            
+                            console.log(`❌ Radio Pflegegrad ${pflegegradValue} non trouvé avec toutes les méthodes`);
+                            return false;
+                        }
+                        
+                        // Essayer immédiatement
+                        if (!trySelectPflegegrad()) {
+                            // Si ça ne marche pas, essayer avec des délais
+                            setTimeout(() => trySelectPflegegrad(), 100);
+                            setTimeout(() => trySelectPflegegrad(), 500);
+                            setTimeout(() => trySelectPflegegrad(), 1000);
+                        }
+                    } else {
+                        console.log('Aucun Pflegegrad trouvé dans les données client');
+                    }
+                    console.log('=== FIN DEBUG PFLEGEGRAD ===');
+                    
+                    // Sélectionner le type d'assurance (insurance_type)
+                    if (data.customer.insurance_type) {
+                        console.log('=== DÉBUT DEBUG INSURANCE TYPE SELECTION ===');
+                        console.log('Insurance_type reçu:', data.customer.insurance_type);
+                        
+                        const insuranceType = data.customer.insurance_type;
+                        let selectedValue = null;
+                        
+                        if (insuranceType === 'G') {
+                            selectedValue = 'option5'; // Gesetzlich versichert
+                        } else if (insuranceType === 'P') {
+                            selectedValue = 'option6'; // Privat versichert
+                        }
+                        
+                        if (selectedValue) {
+                            console.log('Tentative de sélection insurance_type:', selectedValue);
+                            
+                            // Essayer de sélectionner dans les deux sections
+                            const radio1 = document.querySelector(`input[name="inlineRadioOptions5"][value="${selectedValue}"]`);
+                            const radio2 = document.querySelector(`input[name="inlineRadioOptions5_2"][value="${selectedValue}"]`);
+                            
+                            if (radio1) {
+                                radio1.checked = true;
+                                console.log('✅ Radio insurance_type sélectionné (section 1)');
+                                radio1.dispatchEvent(new Event('change'));
+                            }
+                            
+                            if (radio2) {
+                                radio2.checked = true;
+                                console.log('✅ Radio insurance_type sélectionné (section 2)');
+                                radio2.dispatchEvent(new Event('change'));
+                            }
+                            
+                            if (!radio1 && !radio2) {
+                                console.log('❌ Aucun radio insurance_type trouvé');
+                            }
+                        } else {
+                            console.log('❌ Valeur insurance_type non reconnue:', insuranceType);
+                        }
+                        console.log('=== FIN DEBUG INSURANCE TYPE SELECTION ===');
+                    } else {
+                        console.log('Aucun insurance_type trouvé dans les données client');
+                    }
+                    
+                    // Afficher les sections du formulaire (mais pas la section de résumé)
+                    const sectionsToShow = document.querySelectorAll('.col-md-12.why-asking, #iAm, #insured, #insured-1, #submit-section, #submit-section-2');
+                    sectionsToShow.forEach(section => {
+                        section.style.setProperty('display', 'block', 'important');
+                    });
+                    
+                    // S'assurer que la section de résumé (step5) reste masquée
+                    const summarySection = document.getElementById('step5');
+                    if (summarySection) {
+                        summarySection.style.display = 'none';
+                    }
+                    
+                    // Afficher le bloc de consentement du formulaire après connexion réussie
+                    console.log('=== DEBUG CONSENT BLOCK ===');
+                    const consentFormBlock = document.getElementById('consent-form-block');
+                    console.log('Élément consent-form-block trouvé:', consentFormBlock);
+                    if (consentFormBlock) {
+                        console.log('Style avant modification:', consentFormBlock.style.display);
+                        consentFormBlock.style.display = 'block';
+                        console.log('Style après modification:', consentFormBlock.style.display);
+                        console.log('✅ Bloc de consentement du formulaire affiché après connexion réussie');
+                        
+                        // Vérifier la visibilité
+                        setTimeout(() => {
+                            const computedStyle = window.getComputedStyle(consentFormBlock);
+                            console.log('Style calculé après 1 seconde:', computedStyle.display);
+                            console.log('Position:', consentFormBlock.offsetTop, consentFormBlock.offsetLeft);
+                            console.log('Dimensions:', consentFormBlock.offsetWidth, consentFormBlock.offsetHeight);
+                        }, 1000);
+                        
+                        // Faire défiler vers le bloc de consentement
+                        setTimeout(() => {
+                            consentFormBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }, 1000);
+                    } else {
+                        console.log('❌ Élément consent-form-block NON TROUVÉ !');
+                    }
+                    
+                    // Réafficher les boutons "Weiter im Antrag" après connexion réussie
+                    const submitSections = [
+                        document.getElementById('submit-section'),
+                        document.getElementById('submit-section-main'),
+                        document.getElementById('submit-section-2')
+                    ];
+                    
+                    submitSections.forEach(section => {
+                        if (section) {
+                            section.style.display = 'block';
+                            console.log('✅ Bouton "Weiter im Antrag" affiché:', section.id);
+                        }
+                    });
+                    
+                    // Masquer les champs de mot de passe du formulaire principal lors du remplissage auto
+                    const passwordFields = document.querySelectorAll('.password-fields');
+                    passwordFields.forEach(field => {
+                        field.style.setProperty('display', 'none', 'important');
+                    });
+                    
+                } else {
+                    console.log('Client non trouvé - Connexion échouée');
+                    
+                    // Afficher un modal d'erreur pour login/mot de passe incorrect
+                    showLoginErrorModal();
+                }
+                
+                // Ajouter un événement pour afficher la valeur sélectionnée en temps réel
+                $('input[name="inlineRadioOptions5"], input[name="inlineRadioOptions5_2"]').on('change', function() {
+                    const selectedValue = $(this).val();
+                    if (selectedValue) {
+                        const displayText = selectedValue === 'option5' ? 'Gesetzlich versichert (Kostenübernahme durch die Pflegekasse)' : 'Privat versichert';
+                        $('#insurance-type-value').text(displayText);
+                        $('#insurance-type-display').show();
+                        console.log('Radio button changed to:', selectedValue, 'Display text:', displayText);
+                    } else {
+                        $('#insurance-type-display').hide();
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Erreur API:', error);
+                console.log('Erreur lors de la recherche: ' + error.message);
+                
+                // Afficher un modal d'erreur pour erreur technique
+                showTechnicalErrorModal();
+            });
+        }
     </script>
 
     <script>
@@ -2527,6 +4554,13 @@ display: flex;align-items: center; justify-content: center; "></div>
                 $(".step5").removeClass("active");
                 $(".step4").addClass("active");
                 $("#step5").css("display", "none");
+                
+                // Masquer le bloc de consentement secondaire quand on revient en arrière
+                const consentSection3 = document.getElementById('consent-section-3');
+                if (consentSection3) {
+                    consentSection3.style.display = 'none';
+                    console.log('Bloc de consentement secondaire masqué - retour à l\'étape 4');
+                }
             } else if ($(".step4").hasClass("active") == true) {
                 $("#step3").css("display", "block");
                 $(".step4").removeClass("active");
@@ -2562,6 +4596,7 @@ display: flex;align-items: center; justify-content: center; "></div>
             // Variable pour vérifier si tous les champs sont valides
             var isValid = true;
             var errorMessages = [];
+            
 
             // Fonction pour ajouter/enlever la classe error
             function addErrorClass(selector) {
@@ -2832,14 +4867,18 @@ display: flex;align-items: center; justify-content: center; "></div>
                 removeErrorClass('#angehoriger_email');
             }
 
-            if ($('input[type=radio][name=inlineRadioOptions5]:checked').length == 0) {
-                $('.inlineRadioOptions5_error_msg').text("Bitte wählen Sie den Versicherungstyp");
-                addErrorClass('input[type=radio][name=inlineRadioOptions5]');
+            // Vérifier les deux sections de type d'assurance
+            const insuranceType1 = $('input[type=radio][name=inlineRadioOptions5]:checked').length;
+            const insuranceType2 = $('input[type=radio][name=inlineRadioOptions5_2]:checked').length;
+            
+            if (insuranceType1 == 0 && insuranceType2 == 0) {
+                $('.inlineRadioOptions5_error_msg, .inlineRadioOptions5_2_error_msg').text("Bitte wählen Sie den Versicherungstyp");
+                addErrorClass('input[type=radio][name=inlineRadioOptions5], input[type=radio][name=inlineRadioOptions5_2]');
                 isValid = false;
                 errorMessages.push("Bitte wählen Sie den Versicherungstyp");
             } else {
-                $('.inlineRadioOptions5_error_msg').text("");
-                removeErrorClass('input[type=radio][name=inlineRadioOptions5]');
+                $('.inlineRadioOptions5_error_msg, .inlineRadioOptions5_2_error_msg').text("");
+                removeErrorClass('input[type=radio][name=inlineRadioOptions5], input[type=radio][name=inlineRadioOptions5_2]');
             }
 
             if ($('input[type=checkbox][name=condition_chcek]:checked').length == 0) {
@@ -2865,29 +4904,33 @@ display: flex;align-items: center; justify-content: center; "></div>
 
             // Vérifier si l'email existe déjà (seulement si pas trouvé par recherche)
             if (emailExists && !emailFoundBySearch) {
-                showValidationErrorModal(['Diese E-Mail-Adresse existiert bereits in unserer Datenbank. Bitte verwenden Sie eine andere E-Mail-Adresse oder suchen Sie den bestehenden Kunden.']);
+                alert('Diese E-Mail-Adresse existiert bereits in unserer Datenbank. Bitte verwenden Sie eine andere E-Mail-Adresse oder suchen Sie den bestehenden Kunden.');
                 return false;
             }
 
             // Vérifier si le numéro d'assurance existe déjà (seulement si pas trouvé par recherche)
             if (insuranceNumberExists && !insuranceNumberFoundBySearch) {
-                showValidationErrorModal(['Diese Versichertennummer existiert bereits in unserer Datenbank. Bitte verwenden Sie eine andere Versichertennummer.']);
+                alert('Diese Versichertennummer existiert bereits in unserer Datenbank. Bitte verwenden Sie eine andere Versichertennummer.');
                 return false;
             }
 
             // Vérifier si le numéro de Krankenkasse existe déjà (seulement si pas trouvé par recherche)
             if (krankenkasseNumberExists && !krankenkasseNumberFoundBySearch) {
-                showValidationErrorModal(['Diese Krankenkassen-Nummer existiert bereits in unserer Datenbank. Bitte verwenden Sie eine andere Krankenkassen-Nummer.']);
+                alert('Diese Krankenkassen-Nummer existiert bereits in unserer Datenbank. Bitte verwenden Sie eine andere Krankenkassen-Nummer.');
                 return false;
             }
 
+
             // Si la validation échoue, afficher le modal d'erreur et empêcher le passage à l'étape 3
+            
             if (!isValid) {
-                // Afficher le modal moderne avec les erreurs
-                showValidationErrorModal(errorMessages);
+                // Afficher les erreurs
+                alert('Validation failed: ' + errorMessages.join(', '));
                 
                 // Empêcher le passage à l'étape 3
                 return false;
+            } else {
+                console.log('Validation passed - proceeding to next step');
             }
 
             // var test_h = $("#houseno").val();
@@ -2933,7 +4976,21 @@ display: flex;align-items: center; justify-content: center; "></div>
                 insuredTypeValue = 'Angehöriger / Pflegeperson';
             }
             userDetails['insured_type'] = insuredTypeValue;
-            userDetails['pflegegrad'] = $('input[name="Pflegegrad"]:checked').val();
+            const pflegegradValue = $('input[name="Pflegegrad"]:checked').val();
+            userDetails['pflegegrad'] = pflegegradValue ? pflegegradValue.replace('Pflegegrad', '') : null;
+            
+            // Ajouter le type d'assurance (Der Versicherte ist) - PRINT VERSION
+            let selectedInsuranceType = $('input[name="inlineRadioOptions5"]:checked').val();
+            if (!selectedInsuranceType) {
+                selectedInsuranceType = $('input[name="inlineRadioOptions5_2"]:checked').val();
+            }
+            
+            if (selectedInsuranceType === 'option5') {
+                userDetails['insurance_type'] = 'G';
+            } else if (selectedInsuranceType === 'option6') {
+                userDetails['insurance_type'] = 'P';
+            }
+            
             userDetails['first_name'] = $('#first_name').val();
             userDetails['last_name'] = $('#last_name').val();
             userDetails['streetno'] = $('#streetno').val();
@@ -2974,16 +5031,571 @@ display: flex;align-items: center; justify-content: center; "></div>
                 }
             });
 
-            var printContent = document.getElementById(areaID).innerHTML;
-            var originalContent = document.body.innerHTML;
-            document.body.innerHTML = printContent;
-            window.print();
-            document.body.innerHTML = originalContent;
+            // Attendre que les modifications DOM soient appliquées
+            setTimeout(function() {
+                var printContent = document.getElementById(areaID).innerHTML;
+                var originalContent = document.body.innerHTML;
+                document.body.innerHTML = printContent;
+                window.print();
+                document.body.innerHTML = originalContent;
+            }, 200);
             new Sketchpad({
                 element: "#sketchpad",
                 width: $("#signPad").outerWidth(),
                 height: $("#signPad").outerHeight()
             });
+        }
+
+        function updatePDF1Data(userDetails) {
+            console.log('updatePDF1Data called with:', userDetails);
+            
+            // Mettre à jour le genre
+            if (userDetails.surname === 'Frau') {
+                $('#title_name_fr_pd1').html('✓');
+                $('#title_name_her_pd1').html('');
+            } else if (userDetails.surname === 'Herr') {
+                $('#title_name_her_pd1').html('✓');
+                $('#title_name_fr_pd1').html('');
+            }
+            
+            // Mettre à jour les informations personnelles
+            $('#first_name_pd1').text(userDetails.first_name || '');
+            $('#last_name_pd1').text(userDetails.last_name || '');
+            
+            // Mettre à jour la taille des gants
+            $('.glove-checkbox').html(''); // Effacer toutes les sélections
+            
+            console.log('=== GLOVE SIZE DEBUG ===');
+            console.log('Checking glove size:', userDetails.glove_size);
+            console.log('Type of glove_size:', typeof userDetails.glove_size);
+            console.log('Is glove_size truthy?', !!userDetails.glove_size);
+            console.log('Is glove_size empty string?', userDetails.glove_size === '');
+            console.log('Is glove_size null?', userDetails.glove_size === null);
+            console.log('Is glove_size undefined?', userDetails.glove_size === undefined);
+            
+            if (userDetails.glove_size && userDetails.glove_size !== '' && userDetails.glove_size !== null && userDetails.glove_size !== undefined) {
+                $('#glove_' + userDetails.glove_size.toLowerCase() + '_pd1').html('✓');
+                // Afficher la section des gants
+                $('#glove_section_pd1').show();
+                console.log('✓ SHOWING glove section for size:', userDetails.glove_size);
+            } else {
+                // SUPPRIMER complètement la section des gants si aucune taille n'est sélectionnée
+                $('#glove_section_pd1').remove();
+                console.log('✗ REMOVING glove section - no valid size selected');
+                console.log('Final decision: REMOVE section');
+            }
+            
+            // Mettre à jour le Pflegegrad
+            $('[id^="pflegegrad_"][id$="_pd1"]').html(''); // Effacer toutes les sélections
+            if (userDetails.pflegegrad) {
+                $('#pflegegrad_' + userDetails.pflegegrad + '_pd1').html('✓');
+                console.log('Set Pflegegrad:', userDetails.pflegegrad);
+            }
+            
+            // Mettre à jour les Bettschutzeinlagen
+            $('.bed-protection-checkbox').html(''); // Effacer toutes les sélections
+            if (userDetails.bed_protection_count) {
+                $('#bed_protection_' + userDetails.bed_protection_count + '_pd1').html('✓');
+                console.log('Set Bed Protection count:', userDetails.bed_protection_count);
+            }
+            
+            // Mettre à jour la signature
+            $('#signature_display_pd1').html(''); // Effacer la signature précédente
+            const signatureSrc = $("#signatureImg").attr('src');
+            if (signatureSrc && signatureSrc !== '') {
+                $('#signature_display_pd1').html('<img src="' + signatureSrc + '" alt="Signature" style="width: 250px; height: 80px; border: 1px solid #ddd; border-radius: 3px; background: white; object-fit: contain;">');
+                console.log('Signature added to PDF1:', signatureSrc);
+            } else {
+                console.log('No signature found');
+            }
+            
+            // Mettre à jour la date
+            const currentDate = new Date();
+            const formattedDate = currentDate.toLocaleDateString('de-DE', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+            $('#date_display_pd1').text(formattedDate);
+            console.log('Date added to PDF1:', formattedDate);
+            
+            // Mettre à jour les BeleschBox sélectionnées
+            $('.beleschbox-checkbox').html(''); // Effacer toutes les sélections
+            
+            // Utiliser directement la BeleschBox sélectionnée depuis userDetails
+            var selectedBox = userDetails.selected_package;
+            console.log('Selected package from userDetails:', selectedBox);
+            
+            // CORRECTION: Faire la correspondance entre l'ID de la base de données et le numéro de BeleschBox
+            var beleschBoxMapping = {
+                '1': '1',    // ID 1 = BeleschBox 1
+                '3': '2',    // ID 3 = BeleschBox 2  
+                '4': '3',    // ID 4 = BeleschBox 3
+                '5': '4',    // ID 5 = BeleschBox 4
+                '6': '5',    // ID 6 = BeleschBox 5
+                '7': '6'     // ID 7 = BeleschBox 6
+            };
+            
+            if (selectedBox && beleschBoxMapping[selectedBox]) {
+                selectedBox = beleschBoxMapping[selectedBox];
+                console.log('Mapped package ID to BeleschBox number:', selectedBox);
+            }
+            
+            // Cocher SEULEMENT la BeleschBox appropriée
+        // Vérifier si c'est une box personnalisée (mode custom)
+        if (window.isCustomBox) {
+            $('#bb_individuell_pd1').html('✓');
+            console.log('Checked BeleschBox Individuell (mode custom)');
+            // Synchroniser les quantités depuis le DOM
+            syncCustomQuantitiesFromDOM();
+            // Afficher les produits personnalisés
+            displayCustomProductsInPDF();
+        } else if (selectedBox && !isNaN(selectedBox)) {
+                $('#bb' + selectedBox + '_pd1').html('✓');
+                console.log('Checked ONLY BeleschBox ' + selectedBox);
+            } else if (selectedBox === 'individuell') {
+                $('#bb_individuell_pd1').html('✓');
+                console.log('Checked ONLY BeleschBox Individuell');
+            } else {
+                console.log('No specific box found, leaving all checkboxes empty');
+            }
+            
+            // Vérifier le résultat final
+            setTimeout(function() {
+                console.log('Final check - BeleschBox 1:', $('#bb1_pd1').html());
+                console.log('Final check - BeleschBox 2:', $('#bb2_pd1').html());
+                console.log('Final check - BeleschBox 3:', $('#bb3_pd1').html());
+                console.log('Final check - BeleschBox Individuell:', $('#bb_individuell_pd1').html());
+            }, 100);
+        }
+
+        function syncCustomQuantitiesFromDOM() {
+            console.log('Syncing custom quantities from DOM...');
+            customQuantities = {};
+            
+            // Récupérer les quantités depuis les contrôles de quantité
+            $('.custom-quantity-control').each(function() {
+                const productId = $(this).data('product-id');
+                const quantity = parseInt($(this).find('.custom-quantity-input').val()) || 0;
+                if (quantity > 0) {
+                    customQuantities[productId] = quantity;
+                }
+            });
+            
+            // Si pas de contrôles de quantité, essayer depuis le panier
+            if (Object.keys(customQuantities).length === 0) {
+                $('.receiver .recProduct').each(function() {
+                    const productId = $(this).data('id');
+                    const quantity = parseInt($(this).find('.qty').text()) || 0;
+                    if (quantity > 0) {
+                        customQuantities[productId] = quantity;
+                    }
+                });
+            }
+            
+            console.log('Synced customQuantities:', customQuantities);
+        }
+
+        function displayCustomProductsInPDF() {
+            console.log('Displaying custom products in PDF...');
+            console.log('customQuantities:', customQuantities);
+            
+            // Récupérer les produits du panier personnalisé
+            let customProductsHtml = '';
+            let totalAmount = 0;
+            
+            // Essayer d'abord de récupérer depuis les données de session Laravel
+            @if(Session::has('cart'))
+                @php
+                $carts = Session::get('cart');
+                @endphp
+                @foreach($carts as $cart)
+                    @if(isset($cart['custom']) && $cart['custom'])
+                        customProductsHtml += `
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 1px 0; font-size: 11px; line-height: 1.1;">
+                                <div style="flex: 1;">
+                                    <span style="font-weight: bold;">{{$cart['name']}}</span>
+                                    <span style="color: #666; margin-left: 6px; font-size: 10px;">{{$cart['product_title']}}</span>
+                                </div>
+                                <div style="text-align: right; font-size: 10px;">
+                                    <span style="font-weight: bold;">{{$cart['quantity']}}x</span>
+                                    <span style="margin-left: 6px; color: #009ee1;">{{number_format($cart['price'], 2)}}€</span>
+                                </div>
+                            </div>
+                        `;
+                        totalAmount += {{$cart['price'] * $cart['quantity']}};
+                    @endif
+                @endforeach
+                
+                if (totalAmount > 0) {
+                    customProductsHtml += `
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 2px 0; border-top: 1px solid #009ee1; margin-top: 2px; font-weight: bold; font-size: 11px;">
+                            <span>Total:</span>
+                            <span style="color: #009ee1;">${totalAmount.toFixed(2)}€</span>
+                        </div>
+                    `;
+                    
+                    // Remplacer le contenu des lignes vides par les produits
+                    const customBoxContainer = document.querySelector('#custom-products-container');
+                    if (customBoxContainer) {
+                        customBoxContainer.innerHTML = customProductsHtml;
+                        customBoxContainer.style.padding = '0';
+                        customBoxContainer.style.margin = '0';
+                    }
+                    
+                    console.log('Custom products displayed from session:', customProductsHtml);
+                    return;
+                }
+            @endif
+            
+            // Essayer d'abord avec customQuantities
+            let hasProducts = false;
+            Object.keys(customQuantities).forEach(productId => {
+                const quantity = customQuantities[productId];
+                if (quantity > 0) {
+                    hasProducts = true;
+                    const productElement = document.getElementById('productId' + productId);
+                    if (productElement) {
+                        const price = parseFloat(productElement.dataset.id);
+                        const productTotal = price * quantity;
+                        totalAmount += productTotal;
+                        
+                        const productName = productElement.querySelector('.prod-name').textContent;
+                        const productDescription = productElement.querySelector('.prod-size').textContent;
+                        
+                        // Récupérer la taille des gants si applicable
+                        let gloveSize = '';
+                        const sizeInputs = document.querySelectorAll(`input[name="size${productId}"]:checked`);
+                        if (sizeInputs.length > 0) {
+                            gloveSize = ` (${sizeInputs[0].value})`;
+                        }
+                        
+                        customProductsHtml += `
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 1px 0; font-size: 11px; line-height: 1.1;">
+                                <div style="flex: 1;">
+                                    <span style="font-weight: bold;">${productName}</span>
+                                    <span style="color: #666; margin-left: 6px; font-size: 10px;">${productDescription}${gloveSize}</span>
+                                </div>
+                                <div style="text-align: right; font-size: 10px;">
+                                    <span style="font-weight: bold;">${quantity}x</span>
+                                    <span style="margin-left: 6px; color: #009ee1;">${price.toFixed(2)}€</span>
+                                </div>
+                            </div>
+                        `;
+                    }
+                }
+            });
+            
+            // Si pas de produits dans customQuantities, essayer de récupérer depuis le DOM
+            if (!hasProducts) {
+                console.log('No products in customQuantities, trying to get from DOM...');
+                
+                // Essayer d'abord depuis .receiver .recProduct
+                console.log('Looking for .receiver .recProduct elements...');
+                console.log('Found .receiver elements:', $('.receiver').length);
+                console.log('Found .recProduct elements:', $('.receiver .recProduct').length);
+                
+                $('.receiver .recProduct').each(function() {
+                    const productId = $(this).data('id');
+                    const quantity = parseInt($(this).find('.qty').text()) || 0;
+                    
+                    console.log('Product found - ID:', productId, 'Quantity:', quantity);
+                    
+                    if (quantity > 0) {
+                        hasProducts = true;
+                        const productName = $(this).find('.prod-name').text();
+                        const productDescription = $(this).find('.prod-size').text();
+                        const price = parseFloat($(this).find('.cartPrice').val()) || 0;
+                        const productTotal = price * quantity;
+                        totalAmount += productTotal;
+                        
+                        // Récupérer la taille des gants si applicable
+                        let gloveSize = '';
+                        const sizeInputs = $(this).find('input[name^="size"]:checked');
+                        if (sizeInputs.length > 0) {
+                            gloveSize = ` (${sizeInputs.val()})`;
+                        }
+                        
+                        customProductsHtml += `
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 1px 0; font-size: 11px; line-height: 1.1;">
+                                <div style="flex: 1;">
+                                    <span style="font-weight: bold;">${productName}</span>
+                                    <span style="color: #666; margin-left: 6px; font-size: 10px;">${productDescription}${gloveSize}</span>
+                                </div>
+                                <div style="text-align: right; font-size: 10px;">
+                                    <span style="font-weight: bold;">${quantity}x</span>
+                                    <span style="margin-left: 6px; color: #009ee1;">${price.toFixed(2)}€</span>
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+                
+                // Si toujours pas de produits, essayer depuis les contrôles de quantité
+                if (!hasProducts) {
+                    console.log('Trying to get from quantity controls...');
+                    console.log('Found .custom-quantity-control elements:', $('.custom-quantity-control').length);
+                    $('.custom-quantity-control').each(function() {
+                        const productId = $(this).data('product-id');
+                        const quantity = parseInt($(this).find('.custom-quantity-input').val()) || 0;
+                        
+                        if (quantity > 0) {
+                            hasProducts = true;
+                            const productElement = document.getElementById('productId' + productId);
+                            if (productElement) {
+                                const price = parseFloat(productElement.dataset.id);
+                                const productTotal = price * quantity;
+                                totalAmount += productTotal;
+                                
+                                const productName = productElement.querySelector('.prod-name').textContent;
+                                const productDescription = productElement.querySelector('.prod-size').textContent;
+                                
+                                // Récupérer la taille des gants si applicable
+                                let gloveSize = '';
+                                const sizeInputs = document.querySelectorAll(`input[name="size${productId}"]:checked`);
+                                if (sizeInputs.length > 0) {
+                                    gloveSize = ` (${sizeInputs[0].value})`;
+                                }
+                                
+                                customProductsHtml += `
+                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #eee;">
+                                        <div style="flex: 1;">
+                                            <span style="font-weight: bold;">${productName}</span>
+                                            <span style="color: #666; margin-left: 10px;">${productDescription}${gloveSize}</span>
+                                        </div>
+                                        <div style="text-align: right;">
+                                            <span style="font-weight: bold;">${quantity}x</span>
+                                            <span style="margin-left: 10px; color: #009ee1;">${price.toFixed(2)}€</span>
+                                        </div>
+                                    </div>
+                                `;
+                            }
+                        }
+                    });
+                }
+                
+                // Dernière tentative : parser directement le HTML affiché
+                if (!hasProducts) {
+                    console.log('Trying to parse displayed products from HTML...');
+                    
+                    // Utiliser un Set pour éviter les doublons
+                    const processedProducts = new Set();
+                    
+                    // Chercher dans tous les éléments qui contiennent des produits
+                    $('.receiver, .selected-products, .product-overview').each(function() {
+                        $(this).find('.product, .cartItem, .recProduct').each(function() {
+                            const $product = $(this);
+                            const productName = $product.find('.prod-name, .product-name').text().trim();
+                            const productDescription = $product.find('.prod-size, .product-size').text().trim();
+                            const quantityText = $product.find('.qty, .quantity, .qty-text').text().trim();
+                            
+                            // Créer une clé unique pour éviter les doublons
+                            const productKey = `${productName}-${productDescription}`;
+                            
+                            console.log('Found product in HTML:', {
+                                name: productName,
+                                description: productDescription,
+                                quantity: quantityText,
+                                key: productKey
+                            });
+                            
+                            if (productName && quantityText && !processedProducts.has(productKey)) {
+                                const quantity = parseInt(quantityText) || 0;
+                                if (quantity > 0) {
+                                    processedProducts.add(productKey);
+                                    hasProducts = true;
+                                    
+                                    // Essayer de récupérer le prix depuis les données du produit
+                                    let price = 0;
+                                    const productId = $product.data('id');
+                                    if (productId) {
+                                        const productElement = document.getElementById('productId' + productId);
+                                        if (productElement) {
+                                            price = parseFloat(productElement.dataset.id) || 0;
+                                        }
+                                    }
+                                    
+                                    // Si pas de prix trouvé, essayer depuis le HTML
+                                    if (price === 0) {
+                                        const priceText = $product.find('.price, .product-price, .cartPrice').text().trim();
+                                        price = parseFloat(priceText.replace(/[^\d.,]/g, '').replace(',', '.')) || 0;
+                                    }
+                                    
+                                    const productTotal = price * quantity;
+                                    totalAmount += productTotal;
+                                    
+                                    // Récupérer la taille des gants si applicable
+                                    let gloveSize = '';
+                                    const sizeText = $product.find('.size, .glove-size').text().trim();
+                                    if (sizeText && (sizeText.includes('S') || sizeText.includes('M') || sizeText.includes('L') || sizeText.includes('XL'))) {
+                                        gloveSize = ` (${sizeText})`;
+                                    }
+                                    
+                                    customProductsHtml += `
+                                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 4px 0; border-bottom: 1px solid #ddd; font-size: 12px;">
+                                            <div style="flex: 1;">
+                                                <span style="font-weight: bold;">${productName}</span>
+                                                <span style="color: #666; margin-left: 8px; font-size: 11px;">${productDescription}${gloveSize}</span>
+                                            </div>
+                                            <div style="text-align: right; font-size: 11px;">
+                                                <span style="font-weight: bold;">${quantity}x</span>
+                                                <span style="margin-left: 8px; color: #009ee1;">${price.toFixed(2)}€</span>
+                                            </div>
+                                        </div>
+                                    `;
+                                }
+                            }
+                        });
+                    });
+                }
+                
+                // Dernière tentative : utiliser les données de session si disponibles
+                if (!hasProducts && typeof window.customCartData !== 'undefined') {
+                    console.log('Trying to get from session data...');
+                    window.customCartData.forEach(function(item) {
+                        hasProducts = true;
+                        const productTotal = item.price * item.quantity;
+                        totalAmount += productTotal;
+                        
+                        let gloveSize = '';
+                        if (item.gloveSize) {
+                            gloveSize = ` (${item.gloveSize})`;
+                        }
+                        
+                        customProductsHtml += `
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #eee;">
+                                <div style="flex: 1;">
+                                    <span style="font-weight: bold;">${item.name}</span>
+                                    <span style="color: #666; margin-left: 10px;">${item.description}${gloveSize}</span>
+                                </div>
+                                <div style="text-align: right;">
+                                    <span style="font-weight: bold;">${item.quantity}x</span>
+                                    <span style="margin-left: 10px; color: #009ee1;">${item.price.toFixed(2)}€</span>
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+            }
+            
+            // Ajouter le total
+            if (totalAmount > 0) {
+                customProductsHtml += `
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 2px 0; border-top: 1px solid #009ee1; margin-top: 2px; font-weight: bold; font-size: 11px;">
+                        <span>Total:</span>
+                        <span style="color: #009ee1;">${totalAmount.toFixed(2)}€</span>
+                    </div>
+                `;
+            }
+            
+            // Remplacer le contenu des lignes vides par les produits
+            const customBoxContainer = document.querySelector('#custom-products-container');
+            if (customBoxContainer) {
+                customBoxContainer.innerHTML = customProductsHtml || '<div style="color: #666; font-style: italic;">Aucun produit sélectionné</div>';
+                customBoxContainer.style.padding = '0';
+                customBoxContainer.style.margin = '0';
+            }
+            
+            console.log('Custom products displayed:', customProductsHtml);
+            console.log('Has products:', hasProducts);
+        }
+
+        function printPageArea1(areaID) {
+            console.log('printPageArea1 called with areaID:', areaID);
+            
+            // Récupérer les données du formulaire
+            var userDetails = {};
+            
+            // Récupérer le genre
+            var genderValue = $('input[name="title_name"]:checked').val();
+            userDetails['surname'] = genderValue;
+            
+            // Récupérer les informations personnelles
+            userDetails['first_name'] = $('#first_name').val();
+            userDetails['last_name'] = $('#last_name').val();
+            
+            // Récupérer la taille des gants - SEULEMENT si réellement sélectionnée DANS L'INTERFACE ACTUELLE
+            var gloveSize = null;
+            var hasSelectedSize = false;
+            
+            // PRIORITÉ 1: Vérifier UNIQUEMENT les inputs radio de taille cochés dans l'interface actuelle
+            var checkedSizeInputs = $('input[name^="size"]:checked');
+            console.log('Number of checked size inputs:', checkedSizeInputs.length);
+            
+            if (checkedSizeInputs.length > 0) {
+                checkedSizeInputs.each(function() {
+                    var size = $(this).val();
+                    console.log('Found checked size input:', size);
+                    if (size && (size === 'S' || size === 'M' || size === 'L' || size === 'XL')) {
+                        gloveSize = size;
+                        hasSelectedSize = true;
+                        console.log('Valid size found and selected:', size);
+                        return false; // Sortir de la boucle
+                    }
+                });
+            }
+            
+            // NE PAS utiliser window.selectedSizes ou localStorage - seulement l'interface actuelle
+            console.log('Only checking current interface inputs - ignoring stored values');
+            
+            console.log('Has selected size:', hasSelectedSize);
+            console.log('Final glove size found:', gloveSize);
+            console.log('All checked size inputs:', $('input[name^="size"]:checked').length);
+            console.log('Window selectedSizes:', window.selectedSizes);
+            console.log('LocalStorage selectedSizes:', localStorage.getItem('selectedSizes'));
+            
+            // NE PAS assigner de valeur par défaut - seulement si réellement sélectionnée
+            userDetails['glove_size'] = hasSelectedSize ? gloveSize : null;
+            
+            // Récupérer le nombre de Bettschutzeinlagen
+            var bedProtectionCount = $('input[name="number_of_bed"]:checked').val();
+            console.log('Bed protection count from form:', bedProtectionCount);
+            userDetails['bed_protection_count'] = bedProtectionCount;
+            
+            // Récupérer le Pflegegrad
+            var pflegegradValue = $('input[name="Pflegegrad"]:checked').val();
+            if (pflegegradValue) {
+                userDetails['pflegegrad'] = pflegegradValue.replace('Pflegegrad', '');
+            } else {
+                // Essayer avec l'autre nom d'input
+                var pflegegradValue2 = $('input[name="pflegegrad"]:checked').val();
+                userDetails['pflegegrad'] = pflegegradValue2;
+            }
+            console.log('Pflegegrad value:', userDetails['pflegegrad']);
+            
+            // Récupérer la BeleschBox sélectionnée depuis la session/package_data
+            var packageId = '{{ isset($package_data) ? $package_data["packageId"] : (request()->id ?? "") }}';
+            console.log('Package ID from PHP:', packageId);
+            
+            // Fallback: récupérer depuis l'URL si package_data n'est pas disponible
+            if (!packageId || packageId === '') {
+                var urlParams = new URLSearchParams(window.location.search);
+                packageId = urlParams.get('id') || urlParams.get('box');
+                console.log('Fallback: Selected package from URL:', packageId);
+            }
+            
+            console.log('Final selected package:', packageId);
+            userDetails['selected_package'] = packageId;
+            
+            console.log('User details:', userDetails);
+
+            // Mettre à jour les données dans le template PDF1
+            updatePDF1Data(userDetails);
+
+            // Générer le PDF
+            var printContents = document.getElementById(areaID).innerHTML;
+            console.log('Print contents length:', printContents.length);
+            
+            if (printContents.length === 0) {
+                alert('Template PDF1 vide! Vérifiez que printableArea1 contient du contenu.');
+                return;
+            }
+            
+            var originalContents = document.body.innerHTML;
+            
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
         }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"></script>
@@ -3064,7 +5676,7 @@ display: flex;align-items: center; justify-content: center; "></div>
         .error-icon {
             width: 50px;
             height: 50px;
-            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            background: var(--blue-gradient);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -3074,7 +5686,7 @@ display: flex;align-items: center; justify-content: center; "></div>
         
         .error-icon i {
             font-size: 24px;
-            color: white;
+            color: var(--white);
         }
         
         .error-list {
@@ -3087,20 +5699,20 @@ display: flex;align-items: center; justify-content: center; "></div>
             align-items: center;
             padding: 8px 12px;
             margin-bottom: 8px;
-            background: #fff5f5;
-            border-left: 4px solid #ff6b6b;
+            background: var(--light-blue);
+            border-left: 4px solid var(--sky-blu);
             border-radius: 4px;
             animation: slideInLeft 0.3s ease-out;
         }
         
         .error-item i {
-            color: #ff6b6b;
+            color: var(--sky-blu);
             margin-right: 10px;
             font-size: 14px;
         }
         
         .error-item span {
-            color: #666;
+            color: var(--dark-blue);
             font-size: 14px;
         }
         
@@ -3128,34 +5740,244 @@ display: flex;align-items: center; justify-content: center; "></div>
         }
         
         .modal-header {
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            background: var(--blue-gradient);
+            color: var(--white);
             border-radius: 15px 15px 0 0;
         }
         
-        .btn-primary {
-            background: linear-gradient(135deg, #007bff, #0056b3);
+        /* ===== MODERN BUTTON STYLES ===== */
+        .btn-primary, .btn__primary {
+            background: var(--blue-gradient);
             border: none;
-            border-radius: 8px;
-            padding: 10px 20px;
-            font-weight: 500;
+            border-radius: var(--border-radius);
+            padding: 15px 30px;
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--white);
             transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
         }
         
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,123,255,0.3);
+        .btn-primary::before, .btn__primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn-primary:hover::before, .btn__primary:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary:hover, .btn__primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+            background: var(--blue-gradient-hover);
+        }
+        
+        .btn-primary:active, .btn__primary:active {
+            transform: translateY(-1px);
         }
         
         .btn-secondary {
+            background: var(--light-blue);
+            color: var(--dark-blue);
+            border: 2px solid var(--sky-blu);
+            border-radius: var(--border-radius);
+            padding: 15px 30px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: var(--sky-blu);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        /* Styles pour le mode Assemble Curebox */
+        .custom-mode-toggle {
+            margin-left: auto;
+        }
+
+        .custom-mode-toggle .btn {
+            border: 2px solid var(--sky-blu);
+            color: var(--sky-blu);
+            background: transparent;
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .custom-mode-toggle .btn:hover {
+            background: var(--sky-blu);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        .custom-mode-toggle .btn.active {
+            background: var(--sky-blu);
+            color: var(--white);
+        }
+
+        /* Contrôles de quantité pour le mode custom */
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .quantity-button {
+            width: 30px;
+            height: 30px;
+            border: 2px solid var(--sky-blu);
+            background: var(--white);
+            color: var(--sky-blu);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-button:hover {
+            background: var(--sky-blu);
+            color: var(--white);
+        }
+
+        .quantity-input {
+            width: 60px;
+            text-align: center;
+            border: 2px solid var(--sky-blu);
+            border-radius: 15px;
+            padding: 5px;
+            font-weight: 600;
+            color: var(--sky-blu);
+        }
+
+        .quantity-input:focus {
+            outline: none;
+            border-color: var(--dark-blue);
+        }
+
+        /* Mode custom activé */
+        .custom-mode .product {
+            position: relative;
+        }
+
+        .custom-mode .prod-btn {
+            display: none;
+        }
+
+        .custom-mode .quantity-controls {
+            display: flex;
+        }
+
+        .custom-mode .product:hover .quantity-controls {
+            opacity: 1;
+        }
+        
+        /* Styles pour le mode Custom */
+        .custom-mode-products {
+            border: 2px solid var(--turquoise);
+            border-radius: var(--border-radius);
+            background: linear-gradient(135deg, rgba(57, 205, 193, 0.1) 0%, rgba(0, 158, 225, 0.1) 100%);
+        }
+        
+        .custom-mode-products .header {
+            background: linear-gradient(135deg, var(--turquoise) 0%, var(--sky-blu) 100%);
+            color: white;
+            padding: 1rem;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+        }
+        
+        .custom-mode-products .header h5 {
+            margin: 0;
+            font-weight: 600;
+        }
+        
+        .custom-mode-products .header small {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.85rem;
+        }
+        
+        .custom-product {
+            transition: all 0.3s ease;
+            border: 1px solid #e9ecef;
             border-radius: 8px;
-            padding: 10px 20px;
+            padding: 0.5rem;
+        }
+        
+        .custom-product:hover {
+            border-color: var(--turquoise);
+            box-shadow: 0 4px 12px rgba(57, 205, 193, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .custom-add-btn {
+            background: linear-gradient(135deg, var(--sky-blu) 0%, var(--turquoise) 100%);
+            color: white;
+            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             font-weight: 500;
+        }
+        
+        .custom-add-btn:hover {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, var(--sky-blu) 100%);
+            transform: scale(1.05);
+        }
+        
+        .custom-add-btn i {
+            font-size: 1.1rem;
+        }
+        
+        /* Indicateurs de mode */
+        .mode-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-left: 1rem;
+        }
+        
+        .mode-indicator.package-mode {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+        }
+        
+        .mode-indicator.custom-mode {
+            background: linear-gradient(135deg, #fd7e14 0%, #e83e8c 100%);
+            color: white;
+        }
+        
+        .mode-indicator i {
+            font-size: 0.9rem;
         }
         
         /* Effet visuel pour les boutons de sélection des Bettschutzeinlagen */
         .prod-count.error-highlight {
-            border: 3px solid #dc3545 !important;
-            background-color: #f8d7da !important;
+            border: 3px solid var(--sky-blu) !important;
+            background: var(--light-blue) !important;
             animation: shake 0.5s ease-in-out;
         }
         
@@ -3167,14 +5989,15 @@ display: flex;align-items: center; justify-content: center; "></div>
         
         /* Styles pour le modal d'erreur Bettschutzeinlagen */
         .error-modal-content {
-            border: 3px solid #dc3545;
+            border: 3px solid var(--sky-blu);
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(220, 53, 69, 0.3);
+            box-shadow: var(--shadow-hover);
             animation: errorPulse 2s infinite;
         }
         
         .error-modal-header {
-            background: linear-gradient(135deg, #dc3545, #c82333);
+            background: var(--blue-gradient);
+            color: var(--white);
             border-radius: 12px 12px 0 0;
             padding: 20px;
         }
@@ -3188,33 +6011,33 @@ display: flex;align-items: center; justify-content: center; "></div>
             align-items: center;
             justify-content: center;
             font-size: 24px;
-            color: white;
+            color: var(--white);
             animation: errorIconPulse 1.5s infinite;
         }
         
         .error-modal-body {
-            background: #fff5f5;
+            background: var(--light-blue);
             padding: 25px;
         }
         
         .error-message-box {
-            background: white;
-            border: 2px solid #dc3545;
+            background: var(--white);
+            border: 2px solid var(--sky-blu);
             border-radius: 10px;
             padding: 20px;
-            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.1);
+            box-shadow: var(--shadow);
         }
         
         .error-instruction {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
+            background: var(--light-blue);
+            border: 1px solid var(--sky-blu);
             border-radius: 8px;
             padding: 15px;
             margin-top: 15px;
         }
         
         .error-modal-footer {
-            background: #f8f9fa;
+            background: var(--light-blue);
             border-radius: 0 0 12px 12px;
             padding: 20px;
             justify-content: center;
@@ -3349,39 +6172,40 @@ display: flex;align-items: center; justify-content: center; "></div>
         /* Style pour les navigateurs qui supportent le calendrier */
         @supports (-webkit-appearance: none) {
             input[type="date"] {
-                background: linear-gradient(135deg, #f8f9fa, #e9ecef) !important;
+                background: var(--light-blue) !important;
             }
         }
         
         /* Style pour les champs readonly */
         input[readonly] {
-            background-color: #f8f9fa !important;
-            color: #6c757d !important;
+            background: var(--light-blue) !important;
+            color: var(--dark-blue) !important;
             cursor: not-allowed !important;
         }
         
         input[readonly]:focus {
-            background-color: #f8f9fa !important;
-            border-color: #ced4da !important;
+            background: var(--light-blue) !important;
+            border-color: var(--sky-blu) !important;
             box-shadow: none !important;
         }
         
         /* Style pour les cartes de résumé */
         .card {
-            border: 1px solid #e3e6f0;
+            border: 1px solid var(--sky-blu);
             border-radius: 0.35rem;
-            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            box-shadow: var(--shadow);
         }
         
         .card-header {
-            background-color: #f8f9fc;
-            border-bottom: 1px solid #e3e6f0;
+            background: var(--blue-gradient);
+            color: var(--white);
+            border-bottom: none;
             padding: 0.75rem 1.25rem;
         }
         
         .card-header h5 {
             margin: 0;
-            color: #5a5c69;
+            color: var(--white);
             font-weight: 600;
         }
         
@@ -3391,50 +6215,51 @@ display: flex;align-items: center; justify-content: center; "></div>
         
         .card-body p {
             margin-bottom: 0.5rem;
-            color: #858796;
+            color: var(--dark-blue);
         }
         
         .card-body strong {
-            color: #5a5c69;
+            color: var(--dark-blue);
         }
         
         /* Style pour les éléments de produits dans le résumé */
         .product-summary-item {
-            background-color: #f8f9fc;
-            border: 1px solid #e3e6f0 !important;
+            background: var(--light-blue);
+            border: 1px solid var(--sky-blu) !important;
         }
         
         .product-summary-item:hover {
-            background-color: #e3f2fd;
+            background: var(--blue-gradient);
+            color: var(--white);
         }
         
         .badge-primary {
-            background-color: #007bff;
-            color: white;
+            background: var(--blue-gradient);
+            color: var(--white);
             padding: 0.25rem 0.5rem;
             border-radius: 0.25rem;
             font-size: 0.75rem;
         }
         
         .text-success {
-            color: #28a745 !important;
+            color: var(--sky-blu) !important;
             font-weight: bold;
         }
         
         .text-info {
-            color: #17a2b8 !important;
+            color: var(--turquoise) !important;
         }
         
         .badge-success {
-            background-color: #28a745;
-            color: white;
+            background: var(--blue-gradient);
+            color: var(--white);
             padding: 0.25rem 0.5rem;
             border-radius: 0.25rem;
             font-size: 0.75rem;
         }
         
         .bg-light {
-            background-color: #f8f9fa !important;
+            background: var(--light-blue) !important;
         }
         
         /* Styles pour les messages d'erreur */
@@ -3647,154 +6472,27 @@ display: flex;align-items: center; justify-content: center; "></div>
         }
         
 
-        // Fonction pour la recherche d'email avec votre vraie base de données
-        function testSearchCustomer() {
-            console.log('Search function called');
-            const email = document.getElementById('search_email').value;
-            console.log('Email:', email);
-            
-            if (!email) {
-                alert('Bitte geben Sie eine Email-Adresse ein.');
-                return;
-            }
-            
-            // Afficher l'état de chargement
-            const searchButton = document.querySelector('button[onclick="testSearchCustomer()"]');
-            const originalText = searchButton.innerHTML;
-            searchButton.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Suche...';
-            searchButton.disabled = true;
-            
-            // Appel à votre API Laravel
-            fetch('/check-email-exists', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: JSON.stringify({
-                    email: email
+        
+        // Fonctions de test pour débogage
+        function testSessionData() {
+            fetch('/test-session')
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Session Data:', data);
+                    alert('Session Data: ' + JSON.stringify(data, null, 2));
                 })
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('API Response:', data);
-                
-                if (data.exists && data.customer) {
-                    console.log('Customer found:', data.customer);
-                    
-                    // Afficher un message d'information
-                    showAlert('✅ Email trouvé ! Les données du client ont été chargées automatiquement.', 'success');
-                    emailExists = false; // Pour la recherche, on autorise le passage à l'étape suivante
-                    emailFoundBySearch = true; // Marquer que l'email a été trouvé par recherche
-                    insuranceNumberFoundBySearch = true; // Marquer que le numéro d'assurance a été trouvé par recherche
-                    krankenkasseNumberFoundBySearch = true; // Marquer que le numéro de Krankenkasse a été trouvé par recherche
-                    
-                    // Remplir les champs
-                    document.getElementById('first_name').value = data.customer.firstName;
-                    document.getElementById('last_name').value = data.customer.lastName;
-                    document.getElementById('streetno').value = data.customer.street;
-                    document.getElementById('houseno').value = data.customer.houseNo;
-                    document.getElementById('zip').value = data.customer.zipcode;
-                    document.getElementById('city').value = data.customer.city;
-                    // Convertir la date au format yyyy-mm-dd pour HTML5
-                    if (data.customer.dob) {
-                        const date = new Date(data.customer.dob);
-                        const formattedDate = date.getFullYear() + '-' + 
-                                            (date.getMonth() + 1).toString().padStart(2, '0') + '-' + 
-                                            date.getDate().toString().padStart(2, '0');
-                        document.getElementById('Gaburtadatum').value = formattedDate;
-                    }
-                    document.getElementById('telno').value = data.customer.telephone;
-                    document.getElementById('email2').value = email;
-                    document.getElementById('health-insurance').value = data.customer.insuranceName;
-                    document.getElementById('insurance-no').value = data.customer.insuranceNumber;
-                    document.getElementById('KrankenkasseNummer').value = data.customer.healthInsuranceNo;
-                    
-                    // Remplir les champs Angehöriger/Pflegeperson si disponibles
-                    if (data.customer.angehorigerName) {
-                        document.getElementById('angehoriger_name').value = data.customer.angehorigerName;
-                    }
-                    if (data.customer.angehorigerTelefon) {
-                        document.getElementById('angehoriger_telefon').value = data.customer.angehorigerTelefon;
-                    }
-                    if (data.customer.angehorigerEmail) {
-                        document.getElementById('angehoriger_email').value = data.customer.angehorigerEmail;
-                    }
-                    
-                    // Pré-sélectionner Herr ou Frau selon les données du client (surname)
-                    if (data.customer.surname) {
-                        if (data.customer.surname === 'Herr') {
-                            document.querySelector('input[name="title_name"][value="Herr"]').checked = true;
-                        } else if (data.customer.surname === 'Frau') {
-                            document.querySelector('input[name="title_name"][value="Frau"]').checked = true;
-                        }
-                        console.log('Titre pré-sélectionné:', data.customer.surname);
-                    }
-                    
-                    // Pré-sélectionner Versicherter ou Pflegeperson selon les données du client (insured_type)
-                    if (data.customer.insured_type) {
-                        if (data.customer.insured_type === 'Versicherter') {
-                            document.querySelector('input[name="insured"][value="Versicherter"]').checked = true;
-                        } else if (data.customer.insured_type === 'Angehöriger / Pflegeperson' || data.customer.insured_type === 'Pflegeperson') {
-                            document.querySelector('input[name="insured"][value="Pflegeperson"]').checked = true;
-                        }
-                        console.log('Statut pré-sélectionné:', data.customer.insured_type);
-                        
-                        // Appeler optperson() pour gérer l'affichage de la section "Kontaktdaten Angehöriger/Pflegeperson"
-                        optperson();
-                    }
-                    
-                    // Pré-sélectionner le Pflegegrad selon les données du client
-                    if (data.customer.pflegegrad) {
-                        // Extraire le numéro de "Pflegegrad3" -> "3"
-                        const pflegegradValue = data.customer.pflegegrad.toString().replace('Pflegegrad', '');
-                        console.log('Tentative de sélection Pflegegrad:', pflegegradValue);
-                        
-                        // Essayer plusieurs approches pour sélectionner le radio button
-                        setTimeout(() => {
-                            // Approche 1: Par ID (première section)
-                            const pflegegradById = document.getElementById(`pflegegrad${pflegegradValue}`);
-                            console.log('Élément par ID (première section):', pflegegradById);
-                            
-                            // Approche 2: Par name et value (première section - minuscule)
-                            const pflegegradByName = document.querySelector(`input[name="pflegegrad"][value="${pflegegradValue}"]`);
-                            console.log('Élément par name/value (première section):', pflegegradByName);
-                            
-                            // Approche 3: Par name et value (deuxième section - majuscule)
-                            const pflegegradByNameUpper = document.querySelector(`input[name="Pflegegrad"][value="Pflegegrad${pflegegradValue}"]`);
-                            console.log('Élément par name/value (deuxième section):', pflegegradByNameUpper);
-                            
-                            // Approche 4: Lister tous les radio buttons pflegegrad (minuscule)
-                            const allPflegegradRadios = document.querySelectorAll('input[name="pflegegrad"]');
-                            console.log('Tous les radio buttons pflegegrad (minuscule):', allPflegegradRadios);
-                            
-                            // Approche 5: Lister tous les radio buttons Pflegegrad (majuscule)
-                            const allPflegegradRadiosUpper = document.querySelectorAll('input[name="Pflegegrad"]');
-                            console.log('Tous les radio buttons Pflegegrad (majuscule):', allPflegegradRadiosUpper);
-                            
-                            // Essayer de sélectionner
-                            if (pflegegradById) {
-                                pflegegradById.checked = true;
-                                console.log('Pflegegrad sélectionné par ID (première section):', pflegegradValue);
-                                if (pflegegradById.onchange) {
-                                    pflegegradById.onchange();
-                                }
-                            } else if (pflegegradByName) {
-                                pflegegradByName.checked = true;
-                                console.log('Pflegegrad sélectionné par name/value (première section):', pflegegradValue);
-                                if (pflegegradByName.onchange) {
-                                    pflegegradByName.onchange();
-                                }
-                            } else if (pflegegradByNameUpper) {
-                                pflegegradByNameUpper.checked = true;
-                                console.log('Pflegegrad sélectionné par name/value (deuxième section):', pflegegradValue);
-                                if (pflegegradByNameUpper.onchange) {
-                                    pflegegradByNameUpper.onchange();
-                                }
-                            } else {
-                                console.log('Aucun élément radio Pflegegrad trouvé pour la valeur:', pflegegradValue);
-                            }
-                        }, 500); // Augmenter le délai
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error: ' + error);
+                });
+        }
+        
+        function reloadPage() {
+            location.reload();
+        }
+        
+        function setTestData() {
+            window.location.href = '/test-set-session';
                     }
                     
                     // Effacer toutes les erreurs et bordures rouges
@@ -3843,6 +6541,36 @@ display: flex;align-items: center; justify-content: center; "></div>
                 } else {
                     console.log('Customer not found');
                     
+                    // Afficher le formulaire principal mais vide
+                    const sectionsToShow = [
+                        '.col-md-12.why-asking',
+                        '#iAm',
+                        '.row:has(#first_name)',
+                        '.row:has(#last_name)',
+                        '.row:has(#streetno)',
+                        '.row:has(#houseno)',
+                        '.row:has(#zip)',
+                        '.row:has(#city)',
+                        '.row:has(#Gaburtadatum)',
+                        '.row:has(#telno)',
+                        '.row:has(#email2)',
+                        '.row:has(#health-insurance)',
+                        '.row:has(#insurance-no)',
+                        '.row:has(#KrankenkasseNummer)',
+                        '.row:has(#angehoriger_name)',
+                        '.row:has(#angehoriger_telefon)',
+                        '.row:has(#angehoriger_email)',
+                        '.row:has(#pflegegrad)',
+                        '.row:has(#submitBtn)'
+                    ];
+                    
+                    sectionsToShow.forEach(selector => {
+                        const elements = document.querySelectorAll(selector);
+                        elements.forEach(element => {
+                            element.style.display = 'block';
+                        });
+                    });
+                    
                     // Afficher les champs de mot de passe
                     const passwordFields = document.querySelectorAll('.password-fields');
                     passwordFields.forEach(field => field.style.display = 'block');
@@ -3851,8 +6579,7 @@ display: flex;align-items: center; justify-content: center; "></div>
                     document.getElementById('clearBtn').style.display = 'none';
                     
                     // Message d'information - email n'existe pas
-                    const alertDiv = document.getElementById('alertMessage');
-                    alertDiv.innerHTML = '<div class="alert alert-info mt-3">ℹ️ E-Mail nicht gefunden. Sie können ein neues Konto erstellen, indem Sie das untenstehende Formular ausfüllen.</div>';
+                    showModernModal('ℹ️ E-Mail nicht gefunden. Sie können ein neues Konto erstellen, indem Sie das untenstehende Formular ausfüllen.', 'info');
                     emailExists = false; // Marquer que l'email n'existe pas
                 }
             })
@@ -4139,29 +6866,434 @@ display: flex;align-items: center; justify-content: center; "></div>
     </script>
     <script>
         function base_url() {
+            console.log('=== base_url() appelée ===');
+            console.log('location.host:', location.host);
+            console.log('location.origin:', location.origin);
+            console.log('location.pathname:', location.pathname);
+            
             var i = location.pathname.split("/");
-            if ("localhost" == location.host) var a = location.origin + "/" + i[1].trim("/") + "/";
-            else var a = location.origin + '/';
-            return a
+            console.log('pathname split:', i);
+            
+            var a;
+            if ("localhost" == location.host) {
+                a = location.origin + "/" + i[1].trim("/") + "/";
+                console.log('URL localhost construite:', a);
+            } else {
+                a = location.origin + '/';
+                console.log('URL production construite:', a);
+            }
+            
+            console.log('base_url() retourne:', a);
+            return a;
         };
 
+        // Variables pour le mode custom
+        let customMode = false;
+        let customQuantities = {};
+
+        // Vérifier si on est en mode custom depuis l'URL
+        if (window.location.search.includes('mode=custom')) {
+            customMode = true;
+            // Marquer que c'est une box personnalisée
+            window.isCustomBox = true;
+            // Activer le mode custom automatiquement
+            setTimeout(() => {
+                toggleCustomMode();
+            }, 500);
+        }
+
+        // Vérifier si on vient de custom-assemble (redirection)
+        if (window.location.search.includes('from=custom')) {
+            customMode = true;
+            // Activer le mode custom automatiquement
+            setTimeout(() => {
+                toggleCustomMode();
+            }, 500);
+        }
+
+        function toggleCustomMode() {
+            customMode = !customMode;
+            const button = document.getElementById('toggleCustomMode');
+            const productWrapper = document.querySelector('.product-wrapper');
+            
+            if (customMode) {
+                button.classList.add('active');
+                button.innerHTML = '<i class="fas fa-check"></i> Mode Normal';
+                productWrapper.classList.add('custom-mode');
+                
+                // Afficher les contrôles de quantité
+                document.querySelectorAll('.quantity-controls').forEach(control => {
+                    control.style.display = 'flex';
+                });
+                
+                // Masquer les boutons d'ajout normaux
+                document.querySelectorAll('.prod-btn').forEach(btn => {
+                    btn.style.display = 'none';
+                });
+            } else {
+                button.classList.remove('active');
+                button.innerHTML = '<i class="fas fa-cog"></i> Assemble Curebox';
+                productWrapper.classList.remove('custom-mode');
+                
+                // Masquer les contrôles de quantité
+                document.querySelectorAll('.quantity-controls').forEach(control => {
+                    control.style.display = 'none';
+                });
+                
+                // Afficher les boutons d'ajout normaux
+                document.querySelectorAll('.prod-btn').forEach(btn => {
+                    btn.style.display = 'flex';
+                });
+                
+                // Réinitialiser les quantités
+                customQuantities = {};
+                updateCustomCart();
+            }
+        }
+
+        function increaseQuantity(productId) {
+            if (!customMode) return;
+            
+            const input = document.getElementById('qty_' + productId);
+            const currentValue = parseInt(input.value) || 0;
+            const maxValue = parseInt(input.max) || 10;
+            
+            if (currentValue < maxValue) {
+                input.value = currentValue + 1;
+                updateQuantity(productId, input.value);
+            }
+        }
+
+        function decreaseQuantity(productId) {
+            if (!customMode) return;
+            
+            const input = document.getElementById('qty_' + productId);
+            const currentValue = parseInt(input.value) || 0;
+            
+            if (currentValue > 0) {
+                input.value = currentValue - 1;
+                updateQuantity(productId, input.value);
+            }
+        }
+
+        function updateQuantity(productId, quantity) {
+            if (!customMode) return;
+            
+            const qty = parseInt(quantity) || 0;
+            customQuantities[productId] = qty;
+            updateCustomCart();
+        }
+
+        function updateCustomCart() {
+            // Vider le panier existant
+            $('.receiver').empty();
+            $('.cartPriceValue').val('0');
+            
+            let totalAmount = 0;
+            
+            // Ajouter les produits selon les quantités
+            Object.keys(customQuantities).forEach(productId => {
+                const quantity = customQuantities[productId];
+                if (quantity > 0) {
+                    // Récupérer les infos du produit
+                    const productElement = document.getElementById('productId' + productId);
+                    const price = parseFloat(productElement.dataset.id);
+                    const productTotal = price * quantity;
+                    
+                    if (totalAmount + productTotal <= 42) {
+                        totalAmount += productTotal;
+                        
+                        // Récupérer les infos du produit pour vérifier si c'est un gant
+                        const productName = productElement.querySelector('.prod-name').textContent;
+                        const productDescription = productElement.querySelector('.prod-size').textContent;
+                        const fullProductText = (productName + ' ' + productDescription).toLowerCase();
+                        // Détection stricte des gants - seulement "Einmalhandschuhe"
+                        const isGlove = fullProductText.includes('einmalhandschuhe');
+                        
+                        // Debug plus détaillé
+                        console.log('=== DEBUG PRODUIT ===');
+                        console.log('Nom:', productName);
+                        console.log('Description:', productDescription);
+                        console.log('Texte complet:', fullProductText);
+                        console.log('Contient "einmalhandschuhe":', fullProductText.includes('einmalhandschuhe'));
+                        console.log('Contient "handschuh":', fullProductText.includes('handschuh'));
+                        console.log('Est un gant:', isGlove);
+                        console.log('==================');
+                        
+                        console.log('Produit:', productName, 'Description:', productDescription, 'Est un gant:', isGlove);
+                        
+                        // Ajouter au panier visuel
+                        let productHtml = `
+                            <div data-id="${productId}" class="content border-1 cartItem recProduct${productId}">
+                                <div class="product mb-3">
+                                    <img src="${productElement.querySelector('img').src}">
+                                    <div class="prod-info">
+                                        <div class="prod-name">${productName}</div>
+                                        <div class="prod-size">${productElement.querySelector('.prod-size').textContent}</div>
+                                    </div>
+                                    <div class="prod-btn" onclick="removeCustomProduct(${productId})">
+                                        <span class="qty quantity${productId}">${quantity}</span>
+                                        <i class="fas fa-trash"></i>
+                                    </div>
+                                </div>`;
+                        
+                        // Ajouter la question de taille seulement pour les gants
+                        if (isGlove) {
+                            productHtml += `
+                                <div class="glove-options">
+                                    <div class="d-flex">
+                                        <img src="{{asset('frontend/assets/images/icon-handschuh.svg')}}">
+                                        <label>Welche Handschuhgröße haben Sie?</label>
+                                    </div>
+                                </div>
+                                <div class="base-click-box size${productId}" id="bx-${productId}">
+                                    <div class="productss" id="checkData-${productId}">
+                                        <div class="lengend-action-buttons lengend-action-buttons-first">
+                                            <label class="prod-count bg-white" for="d3_graph_chart${productId}S">
+                                                <input class="SIZE${productId}" id="d3_graph_chart${productId}S" name="size${productId}" type="radio" value="S" onchange="fetchSize(${productId})">
+                                                <span><p>S</p></span>
+                                            </label>
+                                        </div>
+                                        <div class="lengend-action-buttons lengend-action-buttons-first">
+                                            <label class="prod-count bg-white" for="d3_graph_chart${productId}M">
+                                                <input class="SIZE${productId}" id="d3_graph_chart${productId}M" name="size${productId}" type="radio" value="M" onchange="fetchSize(${productId})">
+                                                <span><p>M</p></span>
+                                            </label>
+                                        </div>
+                                        <div class="lengend-action-buttons lengend-action-buttons-first">
+                                            <label class="prod-count bg-white" for="d3_graph_chart${productId}L">
+                                                <input class="SIZE${productId}" id="d3_graph_chart${productId}L" name="size${productId}" type="radio" value="L" onchange="fetchSize(${productId})">
+                                                <span><p>L</p></span>
+                                            </label>
+                                        </div>
+                                        <div class="lengend-action-buttons lengend-action-buttons-first">
+                                            <label class="prod-count bg-white" for="d3_graph_chart${productId}XL">
+                                                <input class="SIZE${productId}" id="d3_graph_chart${productId}XL" name="size${productId}" type="radio" value="XL" onchange="fetchSize(${productId})">
+                                                <span><p>XL</p></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>`;
+                        }
+                        
+                        productHtml += `</div>`;
+                        
+                        $('.receiver').append(productHtml);
+                        
+                        // Marquer le produit comme custom dans la session
+                        $.ajax({
+                            url: '{{route("getProductCart")}}',
+                            type: 'POST',
+                            data: {
+                                productId: productId,
+                                type: 'add',
+                                custom: true, // Marquer comme custom
+                                _token: '{{csrf_token()}}'
+                            },
+                            success: function(response) {
+                                console.log('Product marked as custom in session');
+                            }
+                        });
+                    } else {
+                        // Limite dépassée - Afficher le modal
+                        showLimitExceededModal();
+                        return;
+                    }
+                }
+            });
+            
+            // Mettre à jour le prix total
+            $('.cartPriceValue').val(totalAmount.toFixed(2));
+            
+            // Mettre à jour la barre de progression
+            const percentage = (totalAmount / 42) * 100;
+            $('.progress-bar').css('width', percentage + '%');
+            
+            // Sauvegarder les données pour le PDF
+            window.customCartData = [];
+            Object.keys(customQuantities).forEach(productId => {
+                const quantity = customQuantities[productId];
+                if (quantity > 0) {
+                    const productElement = document.getElementById('productId' + productId);
+                    if (productElement) {
+                        const price = parseFloat(productElement.dataset.id);
+                        const productName = productElement.querySelector('.prod-name').textContent;
+                        const productDescription = productElement.querySelector('.prod-size').textContent;
+                        
+                        // Récupérer la taille des gants si applicable
+                        let gloveSize = '';
+                        const sizeInputs = document.querySelectorAll(`input[name="size${productId}"]:checked`);
+                        if (sizeInputs.length > 0) {
+                            gloveSize = sizeInputs[0].value;
+                        }
+                        
+                        window.customCartData.push({
+                            id: productId,
+                            name: productName,
+                            description: productDescription,
+                            price: price,
+                            quantity: quantity,
+                            gloveSize: gloveSize
+                        });
+                    }
+                }
+            });
+            
+            // Mettre à jour l'affichage dans le PDF si on est en mode custom
+            if (window.isCustomBox) {
+                displayCustomProductsInPDF();
+            }
+        }
+
+        function removeCustomProduct(productId) {
+            if (!customMode) return;
+            
+            customQuantities[productId] = 0;
+            document.getElementById('qty_' + productId).value = 0;
+            updateCustomCart();
+        }
+
+        // Variable globale pour le mode actuel
+        var currentMode = '{{ $mode }}';
+        console.log('Mode initial chargé:', currentMode);
+        
+        // Fonction pour mettre à jour l'affichage du total
+        function updateCartTotalDisplay() {
+            const cartValue = parseFloat($('.cartPriceValue').val()) || 0;
+            const formattedTotal = cartValue.toLocaleString('de-DE', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+            
+            // Mettre à jour tous les affichages de total
+            $('#cart-total-display').text(formattedTotal + ' €');
+            $('#cart-total-display-2').text(formattedTotal + ' €');
+            
+            console.log('Total mis à jour:', formattedTotal + ' €');
+        }
+        
+        // Fonction pour afficher le modal de limite dépassée
+        function showLimitExceededModal() {
+            const modal = new bootstrap.Modal(document.getElementById('limitExceededModal'));
+            modal.show();
+            
+            // Ajouter un effet sonore optionnel (si souhaité)
+            console.log('Modal de limite dépassée affiché');
+        }
+        
+        // Fonction pour fermer le modal de limite dépassée
+        function closeLimitModal() {
+            console.log('Tentative de fermeture du modal');
+            
+            // Méthode 1: Utiliser Bootstrap Modal
+            const modalElement = document.getElementById('limitExceededModal');
+            if (modalElement) {
+                const modal = bootstrap.Modal.getInstance(modalElement);
+                if (modal) {
+                    modal.hide();
+                    console.log('Modal fermé via Bootstrap instance');
+                    return;
+                }
+                
+                // Méthode 2: Créer une nouvelle instance et la fermer
+                const newModal = new bootstrap.Modal(modalElement);
+                newModal.hide();
+                console.log('Modal fermé via nouvelle instance Bootstrap');
+                return;
+            }
+            
+            // Méthode 3: Fermeture manuelle via jQuery (fallback)
+            $('#limitExceededModal').modal('hide');
+            console.log('Modal fermé via jQuery fallback');
+        }
+        
+        // Ajouter un événement de clic global pour le bouton Verstanden
+        $(document).ready(function() {
+            console.log('=== DOM CHARGÉ - VÉRIFICATION BLOC CONSENTEMENT ===');
+            
+            // Vérifier l'existence du bloc de consentement au chargement
+            const consentBlock = document.getElementById('consent-form-block');
+            console.log('Bloc consent-form-block trouvé au chargement:', consentBlock);
+            if (consentBlock) {
+                console.log('Style initial:', consentBlock.style.display);
+                console.log('Position dans le DOM:', consentBlock.offsetTop);
+                console.log('Parent:', consentBlock.parentElement);
+            } else {
+                console.log('❌ Bloc consent-form-block NON TROUVÉ au chargement !');
+            }
+            
+            $(document).on('click', '#limitExceededModal .btn-primary', function() {
+                console.log('Clic détecté sur le bouton Verstanden');
+                closeLimitModal();
+            });
+        });
+        
+
+        // Fonction pour gérer le changement de la checkbox de consentement
+        function handleConsentChange() {
+            const consentCheckbox = document.getElementById('consent-checkbox');
+            
+            if (consentCheckbox && consentCheckbox.checked) {
+                console.log('✅ Consentement accepté');
+                // Ne pas passer automatiquement à l'étape 3
+                // L'utilisateur doit cliquer sur "Weiter im Antrag" pour continuer
+            } else {
+                console.log('❌ Consentement non accepté');
+            }
+        }
+        
+        // Vérifier le paramètre mode dans l'URL au chargement
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlMode = urlParams.get('mode');
+        if (urlMode === 'custom') {
+            currentMode = 'custom';
+            window.isCustomBox = true;
+            console.log('Mode détecté depuis l\'URL:', currentMode);
+            console.log('isCustomBox initialisé à true depuis l\'URL');
+            
+            // Cocher automatiquement "BeleschBox Individuell" au chargement
+            setTimeout(() => {
+                const individuellCheckbox = document.getElementById('bb_individuell_pd1');
+                if (individuellCheckbox) {
+                    individuellCheckbox.innerHTML = '✓';
+                    console.log('BeleschBox Individuell cochée automatiquement au chargement');
+                }
+            }, 1000);
+        }
+        
         function getProduct(i) {
+            console.log('getProduct appelé avec ID:', i);
+            console.log('Mode actuel:', currentMode);
+            
+            // Basculer en mode Custom si on était en mode Package
+            if (currentMode === 'package') {
+                console.log('Basculer vers Custom suite au clic sur +');
+                switchToCustomMode();
+            }
+            
+            // Si on est en mode custom, ne pas utiliser la fonction normale
+            if (customMode) {
+                return;
+            }
+            
+            var url = base_url() + "getProductCart?type=add";
+            
             $.ajax({
                 headers: {
                     "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
                 },
                 type: "POST",
-                url: base_url() + "getProductCart?type=add",
+                url: url,
                 data: "productId=" + i,
                 success: function(a) {
                     if (parseInt($(".cartPriceValue").val()) + parseFloat(a.price) <= 42) {
-                        if ($(".recProduct" + i).length < 1) {
+                        if ($(".recProduct" + a.id).length < 1) {
                             $('#qty_pd_' + a.id).html('1');
                             $('#pd_' + a.id).html('&#10003;');
                             if ($(".receiver").append('<div data-id="' + a.id + '" class="content border-1 cartItem recProduct' + a.id + '" ><div class="product mb-3"><img src="<?= asset("storage") ?>/' + a.image + '"><div class="prod-info"><div class="prod-name">' + a.name + '</div><div class="prod-size">' + a.product_title + '</div></div><div class="prod-btn" onclick="less(' + a.id + ')" ><span class="qty quantity' + a.id + '">1</span><input type="hidden" id="qty_p_' + a.id + '" value="1"><input type="hidden" class="cartPrice" id="price_p_' + a.id + '" value="' + a.price + '"><i class="fas fa-minus-circle"></i></div></div>' + ("" != a.size_availability ? '<div class="glove-options"><div class="d-flex"><img src="{{asset("frontend/assets/images/icon-handschuh.svg")}}"><label>Welche Handschuhgr\xf6\xdfe haben Sie?</label></div></div>' : '') + '<div class="base-click-box size' + a.id + '" id="bx-' + a.id + '"></div></div>'), $(".cartPriceValue").attr("value", (parseFloat(a.price) + parseFloat($(".cartPriceValue").val())).toLocaleString("en-US", {
                                     maximumFractionDigits: 2,
                                     minimumFractionDigits: 2
-                                })), "" != a.size_availability) {
+                                })), "" != a.size_availability && a.size_availability) {
                                 $(".size" + a.id).prepend('<div class="productss" id="checkData-' + a.id + '"></div>');
                                 var t = a.size_availability.split(",");
                                 $.each(t, function(i) {
@@ -4169,18 +7301,22 @@ display: flex;align-items: center; justify-content: center; "></div>
                                 });
 
                             }
-                            $(".progress-bar").css("width", 100 * parseFloat($(".cartPriceValue").val()) / 42 + "%"), cartItemBlur()
+                            $(".progress-bar").css("width", 100 * parseFloat($(".cartPriceValue").val()) / 42 + "%"), cartItemBlur(), updateCartTotalDisplay()
                         } else {
                             var e = parseFloat($("#qty_p_" + i).val()) + 1;
                             $('#qty_pd_' + a.id).html(e);
-                            $("#qty_p_" + i).attr("value", e), $("#price_p_" + i).attr("value", (parseFloat(e) * parseInt(a.price)).toLocaleString("en-US", {
+                            $("#qty_p_" + i).attr("value", e), $("#price_p_" + i).attr("value", parseFloat(a.price).toLocaleString("en-US", {
                                 maximumFractionDigits: 2,
                                 minimumFractionDigits: 2
                             })), $(".cartPriceValue").attr("value", (parseFloat(a.price) + parseFloat($(".cartPriceValue").val())).toLocaleString("en-US", {
                                 maximumFractionDigits: 2,
                                 minimumFractionDigits: 2
-                            })), $(".quantity" + i).html(e), $(".progress-bar").css("width", 100 * parseFloat($(".cartPriceValue").val()) / 42 + "%"), cartItemBlur()
+                            })), $(".quantity" + i).html(e), $(".progress-bar").css("width", 100 * parseFloat($(".cartPriceValue").val()) / 42 + "%"), cartItemBlur(), updateCartTotalDisplay()
                         }
+                    } else {
+                        // Limite dépassée - Afficher le modal
+                        showLimitExceededModal();
+                        return;
                     }
                 }
             })
@@ -4221,6 +7357,7 @@ display: flex;align-items: center; justify-content: center; "></div>
             setTimeout(function() {
                 forceStepColors();
                 optperson(); // Vérifier à nouveau l'état du bloc
+                updateCartTotalDisplay(); // Mettre à jour l'affichage du total
             }, 1000);
         });
         
@@ -4229,16 +7366,16 @@ display: flex;align-items: center; justify-content: center; "></div>
             console.log('=== FORCEMENT DES COULEURS - APPROCHE DIRECTE ===');
             
             // FORCER TOUTES LES ÉTAPES EN GRIS D'ABORD
-            $('.step1 .step-text, .step2 .step-text, .step3 .step-text, .step4 .step-text, .step5 .step-text').css('color', '#6c757d !important');
-            $('.step1 .step-number, .step2 .step-number, .step3 .step-number, .step4 .step-number, .step5 .step-number').css('background-color', '#6c757d !important');
-            $('.step1 .step-divider, .step2 .step-divider, .step3 .step-divider, .step4 .step-divider, .step5 .step-divider').css('background-color', '#6c757d !important');
+            $('.step1 .step-text, .step2 .step-text, .step3 .step-text, .step4 .step-text, .step5 .step-text').css('color', 'var(--turquoise) !important');
+            $('.step1 .step-number, .step2 .step-number, .step3 .step-number, .step4 .step-number, .step5 .step-number').css('background', 'var(--light-blue) !important');
+            $('.step1 .step-divider, .step2 .step-divider, .step3 .step-divider, .step4 .step-divider, .step5 .step-divider').css('background', 'var(--light-blue) !important');
             
             console.log('Toutes les étapes forcées en gris');
             
             // PUIS FORCER SEULEMENT L'ÉTAPE ACTIVE EN TURQUOISE
-            $('.step.active .step-text').css('color', '#20c997 !important');
-            $('.step.active .step-number').css('background-color', '#20c997 !important');
-            $('.step.active .step-divider').css('background-color', '#20c997 !important');
+            $('.step.active .step-text').css('color', 'var(--sky-blu) !important');
+            $('.step.active .step-number').css('background', 'var(--blue-gradient) !important');
+            $('.step.active .step-divider').css('background', 'var(--blue-gradient) !important');
             
             console.log('Étape active forcée en turquoise');
             console.log('=== FIN FORCEMENT DES COULEURS ===');
@@ -4250,7 +7387,7 @@ display: flex;align-items: center; justify-content: center; "></div>
             
             // Vérifier quelle option est sélectionnée
             const selectedOption = $('input[name="insured"]:checked').val();
-            console.log('Option sélectionnée:', selectedOption);
+            console.log('Option sélectionnée:', selectedOption || 'Aucune option sélectionnée');
             
             // Récupérer le bloc Angehöriger/Pflegeperson
             const angehorigerBlock = $('#angehoriger-contact');
@@ -4327,13 +7464,98 @@ display: flex;align-items: center; justify-content: center; "></div>
             console.log('=== FIN fetchSize ===');
         }
 
+        // Fonction pour basculer en mode Custom
+        function switchToCustomMode() {
+            console.log('switchToCustomMode appelée');
+            
+            // Mettre à jour la variable globale
+            currentMode = 'custom';
+            window.isCustomBox = true; // Marquer comme box personnalisée
+            console.log('Variable currentMode mise à jour:', currentMode);
+            console.log('isCustomBox défini à true');
+            
+            // Ajouter le paramètre mode=custom à l'URL
+            const url = new URL(window.location);
+            url.searchParams.set('mode', 'custom');
+            window.history.pushState({}, '', url);
+            console.log('URL mise à jour vers:', url.toString());
+            
+            // Déclencher le clic sur le bouton caché
+            const switchBtn = document.getElementById('switch-mode-btn');
+            if (switchBtn) {
+                console.log('Clic sur le bouton caché');
+                switchBtn.click();
+            }
+            
+            // Afficher la section des produits supplémentaires immédiatement
+            console.log('Tentative d\'affichage de la section custom');
+            const customSection = document.getElementById('custom-products-section');
+            if (customSection) {
+                customSection.style.display = 'block';
+                console.log('Section custom affichée');
+            } else {
+                console.log('Section custom non trouvée');
+            }
+            
+            // Mettre à jour l'indicateur de mode
+            updateModeIndicator('custom');
+            
+            // Cocher automatiquement "BeleschBox Individuell"
+            setTimeout(() => {
+                const individuellCheckbox = document.getElementById('bb_individuell_pd1');
+                if (individuellCheckbox) {
+                    individuellCheckbox.innerHTML = '✓';
+                    console.log('BeleschBox Individuell cochée automatiquement');
+                }
+            }, 500);
+        }
+        
+        // Fonction pour mettre à jour l'indicateur de mode
+        function updateModeIndicator(mode) {
+            const indicators = document.querySelectorAll('.mode-indicator');
+            indicators.forEach(indicator => {
+                indicator.style.display = 'none';
+            });
+            
+            if (mode === 'custom') {
+                const customIndicator = document.querySelector('.mode-indicator.custom-mode');
+                if (customIndicator) {
+                    customIndicator.style.display = 'inline-flex';
+                }
+            }
+        }
+        
+        // Fonction pour ajouter un produit personnalisé
+        function addCustomProduct(productId) {
+            // Utiliser la fonction getProduct existante pour ajouter le produit
+            getProduct(productId);
+            
+            // Masquer le produit ajouté de la liste des produits disponibles
+            const productElement = document.getElementById('customProductId' + productId);
+            if (productElement) {
+                productElement.style.display = 'none';
+            }
+        }
+
         function less(i) {
+            console.log('less appelé avec ID:', i);
+            console.log('Mode actuel:', currentMode);
+            
+            // Basculer en mode Custom si on était en mode Package
+            if (currentMode === 'package') {
+                console.log('Basculer vers Custom suite au clic sur -');
+                switchToCustomMode();
+            }
+            
+            var url = base_url() + "getProductCart?type=remove";
+            console.log('URL de la requête remove:', url);
+            
             $.ajax({
                 headers: {
                     "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
                 },
                 type: "POST",
-                url: base_url() + "getProductCart?type=remove",
+                url: url,
                 data: "productId=" + i,
                 success: function(a) {
 
@@ -4341,10 +7563,10 @@ display: flex;align-items: center; justify-content: center; "></div>
                     parseInt($("#qty_p_" + i).val()) > 1 ? ($("#qty_p_" + i).attr("value", $("#qty_p_" + i).val() - 1), $(".quantity" + i).html($("#qty_p_" + i).val()), $(".cartPriceValue").attr("value", (parseInt($(".cartPriceValue").val()) - parseInt(a.price)).toLocaleString("en-US", {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2
-                    })), $(".progress-bar").css("width", 100 * parseFloat($(".cartPriceValue").val()) / 42 + "%"), cartItemBlur()) : ($(".cartPriceValue").attr("value", (parseInt($(".cartPriceValue").val()) - parseInt(a.price)).toLocaleString("en-US", {
+                    })), $(".progress-bar").css("width", 100 * parseFloat($(".cartPriceValue").val()) / 42 + "%"), cartItemBlur(), updateCartTotalDisplay()) : ($(".cartPriceValue").attr("value", (parseInt($(".cartPriceValue").val()) - parseInt(a.price)).toLocaleString("en-US", {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2
-                    })), $(".recProduct" + i).remove(), $(".progress-bar").css("width", 100 * parseFloat($(".cartPriceValue").val()) / 42 + "%"), cartItemBlur(), $('#pd_' + a.id).empty(), $('#qty_pd_' + a.id).empty(), $('#pd_size_' + id).empty(), delete window.selectedSizes[i])
+                    })), $(".recProduct" + i).remove(), $(".progress-bar").css("width", 100 * parseFloat($(".cartPriceValue").val()) / 42 + "%"), cartItemBlur(), updateCartTotalDisplay(), $('#pd_' + a.id).empty(), $('#qty_pd_' + a.id).empty(), $('#pd_size_' + i).empty(), delete window.selectedSizes[i])
                 }
             })
         };
@@ -4359,6 +7581,13 @@ display: flex;align-items: center; justify-content: center; "></div>
             $("#step5").css("display", "block");
             $(".step4").removeClass("active");
             $(".step5").addClass("active");
+            
+            // Afficher le bloc de consentement secondaire à l'étape 5
+            const consentSection3 = document.getElementById('consent-section-3');
+            if (consentSection3) {
+                consentSection3.style.setProperty('display', 'block', 'important');
+                console.log('Bloc de consentement secondaire affiché à l\'étape 5');
+            }
             
             // Forcer les couleurs après changement d'étape
             setTimeout(function() {
@@ -4395,7 +7624,10 @@ display: flex;align-items: center; justify-content: center; "></div>
             $("#summary_pflegegrad").text(selectedPflegegrad || 'Nicht ausgewählt');
             
             // Versicherungstyp (Der Versicherte ist)
-            const selectedInsuranceType = $('input[name="inlineRadioOptions5"]:checked').val();
+            let selectedInsuranceType = $('input[name="inlineRadioOptions5"]:checked').val();
+            if (!selectedInsuranceType) {
+                selectedInsuranceType = $('input[name="inlineRadioOptions5_2"]:checked').val();
+            }
             console.log('Ausgewählter Versicherungstyp:', selectedInsuranceType);
             
             // Convertir les valeurs en texte lisible
@@ -4456,6 +7688,11 @@ display: flex;align-items: center; justify-content: center; "></div>
         // Fonction pour remplir le résumé des produits
         function fillProductsSummary() {
             const productsList = $("#summary_products_list");
+            if (!productsList.length) {
+                console.log('Élément summary_products_list non trouvé, arrêt de la fonction');
+                return;
+            }
+            
             let totalValue = 0;
             let productsCount = 0;
             let productsHtml = '';
@@ -4588,12 +7825,12 @@ display: flex;align-items: center; justify-content: center; "></div>
             $("#summary_total_value").text(totalValue.toFixed(2) + '€');
         }
     </script>
-    @if(Route::currentRouteName() == 'assemble')
     <script>
         function checkout_btn() {
 
             //console.log('test demo2');
             if ($("#agreement").prop('checked') != true) {
+                console.log('Agreement not checked - adding red border');
                 $("#agreement").addClass('border-red-checkbox');
             } else {
                 $("#agreement").removeClass('border-red-checkbox');
@@ -4619,7 +7856,62 @@ display: flex;align-items: center; justify-content: center; "></div>
                     insuredTypeValue = 'Angehöriger / Pflegeperson';
                 }
                 userDetails['insured_type'] = insuredTypeValue;
-                userDetails['pflegegrad'] = $('input[name="Pflegegrad"]:checked').val();
+                const pflegegradValue = $('input[name="Pflegegrad"]:checked').val();
+            userDetails['pflegegrad'] = pflegegradValue ? pflegegradValue.replace('Pflegegrad', '') : null;
+                
+                // Ajouter le type d'assurance (Der Versicherte ist)
+                console.log('=== DEBUG INSURANCE TYPE ===');
+                console.log('All inlineRadioOptions5 inputs:', $('input[name="inlineRadioOptions5"]').length);
+                console.log('Checked inlineRadioOptions5:', $('input[name="inlineRadioOptions5"]:checked').length);
+                console.log('All radio inputs:', $('input[type="radio"]').length);
+                console.log('All checked radio inputs:', $('input[type="radio"]:checked').length);
+                
+                // Debug spécifique pour les radio buttons d'assurance
+                console.log('=== DEBUG RADIO BUTTONS ===');
+                console.log('inlineRadioOptions5 count:', $('input[name="inlineRadioOptions5"]').length);
+                console.log('inlineRadioOptions5_2 count:', $('input[name="inlineRadioOptions5_2"]').length);
+                
+                $('input[name="inlineRadioOptions5"]').each(function(index) {
+                    console.log('Radio button 1-' + index + ':', $(this).val(), 'checked:', $(this).is(':checked'));
+                });
+                
+                $('input[name="inlineRadioOptions5_2"]').each(function(index) {
+                    console.log('Radio button 2-' + index + ':', $(this).val(), 'checked:', $(this).is(':checked'));
+                });
+                console.log('=== END DEBUG RADIO BUTTONS ===');
+                
+                // Afficher la valeur sélectionnée dans l'interface
+                let selectedValue = $('input[name="inlineRadioOptions5"]:checked').val();
+                if (!selectedValue) {
+                    selectedValue = $('input[name="inlineRadioOptions5_2"]:checked').val();
+                }
+                
+                if (selectedValue) {
+                    const displayText = selectedValue === 'option5' ? 'Gesetzlich versichert (Kostenübernahme durch die Pflegekasse)' : 'Privat versichert';
+                    $('#insurance-type-value').text(displayText);
+                    $('#insurance-type-display').show();
+                } else {
+                    $('#insurance-type-display').hide();
+                }
+                
+                // Vérifier d'abord la première section, puis la deuxième
+                let insuranceType = $('input[name="inlineRadioOptions5"]:checked').val();
+                if (!insuranceType) {
+                    insuranceType = $('input[name="inlineRadioOptions5_2"]:checked').val();
+                }
+                
+                // Ne pas écraser si déjà défini
+                if (!userDetails['insurance_type']) {
+                    if (insuranceType === 'option5') {
+                        userDetails['insurance_type'] = 'G';
+                    } else if (insuranceType === 'option6') {
+                        userDetails['insurance_type'] = 'P';
+                    } else {
+                    }
+                } else {
+                }
+                
+                
                 userDetails['first_name'] = $('#first_name').val();
                 userDetails['last_name'] = $('#last_name').val();
                 userDetails['streetno'] = $('#streetno').val();
@@ -4658,7 +7950,7 @@ display: flex;align-items: center; justify-content: center; "></div>
                     },
                     type: "POST",
                     url: "{{ route('product.checkout') }}",
-                    data: "productDetails=" + JSON.stringify(o) + '&userDetails=' + JSON.stringify(personalInformation) + '&deliveryAddress=' + JSON.stringify(customerDeliveryAddress) + '&signature=' + $('#signatureImg').attr('src'),
+                    data: "productDetails=" + JSON.stringify(o) + '&userDetails=' + JSON.stringify(personalInformation) + '&deliveryAddress=' + JSON.stringify(customerDeliveryAddress) + '&signature=' + $('#signatureImg').attr('src') + '&custom_mode=' + (window.isCustomBox ? '1' : '0'),
                     success: function(a) {
                         if (a.status == '1') {
                             successtoastMessage(a.message)
@@ -4684,10 +7976,11 @@ display: flex;align-items: center; justify-content: center; "></div>
             }
         };
     </script>
-    @else
     <script>
         function checkout_btn_pkg() {
+            
             if ($("#agreement").prop('checked') != true) {
+                console.log('Agreement not checked - adding red border');
                 $("#agreement").addClass('border-red-checkbox');
             } else {
                 $("#agreement").removeClass('border-red-checkbox');
@@ -4703,7 +7996,22 @@ display: flex;align-items: center; justify-content: center; "></div>
                     insuredTypeValue = 'Angehöriger / Pflegeperson';
                 }
                 userDetails['insured_type'] = insuredTypeValue;
-                userDetails['pflegegrad'] = $('input[name="Pflegegrad"]:checked').val();
+                const pflegegradValue = $('input[name="Pflegegrad"]:checked').val();
+            userDetails['pflegegrad'] = pflegegradValue ? pflegegradValue.replace('Pflegegrad', '') : null;
+                
+                // Ajouter le type d'assurance (Der Versicherte ist) - PACKAGE VERSION
+                let selectedInsuranceType = $('input[name="inlineRadioOptions5"]:checked').val();
+                if (!selectedInsuranceType) {
+                    selectedInsuranceType = $('input[name="inlineRadioOptions5_2"]:checked').val();
+                }
+                
+                if (selectedInsuranceType === 'option5') {
+                    userDetails['insurance_type'] = 'G';
+                } else if (selectedInsuranceType === 'option6') {
+                    userDetails['insurance_type'] = 'P';
+                } else {
+                }
+                
                 userDetails['first_name'] = $('#first_name').val();
                 userDetails['last_name'] = $('#last_name').val();
                 userDetails['streetno'] = $('#streetno').val();
@@ -4731,13 +8039,16 @@ display: flex;align-items: center; justify-content: center; "></div>
                 deliveryAddress['city'] = $('#Dcity').val();
                 customerDeliveryAddress.push(deliveryAddress);
 
+                // Récupérer les données du package de la session
+                var packageId = '{{ isset($package_data) ? $package_data["packageId"] : (request()->id ?? "") }}';
+
                 $.ajax({
                     headers: {
                         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
                     },
                     type: "POST",
                     url: "{{ route('product.checkout') }}",
-                    data: 'packageDetails={{request()->id}}&userDetails=' + JSON.stringify(personalInformation) + '&deliveryAddress=' + JSON.stringify(customerDeliveryAddress) + '&signature=' + $('#signatureImg').attr('src'),
+                    data: 'packageDetails=' + packageId + '&userDetails=' + JSON.stringify(personalInformation) + '&deliveryAddress=' + JSON.stringify(customerDeliveryAddress) + '&signature=' + $('#signatureImg').attr('src'),
                     success: function(a) {
                         if (a.status == '1') {
                             //alert('success');
@@ -4761,5 +8072,37 @@ display: flex;align-items: center; justify-content: center; "></div>
             }
         };
     </script>
-    @endif
+
+    <!-- Modal d'alerte pour limite dépassée -->
+    <div class="modal fade" id="limitExceededModal" tabindex="-1" aria-labelledby="limitExceededModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 15px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                <div class="modal-header" style="background: linear-gradient(135deg, #ff6b6b, #ff8e8e); color: white; border-radius: 15px 15px 0 0; border: none;">
+                    <h5 class="modal-title" id="limitExceededModalLabel" style="font-weight: bold;">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        Grenze Überschritten
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center" style="padding: 30px;">
+                    <div class="mb-4">
+                        <i class="fas fa-ban" style="font-size: 4rem; color: #ff6b6b; margin-bottom: 20px;"></i>
+                    </div>
+                    <h4 style="color: #333; margin-bottom: 15px; font-weight: bold;">Grenze von 42€ Überschritten</h4>
+                    <p style="color: #666; font-size: 16px; margin-bottom: 20px;">
+                        Sie können das Limit von <strong>42€</strong> für Ihre BeleschBox nicht überschreiten.
+                    </p>
+                    <p style="color: #888; font-size: 14px;">
+                        Bitte reduzieren Sie die Mengen einiger Produkte oder entfernen Sie Artikel.
+                    </p>
+                </div>
+                <div class="modal-footer" style="border: none; padding: 20px 30px 30px; justify-content: center;">
+                    <button type="button" class="btn btn-primary" onclick="closeLimitModal()" style="background: linear-gradient(135deg, #007bff, #0056b3); border: none; padding: 12px 30px; border-radius: 25px; font-weight: bold;">
+                        <i class="fas fa-check me-2"></i>
+                        Verstanden
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
