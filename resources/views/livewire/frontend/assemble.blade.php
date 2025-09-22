@@ -99,6 +99,24 @@
             padding: 20px 30px 30px;
         }
         
+        /* Styles pour la validation des tailles de gants */
+        .error-border {
+            border: 2px solid #dc3545 !important;
+            border-radius: 8px !important;
+            background-color: #fff5f5 !important;
+            box-shadow: 0 0 10px rgba(220, 53, 69, 0.3) !important;
+        }
+        
+        .error-text {
+            color: #dc3545 !important;
+            font-weight: bold !important;
+        }
+        
+        .error-text label {
+            color: #dc3545 !important;
+            font-weight: bold !important;
+        }
+        
         .custom-error-modal .btn-primary {
             background: linear-gradient(135deg, #007bff, #0056b3);
             border: none;
@@ -2660,22 +2678,81 @@
                                         </thead>
                                         <tbody>
                                             @foreach(getAllProducts() as $qualityPtoduct)
+                                            @php
+                                                $initialQty = 0;
+                                                $initialSize = null;
+                                                if (!empty($carts) && is_array($carts)) {
+                                                    foreach ($carts as $cartItem) {
+                                                        if (isset($cartItem['product']) && isset($cartItem['product']['id']) && (int)$cartItem['product']['id'] === (int)$qualityPtoduct->id) {
+                                                            $initialQty = (int)($cartItem['quantity'] ?? 0);
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                                // Optionally display glove size if stored in session
+                                                $possibleGlove = isset($qualityPtoduct->size_availability) && $qualityPtoduct->size_availability !== '';
+                                                $sessionGloveSize = session('user_glove_size');
+                                            @endphp
                                             <tr>
                                                 <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px;display: flex;justify-content: center;align-items: center; " class="checkbox-td">
                                                     <div class="checkbox" style="border: 2px solid #009ee1;text-align: center;color: #009ee1;height: 25px; width: 25px;margin-right: 10px;display: flex;align-items: center; justify-content: center;">
-                                                        <span id="pd_{{$qualityPtoduct->id}}"></span>
+                                                        <span id="pd_{{$qualityPtoduct->id}}">{!! $initialQty > 0 ? '&#10003;' : '' !!}</span>
                                                     </div>
                                                 </td>
                                                 <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">{{$qualityPtoduct->name}}
-                                                    <span id="pd_size_{{$qualityPtoduct->id}}"></span>
+                                                    <span id="pd_size_{{$qualityPtoduct->id}}">@if($possibleGlove && $sessionGloveSize) ({{$sessionGloveSize}}) @endif</span>
                                                 </td>
-                                                <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; " id="qty_pd_{{$qualityPtoduct->id}}"></td>
+                                                <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; " id="qty_pd_{{$qualityPtoduct->id}}">@if($initialQty>0){{$initialQty}}@endif</td>
                                                 <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">{{$qualityPtoduct->positionNumber}}</td>
                                             </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
                                 </div>
+
+                                <script>
+                                    (function(){
+                                        // Build a name→id dictionary from the rendered product table
+                                        try {
+                                            window.productNameToId = window.productNameToId || {};
+                                            @foreach(getAllProducts() as $qualityPtoduct)
+                                                window.productNameToId['{{ strtolower(trim($qualityPtoduct->name)) }}'] = {{ (int)$qualityPtoduct->id }};
+                                            @endforeach
+
+                                            function getQueryParam(param){
+                                                const params = new URLSearchParams(window.location.search);
+                                                return params.get(param);
+                                            }
+
+                                            const existingOrderId = getQueryParam('orderId');
+                                            if (existingOrderId) {
+                                                fetch("{{ route('generate-order-data') }}", {
+                                                    method: 'POST',
+                                                    headers: {
+                                                        'Content-Type': 'application/json',
+                                                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                                    },
+                                                    body: JSON.stringify({ orderId: existingOrderId })
+                                                })
+                                                .then(r => r.json())
+                                                .then(data => {
+                                                    const products = (data.orderData && data.orderData.cartData && data.orderData.cartData.products) ? data.orderData.cartData.products : (data.products || []);
+                                                    products.forEach(p => {
+                                                        const key = String(p.name || '').toLowerCase().trim();
+                                                        const id = window.productNameToId[key];
+                                                        if (!id) return;
+                                                        const qty = p.quantity || 1;
+                                                        const tickEl = document.getElementById('pd_' + id);
+                                                        const qtyEl  = document.getElementById('qty_pd_' + id);
+                                                        if (tickEl) { tickEl.innerHTML = qty > 0 ? '&#10003;' : ''; }
+                                                        if (qtyEl) { qtyEl.textContent = qty > 0 ? qty : ''; }
+                                                    });
+                                                })
+                                                .catch(() => {});
+                                            }
+                                        } catch(e) {/* silent */}
+                                    })();
+                                </script>
 
                                 <h3>Wiederverwendbare Bettschutzeinlagen</h3>
                                 <div class="application-div" style="display: flex;align-items: flex-start;height: 100%;border: 1px solid; padding: 10px;">
@@ -2764,6 +2841,9 @@ display: flex;align-items: center; justify-content: center; "></div>
                                         <label style="font-weight: 600;margin-right: 5px;padding: 9px 0px;">Datum</label>
                                     </div>
                                     <div class="sign" style="text-align: center;min-width: 200px;border-top: 2px solid;padding: 10px;margin-top: 50px;">
+                                        <div style="margin-bottom: 10px;">
+                                            {{SIGNATURE_IMAGE}}
+                                        </div>
                                         <label style="font-weight: 600;margin-right: 5px;padding: 9px 0px;">Unterschrift
                                             Versicherte(r) oder Bevollmächtigte(r)</label>
                                     </div>
@@ -3345,11 +3425,7 @@ display: flex;align-items: center; justify-content: center; "></div>
                                 <img src="{{asset('frontend/assets/images/cubes/cube_blue.png')}}" alt="BeleschBox" style="width: 85px; height: 85px; margin-right: 8px; object-fit: contain;">
                                 <strong style="color: #009ee1; font-size: 13px; font-weight: bold;">BeleschBox Individuell</strong>
                             </div>
-                            <div style="margin-left: 28px; margin-top: 8px;">
-                                <div style="border-bottom: 1px solid #ddd; height: 16px; margin-bottom: 6px; width: 100%;"></div>
-                                <div style="border-bottom: 1px solid #ddd; height: 16px; margin-bottom: 6px; width: 100%;"></div>
-                                <div style="border-bottom: 1px solid #ddd; height: 16px; margin-bottom: 6px; width: 100%;"></div>
-                            </div>
+                            <!-- Lignes décoratives supprimées pour un rendu plus propre -->
                             <div style="margin-top: 5px;" id="custom-products-container">
                                 <!-- Les produits personnalisés seront insérés ici -->
                             </div>
@@ -6142,21 +6218,39 @@ display: flex;align-items: center; justify-content: center; "></div>
 
             // Mettre à jour les données dans le template PDF1
             updatePDF1Data(userDetails);
+            
+            // Assurer le rendu complet en mode custom avant impression
+            try {
+                if (window.isCustomBox) {
+                    console.log('Custom mode detected before print - syncing and rendering custom products');
+                    if (typeof syncCustomQuantitiesFromDOM === 'function') {
+                        syncCustomQuantitiesFromDOM();
+                    }
+                    if (typeof displayCustomProductsInPDF === 'function') {
+                        displayCustomProductsInPDF();
+                    }
+                }
+            } catch (e) {
+                console.warn('Custom render before print error:', e);
+            }
 
             // Générer le PDF
-            var printContents = document.getElementById(areaID).innerHTML;
-            console.log('Print contents length:', printContents.length);
-            
-            if (printContents.length === 0) {
-                showCustomErrorModal('PDF Template leer', 'Template PDF1 ist leer! Bitte überprüfen Sie, dass printableArea1 Inhalt enthält.');
-                return;
-            }
-            
-            var originalContents = document.body.innerHTML;
-            
-            document.body.innerHTML = printContents;
-            window.print();
-            document.body.innerHTML = originalContents;
+            // Laisser le DOM se mettre à jour avant d'imprimer
+            setTimeout(function() {
+                var printContents = document.getElementById(areaID).innerHTML;
+                console.log('Print contents length:', printContents.length);
+                
+                if (printContents.length === 0) {
+                    showCustomErrorModal('PDF Template leer', 'Template PDF1 ist leer! Bitte überprüfen Sie, dass printableArea1 Inhalt enthält.');
+                    return;
+                }
+                
+                var originalContents = document.body.innerHTML;
+                
+                document.body.innerHTML = printContents;
+                window.print();
+                document.body.innerHTML = originalContents;
+            }, 200);
         }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"></script>
@@ -7468,10 +7562,21 @@ display: flex;align-items: center; justify-content: center; "></div>
         // Fonction pour mettre à jour le bouton de checkout
         function updateCheckoutButton() {
             const checkoutBtn = document.getElementById('checkout-btn');
-            if (checkoutBtn && window.isCustomBox) {
-                // Changer l'onclick pour utiliser checkout_btn au lieu de checkout_btn_pkg
-                checkoutBtn.setAttribute('onclick', 'checkout_btn()');
-                console.log('✅ Bouton checkout mis à jour pour le mode custom');
+            if (window.isCustomBox) {
+                // Cas 1: bouton avec id checkout-btn
+                if (checkoutBtn) {
+                    checkoutBtn.setAttribute('onclick', 'checkout_btn()');
+                    console.log('✅ Bouton checkout (id=checkout-btn) mis à jour pour le mode custom');
+                }
+                // Cas 2: gabarit initial package => bouton sans id, classe .checkout_btn_pkg
+                const pkgBtn = document.querySelector('.checkout_btn_pkg');
+                if (pkgBtn) {
+                    pkgBtn.setAttribute('onclick', 'checkout_btn()');
+                    pkgBtn.classList.remove('checkout_btn_pkg');
+                    // Donner un id standard pour d'autres mises à jour
+                    if (!pkgBtn.id) pkgBtn.id = 'checkout-btn';
+                    console.log('✅ Bouton checkout package converti en custom (onclick changé)');
+                }
             }
         }
 
@@ -8014,6 +8119,11 @@ display: flex;align-items: center; justify-content: center; "></div>
             // Stocker aussi dans localStorage comme backup
             localStorage.setItem('selectedSizes', JSON.stringify(window.selectedSizes));
             console.log('Taille stockée dans localStorage:', localStorage.getItem('selectedSizes'));
+            
+            // Nettoyer les erreurs visuelles pour ce produit
+            $('.cartItem[data-id="' + productId + '"]').removeClass('error-border');
+            $('.cartItem[data-id="' + productId + '"] .glove-options').removeClass('error-text');
+            
             console.log('=== FIN ÉTAPE 1 ===');
         });
 
@@ -8234,6 +8344,18 @@ display: flex;align-items: center; justify-content: center; "></div>
             const pflegegradValue = $('input[name="Pflegegrad"]:checked').val();
             console.log('Valeur pflegegrad récupérée:', pflegegradValue);
             
+            // Debug pour insurance_type
+            let selectedInsuranceValue = $('input[name="inlineRadioOptions5"]:checked').val() || $('input[name="inlineRadioOptions5_2"]:checked').val();
+            console.log('Valeur insurance sélectionnée (raw):', selectedInsuranceValue);
+            
+            let convertedInsuranceType = 'G'; // Valeur par défaut
+            if (selectedInsuranceValue === 'option5') {
+                convertedInsuranceType = 'G';
+            } else if (selectedInsuranceValue === 'option6') {
+                convertedInsuranceType = 'P';
+            }
+            console.log('Valeur insurance convertie:', convertedInsuranceType);
+            
             window.formData = {
                 first_name: $('#first_name').val(),
                 last_name: $('#last_name').val(),
@@ -8251,7 +8373,7 @@ display: flex;align-items: center; justify-content: center; "></div>
                 insurance_no: $('#insurance-no').val(),
                 KrankenkasseNummer: $('#KrankenkasseNummer').val(),
                 pflegegrad: $('input[name="Pflegegrad"]:checked').val(),
-                insurance_type: $('input[name="inlineRadioOptions5"]:checked').val() || $('input[name="inlineRadioOptions5_2"]:checked').val(),
+                insurance_type: convertedInsuranceType,
                 surname: $('input[name="title_name"]:checked').val(),
                 title_name: $('input[name="title_name"]:checked').val(),
                 insured_type: $('input[name="insured"]:checked').val()
@@ -8626,6 +8748,34 @@ display: flex;align-items: center; justify-content: center; "></div>
                 userDetails['health_insurance'] = $('#health-insurance').val();
                 userDetails['insurance_no'] = $('#insurance-no').val();
                 userDetails['KrankenkasseNummer'] = $('#KrankenkasseNummer').val();
+
+                // Si des données sauvegardées existent, les utiliser comme source fiable
+                if (window.formData && Object.keys(window.formData).length > 0) {
+                    console.log('Using saved window.formData to populate userDetails at checkout');
+                    const fd = window.formData;
+                    userDetails['first_name'] = fd.first_name || userDetails['first_name'];
+                    userDetails['last_name'] = fd.last_name || userDetails['last_name'];
+                    userDetails['streetno'] = fd.streetno || userDetails['streetno'];
+                    userDetails['houseno'] = fd.houseno || userDetails['houseno'];
+                    userDetails['zip'] = fd.zip || userDetails['zip'];
+                    userDetails['city'] = fd.city || userDetails['city'];
+                    userDetails['dob'] = fd.dob || userDetails['dob'];
+                    userDetails['telno'] = fd.telno || userDetails['telno'];
+                    userDetails['email'] = fd.email || userDetails['email'];
+                    userDetails['password'] = fd.password || userDetails['password'];
+                    userDetails['angehoriger_name'] = fd.angehoriger_name || userDetails['angehoriger_name'];
+                    userDetails['angehoriger_telefon'] = fd.angehoriger_telefon || userDetails['angehoriger_telefon'];
+                    userDetails['angehoriger_email'] = fd.angehoriger_email || userDetails['angehoriger_email'];
+                    userDetails['health_insurance'] = fd.health_insurance || userDetails['health_insurance'];
+                    userDetails['insurance_no'] = fd.insurance_no || userDetails['insurance_no'];
+                    userDetails['KrankenkasseNummer'] = fd.KrankenkasseNummer || userDetails['KrankenkasseNummer'];
+                    // Merge insurance_type from saved data (G/P)
+                    userDetails['insurance_type'] = fd.insurance_type || userDetails['insurance_type'];
+                    userDetails['surname'] = fd.surname || userDetails['surname'];
+                    userDetails['title_name'] = fd.title_name || userDetails['title_name'];
+                    userDetails['insured_type'] = fd.insured_type || userDetails['insured_type'];
+                    userDetails['pflegegrad'] = fd.pflegegrad || userDetails['pflegegrad'];
+                }
                 personalInformation.push(userDetails);
 
 
@@ -8642,13 +8792,15 @@ display: flex;align-items: center; justify-content: center; "></div>
                 console.log('Données userDetails avant envoi:', personalInformation);
                 console.log('Pflegegrad dans userDetails:', personalInformation[0].pflegegrad);
 
+                // Debug avant envoi
+                console.log('Final insurance_type to send:', userDetails['insurance_type']);
                 $.ajax({
                     headers: {
                         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
                     },
                     type: "POST",
                     url: "{{ route('product.checkout') }}",
-                    data: "productDetails=" + JSON.stringify(o) + '&userDetails=' + JSON.stringify(personalInformation) + '&deliveryAddress=' + JSON.stringify(customerDeliveryAddress) + '&signature=' + $('#signatureImg').attr('src') + '&custom_mode=' + (window.isCustomBox ? '1' : '0'),
+                    data: "productDetails=" + JSON.stringify(o) + '&userDetails=' + JSON.stringify(personalInformation) + '&deliveryAddress=' + JSON.stringify(customerDeliveryAddress) + '&signature=' + $('#signatureImg').attr('src') + '&custom_mode=' + (window.isCustomBox ? '1' : '0') + '&orderType=' + (window.isCustomBox ? '0' : '1'),
                     success: function(a) {
                         if (a.status == '1') {
                             successtoastMessage(a.message)
@@ -8765,7 +8917,14 @@ display: flex;align-items: center; justify-content: center; "></div>
                 userDetails['title_name'] = window.formData.title_name || '';
                 userDetails['insured_type'] = window.formData.insured_type || '';
                 
+                // Utiliser insurance_type depuis window.formData si disponible (conversion G/P)
+                if (window.formData.insurance_type) {
+                    userDetails['insurance_type'] = window.formData.insurance_type;
+                    console.log('Using insurance_type from window.formData:', window.formData.insurance_type);
+                }
+                
                 console.log('Final userDetails:', userDetails);
+                console.log('Final insurance_type for package mode:', userDetails['insurance_type']);
                 personalInformation.push(userDetails);
 
 
@@ -8787,7 +8946,7 @@ display: flex;align-items: center; justify-content: center; "></div>
                     },
                     type: "POST",
                     url: "{{ route('product.checkout') }}",
-                    data: 'packageDetails=' + packageId + '&userDetails=' + JSON.stringify(personalInformation) + '&deliveryAddress=' + JSON.stringify(customerDeliveryAddress) + '&signature=' + $('#signatureImg').attr('src'),
+                    data: 'packageDetails=' + packageId + '&userDetails=' + JSON.stringify(personalInformation) + '&deliveryAddress=' + JSON.stringify(customerDeliveryAddress) + '&signature=' + $('#signatureImg').attr('src') + '&orderType=1',
                     success: function(a) {
                         if (a.status == '1') {
                             //alert('success');
@@ -8930,6 +9089,61 @@ display: flex;align-items: center; justify-content: center; "></div>
             $('.bed_protector_modal').click(function(e) {
                 e.preventDefault();
                 console.log('Bouton "Weiter zu Ihren Kontaktdaten" cliqué');
+                
+                // VALIDATION DES TAILLES DE GANTS
+                var hasGlovesWithoutSize = false;
+                var missingSizeProducts = [];
+                
+                // Vérifier chaque produit dans le panier
+                $('.cartItem').each(function() {
+                    var $cartItem = $(this);
+                    var productId = $cartItem.data('id');
+                    var productName = $cartItem.find('.prod-name').text();
+                    
+                    // Vérifier si ce produit a des options de taille (gants)
+                    if ($cartItem.find('.glove-options').length > 0) {
+                        console.log('Produit avec gants trouvé:', productName, 'ID:', productId);
+                        
+                        // Vérifier si une taille est sélectionnée pour ce produit
+                        var sizeSelected = $('input[name="size' + productId + '"]:checked').length > 0;
+                        console.log('Taille sélectionnée pour', productName, ':', sizeSelected);
+                        
+                        if (!sizeSelected) {
+                            hasGlovesWithoutSize = true;
+                            missingSizeProducts.push(productName);
+                        }
+                    }
+                });
+                
+                // Si des gants n'ont pas de taille sélectionnée, afficher une erreur
+                if (hasGlovesWithoutSize) {
+                    console.log('❌ Validation échouée: Tailles de gants manquantes');
+                    
+                    // Mettre en évidence visuellement les produits sans taille
+                    $('.cartItem').each(function() {
+                        var $cartItem = $(this);
+                        var productId = $cartItem.data('id');
+                        
+                        if ($cartItem.find('.glove-options').length > 0) {
+                            var sizeSelected = $('input[name="size' + productId + '"]:checked').length > 0;
+                            if (!sizeSelected) {
+                                $cartItem.addClass('error-border');
+                                $cartItem.find('.glove-options').addClass('error-text');
+                            } else {
+                                $cartItem.removeClass('error-border');
+                                $cartItem.find('.glove-options').removeClass('error-text');
+                            }
+                        }
+                    });
+                    
+                    showCustomErrorModal(
+                        'Taille de gants requise', 
+                        'Bitte wählen Sie eine Handschuhgröße für folgende Produkte: ' + missingSizeProducts.join(', ')
+                    );
+                    return false; // Empêcher le passage à l'étape suivante
+                }
+                
+                console.log('✅ Validation des tailles de gants réussie');
                 
                 // Ouvrir le modal des protections de lit
                 $('#bed_protector_modal').modal('show');

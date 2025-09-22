@@ -85,7 +85,14 @@ class ProductComponent extends Component
             $this->measurement = $product->measurement;
             $this->product_title = $product->product_title;
             $this->positionNumber = $product->positionNumber;
-            $this->size_availability = explode(',', $product->size_availability);
+            
+            // Fix size_availability handling
+            if ($product->size_availability) {
+                $this->size_availability = explode(',', $product->size_availability);
+            } else {
+                $this->size_availability = [];
+            }
+            
             $this->emit('initializeEditor', ['contents' => $this->contents]);
         } else {
             return redirect()->to('admin/products');
@@ -96,31 +103,41 @@ class ProductComponent extends Component
     public function updateProduct()
     {
         $validatedData = $this->validate([
-            'image' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:1024',
+            'image' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'name' => 'required | min:3',
             'product_title' => 'required | min:3',
             'rank' => 'required|integer',
             'altTag' => 'required | min:3',
             'titleTag' => 'required | min:3',
-            'price' => 'regex:/^[0-9]+(\.[0-9][0-9]?)?$/',
+            'price' => 'required|regex:/^[0-9]+(\.[0-9][0-9]?)?$/',
             'status' => 'required | min:1',
             'contents' => 'required | min:10',
             'measurement' => 'required | min:1',
+            'positionNumber' => 'required | min:3',
         ]);
+        
         $product = Product::find($this->product_id);
+        if (!$product) {
+            session()->flash('error', 'Product not found.');
+            return redirect('/admin/products');
+        }
+        
         $validatedData['image'] = $product->image;
         if ($this->image != null) {
             $storage = storage_path('app/public/' . $this->showImage);
-            removeFile($storage);
+            if (file_exists($storage)) {
+                removeFile($storage);
+            }
             $validatedData['image'] = $this->image->store('images', 'public');
         }
-        if ($this->size_availability != null && isset($this->size_availability)) {
-            $validatedData['size_availability'] = rtrim(implode(',', array_filter($this->size_availability)), ',');
+        
+        // Fix size_availability handling
+        if ($this->size_availability != null && is_array($this->size_availability) && count($this->size_availability) > 0) {
+            $validatedData['size_availability'] = implode(',', array_filter($this->size_availability));
         } else {
-			// if we don't select any size avalibility ($this->size_availability is an empty array)
-			$validatedData['size_availability'] = null;
-		}
-       // $validatedData['positionNumber'] = rand(11,99).".".rand(11,99).".".rand(11,99).".".rand(1111,9999);
+            $validatedData['size_availability'] = null;
+        }
+        
         Product::where(['id' => $this->product_id])->update($validatedData);
         session()->flash('success', 'Product has been successfully updated.');
         return redirect('/admin/products');

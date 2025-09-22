@@ -524,10 +524,23 @@ class HomeController extends Controller
             // Récupérer la signature depuis la commande
             $signatureData = null;
             if ($order->signature) {
-                $signatureData = [
-                    'image_path' => $order->signature, // La signature est déjà en base64
-                ];
-                \Log::info('Signature found: ' . substr($order->signature, 0, 50) . '...');
+                \Log::info('Raw signature data length: ' . strlen($order->signature));
+                \Log::info('Signature starts with: ' . substr($order->signature, 0, 100));
+                
+                // Vérifier si la signature est déjà en base64
+                if (strpos($order->signature, 'data:image/') === 0) {
+                    \Log::info('Signature is already in base64 format');
+                    $signatureData = [
+                        'image_path' => $order->signature,
+                    ];
+                } else {
+                    \Log::info('Signature is not in base64 format, converting...');
+                    // Si ce n'est pas en base64, essayer de le convertir
+                    $signatureData = [
+                        'image_path' => 'data:image/png;base64,' . $order->signature,
+                    ];
+                }
+                \Log::info('Signature data prepared: ' . json_encode($signatureData));
             } else {
                 \Log::info('No signature found for this order');
             }

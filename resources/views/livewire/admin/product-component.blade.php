@@ -302,8 +302,8 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Position Number</label>
-                                    <input type="text" name="rank" class="form-control" placeholder="position Number"
-                                           wire:model.debounce.1000ms="positionNumber" readonly>
+                                    <input type="text" name="positionNumber" class="form-control" placeholder="position Number"
+                                           wire:model.debounce.1000ms="positionNumber">
                                     @error('positionNumber') <span class="text-danger">{{$message}}</span> @enderror
                                 </div>
                                 <div class="mb-3">
@@ -352,31 +352,22 @@
 
                                 <div class="mb-3">
                                     <label class="form-label"> Size Available</label>
-
                                     <div>
-                                        <label class="form-check form-check-inline" >
-                                            <input class="form-check-input"type="checkbox" value="S" wire:model.defer="size_availability">
-                                            <span class="form-check-label">
-												S
-											</span>
+                                        <label class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" value="S" wire:model="size_availability">
+                                            <span class="form-check-label">S</span>
                                         </label>
                                         <label class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" value="M" wire:model.defer="size_availability">
-                                            <span class="form-check-label">
-												M
-											</span>
+                                            <input class="form-check-input" type="checkbox" value="M" wire:model="size_availability">
+                                            <span class="form-check-label">M</span>
                                         </label>
                                         <label class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" value="L"  wire:model.defer="size_availability">
-                                            <span class="form-check-label">
-												L
-											</span>
+                                            <input class="form-check-input" type="checkbox" value="L" wire:model="size_availability">
+                                            <span class="form-check-label">L</span>
                                         </label>
                                         <label class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" value="XL" wire:model.defer="size_availability" >
-                                            <span class="form-check-label">
-												XL
-											</span>
+                                            <input class="form-check-input" type="checkbox" value="XL" wire:model="size_availability">
+                                            <span class="form-check-label">XL</span>
                                         </label>
                                     </div>
                                 </div>

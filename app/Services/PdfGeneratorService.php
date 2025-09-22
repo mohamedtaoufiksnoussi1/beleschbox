@@ -66,7 +66,7 @@ class PdfGeneratorService
      */
     private function generateExactStep5Pdf(array $userData, array $cartData = [], $signatureData = null)
     {
-        \Log::info('Generating PDF with EXACT step 5 HTML (same principle as printPageArea1)');
+        \Log::info('Generating PDF with TCPDF for EXACT step 5 HTML');
         
         // Utiliser le HTML exact de l'étape 5 - même principe que document.getElementById(areaID).innerHTML
         $htmlContent = $this->getExactStep5InnerHTML($userData, $cartData, $signatureData);
@@ -77,23 +77,155 @@ class PdfGeneratorService
         file_put_contents($debugHtmlPath, $htmlContent);
         \Log::info('Step 5 innerHTML saved to: ' . $debugHtmlPath);
         
-        // Créer le PDF avec DomPDF (même principe que window.print())
-        $options = new Options();
-        $options->set('defaultFont', 'Arial');
-        $options->set('isHtml5ParserEnabled', true);
-        $options->set('isRemoteEnabled', true);
+        // Créer le PDF avec TCPDF au lieu de DomPDF
+        return $this->generateTcpdfStep5Pdf($userData, $cartData, $signatureData);
+    }
+
+    /**
+     * Génère un PDF avec TCPDF pour l'étape 5
+     */
+    private function generateTcpdfStep5Pdf(array $userData, array $cartData = [], $signatureData = null)
+    {
+        \Log::info('Generating TCPDF Step 5 PDF');
         
-        $dompdf = new Dompdf($options);
-        $dompdf->loadHtml($htmlContent);
-        $dompdf->setPaper('A4', 'portrait');
-        $dompdf->render();
+        // Créer une instance TCPDF
+        $pdf = new \TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         
-        $output = $dompdf->output();
+        // Configuration du document
+        $pdf->SetCreator('BeleschBox');
+        $pdf->SetAuthor('BeleschBox');
+        $pdf->SetTitle('Antrag auf Kostenübernahme');
+        $pdf->SetSubject('Pflegehilfsmittel');
+        
+        // Supprimer l'en-tête et le pied de page par défaut
+        $pdf->setPrintHeader(false);
+        $pdf->setPrintFooter(false);
+        
+        // Définir les marges
+        $pdf->SetMargins(10, 10, 10);
+        $pdf->SetAutoPageBreak(TRUE, 10);
+        
+        // Ajouter une page
+        $pdf->AddPage();
+        
+        // Générer le HTML pour TCPDF (sans signature pour éviter les problèmes d'image)
+        $htmlContent = $this->getExactStep5InnerHTML($userData, $cartData, null);
+        
+        // Supprimer toute référence à la signature dans le HTML
+        $htmlContent = preg_replace('/<img[^>]*src="[^"]*signature[^"]*"[^>]*>/i', '', $htmlContent);
+        $htmlContent = preg_replace('/<img[^>]*alt="[^"]*[Ss]ignature[^"]*"[^>]*>/i', '', $htmlContent);
+        $htmlContent = preg_replace('/<img[^>]*src="data:image\/png;base64[^"]*"[^>]*>/i', '', $htmlContent);
+        
+        // Nettoyer le HTML pour TCPDF (supprimer les styles CSS complexes)
+        $htmlContent = $this->cleanHtmlForTcpdf($htmlContent);
+        
+        // Écrire le HTML dans le PDF
+        $pdf->writeHTML($htmlContent, true, false, true, false, '');
+        
+        // Ajouter la signature manuellement si disponible
+        if ($signatureData && isset($signatureData['image_path']) && $signatureData['image_path']) {
+            $this->addSignatureToTcpdf($pdf, $signatureData);
+        }
+        
+        // Générer le PDF
+        $output = $pdf->Output('', 'S');
         $base64 = base64_encode($output);
         
-        \Log::info('PDF generated successfully with step 5 innerHTML, base64 length: ' . strlen($base64));
+        \Log::info('TCPDF Step 5 PDF generated successfully, base64 length: ' . strlen($base64));
         
         return $base64;
+    }
+
+    /**
+     * Ajoute la signature au PDF TCPDF
+     */
+    private function addSignatureToTcpdf($pdf, $signatureData)
+    {
+        try {
+            \Log::info('Adding signature to TCPDF PDF');
+            
+            // Position de la signature (en bas à droite)
+            $x = 120; // Position X
+            $y = 250; // Position Y
+            $width = 60; // Largeur de l'image
+            $height = 30; // Hauteur de l'image
+            
+            // Nettoyer le base64
+            $imageData = $signatureData['image_path'];
+            if (strpos($imageData, 'data:image/') === 0) {
+                // Extraire les données base64
+                $base64Data = substr($imageData, strpos($imageData, ',') + 1);
+                $base64Data = str_replace([' ', "\n", "\r"], '', $base64Data);
+                
+                // Décoder et sauvegarder temporairement
+                $imageBinary = base64_decode($base64Data);
+                $tempFile = tempnam(sys_get_temp_dir(), 'signature_') . '.png';
+                file_put_contents($tempFile, $imageBinary);
+                
+                // Vérifier si l'extension GD est disponible
+                if (extension_loaded('gd')) {
+                    // Utiliser GD pour convertir PNG en JPEG
+                    $image = imagecreatefrompng($tempFile);
+                    if ($image !== false) {
+                        // Créer un fond blanc
+                        $white = imagecolorallocate($image, 255, 255, 255);
+                        imagefill($image, 0, 0, $white);
+                        
+                        // Sauvegarder en JPEG
+                        $jpegFile = str_replace('.png', '.jpg', $tempFile);
+                        imagejpeg($image, $jpegFile, 90);
+                        imagedestroy($image);
+                        
+                        // Ajouter l'image JPEG au PDF
+                        $pdf->Image($jpegFile, $x, $y, $width, $height, 'JPEG', '', '', true, 300, '', false, false, 0, false, false, false);
+                        
+                        // Nettoyer les fichiers temporaires
+                        unlink($tempFile);
+                        unlink($jpegFile);
+                        
+                        \Log::info('Signature added to TCPDF PDF successfully with GD conversion');
+                        return;
+                    }
+                }
+                
+                // Fallback: ajouter un texte à la place de la signature
+                $pdf->SetXY($x, $y);
+                $pdf->SetFont('helvetica', 'B', 10);
+                $pdf->SetTextColor(0, 0, 0);
+                $pdf->Cell($width, $height, '[SIGNATURE]', 1, 0, 'C');
+                \Log::info('Added signature placeholder text as fallback (no GD available)');
+                
+                // Nettoyer le fichier temporaire
+                unlink($tempFile);
+            }
+        } catch (\Exception $e) {
+            \Log::error('Error adding signature to TCPDF: ' . $e->getMessage());
+            
+            // Fallback: ajouter un texte à la place de la signature
+            $pdf->SetXY($x, $y);
+            $pdf->SetFont('helvetica', 'B', 10);
+            $pdf->SetTextColor(0, 0, 0);
+            $pdf->Cell($width, $height, '[SIGNATURE]', 1, 0, 'C');
+            \Log::info('Added signature placeholder text as fallback');
+        }
+    }
+
+    /**
+     * Nettoie le HTML pour TCPDF (supprime les styles CSS complexes)
+     */
+    private function cleanHtmlForTcpdf($html)
+    {
+        // Supprimer les styles CSS complexes qui peuvent poser problème à TCPDF
+        $html = preg_replace('/<style[^>]*>.*?<\/style>/is', '', $html);
+        
+        // Simplifier les styles inline
+        $html = preg_replace('/style="[^"]*position:\s*absolute[^"]*"/', 'style="position: relative"', $html);
+        $html = preg_replace('/style="[^"]*transform:[^"]*"/', '', $html);
+        
+        // Remplacer les divs avec position absolute par des divs simples
+        $html = preg_replace('/<div[^>]*position:\s*absolute[^>]*>/', '<div>', $html);
+        
+        return $html;
     }
 
     /**
@@ -304,17 +436,19 @@ class PdfGeneratorService
         $signatureHtml = '';
         if ($signatureData && isset($signatureData['image_path']) && $signatureData['image_path']) {
             \Log::info('Processing signature data for PDF: ' . substr($signatureData['image_path'], 0, 50) . '...');
+            \Log::info('Full signature data length: ' . strlen($signatureData['image_path']));
             
             // Vérifier si c'est déjà en base64
             if (strpos($signatureData['image_path'], 'data:image/') === 0) {
                 // C'est déjà en base64, utiliser directement
-                $signatureHtml = '<img src="' . $signatureData['image_path'] . '" alt="Signature" style="max-width: 200px; max-height: 100px; border: 1px solid #ddd; padding: 4px;">';
+                $signatureHtml = '<img src="' . $signatureData['image_path'] . '" alt="Signature" style="max-width: 200px; max-height: 100px; border: 1px solid #ddd; padding: 4px; background: white;">';
                 \Log::info('Using base64 signature data directly');
             } else {
                 // C'est un chemin de fichier, utiliser url()
-                $signatureHtml = '<img src="' . url($signatureData['image_path']) . '" alt="Signature" style="max-width: 200px; max-height: 100px; border: 1px solid #ddd; padding: 4px;">';
+                $signatureHtml = '<img src="' . url($signatureData['image_path']) . '" alt="Signature" style="max-width: 200px; max-height: 100px; border: 1px solid #ddd; padding: 4px; background: white;">';
                 \Log::info('Using file path for signature: ' . $signatureData['image_path']);
             }
+            \Log::info('Signature HTML generated: ' . substr($signatureHtml, 0, 100) . '...');
         } else {
             \Log::info('No signature data available for PDF');
         }
@@ -394,11 +528,11 @@ class PdfGeneratorService
             // Vérifier si c'est déjà en base64
             if (strpos($signatureData['image_path'], 'data:image/') === 0) {
                 // C'est déjà en base64, utiliser directement
-                $signatureHtml = '<img src="' . $signatureData['image_path'] . '" alt="Signature" style="max-width: 200px; max-height: 100px; border: 1px solid #ddd; padding: 4px;">';
+                $signatureHtml = '<img src="' . $signatureData['image_path'] . '" alt="Signature" style="max-width: 200px; max-height: 100px; border: 1px solid #ddd; padding: 4px; background: white;">';
                 \Log::info('Using base64 signature data directly');
             } else {
                 // C'est un chemin de fichier, utiliser url()
-                $signatureHtml = '<img src="' . url($signatureData['image_path']) . '" alt="Signature" style="max-width: 200px; max-height: 100px; border: 1px solid #ddd; padding: 4px;">';
+                $signatureHtml = '<img src="' . url($signatureData['image_path']) . '" alt="Signature" style="max-width: 200px; max-height: 100px; border: 1px solid #ddd; padding: 4px; background: white;">';
                 \Log::info('Using file path for signature: ' . $signatureData['image_path']);
             }
         } else {
@@ -739,11 +873,11 @@ class PdfGeneratorService
             // Vérifier si c'est déjà en base64
             if (strpos($signatureData['image_path'], 'data:image/') === 0) {
                 // C'est déjà en base64, utiliser directement
-                $signatureHtml = '<img src="' . $signatureData['image_path'] . '" alt="Signature" style="max-width: 200px; max-height: 100px; border: 1px solid #ddd; padding: 4px;">';
+                $signatureHtml = '<img src="' . $signatureData['image_path'] . '" alt="Signature" style="max-width: 200px; max-height: 100px; border: 1px solid #ddd; padding: 4px; background: white;">';
                 \Log::info('Using base64 signature data directly');
             } else {
                 // C'est un chemin de fichier, utiliser url()
-                $signatureHtml = '<img src="' . url($signatureData['image_path']) . '" alt="Signature" style="max-width: 200px; max-height: 100px; border: 1px solid #ddd; padding: 4px;">';
+                $signatureHtml = '<img src="' . url($signatureData['image_path']) . '" alt="Signature" style="max-width: 200px; max-height: 100px; border: 1px solid #ddd; padding: 4px; background: white;">';
                 \Log::info('Using file path for signature: ' . $signatureData['image_path']);
             }
         } else {
@@ -1098,7 +1232,39 @@ class PdfGeneratorService
         if ($signatureData && isset($signatureData['image_path']) && $signatureData['image_path']) {
             $y += 25;
             $pdf->SetXY(20, $y);
-            $pdf->Write(10, 'Signature: [Image]');
+            $pdf->Write(10, 'Signature:');
+            
+            try {
+                // Essayer d'inclure l'image de signature
+                if (strpos($signatureData['image_path'], 'data:image/') === 0) {
+                    // C'est une image base64
+                    $base64Data = substr($signatureData['image_path'], strpos($signatureData['image_path'], ',') + 1);
+                    $imageData = base64_decode($base64Data);
+                    
+                    // Créer un fichier temporaire
+                    $tempFile = tempnam(sys_get_temp_dir(), 'signature_') . '.png';
+                    file_put_contents($tempFile, $imageData);
+                    
+                    // Ajouter l'image au PDF
+                    $y += 10;
+                    $pdf->SetXY(20, $y);
+                    $pdf->Image($tempFile, 20, $y, 60, 30);
+                    
+                    // Supprimer le fichier temporaire
+                    unlink($tempFile);
+                } else {
+                    // C'est un chemin de fichier
+                    $y += 10;
+                    $pdf->SetXY(20, $y);
+                    $pdf->Image($signatureData['image_path'], 20, $y, 60, 30);
+                }
+            } catch (\Exception $e) {
+                // En cas d'erreur, afficher un message
+                $y += 10;
+                $pdf->SetXY(20, $y);
+                $pdf->Write(10, '[Signature image could not be loaded]');
+                \Log::error('Error adding signature to PDF: ' . $e->getMessage());
+            }
         }
         
         // Date

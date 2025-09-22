@@ -799,13 +799,24 @@
             }
         }
         
-        // Remplir la signature si disponible
+        // Remplir la signature si disponible (corrige les espaces/retours à la ligne dans le base64)
         const signatureElement = document.querySelector('.signature');
         if (signatureElement) {
             if (signatureData && signatureData.image_path) {
+                let imgSrc = String(signatureData.image_path || '');
+                // Certains stockages remplacent '+' par des espaces, et insèrent des retours à la ligne
+                // Nettoyage: supprimer les retours et convertir les espaces en '+' dans la partie base64
+                if (imgSrc.startsWith('data:')) {
+                    const commaIndex = imgSrc.indexOf(',');
+                    const header = imgSrc.slice(0, commaIndex + 1);
+                    let b64 = imgSrc.slice(commaIndex + 1);
+                    b64 = b64.replace(/\r?\n/g, '');
+                    b64 = b64.replace(/\s/g, '+');
+                    imgSrc = header + b64;
+                }
                 signatureElement.innerHTML = `
                     <div style="margin-top: 8px; width: 200px; height: 60px; border: 1px solid #ddd; padding: 4px; background: white; display: flex; align-items: center; justify-content: center;">
-                        <img src="${signatureData.image_path}" style="max-width: 100%; max-height: 100%; object-fit: contain; display: block;" alt="Signature" />
+                        <img src="${imgSrc}" style="max-width: 100%; max-height: 100%; object-fit: contain; display: block;" alt="Signature" />
                     </div>
                     <div style="font-weight: 600; font-size: 10px; margin-top: 4px;">Unterschrift Versicherte(r) oder Bevollmächtigte(r)</div>
                 `;
