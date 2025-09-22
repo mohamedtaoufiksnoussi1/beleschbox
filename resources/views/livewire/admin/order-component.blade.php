@@ -613,11 +613,11 @@
     console.log('Page loaded, setting up PDF function...');
     
     // Définir la fonction exactement comme dans l'étape 4
-    window.downloadOrderPdfAdmin = function(orderId) {
+    window.downloadOrderPdfAdmin = async function(orderId) {
         console.log('downloadOrderPdfAdmin called with orderId:', orderId);
         
         // Récupérer les données de la commande
-        fetch('/generate-order-data', {
+        await fetch('/generate-order-data', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -628,7 +628,7 @@
             })
         })
         .then(response => response.json())
-        .then(data => {
+        .then(async data => {
             console.log('Order data received:', data);
             console.log('UserData:', data.orderData?.userData);
             console.log('CartData:', data.orderData?.cartData);
@@ -640,8 +640,11 @@
             
             if (data && data.success && data.orderData) {
                 console.log('Calling updatePDF1DataAdmin with orderData:', data.orderData);
-                updatePDF1DataAdmin(data.orderData);
-                
+                await updatePDF1DataAdmin(data.orderData);
+
+                // Laisser le DOM finir de peindre
+                await new Promise(requestAnimationFrame);
+
                 // Utiliser exactement la même logique que printPageArea (le bon template)
                 var printContents = document.getElementById('printableArea').innerHTML;
                 console.log('Print contents length:', printContents.length);
@@ -670,7 +673,7 @@
     };
     
     // Fonction pour remplir les données PDF (version corrigée)
-    function updatePDF1DataAdmin(orderData) {
+    async function updatePDF1DataAdmin(orderData) {
         console.log('=== updatePDF1DataAdmin called ===');
         console.log('Order data received:', orderData);
         
@@ -820,6 +823,14 @@
                     </div>
                     <div style="font-weight: 600; font-size: 10px; margin-top: 4px;">Unterschrift Versicherte(r) oder Bevollmächtigte(r)</div>
                 `;
+                // Attendre la fin du chargement de l'image avant de continuer
+                await new Promise((resolve) => {
+                    const img = signatureElement.querySelector('img');
+                    if (!img) return resolve();
+                    if (img.complete) return resolve();
+                    img.onload = () => resolve();
+                    img.onerror = () => resolve();
+                });
             } else {
                 signatureElement.innerHTML = `
                     <div style="margin-top: 8px; width: 200px; height: 60px; border: 1px solid #ddd; padding: 4px; background: #f9f9f9; display: flex; align-items: center; justify-content: center;">
