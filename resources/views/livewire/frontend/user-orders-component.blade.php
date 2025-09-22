@@ -424,36 +424,43 @@
                         isDecodable = false;
                     }
                     
-                    if (isValidBase64 && cleanedBase64.length > 100) {
-                        // Reconstruire l'URL avec la base64 nettoyée
-                        const mimeType = cleanSignature.split(',')[0];
-                        const finalSignature = mimeType + ',' + cleanedBase64;
-                        console.log('✅ Attempting to display signature (even if corrupted)');
-                        
-                        signatureHtml = `
-                            <div style="position: relative;">
-                                <img src="${finalSignature}" 
-                                     alt="Signature" 
-                                     style="max-width: 250px; max-height: 120px; border: 1px solid #ddd; background: white; display: block; margin: 0 auto; object-fit: contain;" 
-                                     onload="console.log('✅ Signature loaded successfully')" 
-                                     onerror="console.error('❌ Signature failed to load')">
-                            </div>
-                        `;
-                    } else {
-                        console.log('❌ Signature base64 is too short or invalid - no display');
-                        signatureHtml = '';
-                    }
+                    // Reconstruire l'URL avec la base64 nettoyée (version simplifiée)
+                    const mimeType = cleanSignature.split(',')[0];
+                    const finalSignature = mimeType + ',' + cleanedBase64;
+                    console.log('✅ Attempting to display signature');
+                    
+                    signatureHtml = `
+                        <div style="margin-top: 8px; width: 200px; height: 60px; border: 1px solid #ddd; padding: 4px; background: white; display: flex; align-items: center; justify-content: center;">
+                            <img src="${finalSignature}" style="max-width: 100%; max-height: 100%; object-fit: contain; display: block;" alt="Signature" />
+                        </div>
+                        <div style="font-weight: 600; font-size: 10px; margin-top: 4px;">Unterschrift Versicherte(r) oder Bevollmächtigte(r)</div>
+                    `;
                 } else {
                     console.log('❌ No base64 part found');
-                    signatureHtml = '<div style="width: 250px; height: 120px; border: 2px solid #ccc; background: #f0f0f0; display: flex; align-items: center; justify-content: center; margin: 0 auto; color: #666; font-size: 12px; text-align: center;">Format de signature invalide</div>';
+                    signatureHtml = `
+                        <div style="margin-top: 8px; width: 200px; height: 60px; border: 1px solid #ddd; padding: 4px; background: #f9f9f9; display: flex; align-items: center; justify-content: center;">
+                            <span style="color: #999;">Format invalide</span>
+                        </div>
+                        <div style="font-weight: 600; font-size: 10px; margin-top: 4px;">Unterschrift Versicherte(r) oder Bevollmächtigte(r)</div>
+                    `;
                 }
             } else {
                 console.log('❌ Not a data:image format');
-                signatureHtml = '<div style="width: 250px; height: 120px; border: 2px solid #ccc; background: #f0f0f0; display: flex; align-items: center; justify-content: center; margin: 0 auto; color: #666; font-size: 12px; text-align: center;">Format de signature invalide</div>';
+                signatureHtml = `
+                    <div style="margin-top: 8px; width: 200px; height: 60px; border: 1px solid #ddd; padding: 4px; background: #f9f9f9; display: flex; align-items: center; justify-content: center;">
+                        <span style="color: #999;">Format invalide</span>
+                    </div>
+                    <div style="font-weight: 600; font-size: 10px; margin-top: 4px;">Unterschrift Versicherte(r) oder Bevollmächtigte(r)</div>
+                `;
             }
         } else {
             console.log('❌ No signature data found');
-            signatureHtml = '<div style="width: 250px; height: 120px; border: 2px solid #ccc; background: #f0f0f0; display: flex; align-items: center; justify-content: center; margin: 0 auto; color: #666; font-size: 12px; text-align: center;">Aucune signature</div>';
+            signatureHtml = `
+                <div style="margin-top: 8px; width: 200px; height: 60px; border: 1px solid #ddd; padding: 4px; background: #f9f9f9; display: flex; align-items: center; justify-content: center;">
+                    <span style="color: #999;">Keine Unterschrift</span>
+                </div>
+                <div style="font-weight: 600; font-size: 10px; margin-top: 4px;">Unterschrift Versicherte(r) oder Bevollmächtigte(r)</div>
+            `;
         }
         
         console.log('=== SIGNATURE DEBUG END ===');
