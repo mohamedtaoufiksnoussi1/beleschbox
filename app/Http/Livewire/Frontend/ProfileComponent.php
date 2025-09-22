@@ -15,7 +15,13 @@ class ProfileComponent extends Component
 
     public function render()
     {
-        $customerId = \Session::get('Customer')->id;
+        // Vérifier si l'utilisateur est connecté
+        $customer = \Session::get('Customer');
+        if (!$customer) {
+            return redirect()->route('userLogin')->with('error', 'Veuillez vous connecter pour voir votre profil.');
+        }
+        
+        $customerId = $customer->id;
         $data['orders'] = Order::where('customerId',$customerId)->orderBy('id','desc')->get()
             ->groupBy('orderId');
         return view('livewire.frontend.profile-component',$data);

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="description" content="Belesch-box">
-    <meta name="csrf-token" content="Ji76AJ8dvpyQDqQQXFx5zg9FXiqZlmDg2DL5Xxqq" />
+    <meta name="csrf-token" content="2jBcUxbkuDGbE84qdADiZkXYADATpkhbmonzPe8M" />
     <link href="http://127.0.0.1:8000/frontend/assets/images/favicon/favicon.png" rel="icon">
     <title>Belesch-box</title>
 
@@ -46,9 +46,282 @@
     <div class="preloader">
         <div class="loading"><span></span><span></span><span></span><span></span></div>
     </div>
-    <div wire:id="cAwJ1qD9pzGjByQvgK5h" wire:initial-data="{&quot;fingerprint&quot;:{&quot;id&quot;:&quot;cAwJ1qD9pzGjByQvgK5h&quot;,&quot;name&quot;:&quot;frontend.contact-us&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;contact&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;v&quot;:&quot;acj&quot;},&quot;effects&quot;:{&quot;listeners&quot;:[]},&quot;serverMemo&quot;:{&quot;children&quot;:{&quot;l3900084546-0&quot;:{&quot;id&quot;:&quot;mTQhRxl4CAWUBmNtugLa&quot;,&quot;tag&quot;:&quot;&quot;},&quot;l3900084546-1&quot;:{&quot;id&quot;:&quot;3cOXalSOZIVi6ZXHsI9l&quot;,&quot;tag&quot;:&quot;&quot;}},&quot;errors&quot;:[],&quot;htmlHash&quot;:&quot;4c42d367&quot;,&quot;data&quot;:[],&quot;dataMeta&quot;:[],&quot;checksum&quot;:&quot;9920afcf26ad850b45506b9db47a9095057370d85984ae2425c8b51e9818a379&quot;}}">
-    <!-- =========================  Header  =========================== -->
-<header wire:id="mTQhRxl4CAWUBmNtugLa" wire:initial-data="{&quot;fingerprint&quot;:{&quot;id&quot;:&quot;mTQhRxl4CAWUBmNtugLa&quot;,&quot;name&quot;:&quot;frontend.includes.header&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;contact&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;v&quot;:&quot;acj&quot;},&quot;effects&quot;:{&quot;listeners&quot;:[]},&quot;serverMemo&quot;:{&quot;children&quot;:[],&quot;errors&quot;:[],&quot;htmlHash&quot;:&quot;cc42b3e3&quot;,&quot;data&quot;:[],&quot;dataMeta&quot;:[],&quot;checksum&quot;:&quot;51bc528c5ab02d49ccc7163f2bcf05ec55af74d24f3d9ede0ca86846b63d58de&quot;}}" class="header header-layout1">
+    <div wire:id="KktpP5EG5MoKyaFNYFYk" wire:initial-data="{&quot;fingerprint&quot;:{&quot;id&quot;:&quot;KktpP5EG5MoKyaFNYFYk&quot;,&quot;name&quot;:&quot;frontend.contact-us&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;contact&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;v&quot;:&quot;acj&quot;},&quot;effects&quot;:{&quot;listeners&quot;:[]},&quot;serverMemo&quot;:{&quot;children&quot;:{&quot;l3587948766-0&quot;:{&quot;id&quot;:&quot;vXG7Q3UW1rXuZE5udtmH&quot;,&quot;tag&quot;:&quot;style&quot;},&quot;l3587948766-1&quot;:{&quot;id&quot;:&quot;LV6mEyvhXqCHGJ7dOTbq&quot;,&quot;tag&quot;:&quot;&quot;}},&quot;errors&quot;:[],&quot;htmlHash&quot;:&quot;b1c486fc&quot;,&quot;data&quot;:[],&quot;dataMeta&quot;:[],&quot;checksum&quot;:&quot;869e45ce360594724073d590204cf5f7cd6a82504d26fd5f37d464179bc12fba&quot;}}">
+    <style wire:id="vXG7Q3UW1rXuZE5udtmH" wire:initial-data="{&quot;fingerprint&quot;:{&quot;id&quot;:&quot;vXG7Q3UW1rXuZE5udtmH&quot;,&quot;name&quot;:&quot;frontend.includes.header&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;contact&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;v&quot;:&quot;acj&quot;},&quot;effects&quot;:{&quot;listeners&quot;:[]},&quot;serverMemo&quot;:{&quot;children&quot;:[],&quot;errors&quot;:[],&quot;htmlHash&quot;:&quot;43344893&quot;,&quot;data&quot;:[],&quot;dataMeta&quot;:[],&quot;checksum&quot;:&quot;29b7b263957f295039218f52013217df64823323dd00f1516b25c2b4dfb25a23&quot;}}">
+    /* Header ultra-moderne */
+    .header {
+        box-shadow: 0 4px 30px rgba(0, 158, 225, 0.15);
+        position: relative;
+        z-index: 1000;
+        backdrop-filter: blur(20px);
+        background: rgba(255, 255, 255, 0.95);
+    }
+    
+    /* Topbar ultra-moderne avec dégradé */
+    .header-topbar {
+        background: linear-gradient(135deg, #009ee1 0%, #39cdc1 50%, #0077b3 100%);
+        padding: 0.3rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .header-topbar::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+        pointer-events: none;
+    }
+    
+    .contact__list li {
+        margin-right: 2rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .contact__list li i {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 0.8rem;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 0.2rem;
+        border-radius: 50%;
+        backdrop-filter: blur(10px);
+    }
+    
+    .contact__list li a {
+        color: white;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+    
+    .contact__list li a:hover {
+        color: rgba(255, 255, 255, 0.9);
+        transform: translateY(-2px);
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Social icons ultra-modernes */
+    .social-icons {
+        display: flex;
+        gap: 0.5rem;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .social-icons li a {
+        width: 28px;
+        height: 28px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        transition: all 0.4s ease;
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .social-icons li a:hover {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        border-color: rgba(255, 255, 255, 0.4);
+    }
+    
+    /* Search modernisé */
+    .header-topbar__search {
+        display: flex;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 25px;
+        padding: 0.25rem;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .header-topbar__search .form-control {
+        background: transparent;
+        border: none;
+        color: white;
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+    }
+    
+    .header-topbar__search .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+    }
+    
+    .header-topbar__search-btn {
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        transition: all 0.3s ease;
+    }
+    
+    .header-topbar__search-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: none;
+    }
+    
+    /* Navigation ultra-moderne */
+    .navbar {
+        background: rgba(255, 255, 255, 0.95) !important;
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(0, 158, 225, 0.1);
+        padding: 0.5rem 0;
+    }
+    
+    .navbar-brand img {
+        max-height: 40px;
+        transition: all 0.3s ease;
+        filter: brightness(1.1) contrast(1.1);
+    }
+    
+    .navbar-brand:hover img {
+        transform: none;
+        filter: brightness(1.15) contrast(1.15);
+    }
+    
+    .nav__item-link {
+        color: #2d3748 !important;
+        font-weight: 600 !important;
+        font-size: 0.85rem !important;
+        padding: 0.4rem 0.8rem !important;
+        border-radius: 6px !important;
+        transition: all 0.3s ease !important;
+        position: relative !important;
+        text-decoration: none !important;
+        display: inline-block !important;
+        transform: none !important;
+    }
+    
+    .nav__item-link:hover {
+        color: #009ee1 !important;
+        background: linear-gradient(135deg, rgba(0, 158, 225, 0.1) 0%, rgba(57, 205, 193, 0.1) 100%) !important;
+        transform: none !important;
+        box-shadow: 0 3px 12px rgba(0, 158, 225, 0.15) !important;
+    }
+    
+    .nav__item-link.active {
+        color: white !important;
+        background: linear-gradient(135deg, #009ee1 0%, #39cdc1 100%) !important;
+        box-shadow: 0 2px 8px rgba(0, 158, 225, 0.2) !important;
+        transform: none !important;
+    }
+    
+    .nav__item-link.active::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 30px;
+        height: 3px;
+        background: linear-gradient(135deg, #009ee1 0%, #39cdc1 100%);
+        border-radius: 2px;
+    }
+    
+    
+    /* Navigation principale modernisée */
+    .navbar {
+        background: white;
+        padding: 1rem 0;
+        border-bottom: 1px solid rgba(0, 158, 225, 0.1);
+    }
+    
+    .navbar-brand {
+        display: flex;
+        align-items: center;
+    }
+    
+    .navbar-brand img {
+        height: 45px;
+        transition: all 0.3s ease;
+    }
+    
+    .navbar-brand:hover img {
+        transform: none;
+    }
+    
+    /* Navigation links modernisés */
+    .navbar-nav {
+        gap: 2rem;
+    }
+    
+    .nav__item-link {
+        color: #2d3748;
+        font-weight: 500;
+        font-size: 0.95rem;
+        text-decoration: none;
+        padding: 0.5rem 0;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+    
+    .nav__item-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(135deg, #009ee1 0%, #0077b3 100%);
+        transition: width 0.3s ease;
+    }
+    
+    .nav__item-link:hover::after,
+    .nav__item-link.active::after {
+        width: 100%;
+    }
+    
+    .nav__item-link:hover {
+        color: #009ee1;
+        transform: translateY(-1px);
+    }
+    
+    .nav__item-link.active {
+        color: #009ee1;
+        font-weight: 600;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .contact__list li {
+            margin-right: 1rem;
+            font-size: 0.8rem;
+        }
+        
+        .social-icons {
+            gap: 0.5rem;
+        }
+        
+        .social-icons li a {
+            width: 28px;
+            height: 28px;
+        }
+    }
+</style>
+
+<!-- =========================  Header  =========================== -->
+<header class="header header-layout1">
     <div class="header-topbar">
         <div class="container-fluid">
             <div class="row align-items-center">
@@ -79,7 +352,7 @@
                                                 class="fab fa-instagram"></i></a></li>
                                                             </ul><!-- /.social-icons -->
                             <form class="header-topbar__search">
-                                <input type="text" class="form-control" placeholder="Search...">
+                                <input type="text" class="form-control" placeholder="Suchen...">
                                 <button class="header-topbar__search-btn"><i class="fa fa-search"></i></button>
                             </form>
                         </div>
@@ -101,33 +374,29 @@
             <div class="collapse navbar-collapse" id="mainNavigation">
                 <ul class="navbar-nav m-auto">
                     <li class="nav__item">
-                        <a href="http://127.0.0.1:8000" class="nav__item-link ">Home</a>
+                        <a href="http://127.0.0.1:8000" class="nav__item-link ">Startseite</a>
                     </li><!-- /.nav-item -->
                     <li class="nav__item">
-                        <a href="http://127.0.0.1:8000/about" class="nav__item-link ">About Us</a>
+                        <a href="http://127.0.0.1:8000/about" class="nav__item-link ">Über uns</a>
                     </li><!-- /.nav-item -->
                     <li class="nav__item">
-                        <a href="http://127.0.0.1:8000/contact" class="nav__item-link active">Contacts</a>
+                        <a href="http://127.0.0.1:8000/contact" class="nav__item-link active">Kontakt</a>
                     </li> <!-- /.nav-item -->
 
                                             <li class="nav__item">
-                            <a href="http://127.0.0.1:8000/userLogin" class="nav__item-link">Sign-in</a>
+                            <a href="http://127.0.0.1:8000/userLogin" class="nav__item-link">Anmelden</a>
                         </li> <!-- /.nav-item -->
                     
                 </ul><!-- /.navbar-nav -->
                 <button class="close-mobile-menu d-block d-lg-none"><i class="fas fa-times"></i></button>
             </div><!-- /.navbar-collapse -->
             <div class="d-none d-xl-flex align-items-center position-relative ml-30">
-
-                <a href="http://127.0.0.1:8000/assemble" class="btn btn__primary btn__rounded ml-30">
-                    <i class="icon-container"></i>
-                    <span>Assemble Curebox</span>
-                </a>
+                <!-- Bouton déplacé vers la section des packages -->
             </div>
         </div><!-- /.container -->
     </nav><!-- /.navbar -->
 </header><!-- /.Header -->
-<!-- Livewire Component wire-end:mTQhRxl4CAWUBmNtugLa -->    <!-- ========================
+<!-- Livewire Component wire-end:vXG7Q3UW1rXuZE5udtmH -->    <!-- ========================
        page title
     =========================== -->
     <section class="page-title page-title-layout1 bg-overlay">
@@ -243,7 +512,378 @@
 
 
     <!-- ========================  Footer  ========================== -->
-<footer wire:id="3cOXalSOZIVi6ZXHsI9l" wire:initial-data="{&quot;fingerprint&quot;:{&quot;id&quot;:&quot;3cOXalSOZIVi6ZXHsI9l&quot;,&quot;name&quot;:&quot;frontend.includes.footer&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;contact&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;v&quot;:&quot;acj&quot;},&quot;effects&quot;:{&quot;listeners&quot;:[]},&quot;serverMemo&quot;:{&quot;children&quot;:[],&quot;errors&quot;:[],&quot;htmlHash&quot;:&quot;9b96de1c&quot;,&quot;data&quot;:[],&quot;dataMeta&quot;:[],&quot;checksum&quot;:&quot;bfe80016dc006ec1eecd16ef2625c08c6990624cf730be0e9bf34c7c13924904&quot;}}" class="footer">
+<style wire:id="LV6mEyvhXqCHGJ7dOTbq" wire:initial-data="{&quot;fingerprint&quot;:{&quot;id&quot;:&quot;LV6mEyvhXqCHGJ7dOTbq&quot;,&quot;name&quot;:&quot;frontend.includes.footer&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;contact&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;v&quot;:&quot;acj&quot;},&quot;effects&quot;:{&quot;listeners&quot;:[]},&quot;serverMemo&quot;:{&quot;children&quot;:[],&quot;errors&quot;:[],&quot;htmlHash&quot;:&quot;f188e3c9&quot;,&quot;data&quot;:[],&quot;dataMeta&quot;:[],&quot;checksum&quot;:&quot;4684f36a637cdfdaf7768dbfeec3ca6ff5af50cf34e044ea07e203dd7246444d&quot;}}">
+    /* ===== MODERN FOOTER STYLES ===== */
+    :root {
+        --sky-blu: #009ee1;
+        --turquoise: #39cdc1;
+        --blue-gradient: linear-gradient(135deg, #009ee1 0%, #39cdc1 100%);
+        --blue-gradient-hover: linear-gradient(135deg, #0088cc 0%, #2fb8b0 100%);
+        --light-blue: #e3f2fd;
+        --dark-blue: #0056b3;
+        --white: #ffffff;
+        --footer-bg: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
+        --footer-text: #e2e8f0;
+        --footer-link: #cbd5e0;
+        --footer-link-hover: #ffffff;
+        --border-radius: 12px;
+        --shadow: 0 4px 20px rgba(0, 158, 225, 0.15);
+        --shadow-hover: 0 8px 30px rgba(0, 158, 225, 0.25);
+    }
+    
+    .footer {
+        background: var(--footer-bg) !important;
+        color: var(--footer-text) !important;
+        position: relative;
+        overflow: hidden;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    body .footer {
+        background: var(--footer-bg) !important;
+    }
+    
+    .footer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, rgba(0, 158, 225, 0.1) 0%, rgba(57, 205, 193, 0.1) 100%);
+        pointer-events: none;
+    }
+    
+    .footer-primary {
+        padding: 6px 0 4px !important;
+        position: relative;
+        z-index: 1;
+        background: transparent !important;
+        display: flex;
+        align-items: center;
+        min-height: 30vh;
+    }
+    
+    body .footer .footer-primary {
+        padding: 6px 0 4px !important;
+    }
+    
+    .footer-widget__title {
+        background: var(--blue-gradient) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+        font-weight: 700 !important;
+        font-size: 8px !important;
+        margin-bottom: 3px !important;
+        position: relative;
+        color: transparent !important;
+    }
+    
+    body .footer .footer-widget__title {
+        background: var(--blue-gradient) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+        font-size: 8px !important;
+        margin-bottom: 3px !important;
+        color: transparent !important;
+    }
+    
+    /* Fallback pour les navigateurs qui ne supportent pas background-clip */
+    .footer-widget__title {
+        color: var(--sky-blu) !important;
+    }
+    
+    .footer-widget__title[style*="background"] {
+        color: transparent !important;
+    }
+    
+    .footer-widget__title::after {
+        content: '';
+        position: absolute;
+        bottom: -6px;
+        left: 0;
+        width: 25px;
+        height: 2px;
+        background: var(--blue-gradient);
+        border-radius: 2px;
+    }
+    
+    .footer-widget-about p {
+        color: var(--footer-text) !important;
+        line-height: 1.2 !important;
+        margin-top: 3px !important;
+        font-size: 10px !important;
+    }
+    
+    .footer-widget-about img {
+        max-width: 120px !important;
+        height: auto !important;
+        filter: brightness(1.2) contrast(1.1) !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    .footer-widget-about img:hover {
+        filter: brightness(1.4) contrast(1.2) !important;
+        transform: scale(1.05) !important;
+    }
+    
+    body .footer .footer-widget-about p {
+        font-size: 10px !important;
+        line-height: 1.2 !important;
+        margin-top: 3px !important;
+    }
+    
+    .footer-widget-nav ul li {
+        margin-bottom: 1px !important;
+    }
+    
+    .footer-widget-nav ul li:first-child {
+        margin-top: 8px !important;
+    }
+    
+    .footer-widget-nav ul li a {
+        color: var(--footer-link) !important;
+        text-decoration: none !important;
+        transition: all 0.3s ease !important;
+        font-weight: 500 !important;
+        font-size: 10px !important;
+        position: relative;
+    }
+    
+    body .footer .footer-widget-nav ul li a {
+        font-size: 10px !important;
+        margin-bottom: 2px !important;
+        color: var(--footer-link) !important;
+    }
+    
+    .footer-widget-nav ul li a:hover {
+        background: var(--blue-gradient) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+        transform: translateX(3px) !important;
+    }
+    
+    .footer-widget-contact {
+        background: linear-gradient(135deg, var(--white) 0%, rgba(255, 255, 255, 0.95) 100%) !important;
+        padding: 10px !important;
+        border-radius: var(--border-radius) !important;
+        box-shadow: var(--shadow) !important;
+        border-left: 3px solid transparent !important;
+        background-image: linear-gradient(135deg, var(--white) 0%, rgba(255, 255, 255, 0.95) 100%), var(--blue-gradient) !important;
+        background-origin: border-box !important;
+        background-clip: content-box, border-box !important;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height: 100%;
+    }
+    
+    body .footer .footer-widget-contact {
+        padding: 10px !important;
+        background: linear-gradient(135deg, var(--white) 0%, rgba(255, 255, 255, 0.95) 100%) !important;
+    }
+    
+    .footer-widget-contact::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100px;
+        height: 100px;
+        background: var(--blue-gradient);
+        opacity: 0.1;
+        border-radius: 50%;
+        transform: translate(30px, -30px);
+    }
+    
+    .footer-widget-contact .footer-widget__title {
+        background: var(--blue-gradient) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+        margin-bottom: 6px !important;
+        font-size: 11px !important;
+    }
+    
+    .contact-list li {
+        color: var(--dark-blue) !important;
+        margin-bottom: 4px !important;
+        line-height: 1.2 !important;
+        font-size: 10px !important;
+    }
+    
+    .phone__number {
+        background: var(--blue-gradient) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+        font-weight: 600 !important;
+        text-decoration: none !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        font-size: 12px !important;
+    }
+    
+    .phone__number:hover {
+        background: var(--turquoise) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+    }
+    
+    .social-icons {
+        display: flex !important;
+        gap: 5px !important;
+        margin-top: 6px !important;
+    }
+    
+    .social-icons li a {
+        width: 24px !important;
+        height: 24px !important;
+        background: var(--blue-gradient) !important;
+        color: var(--white) !important;
+        border-radius: 50% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-decoration: none !important;
+        transition: all 0.3s ease !important;
+        box-shadow: var(--shadow) !important;
+    }
+    
+    .social-icons li a:hover {
+        transform: translateY(-3px) !important;
+        box-shadow: var(--shadow-hover) !important;
+        background: var(--blue-gradient-hover) !important;
+    }
+    
+    .footer-secondary {
+        background: linear-gradient(90deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 158, 225, 0.1) 50%, rgba(57, 205, 193, 0.1) 100%) !important;
+        padding: 2px 0 !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+        position: relative;
+        z-index: 1;
+    }
+    
+    body .footer .footer-secondary {
+        padding: 2px 0 !important;
+        background: linear-gradient(90deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 158, 225, 0.1) 50%, rgba(57, 205, 193, 0.1) 100%) !important;
+    }
+    
+    .footer-secondary span,
+    .footer-secondary a {
+        color: var(--footer-text) !important;
+        font-size: 8px !important;
+    }
+    
+    .footer-secondary a:hover {
+        background: var(--blue-gradient) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+    }
+    
+    .footer__copyright-links li {
+        margin-left: 12px !important;
+    }
+    
+    .footer__copyright-links li a {
+        color: var(--footer-link) !important;
+        text-decoration: none !important;
+        transition: all 0.3s ease !important;
+        font-size: 10px !important;
+    }
+    
+    .footer__copyright-links li a:hover {
+        background: var(--blue-gradient) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+    }
+    
+    #scrollTopBtn {
+        position: fixed !important;
+        bottom: 12px !important;
+        right: 12px !important;
+        width: 35px !important;
+        height: 35px !important;
+        background: var(--blue-gradient) !important;
+        color: var(--white) !important;
+        border: none !important;
+        border-radius: 50% !important;
+        box-shadow: var(--shadow) !important;
+        cursor: pointer !important;
+        transition: all 0.3s ease !important;
+        z-index: 1000 !important;
+    }
+    
+    #scrollTopBtn:hover {
+        transform: translateY(-3px) !important;
+        box-shadow: var(--shadow-hover) !important;
+    }
+    
+    @media (max-width: 768px) {
+        .footer-primary {
+            padding: 10px 0 8px !important;
+        }
+        
+        .footer-widget-contact {
+            margin-top: 10px !important;
+        }
+        
+        .social-icons {
+            justify-content: center !important;
+        }
+    }
+    
+    /* FORCE APPLICATION - OVERRIDE ALL OTHER STYLES */
+    .footer * {
+        box-sizing: border-box !important;
+    }
+    
+    .footer .container {
+        max-width: 100% !important;
+    }
+    
+    .footer .row {
+        margin: 0 !important;
+    }
+    
+    .footer .col-sm-12,
+    .footer .col-md-12,
+    .footer .col-lg-3,
+    .footer .col-lg-2,
+    .footer .col-lg-4 {
+        padding: 0 15px !important;
+    }
+    
+    /* FORCER LES COULEURS DÉGRADÉES */
+    .footer h6,
+    .footer .footer-widget__title {
+        background: linear-gradient(135deg, #009ee1 0%, #39cdc1 100%) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+        color: transparent !important;
+    }
+    
+    .footer a:hover {
+        background: linear-gradient(135deg, #009ee1 0%, #39cdc1 100%) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+    }
+</style>
+
+<footer class="footer">
     <div class="footer-primary">
         <div class="container">
             <div class="row">
@@ -259,12 +899,12 @@
                         <h6 class="footer-widget__title">Useful links</h6>
                         <nav>
                             <ul class="list-unstyled">
-                                                                <li><a href="https://mediccos.eu" target="_blank">MedicCos Inkontinenzhilfe</a></li>
-                                                                <li><a href="http://www.link2.com" target="_blank">Link2</a></li>
-                                                                <li><a href="http://www.link3.com" target="_blank">Link3</a></li>
-                                                                <li><a href="http://www.link4.com" target="_blank">Link4</a></li>
-                                                                <li><a href="http://www.link5.com" target="_blank">Link5</a></li>
-                                                            </ul>
+                                                                <li><a href="#" class="text-decoration-none">MedicCos Inkontinenzhilfe</a></li>
+                                <li><a href="#" class="text-decoration-none">Link2</a></li>
+                                <li><a href="#" class="text-decoration-none">Link3</a></li>
+                                <li><a href="#" class="text-decoration-none">Link4</a></li>
+                                <li><a href="#" class="text-decoration-none">Link5</a></li>
+                            </ul>
                         </nav>
                     </div><!-- /.footer-widget__content -->
                 </div><!-- /.col-lg-2 -->
@@ -333,15 +973,12 @@
     </div><!-- /.footer-secondary -->
 </footer><!-- /.Footer -->
 <button id="scrollTopBtn"><i class="fas fa-long-arrow-alt-up"></i></button>
-<!-- Livewire Component wire-end:3cOXalSOZIVi6ZXHsI9l --></div>
+<!-- Livewire Component wire-end:LV6mEyvhXqCHGJ7dOTbq --></div>
 
-<!-- Livewire Component wire-end:cAwJ1qD9pzGjByQvgK5h --></div>
+<!-- Livewire Component wire-end:KktpP5EG5MoKyaFNYFYk --></div>
 <!-- Livewire Scripts -->
-<script >
-    console.warn("Livewire: The published Livewire assets are out of date
- See: https://laravel-livewire.com/docs/installation/")
-</script>
-<script src="http://localhost/vendor/livewire/livewire.js?id=de3fca26689cb5a39af4" data-turbo-eval="false" data-turbolinks-eval="false" ></script>
+
+<script src="/vendor/livewire/livewire.js?id=90730a3b0e7144480175" data-turbo-eval="false" data-turbolinks-eval="false" ></script>
 <script data-turbo-eval="false" data-turbolinks-eval="false" >
     if (window.livewire) {
 	    console.warn('Livewire: It looks like Livewire\'s @livewireScripts JavaScript assets have already been loaded. Make sure you aren\'t loading them twice.')
@@ -350,8 +987,8 @@
     window.livewire = new Livewire();
     window.livewire.devTools(true);
     window.Livewire = window.livewire;
-    window.livewire_app_url = 'http://localhost';
-    window.livewire_token = 'Ji76AJ8dvpyQDqQQXFx5zg9FXiqZlmDg2DL5Xxqq';
+    window.livewire_app_url = '';
+    window.livewire_token = '2jBcUxbkuDGbE84qdADiZkXYADATpkhbmonzPe8M';
 
 	/* Make sure Livewire loads first. */
 	if (window.Alpine) {

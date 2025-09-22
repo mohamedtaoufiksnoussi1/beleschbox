@@ -57,6 +57,7 @@ class OrderController extends Controller
 
             $customer = Customer::firstOrNew(['email' =>  $get_personalData[0]->email]);
             $customer->surname = $get_personalData[0]->surname ?? '';
+            $customer->insured_type = $get_personalData[0]->insured_type ?? '';
             $customer->firstName = $get_personalData[0]->first_name ?? '';
             $customer->lastName = $get_personalData[0]->last_name ?? '';
             $customer->email = $get_personalData[0]->email ?? '';
@@ -77,6 +78,10 @@ class OrderController extends Controller
             $customer->insuranceNumber = $get_personalData[0]->insurance_no ?? '';
             $customer->insuranceName = $get_personalData[0]->health_insurance ?? '';
             $customer->healthInsuranceNo = $get_personalData[0]->KrankenkasseNummer ?? '';
+            $customer->pflegegrad = $get_personalData[0]->pflegegrad ?? '';
+            $customer->caregiver_name = $get_personalData[0]->angehoriger_name ?? '';
+            $customer->caregiver_phone = $get_personalData[0]->angehoriger_telefon ?? '';
+            $customer->caregiver_email = $get_personalData[0]->angehoriger_email ?? '';
             $customer->status = '1';
             if ($customer->save()) {
                 $delivery = DeliveryAddress::firstOrNew(['customerId' =>  $customer->id]);
@@ -166,7 +171,16 @@ class OrderController extends Controller
                 $order->qty = $cart['quantity'] ?? '';
                 $order->price = $cart['product']['price'] ?? '';
                 $order->signature = $request->signature ?? '';
-                $order->orderType = '0';
+                
+                // Déterminer le type de commande
+                // Si c'est une commande custom (Assemble Curebox), orderType = '0'
+                // Si c'est une commande de package, orderType = '1'
+                if (isset($cart['custom']) && $cart['custom']) {
+                    $order->orderType = '0'; // Commande custom = produit individuel
+                } else {
+                    $order->orderType = '0'; // Par défaut, traiter comme produit individuel
+                }
+                
                 $order->status = '1';
                 $order->save();
             }
@@ -214,8 +228,9 @@ class OrderController extends Controller
       
        ///dd($personalData);
 
-         if(saveCustomerWithDeliverAddress($request)['status'] ==0){
-             return ['status'=>'0','message'=>saveCustomerWithDeliverAddress($request)['message']];
+         $result = saveCustomerWithDeliverAddress($request);
+         if($result['status'] == 0){
+             return ['status'=>'0','message'=>$result['message']];
          }else{
              return ['status'=>'1','message'=>'Data has been successfully uploaded.'];
          }

@@ -33,6 +33,47 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::get('/assemble', [HomeController::class, 'assemble'])->name('assemble');
+
+// Route de test temporaire pour vérifier la session
+Route::get('/test-session', function() {
+    $data = [
+        'personalData' => Session::get('personalData'),
+        'Customer' => Session::get('Customer'),
+        'all_session_keys' => array_keys(Session::all())
+    ];
+    return response()->json($data);
+});
+
+// Route de test pour simuler les données dans la session
+Route::get('/test-set-session', function() {
+    $testData = [
+        (object) [
+            'surname' => 'Herr',
+            'insured_type' => 'Angehöriger / Pflegeperson',
+            'pflegegrad' => '4',
+            'insurance_type' => 'G',
+            'first_name' => 'Mohamed Taoufik',
+            'last_name' => 'SNOUSSI',
+            'streetno' => 'rue Molière Salammbo',
+            'houseno' => '15',
+            'zip' => '2025',
+            'city' => 'Tunis',
+            'dob' => '2025-09-02',
+            'telno' => '93658846',
+            'email' => 'mohamedtaoufik.snoussi@gmail.com',
+            'angehoriger_name' => 'Mohamed',
+            'angehoriger_telefon' => '93658846',
+            'angehoriger_email' => 'taoufiksnoussi1234@gmail.com',
+            'health_insurance' => 'aaaa',
+            'insurance_no' => 'A123456601',
+            'KrankenkasseNummer' => '1234567601'
+        ]
+    ];
+    
+    Session::put('personalData', $testData);
+    
+    return redirect('/assemble');
+});
 Route::get('/assemble-pkg', [HomeController::class, 'assemblePkg'])->name('assemble-pkg');
 Route::get('/assemble/{id}', [HomeController::class, 'assemble'])->name('assemble-package');
 Route::get('/terms-conditions', [HomeController::class, 'terms'])->name('terms-conditions');
@@ -49,9 +90,15 @@ Route::get('/update-cart-order', [OrderController::class, 'updateCartOrder'])->n
 Route::get('/order-success', [HomeController::class, 'orderSuccess'])->name('order-success');
 Route::get('/generate-pdf', [HomeController::class, 'generatePdf'])->name('generate-pdf');
 Route::get('/generate-pdf-base64', [HomeController::class, 'generatePdfBase64'])->name('generate-pdf-base64');
+Route::post('/generate-order-data', [HomeController::class, 'generateOrderData'])->name('generate-order-data');
+Route::get('/debug-signature/{orderId}', [HomeController::class, 'debugSignature'])->name('debug-signature');
+Route::post('/generate-order-pdf-base64', [HomeController::class, 'generateOrderPdfBase64'])->name('generate-order-pdf-base64');
 Route::post('/store-user-data', [HomeController::class, 'storeUserData'])->name('store-user-data');
 
 Route::post('/getProductCart', [HomeController::class, 'getProductCart'])->name('getProductCart');
+Route::post('/check-email-exists', [HomeController::class, 'checkEmailExists'])->name('check-email-exists');
+Route::post('/check-insurance-number-exists', [HomeController::class, 'checkInsuranceNumberExists'])->name('check-insurance-number-exists');
+Route::post('/check-krankenkasse-number-exists', [HomeController::class, 'checkKrankenkasseNumberExists'])->name('check-krankenkasse-number-exists');
 
 
 /***********  Normal Routes With Auth *********************/
@@ -95,6 +142,7 @@ Route::group(['middleware' => ['auth', 'SuperAdmin'], 'prefix' => 'admin'], func
 
 Route::group(['middleware' => ['Customer'], 'prefix' => 'customer'], function () {
     Route::get('/profile', [HomeController::class, 'customerProfile'])->name('customer-profile');
+    Route::get('/orders', [HomeController::class, 'customerOrders'])->name('customer-orders');
 });
 /***********  End Super Admin Routes *********************/
 

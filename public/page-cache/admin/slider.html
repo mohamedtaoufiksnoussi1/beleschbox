@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+    <meta name="author" content="AdminKit">
+    <meta name="keywords"
+          content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com/">
+    <link rel="shortcut icon" href="http://localhost:8000/admin/img/icons/icon-48x48.png"/>
+
+    <title>Manage Sliders</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="http://localhost:8000/admin/css/light.css" rel="stylesheet">
+        
+    <!-- Livewire Styles -->
+<style >
+    [wire\:loading], [wire\:loading\.delay], [wire\:loading\.inline-block], [wire\:loading\.inline], [wire\:loading\.block], [wire\:loading\.flex], [wire\:loading\.table], [wire\:loading\.grid], [wire\:loading\.inline-flex] {
+        display: none;
+    }
+
+    [wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short], [wire\:loading\.delay\.long], [wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest] {
+        display:none;
+    }
+
+    [wire\:offline] {
+        display: none;
+    }
+
+    [wire\:dirty]:not(textarea):not(input):not(select) {
+        display: none;
+    }
+
+    input:-webkit-autofill, select:-webkit-autofill, textarea:-webkit-autofill {
+        animation-duration: 50000s;
+        animation-name: livewireautofill;
+    }
+
+    @keyframes livewireautofill { from {} }
+</style>
+</head>
+<body class="antialiased">
+    <script src="http://localhost:8000/admin/js/app.js"></script>
+    <div wire:id="FiPcDmDXZqAUY1KnZKWt" wire:initial-data="{&quot;fingerprint&quot;:{&quot;id&quot;:&quot;FiPcDmDXZqAUY1KnZKWt&quot;,&quot;name&quot;:&quot;admin.slider&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;admin\/slider&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;v&quot;:&quot;acj&quot;},&quot;effects&quot;:{&quot;listeners&quot;:[],&quot;path&quot;:&quot;http:\/\/localhost:8000\/admin\/slider&quot;},&quot;serverMemo&quot;:{&quot;children&quot;:{&quot;l1952330598-0&quot;:{&quot;id&quot;:&quot;bHnBpX8zkX59iwFyeh8T&quot;,&quot;tag&quot;:&quot;nav&quot;},&quot;l1952330598-1&quot;:{&quot;id&quot;:&quot;iCW3QLRocpswtWyMvmn8&quot;,&quot;tag&quot;:&quot;nav&quot;},&quot;l1952330598-2&quot;:{&quot;id&quot;:&quot;xUIHlnPCYg1xhaWb6rQQ&quot;,&quot;tag&quot;:&quot;footer&quot;}},&quot;errors&quot;:[],&quot;htmlHash&quot;:&quot;17eceaa8&quot;,&quot;data&quot;:{&quot;image1&quot;:null,&quot;image&quot;:null,&quot;heading&quot;:null,&quot;titlee&quot;:null,&quot;altTag&quot;:null,&quot;titleTag&quot;:null,&quot;status&quot;:null,&quot;slider_id&quot;:null,&quot;showImage&quot;:null,&quot;page&quot;:1,&quot;paginators&quot;:{&quot;page&quot;:1}},&quot;dataMeta&quot;:[],&quot;checksum&quot;:&quot;2ca0134391d18673233d7982d1e044a07316bbdde24eb6fb074e50ec6ede450f&quot;}}" class="wrapper">
+    <nav wire:id="bHnBpX8zkX59iwFyeh8T" wire:initial-data="{&quot;fingerprint&quot;:{&quot;id&quot;:&quot;bHnBpX8zkX59iwFyeh8T&quot;,&quot;name&quot;:&quot;admin.includes.left-menu&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;admin\/slider&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;v&quot;:&quot;acj&quot;},&quot;effects&quot;:{&quot;listeners&quot;:[]},&quot;serverMemo&quot;:{&quot;children&quot;:[],&quot;errors&quot;:[],&quot;htmlHash&quot;:&quot;6ecca7d0&quot;,&quot;data&quot;:[],&quot;dataMeta&quot;:[],&quot;checksum&quot;:&quot;ce7a44d9fa33014084ba1fe32dadf4833f91099d73e1fcc9194d2c22ad55a25e&quot;}}" id="sidebar" class="sidebar js-sidebar">
+    <div class="sidebar-content js-simplebar">
+        <a class="sidebar-brand" href="http://localhost:8000/admin/dashboard">
+            <div class="sidebar-brand-content">
+                <div class="sidebar-brand-icon">
+                    <svg width="28px" height="28px" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                        <path d="M2 17l10 5 10-5"></path>
+                        <path d="M2 12l10 5 10-5"></path>
+                    </svg>
+                </div>
+                <div class="sidebar-brand-text">
+                    <span class="brand-title">Laravel</span>
+                    <span class="brand-subtitle">Dashboard</span>
+                </div>
+            </div>
+        </a>
+
+        <div class="sidebar-user">
+            <div class="sidebar-user-content">
+                <div class="sidebar-user-avatar">
+                    <img src="http://localhost:8000/admin/img/avatars/avatar.jpg" class="avatar img-fluid rounded-circle"
+                         alt="Charles Hall"/>
+                    <div class="status-indicator online"></div>
+                </div>
+                <div class="sidebar-user-info dropdown">
+                    <a class="sidebar-user-title dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class="user-name">Charles Hall</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-start">
+                        <a class="dropdown-item" href="http://localhost:8000/admin/profile">
+                            <i class="fas fa-user me-2"></i>Profile
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="http://localhost:8000/admin/setting">
+                            <i class="fas fa-cog me-2"></i>Settings & Privacy
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="http://localhost:8000/logout">
+                            <i class="fas fa-sign-out-alt me-2"></i>Log out
+                        </a>
+                    </div>
+                    <div class="sidebar-user-subtitle">
+                        <span class="user-role">
+                                                            <i class="fas fa-crown me-1"></i>Super Admin
+                                                    </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ul class="sidebar-nav">
+            <li class="sidebar-header">
+                <span class="header-text">Navigation</span>
+                <div class="header-line"></div>
+            </li>
+            <li class="sidebar-item active">
+                <a href="http://localhost:8000/admin/dashboard" class="sidebar-link">
+                    <div class="sidebar-link-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <span class="sidebar-link-text">Dashboard</span>
+                    <div class="sidebar-link-indicator"></div>
+                </a>
+            </li>
+
+            <li class="sidebar-item">
+                <a data-bs-target="#pages" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                    <div class="sidebar-link-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <span class="sidebar-link-text">Pages</span>
+                    <div class="sidebar-link-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+                <ul id="pages" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="http://localhost:8000/admin/slider">
+                            <i class="fas fa-images me-2"></i>Slider
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="http://localhost:8000/admin/aboutUs">
+                            <i class="fas fa-info-circle me-2"></i>About Us
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="#">
+                            <i class="fas fa-cogs me-2"></i>Services
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="http://localhost:8000/admin/team">
+                            <i class="fas fa-users me-2"></i>Team
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="http://localhost:8000/admin/testimonial">
+                            <i class="fas fa-quote-left me-2"></i>Testimonial
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="http://localhost:8000/admin/gallery">
+                            <i class="fas fa-photo-video me-2"></i>Gallery
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="http://localhost:8000/admin/partners">
+                            <i class="fas fa-handshake me-2"></i>Clients
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="sidebar-header">
+                <span class="header-text">Management</span>
+                <div class="header-line"></div>
+            </li>
+
+            <li class="sidebar-item">
+                <a data-bs-target="#products" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                    <div class="sidebar-link-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <span class="sidebar-link-text">Products</span>
+                    <div class="sidebar-link-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+                <ul id="products" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="http://localhost:8000/admin/products">
+                            <i class="fas fa-cube me-2"></i>Products
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="http://localhost:8000/admin/packages">
+                            <i class="fas fa-gift me-2"></i>Packages
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="sidebar-item">
+                <a data-bs-target="#customers" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                    <div class="sidebar-link-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <span class="sidebar-link-text">Customers</span>
+                    <div class="sidebar-link-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+                <ul id="customers" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="http://localhost:8000/admin/customers">
+                            <i class="fas fa-user-friends me-2"></i>All Customers
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="sidebar-item">
+                <a data-bs-target="#orders" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                    <div class="sidebar-link-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <span class="sidebar-link-text">Orders</span>
+                    <div class="sidebar-link-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+                <ul id="orders" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="http://localhost:8000/admin/orders">
+                            <i class="fas fa-receipt me-2"></i>All Orders
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="sidebar-header">
+                <span class="header-text">Settings</span>
+                <div class="header-line"></div>
+            </li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="http://localhost:8000/admin/profile">
+                    <div class="sidebar-link-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <span class="sidebar-link-text">Profile</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="http://localhost:8000/admin/setting">
+                    <div class="sidebar-link-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <span class="sidebar-link-text">Settings & Privacy</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="http://localhost:8000/admin/social-media">
+                    <div class="sidebar-link-icon">
+                        <i class="fas fa-share-alt"></i>
+                    </div>
+                    <span class="sidebar-link-text">Social Media</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="http://localhost:8000/admin/useful-link">
+                    <div class="sidebar-link-icon">
+                        <i class="fas fa-link"></i>
+                    </div>
+                    <span class="sidebar-link-text">Useful Links</span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+
+<!-- Livewire Component wire-end:bHnBpX8zkX59iwFyeh8T -->    <div class="main">
+        <nav wire:id="iCW3QLRocpswtWyMvmn8" wire:initial-data="{&quot;fingerprint&quot;:{&quot;id&quot;:&quot;iCW3QLRocpswtWyMvmn8&quot;,&quot;name&quot;:&quot;admin.includes.header&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;admin\/slider&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;v&quot;:&quot;acj&quot;},&quot;effects&quot;:{&quot;listeners&quot;:[]},&quot;serverMemo&quot;:{&quot;children&quot;:[],&quot;errors&quot;:[],&quot;htmlHash&quot;:&quot;d2d70945&quot;,&quot;data&quot;:{&quot;message&quot;:&quot;hello mount data&quot;},&quot;dataMeta&quot;:[],&quot;checksum&quot;:&quot;522813971630596dd458a1686e1d35704cf4d9275ddce7132f2329e889228bd6&quot;}}" class="navbar navbar-expand navbar-light navbar-bg">
+    <div class="navbar-left">
+        <a class="sidebar-toggle js-sidebar-toggle">
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </a>
+        
+        <div class="navbar-breadcrumb">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb" id="custom-breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="http://localhost:8000/admin/dashboard">
+                            <i class="fas fa-home"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        Analytics                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="navbar-center">
+        <div class="search-box">
+            <div class="search-input-wrapper">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="form-control search-input" placeholder="Search...">
+                <div class="search-shortcut">Ctrl+K</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="navbar-right">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-icon notification-icon" href="#" data-bs-toggle="dropdown">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end notification-dropdown">
+                    <div class="dropdown-header">
+                        <h6>Notifications</h6>
+                        <span class="badge bg-primary">3 new</span>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item notification-item" href="#">
+                        <div class="notification-icon-wrapper">
+                            <i class="fas fa-shopping-cart text-primary"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">New Order</div>
+                            <div class="notification-text">Order #1234 has been placed</div>
+                            <div class="notification-time">2 min ago</div>
+                        </div>
+                    </a>
+                    <a class="dropdown-item notification-item" href="#">
+                        <div class="notification-icon-wrapper">
+                            <i class="fas fa-user text-success"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">New Customer</div>
+                            <div class="notification-text">John Doe registered</div>
+                            <div class="notification-time">5 min ago</div>
+                        </div>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item text-center" href="#">View all notifications</a>
+                </div>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-icon js-fullscreen d-none d-lg-block" href="#" title="Toggle Fullscreen">
+                    <i class="fas fa-expand"></i>
+                </a>
+            </li>
+            
+            <li class="nav-item">
+                                    <div class="user-badge badge-super-admin">
+                        <i class="fas fa-crown"></i>
+                        <span>Super Admin</span>
+                    </div>
+                            </li>
+        </ul>
+    </div>
+
+    <div class="navbar-collapse collapse">
+        <ul class="navbar-nav navbar-align">
+            <li class="nav-item dropdown">
+                <a class="nav-icon pe-md-0 dropdown-toggle user-dropdown" href="#" data-bs-toggle="dropdown">
+                    <div class="user-avatar-wrapper">
+                        <img src="http://localhost:8000/admin/img/avatars/avatar.jpg" class="avatar img-fluid rounded-circle"
+                             alt="Charles Hall"/>
+                        <div class="status-indicator online"></div>
+                    </div>
+                    <div class="user-info">
+                        <div class="user-name">Charles Hall</div>
+                        <div class="user-role">Admin</div>
+                    </div>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end user-menu">
+                    <div class="dropdown-header">
+                        <div class="user-profile">
+                            <img src="http://localhost:8000/admin/img/avatars/avatar.jpg" class="avatar img-fluid rounded-circle"
+                                 alt="Charles Hall"/>
+                            <div class="user-details">
+                                <div class="user-name">Charles Hall</div>
+                                <div class="user-email">charles@example.com</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="http://localhost:8000/admin/profile">
+                        <i class="fas fa-user me-2"></i>Profile
+                    </a>
+                    <a class="dropdown-item" href="http://localhost:8000/admin/setting">
+                        <i class="fas fa-cog me-2"></i>Settings & Privacy
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="http://localhost:8000/logout">
+                        <i class="fas fa-sign-out-alt me-2"></i>Log out
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Livewire Component wire-end:iCW3QLRocpswtWyMvmn8 -->        <main class="content">
+            <div class="container-fluid p-0">
+                <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#createSlider"
+                   class="btn btn-primary float-end mt-n1"><i class="fas fa-plus"></i> New Slider</a>
+                <div class="mb-3">
+                    <h1 class="h3 d-inline align-middle">Manage Sliders</h1>
+                </div>
+                <div class="row">
+                                                                        <div class="col-12 col-md-6 col-lg-3">
+                                <div class="card">
+                                    <img class="card-img-top" src="http://localhost:8000/storage/images/0xgXbDGYQg7psSdQO3OPux4KO3iow0XQCLs1fulY.jpg"
+                                         alt="mehr Freiheit" title="Nach Ihren Wünschen zusammen gestellt">
+                                    <div class="card-header px-4 pt-4">
+                                        <div class="card-actions float-end">
+                                            <div class="dropdown position-relative">
+                                                <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
+                                                   
+                                                    <span class="align-middle fa fa-caret-square-down" style="font-size: 25px; color: #222e3c"></span>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-end">
+                                                    <a class="dropdown-item" href="javascript:;" data-bs-toggle="modal" data-bs-target="#editSlider" wire:click="editSlider(10)">Edit</a>
+                                                    <a class="dropdown-item" href="javascript:;" data-bs-toggle="modal" data-bs-target="#deleteSlider" wire:click="editSlider(10)">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h5 class="card-title mb-0">Wieder mehr Freiheit genießen</h5>
+                                                                                    <div class="badge bg-success my-2">Active</div>
+                                                                            </div>
+                                </div>
+                            </div>
+
+                                                    <div class="col-12 col-md-6 col-lg-3">
+                                <div class="card">
+                                    <img class="card-img-top" src="http://localhost:8000/storage/images/pBqTc35obNJ7xMwdHaFdcoJixhiHRi5ke2tAq61y.jpg"
+                                         alt="Wunschbox frei Haus" title="Zusammensetzung der Box jederzeit anpassbar.">
+                                    <div class="card-header px-4 pt-4">
+                                        <div class="card-actions float-end">
+                                            <div class="dropdown position-relative">
+                                                <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
+                                                   
+                                                    <span class="align-middle fa fa-caret-square-down" style="font-size: 25px; color: #222e3c"></span>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-end">
+                                                    <a class="dropdown-item" href="javascript:;" data-bs-toggle="modal" data-bs-target="#editSlider" wire:click="editSlider(7)">Edit</a>
+                                                    <a class="dropdown-item" href="javascript:;" data-bs-toggle="modal" data-bs-target="#deleteSlider" wire:click="editSlider(7)">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h5 class="card-title mb-0">Monatlich Ihre Wunschbox frei Haus geliefert</h5>
+                                                                                    <div class="badge bg-success my-2">Active</div>
+                                                                            </div>
+                                </div>
+                            </div>
+
+                                                    <div class="col-12 col-md-6 col-lg-3">
+                                <div class="card">
+                                    <img class="card-img-top" src="http://localhost:8000/storage/images/dG48MOEo3CVUkzVSfRAGgtxN5xAh5rkAhiWcetOT.jpg"
+                                         alt="Immer für Sie da" title="Wir sind Inhabergeführt">
+                                    <div class="card-header px-4 pt-4">
+                                        <div class="card-actions float-end">
+                                            <div class="dropdown position-relative">
+                                                <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
+                                                   
+                                                    <span class="align-middle fa fa-caret-square-down" style="font-size: 25px; color: #222e3c"></span>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-end">
+                                                    <a class="dropdown-item" href="javascript:;" data-bs-toggle="modal" data-bs-target="#editSlider" wire:click="editSlider(6)">Edit</a>
+                                                    <a class="dropdown-item" href="javascript:;" data-bs-toggle="modal" data-bs-target="#deleteSlider" wire:click="editSlider(6)">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h5 class="card-title mb-0">Wir sind gerne für Sie da!</h5>
+                                                                                    <div class="badge bg-success my-2">Active</div>
+                                                                            </div>
+                                </div>
+                            </div>
+
+                                                            </div>
+                <div class="text-center">
+                    <div>
+    </div>
+
+                </div>
+            </div>
+        </main>
+        <!-- BEGIN Add new slider -->
+        <div class="modal fade" wire:ignore.self id="createSlider" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add New Slider</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form autocomplete="off" wire:submit.prevent="uploadSlider">
+                        <div class="card">
+
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label class="form-label w-100">choose Image </label>
+                                    <input type="file" name="image" class="form-control" accept="image/*"
+                                           wire:model="image" required>
+                                                                    </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Slider Heading</label>
+                                    <input type="text" name="heading" class="form-control" placeholder="Heading"
+                                           wire:model.debounce.1000ms="heading">
+                                                                    </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Slider Title</label>
+                                    <input type="text" name="titlee" class="form-control" placeholder="Title"
+                                           wire:model.debounce.1000ms="titlee">
+                                                                    </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Image Alt Tag</label>
+                                    <input type="text" name="altTag" class="form-control" placeholder="Alt Tag"
+                                           wire:model.debounce.1000ms="altTag">
+                                                                    </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Image Title Tag</label>
+                                    <input type="text" name="titleTag" class="form-control" placeholder="Title Tag"
+                                           wire:model.debounce.1000ms="titleTag">
+                                                                    </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Slider Status</label>
+                                    <select name="status" class="form-control" wire:model="status">
+                                        <option value="">Select Status</option>
+                                        <option value="1">Active</option>
+                                        <option value="0">Inactive</option>
+                                    </select>
+                                                                    </div>
+
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- END add slider -->
+
+
+        <!-- BEGIN Edit new slider -->
+        <div class="modal fade" wire:ignore.self id="editSlider" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Update Slider</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form autocomplete="off" wire:submit.prevent="updateSlider">
+                        <div class="card">
+
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <img src="http://localhost:8000/storage" alt="" height="60px" align="right">
+                                    <label class="form-label w-100">choose Image </label>
+                                    <input type="file" name="image" class="form-control" accept="image/*"
+                                           wire:model="image">
+                                                                    </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Slider Heading</label>
+                                    <input type="text" name="heading" class="form-control" placeholder="Heading"
+                                           wire:model.debounce.1000ms="heading" >
+                                                                    </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Slider Title</label>
+                                    <input type="text" name="titlee" class="form-control" placeholder="Title"
+                                           wire:model.debounce.1000ms="titlee">
+                                                                    </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Image Alt Tag</label>
+                                    <input type="text" name="altTag" class="form-control" placeholder="Alt Tag"
+                                           wire:model.debounce.1000ms="altTag">
+                                                                    </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Image Title Tag</label>
+                                    <input type="text" name="titleTag" class="form-control" placeholder="Title Tag"
+                                           wire:model.debounce.1000ms="titleTag">
+                                                                    </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Slider Status</label>
+                                    <select name="status" class="form-control" wire:model="status">
+                                        <option value="">Select Status</option>
+                                        <option value="1" >Active</option>
+                                        <option value="0"  >Inactive</option>
+                                    </select>
+                                                                    </div>
+
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- END Edit slider -->
+
+        <!-- Start Delete Slider Modal -->
+        <div wire:ignore.self class="modal fade" id="deleteSlider" tabindex="-1" aria-labelledby="deleteSlider"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Delete Slider</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
+                                aria-label="Close"></button>
+                    </div>
+                    <form wire:submit.prevent="destroySlider">
+                        <div class="modal-body">
+                            <h4>Are you sure you want to delete this data ?</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" wire:click="closeModal"
+                                    data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Yes! Delete</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- End Delete Slider Modal -->
+        <footer wire:id="xUIHlnPCYg1xhaWb6rQQ" wire:initial-data="{&quot;fingerprint&quot;:{&quot;id&quot;:&quot;xUIHlnPCYg1xhaWb6rQQ&quot;,&quot;name&quot;:&quot;admin.includes.footer&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;admin\/slider&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;v&quot;:&quot;acj&quot;},&quot;effects&quot;:{&quot;listeners&quot;:[]},&quot;serverMemo&quot;:{&quot;children&quot;:[],&quot;errors&quot;:[],&quot;htmlHash&quot;:&quot;ab68cd17&quot;,&quot;data&quot;:{&quot;modelName&quot;:null,&quot;controllerName&quot;:null,&quot;tableName&quot;:null,&quot;columnName&quot;:null},&quot;dataMeta&quot;:[],&quot;checksum&quot;:&quot;210c3199f66e640ee20154fa7d772366c32f2e4c7f36f734bb2a62e84974aef8&quot;}}" class="footer">
+    <div class="container-fluid">
+        <div class="row text-muted">
+            <div class="col-6 text-start">
+                <p class="mb-0">
+                    <a href="http://localhost:8000/admin/dashboard" target="_blank" class="text-muted"><strong>Belesh-Box Admin</strong></a> &copy;
+                </p>
+            </div>
+            
+        </div>
+    </div>
+    <!-- BEGIN Create Table (Migration) -->
+    <div class="modal fade" wire:ignore.self id="createTable" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create Table (Migration)</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form autocomplete="off" wire:submit.prevent="createMigration">
+                    <div class="modal-body m-3 card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Enter Table Name</h5>
+                        </div>
+                        <div class="card-body">
+                            <input type="text" wire:model.debounce.1000ms="tableName" class="form-control noSpacesField"
+                                   onkeypress="return /[a-zA-Z]/i.test(event.key)" placeholder="Table Name">
+                                                    </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- END Create Table (Migration) -->
+
+    <!-- BEGIN Alter Table (Migration) -->
+    <div class="modal fade" wire:ignore.self id="alterTable" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Column (Migration)</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form autocomplete="off" wire:submit.prevent="alterTable" enctype="multipart/form-data">
+                    <div class="modal-body m-3 card">
+
+                    
+
+                        <br>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Enter Table Column Name</label>
+                            <input type="text" wire:model.debounce.1000ms="columnName"
+                                   class="form-control noSpacesField" onkeypress="return /[a-zA-Z]/i.test(event.key)"
+                                   placeholder="Table Column Name">
+                                                    </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- END Alter Table (Migration) -->
+
+    <!-- BEGIN CREATE CONTROLLER -->
+    <div class="modal fade" wire:ignore.self id="createController" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Controller</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form autocomplete="off" wire:submit.prevent="saveController">
+                    <div class="modal-body m-3 card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Enter Controller Name</h5>
+                        </div>
+                        <div class="card-body">
+                            <input type="text" wire:model.debounce.1000ms="controllerName"
+                                   class="form-control noSpacesField" onkeypress="return /[a-zA-Z]/i.test(event.key)"
+                                   placeholder="Controller Name">
+                                                    </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- END CREATE CONTROLLER -->
+
+    <!-- BEGIN CREATE MODEL -->
+    <div class="modal fade" wire:ignore.self id="createModel" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Model</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form autocomplete="off" wire:submit.prevent="saveModel">
+                    <div class="modal-body m-3 card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Enter Model Name</h5>
+                        </div>
+                        <div class="card-body">
+                            <input type="text" wire:model.debounce.1000ms="modelName" class="form-control noSpacesField"
+                                   onkeypress="return /[a-zA-Z]/i.test(event.key)" placeholder="Model Name">
+                                                    </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- END CREATE MODEL -->
+
+    <!-- BEGIN CREATE All -->
+    <div class="modal fade" wire:ignore.self id="createAll" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Model + Controller + Migration</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form autocomplete="off" wire:submit.prevent="createAll">
+                    <div class="modal-body m-3 card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Enter Model Name</h5>
+                        </div>
+                        <div class="card-body">
+                            <input type="text" wire:model.debounce.1000ms="modelName" class="form-control noSpacesField"
+                                   onkeypress="return /[a-zA-Z]/i.test(event.key)" placeholder="Model Name">
+                                                    </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- END CREATE All -->
+</footer>
+
+
+
+
+
+
+<!-- Livewire Component wire-end:xUIHlnPCYg1xhaWb6rQQ -->    </div>
+</div>
+
+
+<!-- Livewire Component wire-end:FiPcDmDXZqAUY1KnZKWt -->
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Livewire Scripts -->
+
+<script src="/vendor/livewire/livewire.js?id=90730a3b0e7144480175" data-turbo-eval="false" data-turbolinks-eval="false" ></script>
+<script data-turbo-eval="false" data-turbolinks-eval="false" >
+    if (window.livewire) {
+	    console.warn('Livewire: It looks like Livewire\'s @livewireScripts JavaScript assets have already been loaded. Make sure you aren\'t loading them twice.')
+	}
+
+    window.livewire = new Livewire();
+    window.livewire.devTools(true);
+    window.Livewire = window.livewire;
+    window.livewire_app_url = '';
+    window.livewire_token = 'VRoSTzNtCyAlHwBjLrN4uzX11UqmgnGJCPjIUT2B';
+
+	/* Make sure Livewire loads first. */
+	if (window.Alpine) {
+	    /* Defer showing the warning so it doesn't get buried under downstream errors. */
+	    document.addEventListener("DOMContentLoaded", function () {
+	        setTimeout(function() {
+	            console.warn("Livewire: It looks like AlpineJS has already been loaded. Make sure Livewire\'s scripts are loaded before Alpine.\\n\\n Reference docs for more info: http://laravel-livewire.com/docs/alpine-js")
+	        })
+	    });
+	}
+
+	/* Make Alpine wait until Livewire is finished rendering to do its thing. */
+    window.deferLoadingAlpine = function (callback) {
+        window.addEventListener('livewire:load', function () {
+            callback();
+        });
+    };
+
+    let started = false;
+
+    window.addEventListener('alpine:initializing', function () {
+        if (! started) {
+            window.livewire.start();
+
+            started = true;
+        }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        if (! started) {
+            window.livewire.start();
+
+            started = true;
+        }
+    });
+</script>
+
+<script>
+    // Vérifier que Livewire est chargé
+    if (typeof window.Livewire === 'undefined') {
+        console.log('Livewire not loaded, loading fallback...');
+        // Recharger les scripts Livewire
+        var script = document.createElement('script');
+        script.src = '/vendor/livewire/livewire.js';
+        document.head.appendChild(script);
+    } else {
+        console.log('Livewire loaded successfully');
+    }
+</script>
+
+    <script>
+        
+            </script>
+
+
+</body>
+</html>

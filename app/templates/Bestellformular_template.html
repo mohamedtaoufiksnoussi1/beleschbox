@@ -1,428 +1,177 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BeleschBox Bestellformular</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 15px;
-            font-size: 11px;
-            line-height: 1.3;
-            color: #333;
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 20px;
-        }
-        .header-left {
-            flex: 1;
-        }
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .main-title {
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 10px;
-        }
-        .subtitle {
-            font-size: 16px;
-            font-weight: bold;
-            color: #0066CC;
-            margin-bottom: 8px;
-        }
-        .section-title {
-            font-size: 14px;
-            font-weight: bold;
-            color: #0066CC;
-            margin-bottom: 10px;
-        }
-        .logo-cube {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #0066CC 0%, #4A90E2 100%);
-            position: relative;
-            margin-right: 8px;
-        }
-        .logo-cube::before {
-            content: '';
-            position: absolute;
-            top: -8px;
-            left: 8px;
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #66C2FF 0%, #0066CC 100%);
-            transform: skewX(-30deg);
-        }
-        .logo-cube::after {
-            content: '';
-            position: absolute;
-            top: 8px;
-            right: -8px;
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #004499 0%, #003366 100%);
-            transform: skewY(-30deg);
-        }
-        .logo-text {
-            color: #0066CC;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .info-section {
-            margin-bottom: 15px;
-        }
-        .info-subtitle {
-            font-size: 11px;
-            margin-bottom: 10px;
-        }
-        .form-row {
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        .checkbox-item {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .checkbox-item input[type="checkbox"] {
-            width: 15px;
-            height: 15px;
-            margin: 0;
-        }
-        .input-line {
-            border-bottom: 1px solid #000;
-            min-width: 200px;
-            padding: 2px 5px;
-            display: inline-block;
-            margin-left: 10px;
-        }
-        .pflegegrad-row {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin: 10px 0;
-        }
-        .beleschbox-grid {
-            margin: 15px 0;
-            width: 100%;
-        }
-        .beleschbox-row {
-            display: table;
-            width: 100%;
-            margin-bottom: 10px;
-        }
-        .beleschbox-item {
-            display: table-cell;
-            width: 48%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            background-color: white;
-            vertical-align: top;
-        }
-        .beleschbox-item:first-child {
-            margin-right: 2%;
-        }
-        .beleschbox-item.selected {
-            background-color: #f0f8ff;
-            border-color: #0066CC;
-        }
-        .beleschbox-content-wrapper {
-            display: table;
-            width: 100%;
-        }
-        .beleschbox-left {
-            display: table-cell;
-            width: 40px;
-            vertical-align: top;
-        }
-        .beleschbox-right {
-            display: table-cell;
-            vertical-align: top;
-        }
-        .beleschbox-checkbox {
-            margin-top: 5px;
-        }
-        .beleschbox-checkbox input[type="checkbox"] {
-            width: 15px;
-            height: 15px;
-        }
-        .beleschbox-cube {
-            width: 30px;
-            height: 30px;
-            background: linear-gradient(135deg, #0066CC 0%, #4A90E2 100%);
-            position: relative;
-            flex-shrink: 0;
-        }
-        .beleschbox-cube::before {
-            content: '';
-            position: absolute;
-            top: -4px;
-            left: 4px;
-            width: 30px;
-            height: 30px;
-            background: linear-gradient(135deg, #66C2FF 0%, #0066CC 100%);
-            transform: skewX(-30deg);
-        }
-        .beleschbox-cube::after {
-            content: '';
-            position: absolute;
-            top: 4px;
-            right: -4px;
-            width: 30px;
-            height: 30px;
-            background: linear-gradient(135deg, #004499 0%, #003366 100%);
-            transform: skewY(-30deg);
-        }
-        .beleschbox-content {
-            flex: 1;
-        }
-        .beleschbox-title {
-            color: #0066CC;
-            font-weight: bold;
-            font-size: 12px;
-            margin-bottom: 6px;
-        }
-        .beleschbox-details {
-            font-size: 10px;
-            line-height: 1.2;
-            color: #666;
-        }
-        .beleschbox-individuell {
-            width: 100% !important;
-            display: table-cell !important;
-        }
-        .individuell-line {
-            border-bottom: 1px solid #000;
-            height: 20px;
-            margin: 10px 0;
-        }
-        .glove-size-section {
-            margin: 15px 0;
-        }
-        .glove-size-row {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 8px;
-        }
-        .glove-note {
-            font-size: 10px;
-            color: #666;
-            margin-left: 15px;
-        }
-        .agreement-text {
-            font-size: 11px;
-            margin: 15px 0;
-            line-height: 1.3;
-        }
-        .signature-section {
-            margin-top: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-        }
-        .date-section {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .date-line {
-            border-bottom: 1px solid #000;
-            min-width: 100px;
-            height: 15px;
-        }
-        .signature-line {
-            border-bottom: 1px solid #000;
-            width: 150px;
-            height: 15px;
-            margin-bottom: 3px;
-        }
-        .footer {
-            margin-top: 20px;
-            font-size: 9px;
-            text-align: center;
-            color: #666;
-            border-top: 1px solid #ddd;
-            padding-top: 10px;
-        }
-
-    </style>
 </head>
 <body>
-    <div class="header">
-        <div class="header-left">
-            <div class="main-title">Auswahl der gewünschten BeleschBox</div>
-            <div class="subtitle">BeleschBox</div>
-            <div class="section-title">Lieferinformationen angeben</div>
-            <div class="info-subtitle">Versicherte/r (gemäß Antrag auf Kostenübernahme):</div>
+    <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: white;">
+        <!-- Header -->
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px;">
+            <div>
+                <h1 style="color: #333; font-size: 28px; font-weight: bold; margin: 0 0 10px 0; font-family: serif;">
+                    Auswahl der gewünschten BeleschBox
+                </h1>
+                <div style="color: #009ee1; font-size: 16px; font-weight: bold; margin-bottom: 8px;">
+                    Lieferinformationen angeben
         </div>
-        <div class="header-right">
-            <div class="logo-cube"></div>
-            <div class="logo-text">BeleschBox</div>
-        </div>
+                <div style="font-size: 14px; margin-bottom: 20px;">
+                    Versicherte/r (gemäß Antrag auf Kostenübernahme):
     </div>
-        
-        <div class="form-row">
-            <div class="checkbox-item">
-                <input type="checkbox" {{GENDER_FRAU_CHECKED}}> <span>Frau</span>
             </div>
-            <div class="checkbox-item">
-                <input type="checkbox" {{GENDER_HERR_CHECKED}}> <span>Herr</span>
+            <div style="text-align: right;">
+                {{ASSET_LOGO}}
             </div>
         </div>
 
-        <div class="form-row">
-            <span>Vorname:</span><span class="input-line">{{FIRST_NAME}}</span>
-            <span style="margin-left: 40px;">Nachname:</span><span class="input-line">{{LAST_NAME}}</span>
+        <!-- Personal Information -->
+        <div style="margin-bottom: 30px;">
+            <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                <div style="display: flex; align-items: center; margin-right: 30px;">
+                    <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">{{GENDER_FRAU_CHECKED}}</div>
+                    <span>Frau</span>
+                </div>
+                <div style="display: flex; align-items: center; margin-right: 30px;">
+                    <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">{{GENDER_HERR_CHECKED}}</div>
+                    <span>Herr</span>
         </div>
-
-        <div class="pflegegrad-row">
-            <span>Pflegegrad:</span>
-            <div class="checkbox-item">
-                <input type="checkbox" {{PFLEGEGRAD_1_CHECKED}}> <span>1</span>
             </div>
-            <div class="checkbox-item">
-                <input type="checkbox" {{PFLEGEGRAD_2_CHECKED}}> <span>2</span>
-            </div>
-            <div class="checkbox-item">
-                <input type="checkbox" {{PFLEGEGRAD_3_CHECKED}}> <span>3</span>
-            </div>
-            <div class="checkbox-item">
-                <input type="checkbox" {{PFLEGEGRAD_4_CHECKED}}> <span>4</span>
-            </div>
-            <div class="checkbox-item">
-                <input type="checkbox" {{PFLEGEGRAD_5_CHECKED}}> <span>5</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="beleschbox-grid">
-        <!-- Ligne 1: BeleschBox 1 et 2 -->
-        <div class="beleschbox-row">
-            <div class="beleschbox-item {{BELESCHBOX_1_SELECTED}}">
-                <div class="beleschbox-content-wrapper">
-                    <div class="beleschbox-left">
-                        <div class="beleschbox-cube"></div>
-                        <div class="beleschbox-checkbox">
-                            <input type="checkbox" {{BELESCHBOX_1_CHECKED}}>
-                        </div>
+            
+            <div style="display: flex; margin-bottom: 15px;">
+                <div style="margin-right: 40px;">
+                    <span>Vorname:</span>
+                    <div style="border-bottom: 1px solid #333; width: 200px; display: inline-block; margin-left: 10px;">
+                        <span style="padding: 0 5px;">{{FIRST_NAME}}</span>
                     </div>
-                    <div class="beleschbox-right">
-                        <div class="beleschbox-title">BeleschBox 1</div>
-                        <div class="beleschbox-details">
+                </div>
+                <div>
+                    <span>Nachname:</span>
+                    <div style="border-bottom: 1px solid #333; width: 200px; display: inline-block; margin-left: 10px;">
+                        <span style="padding: 0 5px;">{{LAST_NAME}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <span>Pflegegrad:</span>
+                <div style="display: inline-flex; margin-left: 20px;">
+                    <div style="display: flex; align-items: center; margin-right: 20px;">
+                        <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">{{PFLEGEGRAD_1_CHECKED}}</div>
+                        <span>1</span>
+                    </div>
+                    <div style="display: flex; align-items: center; margin-right: 20px;">
+                        <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">{{PFLEGEGRAD_2_CHECKED}}</div>
+                        <span>2</span>
+                    </div>
+                    <div style="display: flex; align-items: center; margin-right: 20px;">
+                        <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">{{PFLEGEGRAD_3_CHECKED}}</div>
+                        <span>3</span>
+                    </div>
+                    <div style="display: flex; align-items: center; margin-right: 20px;">
+                        <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">{{PFLEGEGRAD_4_CHECKED}}</div>
+                        <span>4</span>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">{{PFLEGEGRAD_5_CHECKED}}</div>
+                        <span>5</span>
+            </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- BeleschBox Selection -->
+        <div style="margin-bottom: 30px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 15px;">
+                <!-- BeleschBox 1 -->
+                <div style="border: 1px solid #ddd; padding: 12px; position: relative;">
+                    <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <div style="width: 14px; height: 14px; border: 1px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;">{{BELESCHBOX_1_CHECKED}}</div>
+                        <!-- Logo cube bleu -->
+                        {{ASSET_CUBE}}
+                        <strong style="color: #009ee1; font-size: 13px; font-weight: bold;">BeleschBox 1</strong>
+                    </div>
+                    <div style="font-size: 10px; line-height: 1.2; color: #333; margin-left: 28px;">
                             2x 100 Stück Einmalhandschuhe<br>
                             500 ml Handdesinfektion<br>
                             500 ml Flächendesinfektion<br>
                             12 Stück FFP2 Masken
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="beleschbox-item {{BELESCHBOX_2_SELECTED}}">
-                <div class="beleschbox-content-wrapper">
-                    <div class="beleschbox-left">
-                        <div class="beleschbox-cube"></div>
-                        <div class="beleschbox-checkbox">
-                            <input type="checkbox" {{BELESCHBOX_2_CHECKED}}>
-                        </div>
+
+                <!-- BeleschBox 2 -->
+                <div style="border: 1px solid #ddd; padding: 12px; position: relative;">
+                    <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <div style="width: 14px; height: 14px; border: 1px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;">{{BELESCHBOX_2_CHECKED}}</div>
+                        <!-- Logo cube bleu -->
+                        {{ASSET_CUBE}}
+                        <strong style="color: #009ee1; font-size: 13px; font-weight: bold;">BeleschBox 2</strong>
                     </div>
-                    <div class="beleschbox-right">
-                        <div class="beleschbox-title">BeleschBox 2</div>
-                        <div class="beleschbox-details">
+                    <div style="font-size: 10px; line-height: 1.2; color: #333; margin-left: 28px;">
                             100 Stück Einmalhandschuhe<br>
                             2x 500 ml Handdesinfektion<br>
                             25 Stück Bettschutzeinlagen<br>
                             8 Stück FFP2 Masken
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
 
-        <!-- Ligne 2: BeleschBox 3 et 4 -->
-        <div class="beleschbox-row">
-            <div class="beleschbox-item {{BELESCHBOX_3_SELECTED}}">
-                <div class="beleschbox-content-wrapper">
-                    <div class="beleschbox-left">
-                        <div class="beleschbox-cube"></div>
-                        <div class="beleschbox-checkbox">
-                            <input type="checkbox" {{BELESCHBOX_3_CHECKED}}>
-                        </div>
+                <!-- BeleschBox 3 -->
+                <div style="border: 1px solid #ddd; padding: 12px; position: relative;">
+                    <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <div style="width: 14px; height: 14px; border: 1px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;">{{BELESCHBOX_3_CHECKED}}</div>
+                        <!-- Logo cube bleu -->
+                        {{ASSET_CUBE}}
+                        <strong style="color: #009ee1; font-size: 13px; font-weight: bold;">BeleschBox 3</strong>
                     </div>
-                    <div class="beleschbox-right">
-                        <div class="beleschbox-title">BeleschBox 3</div>
-                        <div class="beleschbox-details">
+                    <div style="font-size: 10px; line-height: 1.2; color: #333; margin-left: 28px;">
                             1 Pack Desinfektionstücher<br>
                             1x 500 ml Handdesinfektion<br>
                             1x 500 ml Flächendesinfektion<br>
                             10 Stück FFP2 Masken
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="beleschbox-item {{BELESCHBOX_4_SELECTED}}">
-                <div class="beleschbox-content-wrapper">
-                    <div class="beleschbox-left">
-                        <div class="beleschbox-cube"></div>
-                        <div class="beleschbox-checkbox">
-                            <input type="checkbox" {{BELESCHBOX_4_CHECKED}}>
-                        </div>
+
+                <!-- BeleschBox 4 -->
+                <div style="border: 1px solid #ddd; padding: 12px; position: relative;">
+                    <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <div style="width: 14px; height: 14px; border: 1px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;">{{BELESCHBOX_4_CHECKED}}</div>
+                        <!-- Logo cube bleu -->
+                        {{ASSET_CUBE}}
+                        <strong style="color: #009ee1; font-size: 13px; font-weight: bold;">BeleschBox 4</strong>
                     </div>
-                    <div class="beleschbox-right">
-                        <div class="beleschbox-title">BeleschBox 4</div>
-                        <div class="beleschbox-details">
+                    <div style="font-size: 10px; line-height: 1.2; color: #333; margin-left: 28px;">
                             2x 500 ml Flächendesinfektion<br>
                             2x 500 ml Handdesinfektion<br>
                             25 Stück Bettschutzeinlagen<br>
-                            FFP2 Masken
-                        </div>
-                    </div>
-                </div>
+                        25 Stück FFP2 Masken
             </div>
         </div>
 
-        <!-- Ligne 3: BeleschBox 5 et 6 -->
-        <div class="beleschbox-row">
-            <div class="beleschbox-item {{BELESCHBOX_5_SELECTED}}">
-                <div class="beleschbox-content-wrapper">
-                    <div class="beleschbox-left">
-                        <div class="beleschbox-cube"></div>
-                        <div class="beleschbox-checkbox">
-                            <input type="checkbox" {{BELESCHBOX_5_CHECKED}}>
-                        </div>
+                <!-- BeleschBox 5 -->
+                <div style="border: 1px solid #ddd; padding: 12px; position: relative;">
+                    <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <div style="width: 14px; height: 14px; border: 1px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;">{{BELESCHBOX_5_CHECKED}}</div>
+                        <!-- Logo cube bleu -->
+                        {{ASSET_CUBE}}
+                        <strong style="color: #009ee1; font-size: 13px; font-weight: bold;">BeleschBox 5</strong>
                     </div>
-                    <div class="beleschbox-right">
-                        <div class="beleschbox-title">BeleschBox 5</div>
-                        <div class="beleschbox-details">
+                    <div style="font-size: 10px; line-height: 1.2; color: #333; margin-left: 28px;">
                             2x 100 Stück Einmalhandschuhe<br>
                             500 ml Handdesinfektion<br>
                             1 Pack Desinfektionstücher<br>
                             4 Stück FFP2 Masken
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="beleschbox-item {{BELESCHBOX_6_SELECTED}}">
-                <div class="beleschbox-content-wrapper">
-                    <div class="beleschbox-left">
-                        <div class="beleschbox-cube"></div>
-                        <div class="beleschbox-checkbox">
-                            <input type="checkbox" {{BELESCHBOX_6_CHECKED}}>
-                        </div>
+
+                <!-- BeleschBox 6 -->
+                <div style="border: 1px solid #ddd; padding: 12px; position: relative;">
+                    <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <div style="width: 14px; height: 14px; border: 1px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;">{{BELESCHBOX_6_CHECKED}}</div>
+                        <!-- Logo cube bleu -->
+                        {{ASSET_CUBE}}
+                        <strong style="color: #009ee1; font-size: 13px; font-weight: bold;">BeleschBox 6</strong>
                     </div>
-                    <div class="beleschbox-right">
-                        <div class="beleschbox-title">BeleschBox 6</div>
-                        <div class="beleschbox-details">
+                    <div style="font-size: 10px; line-height: 1.2; color: #333; margin-left: 28px;">
                             100 Stück Einmalhandschuhe<br>
                             500 ml Handdesinfektion<br>
                             500 ml Flächendesinfektion<br>
@@ -430,69 +179,114 @@
                             6 Stück FFP2 Masken
                         </div>
                     </div>
+            </div>
+
+            <!-- BeleschBox Individuell -->
+            <div style="border: 1px solid #ddd; padding: 12px; margin-bottom: 20px;">
+                <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                    <div style="width: 14px; height: 14px; border: 1px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;">{{BELESCHBOX_INDIVIDUELL_CHECKED}}</div>
+                    <!-- Logo cube bleu -->
+                    {{ASSET_CUBE}}
+                    <strong style="color: #009ee1; font-size: 13px; font-weight: bold;">BeleschBox Individuell</strong>
+                </div>
+                <div style="margin-left: 28px; margin-top: 8px;">
+                    <div style="border-bottom: 1px solid #ddd; height: 16px; margin-bottom: 6px; width: 100%;"></div>
+                    <div style="border-bottom: 1px solid #ddd; height: 16px; margin-bottom: 6px; width: 100%;"></div>
+                    <div style="border-bottom: 1px solid #ddd; height: 16px; margin-bottom: 6px; width: 100%;"></div>
+                </div>
+                <div style="margin-top: 5px;">
+                    {{CUSTOM_PRODUCTS}}
                 </div>
             </div>
         </div>
 
-        <!-- Ligne 4: BeleschBox Individuell -->
-        <div class="beleschbox-row">
-            <div class="beleschbox-item beleschbox-individuell {{BELESCHBOX_INDIVIDUELL_SELECTED}}">
-                <div class="beleschbox-content-wrapper">
-                    <div class="beleschbox-left">
-                        <div class="beleschbox-cube"></div>
-                        <div class="beleschbox-checkbox">
-                            <input type="checkbox" {{BELESCHBOX_INDIVIDUELL_CHECKED}}>
+        <!-- Bettschutzeinlagen -->
+        <div style="margin-bottom: 30px;">
+            <div style="margin-bottom: 10px;">
+                <span style="font-weight: bold;">Wiederverwendbare Bettschutzeinlagen:</span>
+                <div style="display: inline-flex; margin-left: 20px;">
+                    <div style="display: flex; align-items: center; margin-right: 20px;">
+                        <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">{{BETTSCHUTZ_1_CHECKED}}</div>
+                        <span>1</span>
+                    </div>
+                    <div style="display: flex; align-items: center; margin-right: 20px;">
+                        <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">{{BETTSCHUTZ_2_CHECKED}}</div>
+                        <span>2</span>
                         </div>
+                    <div style="display: flex; align-items: center; margin-right: 20px;">
+                        <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">{{BETTSCHUTZ_3_CHECKED}}</div>
+                        <span>3</span>
                     </div>
-                    <div class="beleschbox-right">
-                        <div class="beleschbox-title">BeleschBox Individuell</div>
-                        <div class="individuell-line"></div>
-                        <div class="individuell-line"></div>
+                    <div style="display: flex; align-items: center; margin-right: 20px;">
+                        <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">{{BETTSCHUTZ_4_CHECKED}}</div>
+                        <span>4</span>
                     </div>
                 </div>
             </div>
+            <div style="font-size: 12px; color: #666; margin-top: 5px;">
+                (Bis zu 250 Mal waschbar - Kostenfrei)
         </div>
     </div>
 
-    <div class="glove-size-section">
-        <div class="glove-size-row">
-            <span>Handschuhgröße:</span>
-            <div class="checkbox-item">
-                <input type="checkbox" {{GLOVE_SIZE_S_CHECKED}}> <span>S</span>
+        <!-- Handschuhgröße -->
+        <div style="margin-bottom: 30px; {{GLOVE_SECTION_DISPLAY}}">
+            <div style="margin-bottom: 10px;">
+                <span style="font-weight: bold;">Handschuhgröße:</span>
+                <div style="display: inline-flex; margin-left: 20px;">
+                    <div style="display: flex; align-items: center; margin-right: 20px;">
+                        <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">{{GLOVE_SIZE_S_CHECKED}}</div>
+                        <span>S</span>
+                    </div>
+                    <div style="display: flex; align-items: center; margin-right: 20px;">
+                        <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">{{GLOVE_SIZE_M_CHECKED}}</div>
+                        <span>M</span>
+                    </div>
+                    <div style="display: flex; align-items: center; margin-right: 20px;">
+                        <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">{{GLOVE_SIZE_L_CHECKED}}</div>
+                        <span>L</span>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">{{GLOVE_SIZE_XL_CHECKED}}</div>
+                        <span>XL</span>
             </div>
-            <div class="checkbox-item">
-                <input type="checkbox" {{GLOVE_SIZE_M_CHECKED}}> <span>M</span>
             </div>
-            <div class="checkbox-item">
-                <input type="checkbox" {{GLOVE_SIZE_L_CHECKED}}> <span>L</span>
             </div>
-            <div class="checkbox-item">
-                <input type="checkbox" {{GLOVE_SIZE_XL_CHECKED}}> <span>XL</span>
+            <div style="font-size: 12px; color: #666; margin-left: 20px;">
+                (Bei fehlender Angabe wird Größe M geliefert)
             </div>
-        </div>
-        <div class="glove-note">(Bei fehlender Angabe wird Größe M geliefert)</div>
     </div>
 
-    <div class="agreement-text">
+        <!-- Agreement Text -->
+        <div style="margin-bottom: 30px; padding: 15px; border: 1px solid #ddd; background-color: #f9f9f9;">
+            <p style="margin: 0; font-size: 14px; line-height: 1.5;">
         Die von mir getroffene Auswahl der BeleschBox kann ich jeden Monat neu festlegen.<br>
         Änderungen werde ich der MedicCos Inko&Care GmbH rechtzeitig mitteilen.
+            </p>
     </div>
 
-    <div class="signature-section">
-        <div class="date-section">
-            <div class="signature-line"></div>
+        <!-- Signature and Date -->
+        <div style="margin-bottom: 20px;">
+            <div style="margin-bottom: 8px;">
+                {{SIGNATURE_IMAGE}}
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                <div style="display: flex; flex-direction: column; align-items: center;">
+                    <div style="border-bottom: 1px solid #333; width: 200px; height: 20px; margin-bottom: 5px;"></div>
+                    <span>Unterschrift</span>
+                </div>
+                <div style="display: flex; flex-direction: column; align-items: center;">
+                    <div style="border-bottom: 1px solid #333; width: 150px; height: 20px; margin-bottom: 5px;">
+                        <span style="font-size: 12px; color: #333;">{{DATE}}</span>
+                    </div>
             <span>Datum</span>
+                </div>
+            </div>
         </div>
-        <div>
-            {{SIGNATURE_IMAGE}}
-            <div class="signature-line"></div>
-            <span>Unterschrift</span>
+
+        <!-- Footer -->
+        <div style="text-align: center; font-size: 12px; color: #666; border-top: 1px solid #ddd; padding-top: 10px;">
+            MedicCos Inko&Care GmbH Lindenbergplatz 1 - 38126 Braunschweig | +49 (0) 531 51605712 | info@belesch-box.de
         </div>
     </div>
-
-    <div class="footer">
-        MedicCos Inko&Care GmbH Lindenbergplatz 1 - 38126 Braunschweig | +49 (0) 531 51605712 | info@beleschbox.de
-    </div>
-
 </body>
 </html>

@@ -1,0 +1,1941 @@
+﻿<div>
+    @livewire('frontend.includes.header')
+    
+    <!-- Livewire Component Content -->
+    <div wire:ignore.self>
+    <style>
+        .productOpacity {
+            opacity: 0.5;
+            background-color: #FFF !important;
+            border-radius: 6px;
+        }
+    </style>
+    <style>
+        :root {
+            --sky-blu: #009ee1;
+            --turquoise: #39cdc1;
+            --blue-gradient: linear-gradient(135deg, #009ee1 0%, #39cdc1 100%);
+            --blue-gradient-hover: linear-gradient(135deg, #0088cc 0%, #2fb8b0 100%);
+            --light-blue: #e3f2fd;
+            --dark-blue: #0056b3;
+            --red: #d95053;
+            --white: #ffffff;
+            --light-gray: #f8f9fc;
+            --border-radius: 12px;
+            --shadow: 0 4px 20px rgba(0, 158, 225, 0.15);
+            --shadow-hover: 0 8px 30px rgba(0, 158, 225, 0.25);
+        }
+
+        /* ===== STYLES FÃœR DIE E-MAIL-SUCHE ===== */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        .fade-out {
+            animation: fadeOut 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-10px); }
+        }
+        
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        
+        .customer-found {
+            border: 2px solid #28a745 !important;
+            background-color: #f8fff9 !important;
+        }
+        
+        .password-fields {
+            transition: all 0.3s ease;
+        }
+        
+        /* ===== MODERN FORM STYLES ===== */
+        .form-control {
+            border: 2px solid #e9ecef;
+            border-radius: var(--border-radius);
+            padding: 12px 16px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+        
+        .form-control:focus {
+            border-color: var(--sky-blu);
+            box-shadow: 0 0 0 0.2rem rgba(0, 158, 225, 0.25);
+            background: var(--white);
+            outline: none;
+        }
+        
+        .form-control:hover {
+            border-color: var(--turquoise);
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: var(--dark-blue);
+            margin-bottom: 8px;
+        }
+        
+        .form-check-input:checked {
+            background-color: var(--sky-blu);
+            border-color: var(--sky-blu);
+        }
+        
+        .form-check-input:focus {
+            box-shadow: 0 0 0 0.2rem rgba(0, 158, 225, 0.25);
+        }
+        
+        /* ===== MODERN ALERT STYLES ===== */
+        .alert {
+            border-radius: var(--border-radius);
+            padding: 20px;
+            border: none;
+            font-weight: 500;
+            box-shadow: var(--shadow);
+        }
+        
+        .alert-success {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+        
+        .alert-danger {
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+        
+        .alert-info {
+            background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
+            color: #0c5460;
+            border-left: 4px solid var(--sky-blu);
+        }
+        
+        .alert-warning {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            color: #856404;
+            border-left: 4px solid #ffc107;
+        }
+        
+        /* ===== MODERN MODAL STYLES ===== */
+        .modern-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modern-modal.show {
+            opacity: 1;
+        }
+        
+        .modal-backdrop {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .modal-container {
+            position: relative;
+            z-index: 1;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+        
+        .modern-modal.show .modal-content {
+            transform: scale(1);
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+        }
+        
+        .modal-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .modal-title {
+            flex: 1;
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+        
+        .modal-body {
+            padding: 2rem 1.5rem;
+        }
+        
+        .modal-body p {
+            margin: 0;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #2c3e50;
+            text-align: center;
+        }
+        
+        .modal-footer {
+            padding: 1rem 1.5rem 1.5rem;
+            text-align: center;
+        }
+        
+        .btn-modal-close {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-modal-close:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(79, 172, 254, 0.6);
+        }
+        
+        .btn-modal-close:active {
+            transform: translateY(0);
+        }
+        
+        /* Animation d'entrÃ©e */
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .modern-modal.show .modal-content {
+            animation: modalSlideIn 0.4s ease-out;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .modal-container {
+                width: 95%;
+                margin: 1rem;
+            }
+            
+            .modal-header {
+                padding: 1rem;
+            }
+            
+            .modal-body {
+                padding: 1.5rem 1rem;
+            }
+            
+            .modal-footer {
+                padding: 1rem;
+            }
+            
+            .modal-title {
+                font-size: 1.1rem;
+            }
+            
+            .modal-body p {
+                font-size: 1rem;
+            }
+        }
+        
+        /* ===== STYLES SPÃ‰CIFIQUES POUR LE MODAL BETTSCHUTZEINLAGEN ===== */
+        .quantity-selection {
+            margin-top: 1.5rem;
+        }
+        
+        .selection-label {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .quantity-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .quantity-btn {
+            width: 60px;
+            height: 60px;
+            border: 2px solid #4facfe;
+            background: white;
+            color: #4facfe;
+            border-radius: 50%;
+            font-size: 1.25rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quantity-btn:hover {
+            background: #4facfe;
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+        }
+        
+        .quantity-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .info-text {
+            background: rgba(79, 172, 254, 0.1);
+            border: 1px solid rgba(79, 172, 254, 0.2);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 0;
+            color: #2c3e50;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        .info-text i {
+            color: #4facfe;
+            margin-right: 0.5rem;
+        }
+
+        body {
+            padding: 15px;
+            font-family: sans-serif;
+            font-size: 15px;
+            line-height: 25px;
+        }
+
+        .container-fluid {
+            width: 100% !important;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+
+        .d-flex {
+            display: flex;
+        }
+
+        .j-s-between {
+            justify-content: space-between;
+        }
+
+        .heading-1 {
+            color: var(--sky-blu);
+            font-family: sans-serif;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .sub-heading {
+            margin: 0;
+            font-family: sans-serif;
+        }
+
+
+        .top-header {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            align-items: start;
+        }
+
+        .top-logo-sec {
+            display: flex;
+        }
+
+        .logo-img {
+            max-width: 200px;
+            width: 100%;
+            min-width: 50px;
+        }
+
+
+        .table-form table {
+            width: 100%;
+            border: 1px solid #000;
+            /*		    padding: 10px;*/
+        }
+
+        .table-form table td {
+            height: 50px;
+            border: 1px solid var(--sky-blu);
+            padding: 0px 10px;
+        }
+
+        .checkbox-wrap {
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+        }
+
+        .checkbox {
+            border: 2px solid var(--sky-blu);
+            text-align: center;
+            color: var(--sky-blu);
+            height: 25px;
+            width: 25px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .table-form label {
+            font-weight: 600;
+            margin-right: 5px;
+        }
+
+        .multiple-checkboxes {
+            display: flex;
+            /*		justify-content: space-evenly;*/
+            max-width: 100%;
+        }
+
+        .application-div {
+            display: flex;
+            align-items: flex-start;
+            height: 100%;
+            border: 1px solid;
+            padding: 10px;
+        }
+
+        .application-div p {
+            margin: 0;
+        }
+
+        .table-list-form table,
+        .reuseable-table table {
+            width: 100%;
+            margin-top: 30px;
+            text-align: center;
+            border: 1px solid #000;
+        }
+
+        .table-list-form th,
+        .reuseable-table th {
+            height: 40px;
+            border-bottom: 1px solid #000;
+            padding: 5px;
+        }
+
+        .table-list-form td,
+        .reuseable-table td {
+            height: 40px;
+            padding: 5px;
+        }
+
+        .checkbox-td {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .table-below-content {
+            padding: 10px;
+        }
+
+        .table-below-content p {
+            line-height: 28px;
+        }
+
+        .date_sign_wrap {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            padding: 0 10px;
+        }
+
+        .date,
+        .sign {
+            text-align: center;
+            min-width: 200px;
+            border-top: 2px solid;
+            padding: 10px;
+            margin-top: 50px;
+        }
+
+        .date label,
+        .sign label {
+            padding: 9px 0px;
+        }
+
+
+        .bottom-table {
+            margin-top: 50px;
+            border: 2px solid var(--red);
+            padding: 0px 15px 15px 15px;
+        }
+
+        .bottom-table small {
+            color: var(--red);
+        }
+
+
+        .overlap-heading {
+            text-align: center;
+            margin-top: -10px;
+        }
+
+        .bottom-table h3 {
+            max-width: 570px;
+            background: #fff;
+            margin: auto;
+        }
+
+        .bottom-table table {
+            width: 100%;
+        }
+
+        .attached-date-sign-wrap {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            font-size: 14px;
+        }
+
+        span.text-field {
+            min-width: 200px;
+            border-bottom: 2px solid #000;
+            display: inline-block;
+            margin-left: 20px;
+        }
+
+        .bottom-contact-list {
+            list-style-type: none;
+            display: flex;
+            justify-content: space-between;
+            padding: 0;
+        }
+
+        .bottom-contact-list li {
+            font-size: 12px;
+        }
+
+        /* ===== MODERN PROGRESS BAR STYLES ===== */
+        .progressbar-steps {
+            margin-bottom: 2rem;
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        /* Style pour les Ã©tapes actives avec dÃ©gradÃ© bleu-turquoise */
+        .step.active .step-text {
+            color: var(--sky-blu) !important;
+            font-weight: 700;
+        }
+
+        .step.active .step-number {
+            background: var(--blue-gradient) !important;
+            color: var(--white) !important;
+            box-shadow: var(--shadow);
+            transform: scale(1.1);
+        }
+
+        .step.active .step-divider {
+            background: var(--blue-gradient) !important;
+            height: 3px;
+        }
+
+        /* Style pour les Ã©tapes non-actives en gris moderne */
+        .step:not(.active) .step-text,
+        .step1:not(.active) .step-text,
+        .step2:not(.active) .step-text,
+        .step3:not(.active) .step-text,
+        .step4:not(.active) .step-text,
+        .step5:not(.active) .step-text {
+            color: var(--turquoise) !important;
+            font-weight: 500;
+        }
+
+        .step:not(.active) .step-number,
+        .step1:not(.active) .step-number,
+        .step2:not(.active) .step-number,
+        .step3:not(.active) .step-number,
+        .step4:not(.active) .step-number,
+        .step5:not(.active) .step-number {
+            background: var(--light-blue) !important;
+            color: var(--sky-blu) !important;
+            transition: all 0.3s ease;
+        }
+
+        .step:not(.active) .step-divider,
+        .step1:not(.active) .step-divider,
+        .step2:not(.active) .step-divider,
+        .step3:not(.active) .step-divider,
+        .step4:not(.active) .step-divider,
+        .step5:not(.active) .step-divider {
+            background: var(--light-blue) !important;
+            height: 2px;
+        }
+
+        /* ===== MODERN BUTTON BACK STYLES ===== */
+        .btn-back {
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            min-width: 60px;
+            background: var(--blue-gradient);
+            border: none;
+            color: var(--white);
+            font-size: 18px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-back:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: var(--shadow-hover);
+            background: var(--blue-gradient-hover);
+        }
+        
+        .btn-back:active {
+            transform: translateY(0) scale(0.95);
+        }
+
+        /* ===== MODERN PRODUCT STYLES ===== */
+        .product-overview .content .product {
+            justify-content: flex-start;
+            padding: 20px;
+            padding-right: 80px;
+            border-radius: var(--border-radius);
+            background: var(--blue-gradient);
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .product-overview .content .product::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            pointer-events: none;
+        }
+
+        .product-overview .content .product:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .product-overview .content .product img {
+            margin-right: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .product-overview .content .product:hover img {
+            transform: scale(1.05);
+        }
+
+        .product-overview .content .product .prod-btn {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--white);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .product-overview .content .product .prod-btn:hover {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .product-overview .content .product .prod-btn i {
+            color: var(--sky-blu);
+            font-size: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .product-overview .content .product .prod-btn:hover i {
+            color: var(--turquoise);
+        }
+
+        .product-overview .content .product .prod-info .prod-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--white);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 5px;
+        }
+
+        .product-overview .content .product .prod-info .prod-size {
+            color: var(--white);
+            opacity: 0.9;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        /* ===== MODERN CURABOX STYLES ===== */
+        .cartItem {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 15px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--light-blue);
+        }
+        
+        .cartItem:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--sky-blu);
+            border-width: 3px;
+        }
+        
+        .cartItem .product {
+            display: flex;
+            align-items: center;
+            padding: 0;
+            background: none;
+            box-shadow: none;
+        }
+        
+        .cartItem .product img {
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-right: 15px;
+        }
+        
+        .cartItem .prod-info .prod-name {
+            color: var(--sky-blu);
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        
+        .cartItem .prod-info .prod-size {
+            color: var(--sky-blu);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .cartItem .prod-btn {
+            background: var(--blue-gradient);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .cartItem .prod-btn:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .cartItem .prod-btn i {
+            color: var(--white);
+            font-size: 16px;
+        }
+        
+        .cartItem .qty {
+            background: var(--white);
+            color: var(--sky-blu);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            margin-right: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        /* ===== MODERN QUANTITY BUTTONS ===== */
+        .quantity-btn {
+            width: 60px;
+            height: 60px;
+            border: 2px solid var(--sky-blu);
+            background: var(--white);
+            color: var(--sky-blu);
+            border-radius: 50%;
+            font-size: 18px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+        
+        .quantity-btn:hover {
+            background: var(--blue-gradient);
+            color: var(--white);
+            transform: scale(1.1);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .quantity-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .quantity-btn.selected {
+            background: var(--blue-gradient);
+            color: var(--white);
+            transform: scale(1.05);
+        }
+        
+        /* ===== MODERN PROGRESS BAR STYLES ===== */
+        .progress {
+            height: 12px;
+            background: var(--light-blue);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .progress-bar {
+            background: var(--blue-gradient);
+            border-radius: 10px;
+            transition: width 0.6s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.2) 100%);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        /* ===== MODERN TITLE STYLES ===== */
+        .pagetitle__heading {
+            background: var(--blue-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .pagetitle__desc {
+            color: var(--dark-blue);
+            font-size: 1.2rem;
+            font-weight: 500;
+            opacity: 0.8;
+        }
+        
+        /* ===== MODERN SECTION TITLES ===== */
+        .section-title {
+            color: var(--dark-blue);
+            font-weight: 700;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--blue-gradient);
+            border-radius: 2px;
+        }
+        
+        /* ===== MODERN HINT/PRICE BADGE STYLES ===== */
+        .hint {
+            background: var(--blue-gradient) !important;
+            color: var(--white) !important;
+            padding: 8px 16px !important;
+            border-radius: 20px !important;
+            font-weight: 700 !important;
+            font-size: 16px !important;
+            box-shadow: var(--shadow) !important;
+            display: inline-block !important;
+            margin: 10px 0 !important;
+            border: none !important;
+        }
+        
+        .hint span {
+            color: var(--white) !important;
+            font-weight: 700 !important;
+        }
+        
+        /* ===== FORCE PRICE BADGE STYLES ===== */
+        .product-overview .header .hint {
+            background: var(--blue-gradient) !important;
+            color: var(--white) !important;
+            padding: 8px 16px !important;
+            border-radius: 20px !important;
+            font-weight: 700 !important;
+            font-size: 16px !important;
+            box-shadow: var(--shadow) !important;
+            display: inline-block !important;
+            margin: 10px 0 !important;
+            border: none !important;
+        }
+        
+        .product-overview .header .hint span {
+            color: var(--white) !important;
+            font-weight: 700 !important;
+        }
+        
+        /* ===== OVERRIDE ANY BLACK BACKGROUNDS ON HINT ===== */
+        .hint, .hint *, .hint span, .hint div {
+            background: var(--blue-gradient) !important;
+            color: var(--white) !important;
+        }
+        
+        /* ===== SPECIFIC 42â‚¬ BADGE OVERRIDE ===== */
+        div.hint, .product-overview div.hint, .header div.hint {
+            background: var(--blue-gradient) !important;
+            color: var(--white) !important;
+            padding: 8px 16px !important;
+            border-radius: 20px !important;
+            font-weight: 700 !important;
+            font-size: 16px !important;
+            box-shadow: var(--shadow) !important;
+            display: inline-block !important;
+            margin: 10px 0 !important;
+            border: none !important;
+        }
+        
+        div.hint span, .product-overview div.hint span, .header div.hint span {
+            color: var(--white) !important;
+            font-weight: 700 !important;
+        }
+        
+        /* ===== OVERRIDE BLACK BACKGROUNDS ===== */
+        .badge, .badge-black, .badge-dark {
+            background: var(--blue-gradient) !important;
+            color: var(--white) !important;
+            border: none !important;
+        }
+        
+        /* ===== OVERRIDE BLACK TEXT COLORS ===== */
+        h1, h2, h3, h4, h5, h6, p, span, div {
+            color: inherit !important;
+        }
+        
+        /* ===== SPECIFIC OVERRIDES FOR BLACK ELEMENTS ===== */
+        .product-overview .header .hint {
+            background: var(--blue-gradient) !important;
+            color: var(--white) !important;
+        }
+        
+        /* ===== OVERRIDE ANY REMAINING BLACK STYLES ===== */
+        * {
+            color: inherit !important;
+        }
+        
+        .text-black, .text-dark {
+            color: var(--dark-blue) !important;
+        }
+        
+        .bg-black, .bg-dark {
+            background: var(--blue-gradient) !important;
+        }
+        
+        /* ===== CURABOX RECEIVER BACKGROUND ===== */
+        .receiver {
+            background: var(--light-blue) !important;
+            padding: 20px !important;
+            border-radius: var(--border-radius) !important;
+            min-height: 200px !important;
+        }
+        
+        .product-overview .receiver {
+            background: var(--light-blue) !important;
+            padding: 20px !important;
+            border-radius: 0 0 var(--border-radius) var(--border-radius) !important;
+            border: 1px solid rgba(0, 158, 225, 0.2) !important;
+            border-top: none !important;
+        }
+        
+        /* ===== OVERRIDE ANY DARK BACKGROUNDS ===== */
+        .product-overview {
+            background: var(--white) !important;
+        }
+        
+        .product-overview .content {
+            background: var(--light-blue) !important;
+        }
+        
+        /* ===== FORCE LIGHT BACKGROUNDS ===== */
+        .receiver, .receiver * {
+            background: inherit !important;
+        }
+        
+        .receiver {
+            background: var(--light-blue) !important;
+        }
+
+        .box__sixe {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+        /* ===== MODERN CARD STYLES ===== */
+        .card {
+            border: 2px solid var(--light-blue);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 25px;
+            background: var(--white);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--sky-blu);
+        }
+        
+        .card-header {
+            background: var(--blue-gradient);
+            color: var(--white);
+            border: none;
+            padding: 20px;
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .card-body {
+            padding: 25px;
+            background: var(--white);
+        }
+        
+        /* ===== MODERN SECTION STYLES ===== */
+        .product-wrapper {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-bottom: 30px;
+            border: 2px solid var(--light-blue);
+        }
+        
+        .product-overview .header {
+            background: var(--blue-gradient);
+            color: var(--white);
+            padding: 25px;
+            margin: 0;
+            border-radius: 0;
+        }
+        
+        .product-overview .header i {
+            font-size: 24px;
+            margin-right: 15px;
+            opacity: 0.9;
+            color: var(--white) !important;
+        }
+        
+        .product-overview .header h5 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .product-overview .content {
+            padding: 30px;
+            background: var(--light-blue);
+            border: 1px solid rgba(0, 158, 225, 0.2);
+            border-top: none;
+        }
+        
+        .card-header {
+            background: var(--blue-gradient);
+            color: var(--white);
+            border-bottom: none;
+            padding: 15px;
+        }
+        
+        .card-header h5 {
+            margin: 0;
+            color: var(--white);
+        }
+        
+        .btn_secondary {
+            background: var(--blue-gradient);
+            color: var(--white);
+            border: none;
+        }
+        
+        .btn_secondary:hover {
+            background: var(--blue-gradient-hover);
+        }
+        
+        .alert {
+            border-radius: 8px;
+            padding: 15px;
+        }
+        
+        .form-control:focus {
+            border-color: var(--sky-blu);
+            box-shadow: 0 0 0 0.2rem rgba(0, 158, 225, 0.25);
+        }
+
+        /*@media only screen and (min-width:768px){
+            .multiple-checkboxes{
+                max-width: 33%;
+            }
+        }*/
+    </style>
+
+    <!-- ========================
+       page title
+    =========================== -->
+    <section class="page-title page-title-layout1 bg-overlay">
+        <div class="bg-img"><img src="{{asset('frontend/assets/images/page-titles/1.jpg')}}" alt="background"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-5">
+                    <h1 class="pagetitle__heading"></h1>
+                    <p class="pagetitle__desc"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    @php
+    $carts = [];
+    $carts = Session::get('cart');
+    @endphp
+
+    <div class="section-padding">
+        <div class="container progressbar">
+		
+			<div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <h1 class="pagetitle__heading" id="current-step-title">{{ $steps[0]['title'] }}</h1>
+                        <p class="pagetitle__desc" id="current-step-description">{{ $steps[0]['description'] }}</p>
+                    </div>
+                </div>
+            </div>
+			
+            <div class="progressbar-steps">
+
+                <button onclick="getSetpData()" class="btn btn-info btn-back"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+
+                <div class="step step1 active">
+                    <span class="step-text">Box wÃ¤hlen</span>
+                    <div class="step-number"><span>1</span></div>
+                    <div class="step-divider"></div>
+                </div>
+                @if(Route::currentRouteName() != 'assemble')
+                <div class="step step2 active">
+                    <span class="step-text">PersÃ¶nliche Daten</span>
+                    <div class="step-number"><span>2</span></div>
+                    <div class="step-divider"></div>
+                </div>
+
+                @else
+                <div class="step step2">
+                    <span class="step-text">PersÃ¶nliche Daten</span>
+                    <div class="step-number"><span>2</span></div>
+                    <div class="step-divider"></div>
+                </div>
+                @endif
+                <div class="step step3">
+                    <span class="step-text">Lieferadresse</span>
+                    <div class="step-number"><span>3</span></div>
+                    <div class="step-divider"></div>
+                </div>
+                <div class="step step4">
+                    <span class="step-text">Zusammenfassung + Unterschrift</span>
+                    <div class="step-number"><span>4</span></div>
+                    <div class="step-divider"></div>
+                </div>
+                <div class="step step5">
+                    <span class="step-text">BestÃ¤tigung</span>
+                    <div class="step-number"><span>5</span></div>
+                </div>
+            </div>
+
+
+
+            @if(Route::currentRouteName() != 'assemble')
+            <div id="step1" style="display: none" data-step1="0">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="product-wrapper">
+                            <div class="product-overview mt-2">
+                                <div class="header">
+                                    <i class="fas fa-box"></i>
+                                    <h5>Unsere Produkte</h5>
+                                </div>
+                                <div class="content">
+                                    @foreach(getAllProducts() as $product)
+                                    <div class="product mb-3 uniqueClass" id="productId{{$product->id}}" data-id="{{$product->price}}" onClick="getProduct('{{$product->id}}')">
+                                        <img src="{{asset('storage/'.$product->image)}}">
+                                        <div class="prod-info">
+                                            <div class="prod-name">{{$product->name}}</div>
+                                            <div class="prod-size">{{$product->product_title}}</div>
+                                        </div>
+                                        <div class="prod-btn">
+                                            <i class="fas fa-plus-circle"></i>
+                                        </div>
+                                        {{--$product->price--}}
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                            <div class="product-overview mt-2">
+                                <div class="header">
+                                    <i class="fas fa-box"></i>
+                                    <h5>Ihre BeleschBox</h5>
+                                    <input type="hidden" class="cartPriceValue" value="0">
+                                    <div class="hint">
+                                        <span>42 &euro;</span>
+                                    </div>
+                                    <div class="progress" style="height: 20px;">
+                                        <div class="progress-bar" role="progressbar" aria-label="Example 20px high" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                                <div class="receiver"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 text-center mt-3">
+
+                        @if(isset($_GET['updt']))
+                        <a href="{{url('update-cart-order')}}" class="btn btn__primary btn__rounded"> Weiter zu
+                            Ihren
+                            Kontaktdaten
+                        </a>
+                        @else
+                        <button type="button" class="btn btn__primary btn__rounded bed_protector_modal"> Weiter zu
+                            Ihren
+                            Kontaktdaten
+                        </button>
+                        @endif
+                       
+
+                        <!-- Modal -->
+                        <div class="modal " style="display: none" id="bed_protector_modal" tabindex="-1" aria-labelledby="add_bed_protector" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header d-block text-center">
+                                        <h4 class="modal-title" id="add_bed_protector">Wiederverwendbare
+                                            Bettschutzeinlagen</h4>
+                                        <p>Bis zu 250 Mal waschbar.</p>
+
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="cure-box-modal-content">
+                                            <img src="{{asset('frontend/assets/images/backgrounds/produkt-wiederverwbettschutzeinl.png')}}" class="img-fluid">
+                                            <div class="image-content">
+                                                <h6>ZusÃ¤tzlich zu Ihren 42â‚¬</h6>
+                                                <h4>Extra Schutz fÃ¼r 0,00â‚¬</h4>
+                                                <p>statt 26,16â‚¬ pro StÃ¼ck</p>
+                                            </div>
+                                            <h6>Wie viele Bettschutzeinlagen mÃ¶chten Sie kostenfrei erhalten?</h6>
+                                            <div class="product-count-list">
+                                                <div class="lengend-action-buttons lengend-action-buttons-first">
+                                                    <label for="d3_graph_chart0011day" class="prod-count">
+                                                        <input type="radio" name="number_of_bed" onchange="pdBedProtection()" id="d3_graph_chart0011day" value="1">
+                                                        <span>
+                                                            <p>1</p>
+                                                        </span>
+                                                    </label>
+                                                </div>
+
+                                                <div class="lengend-action-buttons lengend-action-buttons-first">
+                                                    <label for="d3_graph_chart0017day" class="prod-count">
+                                                        <input type="radio" name="number_of_bed" onchange="pdBedProtection()" id="d3_graph_chart0017day" value="2">
+                                                        <span>
+                                                            <p>2</p>
+                                                        </span>
+                                                    </label>
+                                                </div>
+
+                                                <div class="lengend-action-buttons lengend-action-buttons-first">
+                                                    <label for="d3_graph_chart00130day" class="prod-count">
+                                                        <input type="radio" name="number_of_bed" onchange="pdBedProtection()" id="d3_graph_chart00130day" value="3">
+                                                        <span>
+                                                            <p>3</p>
+                                                        </span>
+                                                    </label>
+                                                </div>
+
+                                                <div class="lengend-action-buttons lengend-action-buttons-first">
+                                                    <label for="d3_graph_chart00190day" class="prod-count">
+                                                        <input type="radio" name="number_of_bed" id="d3_graph_chart00190day" onchange="pdBedProtection()" value="4">
+                                                        <span>
+                                                            <p>4</p>
+                                                        </span>
+                                                    </label>
+                                                </div>
+
+                                            </div>
+                                            <p><i class="fa fa-exclamation-circle"> </i> Sie kÃ¶nnen bis zu 4
+                                                Bettschutzeinlagen
+                                                einmal pro Jahr beantragen.</p>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn_secondary btn__rounded" onclick="closeBedProtectorModal(); return false;">SchlieÃŸen
+                                        </button>
+                                        <button type="button" class="btn btn__primary btn__rounded with-bed-protection">
+                                            Weiter mit
+                                            Bettschutzeinlagen
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal ends-->
+                    </div>
+                </div>
+            </div>
+            <div id="step2" style="display: block" data-step2="0">
+                <div class="row mt-2">
+                    <div class="col-md-12">
+                        <h2>
+                            <font style="vertical-align: inherit;">
+                                <font style="vertical-align: inherit;">PersÃ¶nliche
+                                    Daten</font>
+                            </font>
+                        </h2>
+                        <p>
+                            <font style="vertical-align: inherit;">
+                                <font style="vertical-align: inherit;">Ihre Box wurde
+                                    erstellt. </font>
+                                <font style="vertical-align: inherit;">Geben Sie nun Ihre persÃ¶nlichen
+                                    Daten
+                                    ein, damit wir Sie fÃ¼r die weitere Beantragung und Bearbeitung der
+                                    Curabox kontaktieren kÃ¶nnen. </font>
+                                <font style="vertical-align: inherit;">Nach dem Speichern Ihrer Kontaktdaten
+                                    kÃ¶nnen Sie alle anderen Daten in Ruhe eingeben. </font>
+                                <font style="vertical-align: inherit;">Sie haben noch keine
+                                    Bestellung aufgegeben.</font>
+                            </font>
+                        </p>
+                    </div>
+
+
+                    <div id="basket-form">
+                        <!-- E-Mail-Suchbereich - Gleiches Prinzip wie test-modal-final -->
+                        <div class="col-md-12 mb-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5><i class="fas fa-search"></i> E-Mail-Adresse und Passwort eingeben</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label for="search_email" class="form-label">E-Mail-Adresse*</label>
+                                            <input type="email" 
+                                                   class="form-control" 
+                                                   id="search_email" 
+                                                   placeholder="Geben Sie Ihre E-Mail-Adresse ein"
+                                                   value="">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="search_password" class="form-label">Passwort*</label>
+                                            <input type="password" 
+                                                   class="form-control" 
+                                                   id="search_password" 
+                                                   placeholder="Geben Sie Ihr Passwort ein"
+                                                   value="">
+                                        </div>
+                                        <div class="col-md-4 d-flex align-items-end">
+                                            <button type="button" 
+                                                    class="btn btn__primary btn__rounded me-2" 
+                                                    onclick="testSearchCustomer()">
+                                                <i class="fas fa-search"></i> Suchen
+                                            </button>
+                                            <button type="button" 
+                                                    class="btn btn_secondary btn__rounded" 
+                                                    onclick="clearCustomerData()"
+                                                    id="clearBtn"
+                                                    style="display: none;">
+                                                <i class="fas fa-times"></i> LÃ¶schen
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div id="alertMessage"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 why-asking">
+                            <span>Warum fragen wir das? </span><a class="fa fa-question iAm-question"></a>
+                            <div class="iAm-question-ans" style="top: -50px; display: none;">
+                                <h5>Beantragung der Curabox</h5>
+                                <p>Ihre Kontaktdaten benÃ¶tigen wir zur weiteren Beantragung und fÃ¼r RÃ¼ckfragen im
+                                    Rahmen
+                                    Ihrer kostenlosen Versorgung mit Pflegehilfsmitteln. Sie senden mit der Angabe
+                                    Ihrer
+                                    Daten in diesem Schritt noch keine Bestellung ab.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-12 " id="iAm">
+                            <h5 class="mb-50 ">Ich bin*</h5>
+                            
+                            
+                            <div class="form-group">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" onclick="optperson()" name="insured" id="inlineRadio1" value="Versicherter" 
+                                           @if($emailFound && $customerData && $customerData->surname == "Versicherter") checked @endif>
+                                    <label class="form-check-label" for="inlineRadio1">Versicherter</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="insured" onclick="optperson()" id="inlineRadio2" value="Pflegeperson"
+                                           @if($emailFound && $customerData && $customerData->surname == "Pflegeperson") checked @endif>
+                                    <label class="form-check-label" for="inlineRadio2">AngehÃ¶riger /
+                                        Pflegeperson</label>
+                                </div>
+                                <span class="insured_error_msg" style="color: red;"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="title_name" id="inlineRadio3" value="Herr" 
+                                           @if($emailFound && $customerData && $customerData->title == "Herr") checked @endif>
+                                    <label class="form-check-label" for="inlineRadio3">Herr</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="title_name" id="inlineRadio4" value="Frau"
+                                           @if($emailFound && $customerData && $customerData->title == "Frau") checked @endif>
+                                    <label class="form-check-label" for="inlineRadio4">Frau</label>
+                                </div>
+                                <span class="title_name_error_msg" style="color: red;"></span>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="first_name" class="form-label">Vorname des Versicherten</label>
+                                    <input type="text" class="form-control" id="first_name" value="">
+                                    <span class="first_name_error_msg" style="color: red;"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="last_name" class="form-label">Nachname des Versicherten</label>
+                                    <input type="text" class="form-control" id="last_name" value="">
+                                    <span class="last_name_error_msg" style="color: red;"></span>
+                                </div>
+                                <div class="col-md-8 mt-2">
+                                    <label for="streetno" class="form-label">StraÃŸe</label>
+                                    <input type="text" class="form-control" id="streetno" value="">
+                                    <span class="streetno_error_msg" style="color: red;"></span>
+                                </div>
+                                <div class="col-md-4 mt-2">
+                                    <label for="houseno" class="form-label">Hausnummer</label>
+                                    <input type="text" class="form-control" id="houseno" value="">
+                                    <span class="houseno_error_msg" style="color: red;"></span>
+                                </div>
+                                <div class="col-md-4 mt-2">
+                                    <label for="zip" class="form-label">PLZ</label>
+                                    <input type="text" class="form-control" id="zip" value="">
+                                    <span class="zip_error_msg" style="color: red;"></span>
+                                </div>
+                                <div class="col-md-8 mt-2">
+                                    <label for="city" class="form-label">Ort</label>
+                                    <input type="text" class="form-control" id="city" value="">
+                                    <span class="city_error_msg" style="color: red;"></span>
+                                </div>
+                                <div class="col-md-4 mt-2">
+                                    <label for="Gaburtadatum" class="form-label">Gaburtadatum</label>
+                                    <input type="date" class="form-control" id="Gaburtadatum" max="{{ date('Y-m-d') }}" min="1900-01-01" style="cursor: pointer;" title="Cliquez pour ouvrir le calendrier">
+                                    <span class="gaburtadatum_error_msg" style="color: red;"></span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h5 class="mt-50 ">Kontakt Daten</h5>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="telno" class="form-label">telefunnummer</label>
+                                    <input type="text" class="form-control" id="telno" value="">
+                                    <span class="telno_error_msg" style="color: red;"></span>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="email2" class="form-label">E-Mail</label>
+                                    <input type="text" class="form-control" id="email2" value="" onblur="checkEmailExistsInForm()">
+                                    <span class="email2_error_msg" style="color: red;"></span>
+                                </div>
+                                  
+                                <!-- Passwort-Felder - von JavaScript gesteuert -->
+                                <div class="col-md-6 password-fields">
+                                    <label for="password2" class="form-label">Passwort</label>
+                                    <input type="password" class="form-control" id="password" value="">
+                                    <span class="password_error_msg" style="color: red;"></span>
+                                </div>
+
+                                <div class="col-md-6 password-fields">
+                                    <label for="password2" class="form-label">Passwort bestÃ¤tigen</label>
+                                    <input type="password" class="form-control" id="confirm_password" value="">
+                                    <span class="password2_error_msg" style="color: red;"></span>
+                                </div>
+                                
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h5 class="mt-50 ">Angaben Zur Krankenkasse</h5>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-label-tooltip">
+                                        <label for="health-insurance" class="form-label ">Krankenkasse</label>
+                                        <div class="tooltip-img-wrap">
+                                            <img src="{{asset('frontend/assets/images/banners/Krankenkasse_Nummer.png')}}" class="tooltip-img">
+                                        </div>
+                                    </div>
+                                    <input type="text" class="form-control" id="health-insurance" value="">
+                                    <span class="hinsurance_error_msg" style="color: red;"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-label-tooltip">
+                                        <label for="insurance-no" class="form-label form-label-tooltip">Versichertennummer </label>
+                                        <div class="tooltip-img-wrap">
+                                            <img src="{{asset('frontend/assets/images/banners/versicherungsnummer.png')}}" class="tooltip-img">
+                                        </div>
+                                    </div>
+                                    <input type="text" class="form-control" id="insurance-no" placeholder="Diese Nummer hat immer 10 Ziffern" value="" onblur="checkInsuranceNumberExists()">
+                                    <span class="insuranceno_error_msg" style="color: red;"></span>
+                                </div>
+
+                                <div class="col-md-6 mt-2">
+                                    <label for="insurance-no" class="form-label">Krankenkassen-Nummer </label>
+                                    <input type="text" class="form-control" id="KrankenkasseNummer" placeholder="Diese Nummer hat immer 10 Ziffern" value="" onblur="checkKrankenkasseNumberExists()">
+                                    <span class="krankenkasse_error_msg" style="color: red;"></span>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-12 why-asking">
+                            <span>Warum fragen wir das? </span><a class="fa fa-question insured-question"></a>
+                            <div class="insured-question-ans">
+                                <h5>KostenÃ¼bernahme mit Ihrer Pflegekasse</h5>
+                                <p>Die Beantragung und Abwicklung der KostenÃ¼bernahme mit Ihrer Pflegekasse
+                                    Ã¼bernimmt
+                                    das Team der belesch-box fÃ¼r Sie. FÃ¼r gesetzliche Versicherte entstehen keinerlei
+                                    Kosten. Privatpatienten gehen in Vorleistung und beantragen die Erstattung der
+                                    Kosten der belesch-box bei Ihrer Pflegekasse selbst. Sie haben nach Â§ 40 Abs. 3 Satz
+                                    5
+                                    SGB XI einen Anspruch auf volle RÃ¼ckerstattung.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-12 " id="insured">
+                            <h5 class="mb-50 ">Der Versicherte ist</h5>
+                            <div class="form-group">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions5" id="inlineRadio1" value="option5">
+                                    <label class="form-check-label" for="inlineRadio5">Gesetzlich versichert
+                                        (KostenÃ¼bernahme durch die Pflegekasse)</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions5" id="inlineRadio2" value="option6">
+                                    <label class="form-check-label" for="inlineRadio6">Privat versichert</label>
+                                </div>
+
+                                <span class="inlineRadioOptions5_error_msg" style="color: red;"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 mb-3" id="pflegegrad">
+                            <h5 class="mb-50 ">Pflegegrad</h5>
+                            <div class="form-group">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="pflegegrad" onchange="pflegegrad()" id="pflegegrad1" value="1">
+                                    <label class="form-check-label" for="pflegegrad1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="pflegegrad" onchange="pflegegrad()" id="pflegegrad2" value="2">
+                                    <label class="form-check-label" for="pflegegrad2">2</label>
+                                </div>
+
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="pflegegrad" onchange="pflegegrad()" id="pflegegrad3" value="3">
+                                    <label class="form-check-label" for="pflegegrad3">3</label>
+                                </div>
+
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="pflegegrad" onchange="pflegegrad()" id="pflegegrad4" value="4">
+                                    <label class="form-check-label" for="pflegegrad4">4</label>
+                                </div>
+
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="pflegegrad" onchange="pflegegrad()" id="pflegegrad5" value="5">
+                                    <label class="form-check-label" for="pflegegrad5">5</label>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- CHECKBOX WITH CONDITION -->
+
+                        <div class="col-md-12">
+                            <div class="condition-check-wrap">
+                                <input type="checkbox" id="condition-chcek" name="condition_chcek"><label for="condition-chcek">
+                                    <span class="condition_chcek_error_msg" style="color: red;"></span>
+                                    Hiermit
+                                    stimme ich zu, dass pflege.de (web care LBJ GmbH) meine personenbezogenen (ggf.
+                                    auch
+                                    gesundheitsbezogenen) Informationen, v.a. Kontaktinfos/Versichertenstatus, fÃ¼r
+                                    die
+                                    Bearbeitung des Antrages (zum Erhalt der Pflegehilfsmittel) sowie fÃ¼r eine
+                                    Kontaktaufnahme in diesem Zusammenhang via E-Mail speichert und verarbeitet.<br>
+
+                                    Hinweis: Die Zustimmung ist freiwillig und kann jederzeit mit Wirkung fÃ¼r die
+                                    Zukunft per E-Mail an <a href="#">betroffenenrechte@pflege.de</a> widerrufen
+                                    werden.
+                                    Im Falle eines Widerrufs kÃ¶nnen wir Ihnen gegenÃ¼ber die entsprechenden
+                                    Serviceleistungen nicht mehr erbringen. Weitere Informationen zum Datenschutz
+                                    finden
+                                    Sie <a href="#">hier.</a></label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 text-right">
+                            <p class="mt-30 mb-5">Sie senden noch keine Bestellung ab</p>
+                            <button class="btn btn__primary btn__rounded second-button">Weiter im Antrag</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @else
+            <div id="step1" style="display: block">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="product-wrapper">
+                            <div class="product-overview mt-2">
+                                <div class="header">
+                                    <i class="fas fa-box"></i>
+                                    <h5>Unsere Produkte</h5>
+                                </div>
+                                <div class="content">
+                                    @foreach(getAllProducts() as $product)
+                                    <div class="product mb-3 uniqueClass" id="productId{{$product->id}}" data-id="{{$product->price}}" onclick="getProduct('{{$product->id}}')">
+                                        <img src="{{asset('storage/'.$product->image)}}">
+                                        <div class="prod-info">
+                                            <div class="prod-name">{{$product->name}}</div>
+                                            <div class="prod-size">{{$product->product_title}}</div>
+                                        </div>
+                                        <div class="prod-btn">
+                                            <i class="fas fa-plus-circle"></i>
+                                        </div>
+                                        {{--$product->price--}}
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                            @php
+                            $total_amount = getCartPrice($carts);
+                            $get_perctage = 100 * $total_amount / 42;
+                            @endphp
+                            <div class="product-overview mt-2">
+                                <div class="header">
+                                    <i class="fas fa-box"></i>
+                                    <h5>Ihre belesch-box</h5>
+                                    <input type="hidden" class="cartPriceValue" value="{{$total_amount}}">
+                                    <div class="hint">
+                                        <span>42 &euro;</span>
+                                    </div>
+
+                                    <div class="progress" style="height: 20px;">
+                                        <div class="progress-bar" role="progressbar" aria-label="Example 20px high" style="width: {{$get_perctage}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                                <div class="receiver">
+                                    @if(Session::has('cart'))
+                                    @php
+                                    $carts = Session::get('cart');
+                                    @endphp
+                                    @foreach($carts as $cart)
+                                    <?php //print_r($cart)
+                                    ?>
+                                    <div data-id="{{$cart['product']['id']}}" class="content border-1 cartItem recProduct{{$cart['product']['id']}}">
+                                        <div class="product mb-3">
+                                            <img src="{{URL::asset('storage/'.$cart['product']['image'])}}">
+                                            <div class="prod-info">
+                                                <div class="prod-name">{{$cart['product']['name']}}</div>
+                                                <div class="prod-size">{{$cart['product']['product_title']}}</div>
+                                            </div>
+                                            <div class="prod-btn" onclick="less({{$cart['product']['id']}})"><span class="qty quantity{{$cart['product']['id']}}">{{$cart['quantity']}}</span>
+                                                <input type="hidden" id="qty_p_{{$cart['product']['id']}}" value="1"><input type="hidden" class="cartPrice" id="price_p_{{$cart['product']['id']}}" value="{{$cart['product']['price']}}"><i class="fas fa-minus-circle"></i>
+                                            </div>
+                                        </div>
+                                        @if($cart['product']['size_availability'] != '')
+                                        <div class="glove-options">
+                                            <div class="d-flex"><img src="{{URL::asset('frontend/assets/images/icon-handschuh.svg')}}"><label>Welche HandschuhgrÃ¶ÃŸe haben Sie?</label></div>
+                                        </div>
+                                        @endif
+
+                                        @if($cart['product']['size_availability'] != '')
+                                        @php
+                                        $size_arr = explode (",", $cart['product']['size_availability']);
+                                        @endphp
+                                    <div class="box__sixe">
+                                        @foreach($size_arr as $key=>$size)
+                                        <div class="base-click-box size1" id="bx-1">
+                                            <div class="productss" id="checkData-{{$cart['product']['id']}}">
+
+                                                <div class="lengend-action-buttons lengend-action-buttons-first">
+                                                    <label class="prod-count bg-white" for="d3_graph_chart{{$cart['product']['id']}}{{$size}}">
+                                                        <input onclick="fetchSize({{$cart['product']['id']}})" class="SIZE{{$key}}" id="d3_graph_chart{{$cart['product']['id']}}{{$size}}" name="size{{$cart['product']['id']}}" type="radio" value="{{$size}}">
+                                                        <span>
+                                                            <p>
+                                                                <font class="page_speed_808076681">
+                                                                    <font class="page_speed_808076681">{{$size}}</font>
+                                                                </font>
+                                                            </p>
+                                                        </span>
+                                                    </label>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                        @endforeach
+                                        </div>
+                                        @endif
+
+
+                                    </div>
+                                    @endforeach
+                                    @endif
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 text-center mt-3">
+
+                    @if(isset($_GET['updt']))
+                        <a href="{{url('update-cart-order')}}" class="btn btn__primary btn__rounded"> Weiter zu
+                            Ihren
+                            Kontaktdaten
+                        </a>
+                        @else
+                        <button type="button" class="btn btn__primary btn__rounded bed_protector_modal"> Weiter zu
+                            Ihren
+                            Kontaktdaten
+                        </button>
+                        @endif
+                       
+
+                        <!-- Modal -->
+                        <div class="modal " style="display: none" id="bed_protector_modal" tabindex="-1" aria-labelledby="add_bed_protector" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header d-block text-center">
+                                        <h4 class="modal-title" id="add_bed_protector">Wiederverwendbare
+                                            Bettschutzeinlagen</h4>
+                                        <p>Bis zu 250 Mal waschbar.</p>
+
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="cure-box-modal-content">
+                                            <img src="{{asset('frontend/assets/images/backgrounds/produkt-wiederverwbettschutzeinl.png')}}" class="img-fluid">
+                                            <div class="image-content">
+                                                <h6>ZusÃ¤tzlich zu Ihren 42â‚¬</h6>
+                                                <h4>Extra Schutz fÃ¼r 0,00â‚¬</h4>
+                                                <p>statt 26,16â‚¬ pro StÃ¼ck</p>
+                                            </div>
+                                            <h6>Wie viele Bettschutzeinlagen mÃ¶chten Sie kostenfrei erhalten?</h6>
+                                            <div class="product-count-list">
+                                                <div class="lengend-action-buttons lengend-action-buttons-first">
+                                                    <label for="d3_graph_chart0011day" class="prod-count">
+                                                        <input type="radio" name="number_of_bed" onchange="pdBedProtection()" id="d3_graph_chart0011day" value="1">
+                                                        <span>
+                                                            <p>1</p>
+                                                        </span>
+                                                    </label>
+                                                </div>
+
+                                                <div class="lengend-action-buttons lengend-action-buttons-first">
+                                                    <label for="d3_graph_chart0017day" class="prod-count">
+                                                        <input type="radio" name="number_of_bed" onchange="pdBedProtection()" id="d3_graph_chart0017day" value="2">
+                                                        <span>
+                                                            <p>2</p>
+                                                        </span>
+                                                    </label>
+                                                </div>
+
+                                                <div class="lengend-action-buttons lengend-action-buttons-first">
+                                                    <label for="d3_graph_chart00130day" class="prod-count">
+                                                        <input type="radio" name="number_of_bed" onchange="pdBedProtection()" id="d3_graph_chart00130day" value="3">
+                                                        <span>
+                                                            <p>3</p>
+                                                        </span>
+                                                    </label>
+                                                </div>
+
+                                                <div class="lengend-action-buttons lengend-action-buttons-first">
+                                                    <label for="d3_graph_chart00190day" class="prod-count">
+                                                        <input type="radio" name="number_of_bed" id="d3_graph_chart00190day" onchange="pdBedProtection()" value="4">
+                                                        <span>
+                                                            <p>4</p>
+                                                        </span>
+                                                    </label>
+                                                </div>
+
+                                            </div>
+                                            <p><i class="fa fa-exclamation-circle"> </i> Sie kÃ¶nnen bis zu 4
+                                                Bettschutzeinlagen
+                                                einmal pro Jahr beantragen.</p>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn_secondary btn__rounded" onclick="closeBedProtectorModal(); return false;">SchlieÃŸen
+                                        </button>
+                                        <button type="button" class="btn btn__primary btn__rounded with-bed-protection">
+                                            Weiter mit
+                                            Bettschutzeinlagen
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal ends-->
+                    </div>
+                </div>
+            </div>
+            <div id="step2" style="display: none" data-step21="0">
+                <div class="row mt-2">
+                    <div class="col-md-12">
+                        <h2>
+                            <font style="vertical-align: inherit;">
+                                <font style="vertical-align: inherit;">PersÃ¶nliche
+                                    Daten</font>
+                            </font>
+                        </h2>
+                        <p>
+                            <font style="vertical-align: inherit;">
+                                <font style="vertical-align: inherit;">Ihre Box wurde
+                                    erstellt. </font>
+                                <font style="vertical-align: inherit;">Geben Sie nun Ihre persÃ¶nlichen
+                                    Daten
+                                    ein, damit wir Sie fÃ¼r die weitere Beantragung und Bearbeitung der
+                                    Curabox kontaktieren kÃ¶nnen. </font>
+                                <font style="vertical-align: inherit;">Nach dem Speichern Ihrer Kontaktdaten
+                                    kÃ¶nnen Sie alle anderen Daten in Ruhe eingeben. </font>
+                                <font style="vertical-align: inherit;">Sie haben noch keine
+                                    Bestellung aufgegeben.</font>
+                            </font>
+                        </p>
+                    </div>
+
+

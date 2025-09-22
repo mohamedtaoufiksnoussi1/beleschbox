@@ -9,6 +9,103 @@
             background-color: #FFF !important;
             border-radius: 6px;
         }
+        
+        /* Augmenter la hauteur et la largeur du bloc de connexion dans l'étape 2 */
+        .card:has(.card-header h5:contains("E-Mail-Adresse eingeben")) {
+            min-height: 200px;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            display: block;
+        }
+        
+        .card:has(.card-header h5:contains("E-Mail-Adresse eingeben")) .card-body {
+            padding: 40px 30px;
+        }
+        
+        /* Alternative pour les navigateurs qui ne supportent pas :has() */
+        .login-card {
+            min-height: 200px;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            display: block;
+        }
+        
+        .login-card .card-body {
+            padding: 40px 30px;
+        }
+        
+        /* S'assurer que le conteneur parent utilise toute la largeur disponible */
+        .login-card .col-md-12 {
+            width: 100%;
+            max-width: none;
+            margin: 0 auto;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        
+        /* Étendre jusqu'au trait jaune */
+        .login-card .col-md-12.mb-4 {
+            width: 100%;
+            max-width: none;
+            margin: 0 auto;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        
+        /* Conteneur parent centré */
+        .login-card .row {
+            margin: 0;
+            justify-content: center;
+            display: flex;
+        }
+        
+        /* Centrage parfait du bloc de connexion */
+        .login-card .col-md-12 .card {
+            margin: 0 auto;
+        }
+        
+        /* Styles pour les modals d'erreur personnalisés */
+        .custom-error-modal .modal-content {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .custom-error-modal .modal-header {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            border: none;
+            border-radius: 15px 15px 0 0;
+            padding: 20px 30px;
+        }
+        
+        .custom-error-modal .modal-title {
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .custom-error-modal .modal-body {
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .custom-error-modal .modal-footer {
+            border: none;
+            justify-content: center;
+            padding: 20px 30px 30px;
+        }
+        
+        .custom-error-modal .btn-primary {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+        }
     </style>
     <style>
         :root {
@@ -70,10 +167,13 @@
         }
         
         /* Masquer seulement les blocs de consentement par défaut - ils s'afficheront avec le formulaire */
-        #consent-section-3,
-        #submit-section,
-        #submit-section-2 {
+        #consent-section-3 {
             display: none !important;
+        }
+        
+        /* Le bouton submit-section est géré par JavaScript */
+        #submit-section {
+            display: none;
         }
         
         /* ===== MODERN FORM STYLES ===== */
@@ -1385,80 +1485,6 @@
                         @endif
                        
 
-                        <!-- Modal -->
-                        <div class="modal " style="display: none" id="bed_protector_modal" tabindex="-1" aria-labelledby="add_bed_protector" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                                <div class="modal-content">
-                                    <div class="modal-header d-block text-center">
-                                        <h4 class="modal-title" id="add_bed_protector">Wiederverwendbare
-                                            Bettschutzeinlagen</h4>
-                                        <p>Bis zu 250 Mal waschbar.</p>
-
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="cure-box-modal-content">
-                                            <img src="{{asset('frontend/assets/images/backgrounds/produkt-wiederverwbettschutzeinl.png')}}" class="img-fluid">
-                                            <div class="image-content">
-                                                <h6>Zusätzlich zu Ihren 42€</h6>
-                                                <h4>Extra Schutz für 0,00€</h4>
-                                                <p>statt 26,16€ pro Stück</p>
-                                            </div>
-                                            <h6>Wie viele Bettschutzeinlagen möchten Sie kostenfrei erhalten?</h6>
-                                            <div class="product-count-list">
-                                                <div class="lengend-action-buttons lengend-action-buttons-first">
-                                                    <label for="d3_graph_chart0011day" class="prod-count">
-                                                        <input type="radio" name="number_of_bed" onchange="pdBedProtection()" id="d3_graph_chart0011day" value="1">
-                                                        <span>
-                                                            <p>1</p>
-                                                        </span>
-                                                    </label>
-                                                </div>
-
-                                                <div class="lengend-action-buttons lengend-action-buttons-first">
-                                                    <label for="d3_graph_chart0017day" class="prod-count">
-                                                        <input type="radio" name="number_of_bed" onchange="pdBedProtection()" id="d3_graph_chart0017day" value="2">
-                                                        <span>
-                                                            <p>2</p>
-                                                        </span>
-                                                    </label>
-                                                </div>
-
-                                                <div class="lengend-action-buttons lengend-action-buttons-first">
-                                                    <label for="d3_graph_chart00130day" class="prod-count">
-                                                        <input type="radio" name="number_of_bed" onchange="pdBedProtection()" id="d3_graph_chart00130day" value="3">
-                                                        <span>
-                                                            <p>3</p>
-                                                        </span>
-                                                    </label>
-                                                </div>
-
-                                                <div class="lengend-action-buttons lengend-action-buttons-first">
-                                                    <label for="d3_graph_chart00190day" class="prod-count">
-                                                        <input type="radio" name="number_of_bed" id="d3_graph_chart00190day" onchange="pdBedProtection()" value="4">
-                                                        <span>
-                                                            <p>4</p>
-                                                        </span>
-                                                    </label>
-                                                </div>
-
-                                            </div>
-                                            <p><i class="fa fa-exclamation-circle"> </i> Sie können bis zu 4
-                                                Bettschutzeinlagen
-                                                einmal pro Jahr beantragen.</p>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn_secondary btn__rounded" onclick="closeBedProtectorModal(); return false;">Schließen
-                                        </button>
-                                        <button type="button" class="btn btn__primary btn__rounded with-bed-protection">
-                                            Weiter mit
-                                            Bettschutzeinlagen
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Modal ends-->
                     </div>
                 </div>
             </div>
@@ -1525,7 +1551,7 @@
                     <div id="basket-form">
                         <!-- E-Mail-Suchbereich - Gleiches Prinzip wie test-modal-final -->
                         <div class="col-md-12 mb-4">
-                            <div class="card">
+                            <div class="card login-card">
                                 <div class="card-header">
                                     <h5><i class="fas fa-search"></i> E-Mail-Adresse eingeben</h5>
                                 </div>
@@ -1588,7 +1614,7 @@
                                     <label class="form-check-label" for="inlineRadio1">Versicherter</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="insured" onclick="optperson()" id="inlineRadio2" value="Pflegeperson"
+                                    <input class="form-check-input" type="radio" name="insured" onclick="optperson()" id="inlineRadio2" value="Angehöriger / Pflegeperson"
                                            @if($emailFound && $customerData && ($customerData->surname == "Pflegeperson" || $customerData->insured_type == "Angehöriger / Pflegeperson" || $customerData->insured_type == "Pflegeperson")) checked @endif>
                                     <label class="form-check-label" for="inlineRadio2">Angehöriger /
                                         Pflegeperson</label>
@@ -1747,17 +1773,6 @@
                             </div>
                         </div>
 
-                        <!-- TEST BLOC CONSENTEMENT TRÈS VISIBLE -->
-                        <div class="col-md-12" style="background: #ff0000; color: white; padding: 30px; margin: 30px 0; border: 5px solid #000; border-radius: 10px; font-size: 20px; font-weight: bold;">
-                            <div style="text-align: center;">
-                                <h3>🔴 BLOC CONSENTEMENT TEST 🔴</h3>
-                                <p>Ce bloc doit être visible !</p>
-                                <input type="checkbox" id="test-consent" style="transform: scale(2);">
-                                <label for="test-consent" style="font-size: 18px; margin-left: 10px;">
-                                    Hiermit stimme ich zu, dass pflege.de meine personenbezogenen Informationen speichert und verarbeitet.
-                                </label>
-                            </div>
-                        </div>
 
                         <div class="col-md-12 mb-3" id="pflegegrad">
                             <h5 class="mb-50 ">Pflegegrad</h5>
@@ -1844,6 +1859,18 @@
                         <div class="col-md-12 text-right" id="submit-section" style="display: none;">
                             <p class="mt-30 mb-5">Sie senden noch keine Bestellung ab</p>
                             <button class="btn btn__primary btn__rounded second-button">Weiter im Antrag</button>
+                        </div>
+                        
+                        <!-- Boutons pour passer à l'étape 3 et modifier -->
+                        <div class="col-md-12 text-right" id="step3-button-route1" style="display: none; margin-top: 20px;">
+                            <div class="d-flex justify-content-end gap-3">
+                                <button class="btn btn-outline-primary btn__rounded" onclick="toggleEditMode()" id="edit-button-route1" style="padding: 10px 25px; font-size: 14px;">
+                                    <i class="fas fa-edit"></i> Informationen bearbeiten
+                                </button>
+                                <button class="btn btn__primary btn__rounded" onclick="goToStep3()" style="padding: 12px 30px; font-size: 16px; font-weight: 600;">
+                                    <i class="fas fa-arrow-right"></i> Weiter zur Lieferadresse
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2006,80 +2033,6 @@
                         @endif
                        
 
-                        <!-- Modal -->
-                        <div class="modal " style="display: none" id="bed_protector_modal" tabindex="-1" aria-labelledby="add_bed_protector" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                                <div class="modal-content">
-                                    <div class="modal-header d-block text-center">
-                                        <h4 class="modal-title" id="add_bed_protector">Wiederverwendbare
-                                            Bettschutzeinlagen</h4>
-                                        <p>Bis zu 250 Mal waschbar.</p>
-
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="cure-box-modal-content">
-                                            <img src="{{asset('frontend/assets/images/backgrounds/produkt-wiederverwbettschutzeinl.png')}}" class="img-fluid">
-                                            <div class="image-content">
-                                                <h6>Zusätzlich zu Ihren 42€</h6>
-                                                <h4>Extra Schutz für 0,00€</h4>
-                                                <p>statt 26,16€ pro Stück</p>
-                                            </div>
-                                            <h6>Wie viele Bettschutzeinlagen möchten Sie kostenfrei erhalten?</h6>
-                                            <div class="product-count-list">
-                                                <div class="lengend-action-buttons lengend-action-buttons-first">
-                                                    <label for="d3_graph_chart0011day" class="prod-count">
-                                                        <input type="radio" name="number_of_bed" onchange="pdBedProtection()" id="d3_graph_chart0011day" value="1">
-                                                        <span>
-                                                            <p>1</p>
-                                                        </span>
-                                                    </label>
-                                                </div>
-
-                                                <div class="lengend-action-buttons lengend-action-buttons-first">
-                                                    <label for="d3_graph_chart0017day" class="prod-count">
-                                                        <input type="radio" name="number_of_bed" onchange="pdBedProtection()" id="d3_graph_chart0017day" value="2">
-                                                        <span>
-                                                            <p>2</p>
-                                                        </span>
-                                                    </label>
-                                                </div>
-
-                                                <div class="lengend-action-buttons lengend-action-buttons-first">
-                                                    <label for="d3_graph_chart00130day" class="prod-count">
-                                                        <input type="radio" name="number_of_bed" onchange="pdBedProtection()" id="d3_graph_chart00130day" value="3">
-                                                        <span>
-                                                            <p>3</p>
-                                                        </span>
-                                                    </label>
-                                                </div>
-
-                                                <div class="lengend-action-buttons lengend-action-buttons-first">
-                                                    <label for="d3_graph_chart00190day" class="prod-count">
-                                                        <input type="radio" name="number_of_bed" id="d3_graph_chart00190day" onchange="pdBedProtection()" value="4">
-                                                        <span>
-                                                            <p>4</p>
-                                                        </span>
-                                                    </label>
-                                                </div>
-
-                                            </div>
-                                            <p><i class="fa fa-exclamation-circle"> </i> Sie können bis zu 4
-                                                Bettschutzeinlagen
-                                                einmal pro Jahr beantragen.</p>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn_secondary btn__rounded" onclick="closeBedProtectorModal(); return false;">Schließen
-                                        </button>
-                                        <button type="button" class="btn btn__primary btn__rounded with-bed-protection">
-                                            Weiter mit
-                                            Bettschutzeinlagen
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Modal ends-->
                     </div>
                 </div>
             </div>
@@ -2112,7 +2065,7 @@
                     <div id="basket-form">
                         <!-- E-Mail-Suchbereich - Gleiches Prinzip wie test-modal-final -->
                         <div class="col-md-12 mb-4">
-                            <div class="card">
+                            <div class="card login-card">
                                 <div class="card-header">
                                     <h5><i class="fas fa-search"></i> E-Mail-Adresse eingeben</h5>
                                 </div>
@@ -2172,7 +2125,7 @@
                                     <label class="form-check-label" for="inlineRadio1">Versicherter</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="insured" onclick="optperson()" id="inlineRadio2_2" value="Pflegeperson">
+                                    <input class="form-check-input" type="radio" name="insured" onclick="optperson()" id="inlineRadio2_2" value="Angehöriger / Pflegeperson">
                                     <label class="form-check-label" for="inlineRadio2_2">Angehöriger /
                                         Pflegeperson</label>
                                 </div>
@@ -2396,13 +2349,6 @@
                         </div>
 
                         
-                        <!-- Bouton pour passer à l'étape 3 -->
-                        <div class="col-md-12 text-right" style="margin: 30px 0; display: none;" id="submit-section-main">
-                            <p style="margin-bottom: 15px; color: #666;">Sie senden noch keine Bestellung ab</p>
-                            <button class="btn btn__primary btn__rounded second-button" style="padding: 12px 30px; font-size: 16px; font-weight: 600;">
-                                Weiter im Antrag
-                            </button>
-                        </div>
 
                         <!-- CHECKBOX WITH CONDITION -->
 
@@ -2448,10 +2394,25 @@
                             </div>
                         </div>
                         
-                        <div class="col-md-12 text-right" id="submit-section-2" style="display: none;">
+                        <!-- Bouton de validation caché -->
+                        <div class="col-md-12 text-right" id="submit-section-route2" style="display: none;">
                             <p class="mt-30 mb-5">Sie senden noch keine Bestellung ab</p>
-                            <button class="btn btn__primary btn__rounded second-button">Weiter im Antrag </button>
+                            <button class="btn btn__primary btn__rounded second-button-route2">Weiter im Antrag</button>
                         </div>
+                        
+                        <!-- Boutons pour passer à l'étape 3 et modifier -->
+                        <div class="col-md-12 text-right" id="step3-button-route2" style="display: none; margin-top: 20px;">
+                            <div class="d-flex justify-content-end gap-3">
+                                <button class="btn btn-outline-primary btn__rounded" onclick="toggleEditMode()" id="edit-button-route2" style="padding: 10px 25px; font-size: 14px;">
+                                    <i class="fas fa-edit"></i> Informationen bearbeiten
+                                </button>
+                                <button class="btn btn__primary btn__rounded" onclick="goToStep3()" style="padding: 12px 30px; font-size: 16px; font-weight: 600;">
+                                    <i class="fas fa-arrow-right"></i> Weiter zur Lieferadresse
+                                </button>
+                            </div>
+                        </div>
+                        
+                        
                     </div>
                 </div>
             </div>
@@ -3178,10 +3139,10 @@ display: flex;align-items: center; justify-content: center; "></div>
                     </div>
                     
                     <div class="col-md-12 text-right">
-                        @if(isset($package_data) && $package_data['isPackage'])
+                        @if(isset($mode) && $mode === 'package')
                         <button class="btn btn__primary btn__rounded checkout_btn_pkg" onclick="checkout_btn_pkg()">einreichen</button>
                         @else
-                        <button class="btn btn__primary btn__rounded checkout_btn" onclick="checkout_btn()">einreichen</button>
+                        <button class="btn btn__primary btn__rounded checkout_btn" onclick="checkout_btn()" id="checkout-btn">einreichen</button>
                         @endif
                     </div>
                 </div>
@@ -3216,11 +3177,7 @@ display: flex;align-items: center; justify-content: center; "></div>
                             </div>
                         </div>
                         <div style="text-align: right;">
-                            <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #009ee1 0%, #4A90E2 100%); position: relative; margin-bottom: 10px;">
-                                <div style="position: absolute; top: -8px; left: 8px; width: 60px; height: 60px; background: linear-gradient(135deg, #66C2FF 0%, #009ee1 100%); transform: skewX(-30deg);"></div>
-                                <div style="position: absolute; top: 8px; right: -8px; width: 60px; height: 60px; background: linear-gradient(135deg, #004499 0%, #003366 100%); transform: skewY(-30deg);"></div>
-                            </div>
-                            <div style="color: #009ee1; font-size: 18px; font-weight: bold; font-family: serif;">BeleschBox</div>
+                            <img src="{{asset('frontend/assets/images/logo/belesch-logo-light.png')}}" alt="BeleschBox Logo" style="height: 80px; width: auto; margin-bottom: 10px;">
                         </div>
                     </div>
 
@@ -3281,18 +3238,16 @@ display: flex;align-items: center; justify-content: center; "></div>
 
                     <!-- BeleschBox Selection -->
                     <div style="margin-bottom: 30px;">
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 15px;">
                             <!-- BeleschBox 1 -->
-                            <div style="border: 1px solid #ddd; padding: 15px; position: relative;">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="beleschbox-checkbox" style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 10px; display: flex; align-items: center; justify-content: center;" id="bb1_pd1"></div>
-                                    <div style="width: 30px; height: 30px; background: linear-gradient(135deg, #009ee1 0%, #4A90E2 100%); position: relative; margin-right: 10px;">
-                                        <div style="position: absolute; top: -4px; left: 4px; width: 30px; height: 30px; background: linear-gradient(135deg, #66C2FF 0%, #009ee1 100%); transform: skewX(-30deg);"></div>
-                                        <div style="position: absolute; top: 4px; right: -4px; width: 30px; height: 30px; background: linear-gradient(135deg, #004499 0%, #003366 100%); transform: skewY(-30deg);"></div>
-                                    </div>
-                                    <strong style="color: #009ee1;">BeleschBox 1</strong>
+                            <div style="border: 1px solid #ddd; padding: 12px; position: relative;">
+                                <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                    <div class="beleschbox-checkbox" style="width: 14px; height: 14px; border: 1px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;" id="bb1_pd1"></div>
+                                    <!-- Logo cube bleu -->
+                                    <img src="{{asset('frontend/assets/images/cubes/cube_blue.png')}}" alt="BeleschBox" style="width: 85px; height: 85px; margin-right: 8px; object-fit: contain;">
+                                    <strong style="color: #009ee1; font-size: 13px; font-weight: bold;">BeleschBox 1</strong>
                                 </div>
-                                <div style="font-size: 12px; line-height: 1.4;">
+                                <div style="font-size: 10px; line-height: 1.2; color: #333; margin-left: 28px;">
                                     2x 100 Stück Einmalhandschuhe<br>
                                     500 ml Handdesinfektion<br>
                                     500 ml Flächendesinfektion<br>
@@ -3301,16 +3256,14 @@ display: flex;align-items: center; justify-content: center; "></div>
                             </div>
 
                             <!-- BeleschBox 2 -->
-                            <div style="border: 1px solid #ddd; padding: 15px; position: relative;">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="beleschbox-checkbox" style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 10px; display: flex; align-items: center; justify-content: center;" id="bb2_pd1"></div>
-                                    <div style="width: 30px; height: 30px; background: linear-gradient(135deg, #009ee1 0%, #4A90E2 100%); position: relative; margin-right: 10px;">
-                                        <div style="position: absolute; top: -4px; left: 4px; width: 30px; height: 30px; background: linear-gradient(135deg, #66C2FF 0%, #009ee1 100%); transform: skewX(-30deg);"></div>
-                                        <div style="position: absolute; top: 4px; right: -4px; width: 30px; height: 30px; background: linear-gradient(135deg, #004499 0%, #003366 100%); transform: skewY(-30deg);"></div>
-                                    </div>
-                                    <strong style="color: #009ee1;">BeleschBox 2</strong>
+                            <div style="border: 1px solid #ddd; padding: 12px; position: relative;">
+                                <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                    <div class="beleschbox-checkbox" style="width: 14px; height: 14px; border: 1px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;" id="bb2_pd1"></div>
+                                    <!-- Logo cube bleu -->
+                                    <img src="{{asset('frontend/assets/images/cubes/cube_blue.png')}}" alt="BeleschBox" style="width: 85px; height: 85px; margin-right: 8px; object-fit: contain;">
+                                    <strong style="color: #009ee1; font-size: 13px; font-weight: bold;">BeleschBox 2</strong>
                                 </div>
-                                <div style="font-size: 12px; line-height: 1.4;">
+                                <div style="font-size: 10px; line-height: 1.2; color: #333; margin-left: 28px;">
                                     100 Stück Einmalhandschuhe<br>
                                     2x 500 ml Handdesinfektion<br>
                                     25 Stück Bettschutzeinlagen<br>
@@ -3319,16 +3272,14 @@ display: flex;align-items: center; justify-content: center; "></div>
                             </div>
 
                             <!-- BeleschBox 3 -->
-                            <div style="border: 1px solid #ddd; padding: 15px; position: relative;">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="beleschbox-checkbox" style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 10px; display: flex; align-items: center; justify-content: center;" id="bb3_pd1"></div>
-                                    <div style="width: 30px; height: 30px; background: linear-gradient(135deg, #009ee1 0%, #4A90E2 100%); position: relative; margin-right: 10px;">
-                                        <div style="position: absolute; top: -4px; left: 4px; width: 30px; height: 30px; background: linear-gradient(135deg, #66C2FF 0%, #009ee1 100%); transform: skewX(-30deg);"></div>
-                                        <div style="position: absolute; top: 4px; right: -4px; width: 30px; height: 30px; background: linear-gradient(135deg, #004499 0%, #003366 100%); transform: skewY(-30deg);"></div>
-                                    </div>
-                                    <strong style="color: #009ee1;">BeleschBox 3</strong>
+                            <div style="border: 1px solid #ddd; padding: 12px; position: relative;">
+                                <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                    <div class="beleschbox-checkbox" style="width: 14px; height: 14px; border: 1px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;" id="bb3_pd1"></div>
+                                    <!-- Logo cube bleu -->
+                                    <img src="{{asset('frontend/assets/images/cubes/cube_blue.png')}}" alt="BeleschBox" style="width: 85px; height: 85px; margin-right: 8px; object-fit: contain;">
+                                    <strong style="color: #009ee1; font-size: 13px; font-weight: bold;">BeleschBox 3</strong>
                                 </div>
-                                <div style="font-size: 12px; line-height: 1.4;">
+                                <div style="font-size: 10px; line-height: 1.2; color: #333; margin-left: 28px;">
                                     1 Pack Desinfektionstücher<br>
                                     1x 500 ml Handdesinfektion<br>
                                     1x 500 ml Flächendesinfektion<br>
@@ -3337,34 +3288,30 @@ display: flex;align-items: center; justify-content: center; "></div>
                             </div>
 
                             <!-- BeleschBox 4 -->
-                            <div style="border: 1px solid #ddd; padding: 15px; position: relative;">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="beleschbox-checkbox" style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 10px; display: flex; align-items: center; justify-content: center;" id="bb4_pd1"></div>
-                                    <div style="width: 30px; height: 30px; background: linear-gradient(135deg, #009ee1 0%, #4A90E2 100%); position: relative; margin-right: 10px;">
-                                        <div style="position: absolute; top: -4px; left: 4px; width: 30px; height: 30px; background: linear-gradient(135deg, #66C2FF 0%, #009ee1 100%); transform: skewX(-30deg);"></div>
-                                        <div style="position: absolute; top: 4px; right: -4px; width: 30px; height: 30px; background: linear-gradient(135deg, #004499 0%, #003366 100%); transform: skewY(-30deg);"></div>
-                                    </div>
-                                    <strong style="color: #009ee1;">BeleschBox 4</strong>
+                            <div style="border: 1px solid #ddd; padding: 12px; position: relative;">
+                                <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                    <div class="beleschbox-checkbox" style="width: 14px; height: 14px; border: 1px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;" id="bb4_pd1"></div>
+                                    <!-- Logo cube bleu -->
+                                    <img src="{{asset('frontend/assets/images/cubes/cube_blue.png')}}" alt="BeleschBox" style="width: 85px; height: 85px; margin-right: 8px; object-fit: contain;">
+                                    <strong style="color: #009ee1; font-size: 13px; font-weight: bold;">BeleschBox 4</strong>
                                 </div>
-                                <div style="font-size: 12px; line-height: 1.4;">
+                                <div style="font-size: 10px; line-height: 1.2; color: #333; margin-left: 28px;">
                                     2x 500 ml Flächendesinfektion<br>
                                     2x 500 ml Handdesinfektion<br>
                                     25 Stück Bettschutzeinlagen<br>
-                                    FFP2 Masken
+                                    25 Stück FFP2 Masken
                                 </div>
                             </div>
 
                             <!-- BeleschBox 5 -->
-                            <div style="border: 1px solid #ddd; padding: 15px; position: relative;">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="beleschbox-checkbox" style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 10px; display: flex; align-items: center; justify-content: center;" id="bb5_pd1"></div>
-                                    <div style="width: 30px; height: 30px; background: linear-gradient(135deg, #009ee1 0%, #4A90E2 100%); position: relative; margin-right: 10px;">
-                                        <div style="position: absolute; top: -4px; left: 4px; width: 30px; height: 30px; background: linear-gradient(135deg, #66C2FF 0%, #009ee1 100%); transform: skewX(-30deg);"></div>
-                                        <div style="position: absolute; top: 4px; right: -4px; width: 30px; height: 30px; background: linear-gradient(135deg, #004499 0%, #003366 100%); transform: skewY(-30deg);"></div>
-                                    </div>
-                                    <strong style="color: #009ee1;">BeleschBox 5</strong>
+                            <div style="border: 1px solid #ddd; padding: 12px; position: relative;">
+                                <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                    <div class="beleschbox-checkbox" style="width: 14px; height: 14px; border: 1px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;" id="bb5_pd1"></div>
+                                    <!-- Logo cube bleu -->
+                                    <img src="{{asset('frontend/assets/images/cubes/cube_blue.png')}}" alt="BeleschBox" style="width: 85px; height: 85px; margin-right: 8px; object-fit: contain;">
+                                    <strong style="color: #009ee1; font-size: 13px; font-weight: bold;">BeleschBox 5</strong>
                                 </div>
-                                <div style="font-size: 12px; line-height: 1.4;">
+                                <div style="font-size: 10px; line-height: 1.2; color: #333; margin-left: 28px;">
                                     2x 100 Stück Einmalhandschuhe<br>
                                     500 ml Handdesinfektion<br>
                                     1 Pack Desinfektionstücher<br>
@@ -3373,16 +3320,14 @@ display: flex;align-items: center; justify-content: center; "></div>
                             </div>
 
                             <!-- BeleschBox 6 -->
-                            <div style="border: 1px solid #ddd; padding: 15px; position: relative;">
-                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <div class="beleschbox-checkbox" style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 10px; display: flex; align-items: center; justify-content: center;" id="bb6_pd1"></div>
-                                    <div style="width: 30px; height: 30px; background: linear-gradient(135deg, #009ee1 0%, #4A90E2 100%); position: relative; margin-right: 10px;">
-                                        <div style="position: absolute; top: -4px; left: 4px; width: 30px; height: 30px; background: linear-gradient(135deg, #66C2FF 0%, #009ee1 100%); transform: skewX(-30deg);"></div>
-                                        <div style="position: absolute; top: 4px; right: -4px; width: 30px; height: 30px; background: linear-gradient(135deg, #004499 0%, #003366 100%); transform: skewY(-30deg);"></div>
-                                    </div>
-                                    <strong style="color: #009ee1;">BeleschBox 6</strong>
+                            <div style="border: 1px solid #ddd; padding: 12px; position: relative;">
+                                <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                    <div class="beleschbox-checkbox" style="width: 14px; height: 14px; border: 1px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;" id="bb6_pd1"></div>
+                                    <!-- Logo cube bleu -->
+                                    <img src="{{asset('frontend/assets/images/cubes/cube_blue.png')}}" alt="BeleschBox" style="width: 85px; height: 85px; margin-right: 8px; object-fit: contain;">
+                                    <strong style="color: #009ee1; font-size: 13px; font-weight: bold;">BeleschBox 6</strong>
                                 </div>
-                                <div style="font-size: 12px; line-height: 1.4;">
+                                <div style="font-size: 10px; line-height: 1.2; color: #333; margin-left: 28px;">
                                     100 Stück Einmalhandschuhe<br>
                                     500 ml Handdesinfektion<br>
                                     500 ml Flächendesinfektion<br>
@@ -3393,14 +3338,17 @@ display: flex;align-items: center; justify-content: center; "></div>
                         </div>
 
                         <!-- BeleschBox Individuell -->
-                        <div style="border: 1px solid #ddd; padding: 15px; margin-bottom: 20px;">
-                            <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                <div class="beleschbox-checkbox" style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 10px; display: flex; align-items: center; justify-content: center;" id="bb_individuell_pd1"></div>
-                                <div style="width: 30px; height: 30px; background: linear-gradient(135deg, #009ee1 0%, #4A90E2 100%); position: relative; margin-right: 10px;">
-                                    <div style="position: absolute; top: -4px; left: 4px; width: 30px; height: 30px; background: linear-gradient(135deg, #66C2FF 0%, #009ee1 100%); transform: skewX(-30deg);"></div>
-                                    <div style="position: absolute; top: 4px; right: -4px; width: 30px; height: 30px; background: linear-gradient(135deg, #004499 0%, #003366 100%); transform: skewY(-30deg);"></div>
-                                </div>
-                                <strong style="color: #009ee1;">BeleschBox Individuell</strong>
+                        <div style="border: 1px solid #ddd; padding: 12px; margin-bottom: 20px;">
+                            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                <div class="beleschbox-checkbox" style="width: 14px; height: 14px; border: 1px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;" id="bb_individuell_pd1"></div>
+                                <!-- Logo cube bleu -->
+                                <img src="{{asset('frontend/assets/images/cubes/cube_blue.png')}}" alt="BeleschBox" style="width: 85px; height: 85px; margin-right: 8px; object-fit: contain;">
+                                <strong style="color: #009ee1; font-size: 13px; font-weight: bold;">BeleschBox Individuell</strong>
+                            </div>
+                            <div style="margin-left: 28px; margin-top: 8px;">
+                                <div style="border-bottom: 1px solid #ddd; height: 16px; margin-bottom: 6px; width: 100%;"></div>
+                                <div style="border-bottom: 1px solid #ddd; height: 16px; margin-bottom: 6px; width: 100%;"></div>
+                                <div style="border-bottom: 1px solid #ddd; height: 16px; margin-bottom: 6px; width: 100%;"></div>
                             </div>
                             <div style="margin-top: 5px;" id="custom-products-container">
                                 <!-- Les produits personnalisés seront insérés ici -->
@@ -3921,7 +3869,6 @@ display: flex;align-items: center; justify-content: center; "></div>
                 document.getElementById('iAm'),
                 document.getElementById('insured-1'), // Bloc "Der Versicherte ist"
                 document.getElementById('submit-section'), // Bouton "Weiter im Antrag"
-                document.getElementById('submit-section-2'), // Deuxième bouton "Weiter im Antrag"
                 document.getElementById('consent-section-3'), // Troisième bloc de consentement
                 document.getElementById('consent-block-step2'), // Bloc de consentement step2
                 document.getElementById('consent-form-block') // Bloc de consentement formulaire
@@ -3979,28 +3926,44 @@ display: flex;align-items: center; justify-content: center; "></div>
         
         // Fonction pour ajouter le champ mot de passe
         function addPasswordField() {
-            const emailContainer = document.querySelector('#search_email').closest('.col-md-8');
-            if (emailContainer && !document.getElementById('search_password')) {
-                // Modifier la largeur du champ email
-                emailContainer.className = 'col-md-6';
+            console.log('🔧 Tentative d\'ajout du champ mot de passe...');
+            
+            // Chercher tous les conteneurs email
+            const emailContainers = document.querySelectorAll('#search_email');
+            console.log(`Trouvé ${emailContainers.length} champs email`);
+            
+            emailContainers.forEach((emailInput, index) => {
+                const emailContainer = emailInput.closest('.col-md-8');
+                console.log(`Traitement du champ email ${index + 1}:`, emailContainer);
                 
-                // Créer le champ mot de passe
-                const passwordContainer = document.createElement('div');
-                passwordContainer.className = 'col-md-6';
-                passwordContainer.innerHTML = `
-                    <label for="search_password" class="form-label">Mot de passe*</label>
-                    <input type="password" 
-                           class="form-control" 
-                           id="search_password" 
-                           placeholder="Geben Sie Ihr Passwort ein"
-                           value="">
-                `;
-                
-                // Insérer le champ mot de passe après le champ email
-                emailContainer.parentNode.insertBefore(passwordContainer, emailContainer.nextSibling);
-                
-                console.log('Champ mot de passe ajouté dynamiquement');
-            }
+                if (emailContainer && !document.getElementById('search_password')) {
+                    console.log('✅ Ajout du champ mot de passe...');
+                    
+                    // Modifier la largeur du champ email
+                    emailContainer.className = 'col-md-6';
+                    
+                    // Créer le champ mot de passe
+                    const passwordContainer = document.createElement('div');
+                    passwordContainer.className = 'col-md-6';
+                    passwordContainer.innerHTML = `
+                        <label for="search_password" class="form-label">Mot de passe*</label>
+                        <input type="password" 
+                               class="form-control" 
+                               id="search_password" 
+                               placeholder="Geben Sie Ihr Passwort ein"
+                               value="">
+                    `;
+                    
+                    // Insérer le champ mot de passe après le champ email
+                    emailContainer.parentNode.insertBefore(passwordContainer, emailContainer.nextSibling);
+                    
+                    console.log('✅ Champ mot de passe ajouté dynamiquement');
+                } else if (document.getElementById('search_password')) {
+                    console.log('✅ Champ mot de passe déjà présent');
+                } else {
+                    console.log('❌ Conteneur email non trouvé');
+                }
+            });
         }
     </script>
 
@@ -4009,6 +3972,117 @@ display: flex;align-items: center; justify-content: center; "></div>
         function showNewAccountForm() {
             console.log('=== DEBUG AFFICHAGE FORMULAIRE ===');
             console.log('Affichage du formulaire de nouveau compte');
+            
+            // Cacher le bloc de connexion (E-Mail-Adresse eingeben)
+            console.log('🔍 Recherche du bloc de connexion...');
+            
+            // Méthode 1: Chercher par le texte du titre
+            const allCards = document.querySelectorAll('.card');
+            console.log('Nombre total de cartes trouvées:', allCards.length);
+            
+            allCards.forEach((card, index) => {
+                const header = card.querySelector('.card-header h5');
+                if (header) {
+                    console.log(`Carte ${index}:`, header.textContent.trim());
+                    if (header.textContent.includes('E-Mail-Adresse eingeben')) {
+                        const parentDiv = card.closest('.col-md-12.mb-4');
+                        if (parentDiv) {
+                            parentDiv.style.display = 'none';
+                            console.log('✅ Bloc de connexion caché (méthode 1)');
+                        }
+                    }
+                }
+            });
+            
+            // Méthode 2: Chercher par l'input search_email
+            const searchEmailInputs = document.querySelectorAll('input[id="search_email"]');
+            console.log('Inputs search_email trouvés:', searchEmailInputs.length);
+            
+            searchEmailInputs.forEach((input, index) => {
+                const parentDiv = input.closest('.col-md-12.mb-4');
+                if (parentDiv) {
+                    // Utiliser une classe CSS pour cacher de manière plus robuste
+                    parentDiv.classList.add('login-block-hidden');
+                    parentDiv.style.display = 'none';
+                    parentDiv.style.setProperty('display', 'none', 'important');
+                    console.log(`✅ Bloc de connexion caché (méthode 2 - input ${index})`);
+                }
+            });
+            
+            // Méthode 3: Ajouter une classe CSS globale pour s'assurer que le bloc reste caché
+            const style = document.createElement('style');
+            style.textContent = `
+                .login-block-hidden {
+                    display: none !important;
+                    visibility: hidden !important;
+                }
+                
+                /* Style pour les boutons radio Pflegegrad sélectionnés en bleu */
+                input[type="radio"][name="Pflegegrad"]:disabled:checked,
+                input[type="radio"][name="pflegegrad"]:disabled:checked {
+                    background-color: #007bff !important;
+                    border-color: #007bff !important;
+                    box-shadow: inset 0 0 0 2px white !important;
+                }
+                
+                input[type="radio"][name="Pflegegrad"]:disabled:not(:checked),
+                input[type="radio"][name="pflegegrad"]:disabled:not(:checked) {
+                    background-color: transparent !important;
+                    border-color: #6c757d !important;
+                }
+                
+                input[type="radio"][name="Pflegegrad"]:disabled:checked + label,
+                input[type="radio"][name="pflegegrad"]:disabled:checked + label {
+                    color: #007bff !important;
+                    font-weight: 600 !important;
+                }
+                
+                input[type="radio"][name="Pflegegrad"]:disabled:not(:checked) + label,
+                input[type="radio"][name="pflegegrad"]:disabled:not(:checked) + label {
+                    color: #6c757d !important;
+                    font-weight: normal !important;
+                }
+                
+                /* Style spécifique pour les boutons radio dans les formulaires */
+                .form-check input[type="radio"][name="Pflegegrad"]:disabled:checked,
+                .form-check input[type="radio"][name="pflegegrad"]:disabled:checked {
+                    background-color: #007bff !important;
+                    border-color: #007bff !important;
+                }
+                
+                .form-check input[type="radio"][name="Pflegegrad"]:disabled:checked + .form-check-label,
+                .form-check input[type="radio"][name="pflegegrad"]:disabled:checked + .form-check-label {
+                    color: #007bff !important;
+                    font-weight: 600 !important;
+                }
+                
+                .form-check input[type="radio"][name="Pflegegrad"]:disabled:not(:checked) + .form-check-label,
+                .form-check input[type="radio"][name="pflegegrad"]:disabled:not(:checked) + .form-check-label {
+                    color: #6c757d !important;
+                    font-weight: normal !important;
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Méthode 4: Surveiller les changements et maintenir le bloc caché
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+                        const target = mutation.target;
+                        if (target.classList.contains('login-block-hidden') && target.style.display !== 'none') {
+                            target.style.display = 'none';
+                            target.style.setProperty('display', 'none', 'important');
+                            console.log('🔄 Bloc de connexion maintenu caché après changement');
+                        }
+                    }
+                });
+            });
+            
+            // Observer tous les blocs de connexion cachés
+            const hiddenBlocks = document.querySelectorAll('.login-block-hidden');
+            hiddenBlocks.forEach(block => {
+                observer.observe(block, { attributes: true, attributeFilter: ['style'] });
+            });
             
             // Vérifier le bloc de consentement avant affichage
             const consentBlock = document.querySelector('.condition-check-wrap');
@@ -4021,12 +4095,25 @@ display: flex;align-items: center; justify-content: center; "></div>
             }
             
             // Afficher les sections du formulaire principal
-            const sectionsToShow = document.querySelectorAll('.col-md-12.why-asking, #iAm, #insured-1, #submit-section, #submit-section-2');
+            const sectionsToShow = document.querySelectorAll('.col-md-12.why-asking, #iAm, #insured-1, #submit-section, #step3-button-route1, #step3-button-route2');
             sectionsToShow.forEach(section => {
                 if (section) {
                     section.style.display = 'block';
                 }
             });
+            
+            // Forcer l'affichage du bouton "Weiter im Antrag" pour nouveau compte
+            const submitSection = document.getElementById('submit-section');
+            console.log('🔍 Recherche du bouton submit-section:', submitSection);
+            if (submitSection) {
+                submitSection.style.display = 'block';
+                submitSection.style.setProperty('display', 'block', 'important');
+                console.log('✅ Bouton "Weiter im Antrag" forcé à s\'afficher pour nouveau compte');
+                console.log('Style final:', submitSection.style.display);
+            } else {
+                console.log('❌ Bouton submit-section non trouvé !');
+            }
+            
             
             // Afficher le bloc de consentement avec le formulaire
             const consentFormBlock = document.getElementById('consent-form-block');
@@ -4037,13 +4124,6 @@ display: flex;align-items: center; justify-content: center; "></div>
                 console.log('❌ Bloc de consentement non trouvé');
             }
             
-            // Test simple - ajouter un bloc visible
-            const testBlock = document.createElement('div');
-            testBlock.innerHTML = '<div style="background: #ff0000; color: white; padding: 20px; margin: 20px 0; border: 3px solid #000; font-size: 18px; font-weight: bold; text-align: center;">🔴 BLOC DE TEST - FORMULAIRE AFFICHÉ 🔴</div>';
-            const insuredSection = document.getElementById('insured-1');
-            if (insuredSection && insuredSection.parentNode) {
-                insuredSection.parentNode.insertBefore(testBlock, insuredSection.nextSibling);
-            }
             
             
             // Masquer les champs de mot de passe du formulaire principal (pour nouveau compte)
@@ -4071,6 +4151,20 @@ display: flex;align-items: center; justify-content: center; "></div>
                 }
                 console.log('=== FIN DEBUG AFFICHAGE FORMULAIRE ===');
             }, 100);
+            
+            // Afficher le bouton "Weiter zur Lieferadresse" pour nouveau compte
+            console.log('✅ Nouveau compte - Affichage du bouton step3-button');
+            const step3Button1 = document.getElementById('step3-button-route1');
+            const step3Button2 = document.getElementById('step3-button-route2');
+            
+            if (step3Button1) {
+                step3Button1.style.display = 'block';
+                console.log('✅ Bouton step3-button-route1 affiché pour nouveau compte');
+            }
+            if (step3Button2) {
+                step3Button2.style.display = 'block';
+                console.log('✅ Bouton step3-button-route2 affiché pour nouveau compte');
+            }
         }
 
         // Fonction pour afficher le modal d'erreur de login
@@ -4081,7 +4175,7 @@ display: flex;align-items: center; justify-content: center; "></div>
                         <div class="modal-content">
                             <div class="modal-header bg-danger text-white">
                                 <h5 class="modal-title" id="loginErrorModalLabel">
-                                    <i class="fas fa-exclamation-triangle"></i> Erreur de Connexion
+                                    <i class="fas fa-exclamation-triangle"></i> Verbindungsfehler
                                 </h5>
                                 <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
@@ -4089,21 +4183,18 @@ display: flex;align-items: center; justify-content: center; "></div>
                             </div>
                             <div class="modal-body">
                                 <div class="alert alert-danger">
-                                    <h6><i class="fas fa-user-times"></i> Email ou mot de passe incorrect</h6>
-                                    <p>Veuillez vérifier vos identifiants et réessayer.</p>
+                                    <h6><i class="fas fa-user-times"></i> E-Mail oder Passwort falsch</h6>
+                                    <p>Bitte überprüfen Sie Ihre Anmeldedaten und versuchen Sie es erneut.</p>
                                     <ul>
-                                        <li>Vérifiez que votre adresse email est correcte</li>
-                                        <li>Vérifiez que votre mot de passe est correct</li>
-                                        <li>Assurez-vous que votre compte existe</li>
+                                        <li>Überprüfen Sie, ob Ihre E-Mail-Adresse korrekt ist</li>
+                                        <li>Überprüfen Sie, ob Ihr Passwort korrekt ist</li>
+                                        <li>Stellen Sie sicher, dass Ihr Konto existiert</li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                    <i class="fas fa-times"></i> Fermer
-                                </button>
                                 <button type="button" class="btn btn-primary" onclick="clearLoginForm()">
-                                    <i class="fas fa-edit"></i> Réessayer
+                                    <i class="fas fa-edit"></i> Erneut versuchen
                                 </button>
                             </div>
                         </div>
@@ -4124,6 +4215,288 @@ display: flex;align-items: center; justify-content: center; "></div>
             $('#loginErrorModal').modal('show');
         }
         
+        // Fonction pour cacher le bloc de connexion
+        function hideLoginBlock() {
+            console.log('🔒 Cachage du bloc de connexion...');
+            
+            // Méthode 1: Chercher par le texte du titre
+            const allCards = document.querySelectorAll('.card');
+            console.log('Nombre total de cartes trouvées:', allCards.length);
+            
+            allCards.forEach((card, index) => {
+                const header = card.querySelector('.card-header h5');
+                if (header) {
+                    console.log(`Carte ${index}:`, header.textContent.trim());
+                    if (header.textContent.includes('E-Mail-Adresse eingeben')) {
+                        const parentDiv = card.closest('.col-md-12.mb-4');
+                        if (parentDiv) {
+                            parentDiv.style.display = 'none';
+                            parentDiv.classList.add('login-block-hidden');
+                            console.log('✅ Bloc de connexion caché (méthode 1)');
+                        }
+                    }
+                }
+            });
+            
+            // Méthode 2: Chercher par l'input search_email
+            const searchEmailInputs = document.querySelectorAll('input[id="search_email"]');
+            console.log('Inputs search_email trouvés:', searchEmailInputs.length);
+            
+            searchEmailInputs.forEach((input, index) => {
+                const parentDiv = input.closest('.col-md-12.mb-4');
+                if (parentDiv) {
+                    parentDiv.style.display = 'none';
+                    parentDiv.classList.add('login-block-hidden');
+                    console.log(`✅ Bloc de connexion caché (méthode 2 - input ${index})`);
+                }
+            });
+            
+            // Ajouter une classe CSS globale pour s'assurer que le bloc reste caché
+            const style = document.createElement('style');
+            style.textContent = `
+                .login-block-hidden {
+                    display: none !important;
+                    visibility: hidden !important;
+                }
+            `;
+            document.head.appendChild(style);
+            
+            console.log('✅ Bloc de connexion caché avec succès');
+        }
+        
+        // Fonction pour afficher le bouton "Modifier les informations"
+        function showEditButton() {
+            console.log('🔧 Affichage du bouton "Modifier les informations"');
+            
+            // Les boutons sont maintenant intégrés dans les conteneurs step3-button
+            // Ils s'affichent automatiquement quand les conteneurs step3-button s'affichent
+            console.log('✅ Boutons modifier intégrés dans les conteneurs step3-button');
+        }
+        
+        // Fonction pour basculer entre mode lecture seule et mode édition
+        function toggleEditMode() {
+            console.log('🔄 Basculement du mode édition');
+            
+            const isEditMode = document.body.classList.contains('edit-mode');
+            
+            if (isEditMode) {
+                // Passer en mode lecture seule
+                enableReadOnlyMode();
+                console.log('✅ Mode lecture seule activé');
+            } else {
+                // Passer en mode édition
+                enableEditMode();
+                console.log('✅ Mode édition activé');
+            }
+        }
+        
+        // Fonction pour activer le mode édition
+        function enableEditMode() {
+            console.log('✏️ Activation du mode édition');
+            
+            // Ajouter la classe edit-mode au body
+            document.body.classList.add('edit-mode');
+            
+            // Activer tous les champs de texte
+            const textFields = document.querySelectorAll('input[type="text"], input[type="email"], input[type="date"], input[type="password"]');
+            textFields.forEach(field => {
+                if (field.disabled) {
+                    field.disabled = false;
+                    field.readOnly = false;
+                    field.style.backgroundColor = '';
+                    field.style.cursor = '';
+                    console.log(`✅ Champ ${field.id} activé pour édition`);
+                }
+            });
+            
+            // Activer tous les boutons radio
+            const radioButtons = document.querySelectorAll('input[type="radio"]');
+            radioButtons.forEach(radio => {
+                if (radio.disabled) {
+                    radio.disabled = false;
+                    console.log(`✅ Radio ${radio.name} activé pour édition`);
+                }
+            });
+            
+            // Changer le texte du bouton
+            const editButtons = document.querySelectorAll('#edit-button-route1, #edit-button-route2');
+            editButtons.forEach(button => {
+                button.innerHTML = '<i class="fas fa-save"></i> Änderungen speichern';
+                button.classList.remove('btn-outline-primary');
+                button.classList.add('btn-success');
+                console.log('✅ Bouton changé en "Sauvegarder"');
+            });
+        }
+        
+        // Fonction pour activer le mode lecture seule
+        function enableReadOnlyMode() {
+            console.log('🔒 Activation du mode lecture seule');
+            
+            // Supprimer la classe edit-mode du body
+            document.body.classList.remove('edit-mode');
+            
+            // Désactiver tous les champs de texte
+            const textFields = document.querySelectorAll('input[type="text"], input[type="email"], input[type="date"], input[type="password"]');
+            textFields.forEach(field => {
+                if (!field.disabled) {
+                    field.disabled = true;
+                    field.readOnly = true;
+                    field.style.backgroundColor = '#f8f9fa';
+                    field.style.cursor = 'not-allowed';
+                    console.log(`✅ Champ ${field.id} désactivé (lecture seule)`);
+                }
+            });
+            
+            // Désactiver tous les boutons radio
+            const radioButtons = document.querySelectorAll('input[type="radio"]');
+            radioButtons.forEach(radio => {
+                if (!radio.disabled) {
+                    radio.disabled = true;
+                    console.log(`✅ Radio ${radio.name} désactivé (lecture seule)`);
+                }
+            });
+            
+            // Changer le texte du bouton
+            const editButtons = document.querySelectorAll('#edit-button-route1, #edit-button-route2');
+            editButtons.forEach(button => {
+                button.innerHTML = '<i class="fas fa-edit"></i> Informationen bearbeiten';
+                button.classList.remove('btn-success');
+                button.classList.add('btn-outline-primary');
+                console.log('✅ Bouton changé en "Modifier"');
+            });
+        }
+        
+    // Fonction pour afficher des modals d'erreur personnalisés
+    function showCustomErrorModal(title, message, type = 'error') {
+        console.log(`⚠️ Affichage du modal d'erreur: ${title}`);
+        
+        const modalId = 'customErrorModal_' + Date.now();
+        const iconClass = type === 'error' ? 'fas fa-exclamation-triangle' : 'fas fa-info-circle';
+        const headerColor = type === 'error' ? 'linear-gradient(135deg, #ff6b6b, #ee5a52)' : 'linear-gradient(135deg, #007bff, #0056b3)';
+        
+        const modalHtml = `
+            <div class="modal fade custom-error-modal" id="${modalId}" tabindex="-1" role="dialog" aria-labelledby="${modalId}Label" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background: ${headerColor};">
+                            <h5 class="modal-title" id="${modalId}Label">
+                                <i class="${iconClass}"></i> ${title}
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <i class="${iconClass}" style="font-size: 48px; color: ${type === 'error' ? '#ff6b6b' : '#007bff'};"></i>
+                            </div>
+                            <p class="mb-0">${message}</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">
+                                <i class="fas fa-check"></i> Verstanden
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Supprimer le modal existant s'il y en a un
+        const existingModal = document.getElementById(modalId);
+        if (existingModal) {
+            existingModal.remove();
+        }
+        
+        // Ajouter le nouveau modal au body
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+        
+        // Afficher le modal
+        $('#' + modalId).modal('show');
+        
+        // Gestionnaire d'événement pour le bouton "Verstanden"
+        $('#' + modalId + ' .btn-primary').on('click', function() {
+            console.log('Bouton "Verstanden" cliqué');
+            $('#' + modalId).modal('hide');
+        });
+        
+        // Gestionnaire d'événement pour le bouton de fermeture (X)
+        $('#' + modalId + ' .close').on('click', function() {
+            console.log('Bouton de fermeture (X) cliqué');
+            $('#' + modalId).modal('hide');
+        });
+        
+        // Supprimer le modal du DOM quand il est fermé
+        $('#' + modalId).on('hidden.bs.modal', function() {
+            console.log('Modal d\'erreur fermé et supprimé');
+            $(this).remove();
+        });
+    }
+
+    // Fonction pour afficher le modal d'erreur de sélection de quantité
+    function showQuantitySelectionErrorModal() {
+            console.log('⚠️ Affichage du modal d\'erreur de sélection de quantité');
+            
+            const modalHtml = `
+                <div class="modal fade" id="quantitySelectionErrorModal" tabindex="-1" role="dialog" aria-labelledby="quantitySelectionErrorModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header" style="background: linear-gradient(135deg, #ff6b6b, #ee5a52); color: white; border: none;">
+                                <h5 class="modal-title" id="quantitySelectionErrorModalLabel">
+                                    <i class="fas fa-exclamation-triangle"></i> Menge erforderlich
+                                </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body text-center" style="padding: 30px;">
+                                <div class="mb-3">
+                                    <i class="fas fa-info-circle" style="font-size: 48px; color: #ff6b6b;"></i>
+                                </div>
+                                <h5 class="mb-3">Mengenauswahl erforderlich</h5>
+                                <p class="mb-0">Bitte wählen Sie eine Anzahl von Bettschutzeinlagen aus, bevor Sie fortfahren.</p>
+                            </div>
+                            <div class="modal-footer" style="border: none; justify-content: center;">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal" style="background: linear-gradient(135deg, #007bff, #0056b3); border: none; padding: 10px 30px;">
+                                    <i class="fas fa-check"></i> Verstanden
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Supprimer le modal existant s'il y en a un
+            const existingModal = document.getElementById('quantitySelectionErrorModal');
+            if (existingModal) {
+                existingModal.remove();
+            }
+            
+            // Ajouter le nouveau modal au body
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+            
+            // Afficher le modal
+            $('#quantitySelectionErrorModal').modal('show');
+            
+            // Gestionnaire d'événement pour le bouton "Verstanden"
+            $('#quantitySelectionErrorModal .btn-primary').on('click', function() {
+                console.log('Bouton "Verstanden" cliqué');
+                $('#quantitySelectionErrorModal').modal('hide');
+            });
+            
+            // Gestionnaire d'événement pour le bouton de fermeture (X)
+            $('#quantitySelectionErrorModal .close').on('click', function() {
+                console.log('Bouton de fermeture (X) cliqué');
+                $('#quantitySelectionErrorModal').modal('hide');
+            });
+            
+            // Supprimer le modal du DOM quand il est fermé
+            $('#quantitySelectionErrorModal').on('hidden.bs.modal', function() {
+                console.log('Modal d\'erreur fermé et supprimé');
+                $(this).remove();
+            });
+        }
+        
         // Fonction pour afficher le modal d'erreur technique
         function showTechnicalErrorModal() {
             const modalHtml = `
@@ -4132,7 +4505,7 @@ display: flex;align-items: center; justify-content: center; "></div>
                         <div class="modal-content">
                             <div class="modal-header bg-warning text-dark">
                                 <h5 class="modal-title" id="technicalErrorModalLabel">
-                                    <i class="fas fa-tools"></i> Erreur Technique
+                                    <i class="fas fa-tools"></i> Technischer Fehler
                                 </h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
@@ -4194,18 +4567,21 @@ display: flex;align-items: center; justify-content: center; "></div>
             console.log('=== FONCTION testSearchCustomer APPELÉE ===');
             console.log('Timestamp:', new Date().toISOString());
             
+            // S'assurer que le champ mot de passe est présent
+            addPasswordField();
+            
             const email = document.getElementById('search_email').value;
             const password = document.getElementById('search_password') ? document.getElementById('search_password').value : '';
             console.log('Email saisi:', email);
             console.log('Mot de passe saisi:', password);
             
             if (!email) {
-                alert('Veuillez saisir une adresse email.');
+                showCustomErrorModal('E-Mail erforderlich', 'Bitte geben Sie eine E-Mail-Adresse ein.');
                 return;
             }
             
             if (!password) {
-                alert('Veuillez saisir un mot de passe.');
+                showCustomErrorModal('Passwort erforderlich', 'Bitte geben Sie ein Passwort ein.');
                 return;
             }
             
@@ -4236,6 +4612,9 @@ display: flex;align-items: center; justify-content: center; "></div>
                 if (data.exists && data.customer) {
                     console.log('Client trouvé:', data.customer);
                     
+                    // Cacher le bloc de connexion après connexion réussie
+                    hideLoginBlock();
+                    
                     // Remplir les champs avec logs de débogage
                     const fieldsToFill = [
                         { id: 'first_name', value: data.customer.firstName, name: 'Prénom' },
@@ -4256,7 +4635,12 @@ display: flex;align-items: center; justify-content: center; "></div>
                         const element = document.getElementById(field.id);
                         if (element) {
                             element.value = field.value || '';
-                            console.log(`✅ ${field.name} rempli: ${field.value}`);
+                            // Rendre le champ en lecture seule (comme l'étape 3)
+                            element.disabled = true;
+                            element.readOnly = true;
+                            element.style.backgroundColor = '#f8f9fa';
+                            element.style.cursor = 'not-allowed';
+                            console.log(`✅ ${field.name} rempli: ${field.value} (lecture seule)`);
                         } else {
                             console.log(`❌ Champ ${field.name} (${field.id}) non trouvé`);
                         }
@@ -4272,15 +4656,17 @@ display: flex;align-items: center; justify-content: center; "></div>
                             const versicherterRadio = document.querySelector('input[name="insured"][value="Versicherter"]');
                             if (versicherterRadio) {
                                 versicherterRadio.checked = true;
-                                console.log('✅ Radio Versicherter sélectionné');
+                                versicherterRadio.disabled = true;
+                                console.log('✅ Radio Versicherter sélectionné (lecture seule)');
                             } else {
                                 console.log('❌ Radio Versicherter non trouvé');
                             }
                         } else if (data.customer.insured_type === 'Angehöriger / Pflegeperson' || data.customer.insured_type === 'Pflegeperson') {
-                            const pflegepersonRadio = document.querySelector('input[name="insured"][value="Pflegeperson"]');
+                            const pflegepersonRadio = document.querySelector('input[name="insured"][value="Angehöriger / Pflegeperson"]');
                             if (pflegepersonRadio) {
                                 pflegepersonRadio.checked = true;
-                                console.log('✅ Radio Pflegeperson sélectionné');
+                                pflegepersonRadio.disabled = true;
+                                console.log('✅ Radio Pflegeperson sélectionné (lecture seule)');
                             } else {
                                 console.log('❌ Radio Pflegeperson non trouvé');
                             }
@@ -4294,7 +4680,8 @@ display: flex;align-items: center; justify-content: center; "></div>
                             const herrRadio = document.querySelector('input[name="title_name"][value="Herr"]');
                             if (herrRadio) {
                                 herrRadio.checked = true;
-                                console.log('✅ Radio Herr sélectionné');
+                                herrRadio.disabled = true;
+                                console.log('✅ Radio Herr sélectionné (lecture seule)');
                             } else {
                                 console.log('❌ Radio Herr non trouvé');
                             }
@@ -4302,7 +4689,8 @@ display: flex;align-items: center; justify-content: center; "></div>
                             const frauRadio = document.querySelector('input[name="title_name"][value="Frau"]');
                             if (frauRadio) {
                                 frauRadio.checked = true;
-                                console.log('✅ Radio Frau sélectionné');
+                                frauRadio.disabled = true;
+                                console.log('✅ Radio Frau sélectionné (lecture seule)');
                             } else {
                                 console.log('❌ Radio Frau non trouvé');
                             }
@@ -4337,7 +4725,8 @@ display: flex;align-items: center; justify-content: center; "></div>
                             const pflegegradRadio = document.querySelector(`input[name="Pflegegrad"][value="Pflegegrad${pflegegradValue}"]`);
                         if (pflegegradRadio) {
                             pflegegradRadio.checked = true;
-                                console.log(`✅ Radio Pflegegrad ${pflegegradValue} sélectionné (méthode 1)`);
+                            pflegegradRadio.disabled = true;
+                                console.log(`✅ Radio Pflegegrad ${pflegegradValue} sélectionné (lecture seule - méthode 1)`);
                                 pflegegradRadio.dispatchEvent(new Event('change'));
                                 return true;
                             }
@@ -4348,7 +4737,8 @@ display: flex;align-items: center; justify-content: center; "></div>
                                                   document.getElementById(`inlineRadio${pflegegradValue}`);
                             if (pflegegradById) {
                                 pflegegradById.checked = true;
-                                console.log(`✅ Radio Pflegegrad ${pflegegradValue} sélectionné (méthode 2)`);
+                                pflegegradById.disabled = true;
+                                console.log(`✅ Radio Pflegegrad ${pflegegradValue} sélectionné (lecture seule - méthode 2)`);
                                 pflegegradById.dispatchEvent(new Event('change'));
                                 return true;
                             }
@@ -4360,7 +4750,8 @@ display: flex;align-items: center; justify-content: center; "></div>
                                 console.log(`Radio ${index}: name="${radio.name}", value="${radio.value}", id="${radio.id}"`);
                                 if (radio.name === 'Pflegegrad' && radio.value === `Pflegegrad${pflegegradValue}`) {
                                     radio.checked = true;
-                                    console.log(`✅ Radio Pflegegrad ${pflegegradValue} sélectionné (méthode 3)`);
+                                    radio.disabled = true;
+                                    console.log(`✅ Radio Pflegegrad ${pflegegradValue} sélectionné (lecture seule - méthode 3)`);
                                     radio.dispatchEvent(new Event('change'));
                                     return true;
                                 }
@@ -4377,6 +4768,46 @@ display: flex;align-items: center; justify-content: center; "></div>
                             setTimeout(() => trySelectPflegegrad(), 500);
                             setTimeout(() => trySelectPflegegrad(), 1000);
                         }
+                        
+                        // Désactiver TOUS les boutons radio Pflegegrad (même ceux non sélectionnés)
+                        setTimeout(() => {
+                            const allPflegegradRadios = document.querySelectorAll('input[name="Pflegegrad"], input[name="pflegegrad"]');
+                            allPflegegradRadios.forEach(radio => {
+                                radio.disabled = true;
+                                
+                                if (radio.checked) {
+                                    // Bouton sélectionné : fond bleu et texte bleu
+                                    radio.style.backgroundColor = '#007bff';
+                                    radio.style.borderColor = '#007bff';
+                                    radio.style.setProperty('background-color', '#007bff', 'important');
+                                    radio.style.setProperty('border-color', '#007bff', 'important');
+                                    
+                                    // Style du label pour le bouton sélectionné
+                                    const label = radio.nextElementSibling;
+                                    if (label && label.tagName === 'LABEL') {
+                                        label.style.color = '#007bff';
+                                        label.style.fontWeight = '600';
+                                        label.style.setProperty('color', '#007bff', 'important');
+                                        label.style.setProperty('font-weight', '600', 'important');
+                                    }
+                                    console.log(`✅ Radio Pflegegrad sélectionné stylé en bleu: ${radio.value}`);
+                                } else {
+                                    // Bouton non sélectionné : style normal
+                                    radio.style.backgroundColor = '';
+                                    radio.style.borderColor = '';
+                                    
+                                    // Style du label pour le bouton non sélectionné
+                                    const label = radio.nextElementSibling;
+                                    if (label && label.tagName === 'LABEL') {
+                                        label.style.color = '#6c757d';
+                                        label.style.fontWeight = 'normal';
+                                        label.style.setProperty('color', '#6c757d', 'important');
+                                        label.style.setProperty('font-weight', 'normal', 'important');
+                                    }
+                                    console.log(`✅ Radio Pflegegrad non sélectionné stylé normal: ${radio.value}`);
+                                }
+                            });
+                        }, 100);
                     } else {
                         console.log('Aucun Pflegegrad trouvé dans les données client');
                     }
@@ -4427,7 +4858,7 @@ display: flex;align-items: center; justify-content: center; "></div>
                     }
                     
                     // Afficher les sections du formulaire (mais pas la section de résumé)
-                    const sectionsToShow = document.querySelectorAll('.col-md-12.why-asking, #iAm, #insured, #insured-1, #submit-section, #submit-section-2');
+                    const sectionsToShow = document.querySelectorAll('.col-md-12.why-asking, #iAm, #insured, #insured-1, #submit-section');
                     sectionsToShow.forEach(section => {
                         section.style.setProperty('display', 'block', 'important');
                     });
@@ -4464,25 +4895,131 @@ display: flex;align-items: center; justify-content: center; "></div>
                         console.log('❌ Élément consent-form-block NON TROUVÉ !');
                     }
                     
-                    // Réafficher les boutons "Weiter im Antrag" après connexion réussie
-                    const submitSections = [
-                        document.getElementById('submit-section'),
-                        document.getElementById('submit-section-main'),
-                        document.getElementById('submit-section-2')
-                    ];
-                    
-                    submitSections.forEach(section => {
-                        if (section) {
-                            section.style.display = 'block';
-                            console.log('✅ Bouton "Weiter im Antrag" affiché:', section.id);
-                        }
-                    });
+                    // Réafficher le bouton "Weiter im Antrag" après connexion réussie
+                    const submitSection = document.getElementById('submit-section');
+                    if (submitSection) {
+                        submitSection.style.display = 'block';
+                        console.log('✅ Bouton "Weiter im Antrag" affiché');
+                    }
                     
                     // Masquer les champs de mot de passe du formulaire principal lors du remplissage auto
                     const passwordFields = document.querySelectorAll('.password-fields');
                     passwordFields.forEach(field => {
                         field.style.setProperty('display', 'none', 'important');
                     });
+                    
+                    // Appliquer le style bleu spécifiquement aux boutons Pflegegrad
+                    setTimeout(() => {
+                        const pflegegradRadios = document.querySelectorAll('input[name="Pflegegrad"]:disabled, input[name="pflegegrad"]:disabled');
+                        console.log(`🔍 Trouvé ${pflegegradRadios.length} boutons radio Pflegegrad désactivés`);
+                        
+                        pflegegradRadios.forEach(radio => {
+                            const label = radio.nextElementSibling;
+                            
+                            if (radio.checked) {
+                                // Bouton sélectionné : bleu
+                                radio.style.setProperty('background-color', '#007bff', 'important');
+                                radio.style.setProperty('border-color', '#007bff', 'important');
+                                radio.style.setProperty('box-shadow', 'inset 0 0 0 2px white', 'important');
+                                
+                                if (label && label.tagName === 'LABEL') {
+                                    label.style.setProperty('color', '#007bff', 'important');
+                                    label.style.setProperty('font-weight', '600', 'important');
+                                }
+                                console.log(`✅ Pflegegrad sélectionné stylé en bleu: ${radio.value}`);
+                            } else {
+                                // Bouton non sélectionné : gris
+                                radio.style.setProperty('background-color', 'transparent', 'important');
+                                radio.style.setProperty('border-color', '#6c757d', 'important');
+                                radio.style.setProperty('box-shadow', 'none', 'important');
+                                
+                                if (label && label.tagName === 'LABEL') {
+                                    label.style.setProperty('color', '#6c757d', 'important');
+                                    label.style.setProperty('font-weight', 'normal', 'important');
+                                }
+                                console.log(`✅ Pflegegrad non sélectionné stylé en gris: ${radio.value}`);
+                            }
+                        });
+                        
+                        // Réappliquer le style après un délai pour s'assurer qu'il persiste
+                        setTimeout(() => {
+                            pflegegradRadios.forEach(radio => {
+                                if (radio.checked) {
+                                    radio.style.setProperty('background-color', '#007bff', 'important');
+                                    radio.style.setProperty('border-color', '#007bff', 'important');
+                                    const label = radio.nextElementSibling;
+                                    if (label && label.tagName === 'LABEL') {
+                                        label.style.setProperty('color', '#007bff', 'important');
+                                        label.style.setProperty('font-weight', '600', 'important');
+                                    }
+                                }
+                            });
+                        }, 500);
+                        
+                        // Appliquer le même style aux boutons radio "Versicherter/Angehöriger"
+                        const insuredRadios = document.querySelectorAll('input[name="insured"]:disabled');
+                        console.log(`🔍 Trouvé ${insuredRadios.length} boutons radio "insured" désactivés`);
+                        
+                        insuredRadios.forEach(radio => {
+                            const label = radio.nextElementSibling;
+                            
+                            if (radio.checked) {
+                                // Bouton sélectionné : bleu
+                                radio.style.setProperty('background-color', '#007bff', 'important');
+                                radio.style.setProperty('border-color', '#007bff', 'important');
+                                radio.style.setProperty('box-shadow', 'inset 0 0 0 2px white', 'important');
+                                
+                                if (label && label.tagName === 'LABEL') {
+                                    label.style.setProperty('color', '#007bff', 'important');
+                                    label.style.setProperty('font-weight', '600', 'important');
+                                }
+                                console.log(`✅ Bouton "insured" sélectionné stylé en bleu: ${radio.value}`);
+                            } else {
+                                // Bouton non sélectionné : gris
+                                radio.style.setProperty('background-color', 'transparent', 'important');
+                                radio.style.setProperty('border-color', '#6c757d', 'important');
+                                radio.style.setProperty('box-shadow', 'none', 'important');
+                                
+                                if (label && label.tagName === 'LABEL') {
+                                    label.style.setProperty('color', '#6c757d', 'important');
+                                    label.style.setProperty('font-weight', 'normal', 'important');
+                                }
+                                console.log(`✅ Bouton "insured" non sélectionné stylé en gris: ${radio.value}`);
+                            }
+                        });
+                        
+                        // Appliquer le même style aux boutons radio "Herr/Frau"
+                        const titleRadios = document.querySelectorAll('input[name="title_name"]:disabled');
+                        console.log(`🔍 Trouvé ${titleRadios.length} boutons radio "title_name" désactivés`);
+                        
+                        titleRadios.forEach(radio => {
+                            const label = radio.nextElementSibling;
+                            
+                            if (radio.checked) {
+                                // Bouton sélectionné : bleu
+                                radio.style.setProperty('background-color', '#007bff', 'important');
+                                radio.style.setProperty('border-color', '#007bff', 'important');
+                                radio.style.setProperty('box-shadow', 'inset 0 0 0 2px white', 'important');
+                                
+                                if (label && label.tagName === 'LABEL') {
+                                    label.style.setProperty('color', '#007bff', 'important');
+                                    label.style.setProperty('font-weight', '600', 'important');
+                                }
+                                console.log(`✅ Bouton "title_name" sélectionné stylé en bleu: ${radio.value}`);
+                            } else {
+                                // Bouton non sélectionné : gris
+                                radio.style.setProperty('background-color', 'transparent', 'important');
+                                radio.style.setProperty('border-color', '#6c757d', 'important');
+                                radio.style.setProperty('box-shadow', 'none', 'important');
+                                
+                                if (label && label.tagName === 'LABEL') {
+                                    label.style.setProperty('color', '#6c757d', 'important');
+                                    label.style.setProperty('font-weight', 'normal', 'important');
+                                }
+                                console.log(`✅ Bouton "title_name" non sélectionné stylé en gris: ${radio.value}`);
+                            }
+                        });
+                    }, 300);
                     
                 } else {
                     console.log('Client non trouvé - Connexion échouée');
@@ -4491,14 +5028,32 @@ display: flex;align-items: center; justify-content: center; "></div>
                     showLoginErrorModal();
                 }
                 
-                // Ajouter un événement pour afficher la valeur sélectionnée en temps réel
+                // Afficher le bouton "Weiter zur Lieferadresse" après authentification réussie
+                if (data.exists && data.customer) {
+                    console.log('✅ Authentification réussie - Affichage du bouton step3-button');
+                    const step3Button1 = document.getElementById('step3-button-route1');
+                    const step3Button2 = document.getElementById('step3-button-route2');
+                    
+                    if (step3Button1) {
+                        step3Button1.style.display = 'block';
+                        console.log('✅ Bouton step3-button-route1 affiché');
+                    }
+                    if (step3Button2) {
+                        step3Button2.style.display = 'block';
+                        console.log('✅ Bouton step3-button-route2 affiché');
+                    }
+                    
+                    // Afficher le bouton "Modifier les informations"
+                    showEditButton();
+                }
+                
+                // Désactiver l'affichage de la valeur sélectionnée
                 $('input[name="inlineRadioOptions5"], input[name="inlineRadioOptions5_2"]').on('change', function() {
                     const selectedValue = $(this).val();
                     if (selectedValue) {
-                        const displayText = selectedValue === 'option5' ? 'Gesetzlich versichert (Kostenübernahme durch die Pflegekasse)' : 'Privat versichert';
-                        $('#insurance-type-value').text(displayText);
-                        $('#insurance-type-display').show();
-                        console.log('Radio button changed to:', selectedValue, 'Display text:', displayText);
+                        // Masquer le bloc d'affichage de la valeur sélectionnée
+                        $('#insurance-type-display').hide();
+                        console.log('Radio button changed to:', selectedValue, 'Display hidden');
                     } else {
                         $('#insurance-type-display').hide();
                     }
@@ -4882,10 +5437,10 @@ display: flex;align-items: center; justify-content: center; "></div>
             }
 
             if ($('input[type=checkbox][name=condition_chcek]:checked').length == 0) {
-                $('.condition_chcek_error_msg').text("Please accept the terms and conditions");
+                $('.condition_chcek_error_msg').text("Bitte akzeptieren Sie die Allgemeinen Geschäftsbedingungen");
                 addErrorClass('input[type=checkbox][name=condition_chcek]');
                 isValid = false;
-                errorMessages.push("Please accept the terms and conditions");
+                errorMessages.push("Bitte akzeptieren Sie die Allgemeinen Geschäftsbedingungen");
             } else {
                 $('.condition_chcek_error_msg').text("");
                 removeErrorClass('input[type=checkbox][name=condition_chcek]');
@@ -4904,19 +5459,19 @@ display: flex;align-items: center; justify-content: center; "></div>
 
             // Vérifier si l'email existe déjà (seulement si pas trouvé par recherche)
             if (emailExists && !emailFoundBySearch) {
-                alert('Diese E-Mail-Adresse existiert bereits in unserer Datenbank. Bitte verwenden Sie eine andere E-Mail-Adresse oder suchen Sie den bestehenden Kunden.');
+                showCustomErrorModal('E-Mail bereits vorhanden', 'Diese E-Mail-Adresse existiert bereits in unserer Datenbank. Bitte verwenden Sie eine andere E-Mail-Adresse oder suchen Sie den bestehenden Kunden.');
                 return false;
             }
-
+            
             // Vérifier si le numéro d'assurance existe déjà (seulement si pas trouvé par recherche)
             if (insuranceNumberExists && !insuranceNumberFoundBySearch) {
-                alert('Diese Versichertennummer existiert bereits in unserer Datenbank. Bitte verwenden Sie eine andere Versichertennummer.');
+                showCustomErrorModal('Versichertennummer bereits vorhanden', 'Diese Versichertennummer existiert bereits in unserer Datenbank. Bitte verwenden Sie eine andere Versichertennummer.');
                 return false;
             }
-
+            
             // Vérifier si le numéro de Krankenkasse existe déjà (seulement si pas trouvé par recherche)
             if (krankenkasseNumberExists && !krankenkasseNumberFoundBySearch) {
-                alert('Diese Krankenkassen-Nummer existiert bereits in unserer Datenbank. Bitte verwenden Sie eine andere Krankenkassen-Nummer.');
+                showCustomErrorModal('Krankenkassen-Nummer bereits vorhanden', 'Diese Krankenkassen-Nummer existiert bereits in unserer Datenbank. Bitte verwenden Sie eine andere Krankenkassen-Nummer.');
                 return false;
             }
 
@@ -4925,7 +5480,7 @@ display: flex;align-items: center; justify-content: center; "></div>
             
             if (!isValid) {
                 // Afficher les erreurs
-                alert('Validation failed: ' + errorMessages.join(', '));
+                showCustomErrorModal('Validierung fehlgeschlagen', 'Bitte überprüfen Sie Ihre Eingaben: ' + errorMessages.join(', '));
                 
                 // Empêcher le passage à l'étape 3
                 return false;
@@ -4950,6 +5505,12 @@ display: flex;align-items: center; justify-content: center; "></div>
 
             var u_city = $("#city").val();
             $('#Dcity').val(u_city);
+
+            // Sauvegarder les données du formulaire AVANT de masquer l'étape 2
+            console.log('=== SAUVEGARDE AVANT MASQUAGE ÉTAPE 2 ===');
+            console.log('🚀 APPEL DE SAVEFORMDATA MAINTENANT !');
+            saveFormData();
+            console.log('✅ SAVEFORMDATA TERMINÉ !');
 
             // Transition vers l'étape 3 après validation réussie
             $("#step2").css("display", "none");
@@ -5558,7 +6119,7 @@ display: flex;align-items: center; justify-content: center; "></div>
                 userDetails['pflegegrad'] = pflegegradValue.replace('Pflegegrad', '');
             } else {
                 // Essayer avec l'autre nom d'input
-                var pflegegradValue2 = $('input[name="pflegegrad"]:checked').val();
+                var pflegegradValue2 = $('input[name="Pflegegrad"]:checked').val();
                 userDetails['pflegegrad'] = pflegegradValue2;
             }
             console.log('Pflegegrad value:', userDetails['pflegegrad']);
@@ -5587,7 +6148,7 @@ display: flex;align-items: center; justify-content: center; "></div>
             console.log('Print contents length:', printContents.length);
             
             if (printContents.length === 0) {
-                alert('Template PDF1 vide! Vérifiez que printableArea1 contient du contenu.');
+                showCustomErrorModal('PDF Template leer', 'Template PDF1 ist leer! Bitte überprüfen Sie, dass printableArea1 Inhalt enthält.');
                 return;
             }
             
@@ -6479,11 +7040,11 @@ display: flex;align-items: center; justify-content: center; "></div>
                 .then(response => response.json())
                 .then(data => {
                     console.log('Session Data:', data);
-                    alert('Session Data: ' + JSON.stringify(data, null, 2));
+                    showCustomErrorModal('Session Data', 'Session Data: ' + JSON.stringify(data, null, 2), 'info');
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert('Error: ' + error);
+                    showCustomErrorModal('Fehler', 'Error: ' + error);
                 });
         }
         
@@ -6899,7 +7460,19 @@ display: flex;align-items: center; justify-content: center; "></div>
             // Activer le mode custom automatiquement
             setTimeout(() => {
                 toggleCustomMode();
+                // Changer le bouton pour utiliser checkout_btn au lieu de checkout_btn_pkg
+                updateCheckoutButton();
             }, 500);
+        }
+        
+        // Fonction pour mettre à jour le bouton de checkout
+        function updateCheckoutButton() {
+            const checkoutBtn = document.getElementById('checkout-btn');
+            if (checkoutBtn && window.isCustomBox) {
+                // Changer l'onclick pour utiliser checkout_btn au lieu de checkout_btn_pkg
+                checkoutBtn.setAttribute('onclick', 'checkout_btn()');
+                console.log('✅ Bouton checkout mis à jour pour le mode custom');
+            }
         }
 
         // Vérifier si on vient de custom-assemble (redirection)
@@ -7394,7 +7967,7 @@ display: flex;align-items: center; justify-content: center; "></div>
             console.log('Bloc trouvé:', angehorigerBlock.length > 0);
             console.log('Classes actuelles:', angehorigerBlock.attr('class'));
             
-            if (selectedOption === 'Pflegeperson') {
+            if (selectedOption === 'Angehöriger / Pflegeperson') {
                 // Afficher le bloc si "Angehöriger / Pflegeperson" est sélectionné
                 angehorigerBlock.removeClass('d-none');
                 console.log('Bloc affiché - Classes après:', angehorigerBlock.attr('class'));
@@ -7473,6 +8046,9 @@ display: flex;align-items: center; justify-content: center; "></div>
             window.isCustomBox = true; // Marquer comme box personnalisée
             console.log('Variable currentMode mise à jour:', currentMode);
             console.log('isCustomBox défini à true');
+            
+            // Mettre à jour le bouton de checkout
+            updateCheckoutButton();
             
             // Ajouter le paramètre mode=custom à l'URL
             const url = new URL(window.location);
@@ -7571,8 +8147,131 @@ display: flex;align-items: center; justify-content: center; "></div>
             })
         };
 
+        // Variables globales pour stocker les données du formulaire
+        window.formData = {};
+        
+        // Fonction pour sauvegarder les données du formulaire
+        function saveFormData() {
+            console.log('=== SAUVEGARDE DES DONNÉES DU FORMULAIRE ===');
+            
+            // Debug spécifique pour pflegegrad
+            console.log('=== DEBUG PFLEGEGRAD DANS SAVEFORMDATA ===');
+            
+            // Vérifier l'état de l'étape 2 AVANT de chercher les champs
+            console.log('Étape 2 visible?', $('#step2').is(':visible'));
+            console.log('Étape 2 display:', $('#step2').css('display'));
+            console.log('Étape 2 existe?', $('#step2').length > 0);
+            
+            // Chercher TOUS les inputs pflegegrad dans le document entier
+            console.log('Recherche de tous les inputs pflegegrad dans le document...');
+            const allPflegegradInputs = document.querySelectorAll('input[name="Pflegegrad"]');
+            console.log('Nombre total d\'inputs pflegegrad trouvés:', allPflegegradInputs.length);
+            
+            // Debug : chercher TOUS les inputs dans l'étape 2
+            console.log('=== DEBUG : TOUS LES INPUTS DANS L\'ÉTAPE 2 ===');
+            const step2Inputs = document.querySelectorAll('#step2 input');
+            console.log('Nombre total d\'inputs dans l\'étape 2:', step2Inputs.length);
+            step2Inputs.forEach((input, index) => {
+                console.log(`Input ${index}:`, {
+                    name: input.name,
+                    id: input.id,
+                    type: input.type,
+                    value: input.value,
+                    checked: input.checked
+                });
+            });
+            
+            // Chercher spécifiquement les inputs avec "pflegegrad" dans le nom ou l'id
+            const pflegegradInputs = document.querySelectorAll('input[name*="pflegegrad"], input[id*="pflegegrad"]');
+            console.log('Inputs contenant "pflegegrad" dans name ou id:', pflegegradInputs.length);
+            pflegegradInputs.forEach((input, index) => {
+                console.log(`Pflegegrad input ${index}:`, {
+                    name: input.name,
+                    id: input.id,
+                    value: input.value,
+                    checked: input.checked
+                });
+            });
+            
+            // Si aucun champ trouvé, attendre un peu et réessayer
+            if (allPflegegradInputs.length === 0) {
+                console.log('Aucun champ pflegegrad trouvé, attente de 100ms...');
+                setTimeout(() => {
+                    const retryInputs = document.querySelectorAll('input[name="Pflegegrad"]');
+                    console.log('Après attente - Nombre d\'inputs pflegegrad trouvés:', retryInputs.length);
+                    if (retryInputs.length > 0) {
+                        console.log('Champs pflegegrad trouvés après attente !');
+                        retryInputs.forEach((input, index) => {
+                            console.log(`Pflegegrad ${index} (après attente):`, {
+                                id: input.id,
+                                value: input.value,
+                                checked: input.checked,
+                                visible: input.offsetParent !== null
+                            });
+                        });
+                    }
+                }, 100);
+            }
+            
+            // Chercher avec jQuery
+            const pflegegradChecked = $('input[name="Pflegegrad"]:checked');
+            console.log('Pflegegrad checked elements (jQuery):', pflegegradChecked.length);
+            console.log('All pflegegrad inputs (jQuery):', $('input[name="Pflegegrad"]').length);
+            
+            // Vérifier chaque input individuellement
+            allPflegegradInputs.forEach((input, index) => {
+                console.log(`Pflegegrad ${index}:`, {
+                    id: input.id,
+                    value: input.value,
+                    checked: input.checked,
+                    visible: input.offsetParent !== null,
+                    parentElement: input.parentElement?.tagName,
+                    step2Visible: $('#step2').is(':visible')
+                });
+            });
+            
+            // Essayer de récupérer la valeur même si l'étape est masquée
+            const pflegegradValue = $('input[name="Pflegegrad"]:checked').val();
+            console.log('Valeur pflegegrad récupérée:', pflegegradValue);
+            
+            window.formData = {
+                first_name: $('#first_name').val(),
+                last_name: $('#last_name').val(),
+                streetno: $('#streetno').val(),
+                houseno: $('#houseno').val(),
+                zip: $('#zip').val(),
+                city: $('#city').val(),
+                dob: $('#Gaburtadatum').val(),
+                telno: $('#telno').val(),
+                email: $('#email2').val(),
+                angehoriger_name: $('#angehoriger_name').val(),
+                angehoriger_telefon: $('#angehoriger_telefon').val(),
+                angehoriger_email: $('#angehoriger_email').val(),
+                health_insurance: $('#health-insurance').val(),
+                insurance_no: $('#insurance-no').val(),
+                KrankenkasseNummer: $('#KrankenkasseNummer').val(),
+                pflegegrad: $('input[name="Pflegegrad"]:checked').val(),
+                insurance_type: $('input[name="inlineRadioOptions5"]:checked').val() || $('input[name="inlineRadioOptions5_2"]:checked').val(),
+                surname: $('input[name="title_name"]:checked').val(),
+                title_name: $('input[name="title_name"]:checked').val(),
+                insured_type: $('input[name="insured"]:checked').val()
+            };
+            console.log('Données sauvegardées:', window.formData);
+        }
+        
         function signature() {
             console.log('=== Passage à l\'étape 5 - Résumé ===');
+            
+            // Debug de l'état des étapes
+            console.log('=== ÉTAT DES ÉTAPES AVANT SAUVEGARDE ===');
+            console.log('Étape 1 visible:', $('#step1').is(':visible'));
+            console.log('Étape 2 visible:', $('#step2').is(':visible'));
+            console.log('Étape 3 visible:', $('#step3').is(':visible'));
+            console.log('Étape 4 visible:', $('#step4').is(':visible'));
+            console.log('Étape 5 visible:', $('#step5').is(':visible'));
+            
+            // Sauvegarder les données du formulaire avant de masquer l'étape 2
+            saveFormData();
             
             // Remplir le résumé avec les données du formulaire
             fillSummaryData();
@@ -7887,9 +8586,8 @@ display: flex;align-items: center; justify-content: center; "></div>
                 }
                 
                 if (selectedValue) {
-                    const displayText = selectedValue === 'option5' ? 'Gesetzlich versichert (Kostenübernahme durch die Pflegekasse)' : 'Privat versichert';
-                    $('#insurance-type-value').text(displayText);
-                    $('#insurance-type-display').show();
+                    // Masquer le bloc d'affichage de la valeur sélectionnée
+                    $('#insurance-type-display').hide();
                 } else {
                     $('#insurance-type-display').hide();
                 }
@@ -8012,21 +8710,62 @@ display: flex;align-items: center; justify-content: center; "></div>
                 } else {
                 }
                 
-                userDetails['first_name'] = $('#first_name').val();
-                userDetails['last_name'] = $('#last_name').val();
-                userDetails['streetno'] = $('#streetno').val();
-                userDetails['houseno'] = $('#houseno').val();
-                userDetails['zip'] = $('#zip').val();
-                userDetails['city'] = $('#city').val();
-                userDetails['dob'] = $('#Gaburtadatum').val();
-                userDetails['telno'] = $('#telno').val();
-                userDetails['email'] = $('#email2').val();
-                userDetails['angehoriger_name'] = $('#angehoriger_name').val();
-                userDetails['angehoriger_telefon'] = $('#angehoriger_telefon').val();
-                userDetails['angehoriger_email'] = $('#angehoriger_email').val();
-                userDetails['health_insurance'] = $('#health-insurance').val();
-                userDetails['insurance_no'] = $('#insurance-no').val();
-                userDetails['KrankenkasseNummer'] = $('#KrankenkasseNummer').val();
+                // Debug des valeurs des champs
+                console.log('=== DEBUG CHECKOUT BTN PKG ===');
+                console.log('Données sauvegardées:', window.formData);
+                
+                // Debug spécifique pour pflegegrad dans checkout
+                console.log('=== DEBUG PFLEGEGRAD DANS CHECKOUT ===');
+                console.log('window.formData.pflegegrad:', window.formData.pflegegrad);
+                console.log('Type de pflegegrad:', typeof window.formData.pflegegrad);
+                console.log('Pflegegrad est vide?', window.formData.pflegegrad === '');
+                console.log('Pflegegrad est null?', window.formData.pflegegrad === null);
+                console.log('Pflegegrad est undefined?', window.formData.pflegegrad === undefined);
+                
+                // Vérifier les champs pflegegrad directement
+                console.log('=== VÉRIFICATION DIRECTE DES CHAMPS PFLEGEGRAD ===');
+                console.log('Champs pflegegrad trouvés:', $('input[name="Pflegegrad"]').length);
+                $('input[name="Pflegegrad"]').each(function(index) {
+                    console.log(`Pflegegrad ${index}:`, {
+                        id: $(this).attr('id'),
+                        value: $(this).val(),
+                        checked: $(this).is(':checked'),
+                        visible: $(this).is(':visible'),
+                        parent: $(this).parent().attr('class')
+                    });
+                });
+                
+                // Vérifier si un pflegegrad est sélectionné
+                const selectedPflegegrad = $('input[name="Pflegegrad"]:checked');
+                console.log('Pflegegrad sélectionné:', selectedPflegegrad.length);
+                if (selectedPflegegrad.length > 0) {
+                    console.log('Valeur du pflegegrad sélectionné:', selectedPflegegrad.val());
+                } else {
+                    console.log('AUCUN PFLEGEGRAD SÉLECTIONNÉ !');
+                }
+                
+                // Utiliser les données sauvegardées au lieu des champs masqués
+                userDetails['first_name'] = window.formData.first_name || '';
+                userDetails['last_name'] = window.formData.last_name || '';
+                userDetails['streetno'] = window.formData.streetno || '';
+                userDetails['houseno'] = window.formData.houseno || '';
+                userDetails['zip'] = window.formData.zip || '';
+                userDetails['city'] = window.formData.city || '';
+                userDetails['dob'] = window.formData.dob || '';
+                userDetails['telno'] = window.formData.telno || '';
+                userDetails['email'] = window.formData.email || '';
+                userDetails['angehoriger_name'] = window.formData.angehoriger_name || '';
+                userDetails['angehoriger_telefon'] = window.formData.angehoriger_telefon || '';
+                userDetails['angehoriger_email'] = window.formData.angehoriger_email || '';
+                userDetails['health_insurance'] = window.formData.health_insurance || '';
+                userDetails['insurance_no'] = window.formData.insurance_no || '';
+                userDetails['KrankenkasseNummer'] = window.formData.KrankenkasseNummer || '';
+                userDetails['pflegegrad'] = window.formData.pflegegrad || '';
+                userDetails['surname'] = window.formData.surname || '';
+                userDetails['title_name'] = window.formData.title_name || '';
+                userDetails['insured_type'] = window.formData.insured_type || '';
+                
+                console.log('Final userDetails:', userDetails);
                 personalInformation.push(userDetails);
 
 
@@ -8102,6 +8841,438 @@ display: flex;align-items: center; justify-content: center; "></div>
                         Verstanden
                     </button>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Fonction manquante pour gérer le changement de Pflegegrad
+    function pflegegrad() {
+        console.log('=== FONCTION PFLEGEGRAD APPELÉE ===');
+        
+        // Vérifier si un Pflegegrad est sélectionné
+        const selectedPflegegrad = document.querySelector('input[name="Pflegegrad"]:checked');
+        
+        if (selectedPflegegrad) {
+            console.log('Pflegegrad sélectionné:', selectedPflegegrad.value);
+            
+            // Afficher le bouton "Weiter im Antrag"
+            const submitSection = document.getElementById('submit-section');
+            if (submitSection) {
+                submitSection.style.display = 'block';
+                console.log('✅ Bouton "Weiter im Antrag" affiché');
+            } else {
+                console.log('❌ Section submit-section non trouvée');
+            }
+            
+            // Afficher aussi le bloc de consentement si nécessaire
+            const consentBlock = document.getElementById('consent-block-step2');
+            if (consentBlock) {
+                consentBlock.style.display = 'block';
+                console.log('✅ Bloc de consentement affiché');
+            }
+            
+        } else {
+            console.log('Aucun Pflegegrad sélectionné');
+            
+            // Masquer le bouton si aucun Pflegegrad n'est sélectionné
+            const submitSection = document.getElementById('submit-section');
+            if (submitSection) {
+                submitSection.style.display = 'none';
+                console.log('❌ Bouton "Weiter im Antrag" masqué');
+            }
+        }
+    }
+    
+        // Fonction pour passer à l'étape 3
+        function goToStep3() {
+            console.log('=== VALIDATION ET PASSAGE À L\'ÉTAPE 3 ===');
+            
+            // Exécuter directement la validation sans afficher le bouton second-button
+            // Vérifier quelle route est active
+            const submitSection1 = document.getElementById('submit-section');
+            const submitSection2 = document.getElementById('submit-section-route2');
+            
+            if (submitSection1 && submitSection1.offsetParent !== null) {
+                // Route 1 active - utiliser second-button
+                console.log('✅ Utilisation de second-button (route 1)');
+                $(".second-button").click();
+            } else if (submitSection2) {
+                // Route 2 active - utiliser second-button-route2
+                console.log('✅ Utilisation de second-button-route2 (route 2)');
+                $(".second-button-route2").click();
+            } else {
+                console.log('❌ Aucun bouton de validation trouvé');
+                showCustomErrorModal('Fehler', 'Erreur: Bouton de validation non trouvé');
+            }
+        }
+        
+        // Fonction pour passer de l'étape 1 à l'étape 2
+        function goToStep2() {
+            console.log('=== PASSAGE DE L\'ÉTAPE 1 À L\'ÉTAPE 2 ===');
+            
+            // Masquer l'étape 1
+            $("#step1").css("display", "none");
+            
+            // Afficher l'étape 2
+            $("#step2").css("display", "block");
+            
+            // Mettre à jour les classes des étapes
+            $(".step1").removeClass("active");
+            $(".step2").addClass("active");
+            
+            console.log('✅ Passage à l\'étape 2 effectué');
+        }
+        
+            // Gestionnaire d'événement pour le bouton "Weiter zu Ihren Kontaktdaten"
+        $(document).ready(function() {
+            $('.bed_protector_modal').click(function(e) {
+                e.preventDefault();
+                console.log('Bouton "Weiter zu Ihren Kontaktdaten" cliqué');
+                
+                // Ouvrir le modal des protections de lit
+                $('#bed_protector_modal').modal('show');
+            });
+            
+            // Gestionnaire d'événement pour le bouton "Schließen"
+            $(document).on('click', '#bed_protector_modal .btn_secondary', function(e) {
+                e.preventDefault();
+                console.log('Bouton "Schließen" cliqué');
+                $('#bed_protector_modal').modal('hide');
+            });
+            
+            // Gestionnaire d'événement pour le bouton "Weiter mit Bettschutzeinlagen"
+            $('.with-bed-protection').click(function(e) {
+                e.preventDefault();
+                console.log('Bouton "Weiter mit Bettschutzeinlagen" cliqué');
+                
+                // Vérifier qu'une quantité est sélectionnée
+                const selectedQuantity = $('input[name="number_of_bed"]:checked').val();
+                console.log('Quantité sélectionnée:', selectedQuantity);
+                
+                if (!selectedQuantity) {
+                    // Afficher un modal d'erreur si aucune quantité n'est sélectionnée
+                    showQuantitySelectionErrorModal();
+                    return;
+                }
+                
+                // Fermer le modal
+                $('#bed_protector_modal').modal('hide');
+                
+                // Passer à l'étape 2
+                goToStep2();
+            });
+            
+            // Gestionnaire d'événement pour le bouton second-button-route2
+            $('.second-button-route2').click(function() {
+                console.log('=== VALIDATION AVEC SECOND-BUTTON-ROUTE2 ===');
+                
+                // Variable pour vérifier si tous les champs sont valides
+                var isValid = true;
+                var errorMessages = [];
+                
+                // Fonction pour ajouter/enlever la classe error
+                function addErrorClass(selector) {
+                    $(selector).addClass('error');
+                }
+                
+                function removeErrorClass(selector) {
+                    $(selector).removeClass('error');
+                }
+
+                // Validation des champs requis
+                if ($('input[type=radio][name=insured]:checked').length == 0) {
+                    $('.insured_error_msg').text("Bitte wählen Sie aus, ob Sie versichert oder Pflegeperson sind");
+                    addErrorClass('input[type=radio][name=insured]');
+                    isValid = false;
+                    errorMessages.push("Bitte wählen Sie aus, ob Sie versichert oder Pflegeperson sind");
+                } else {
+                    $('.insured_error_msg').text("");
+                    removeErrorClass('input[type=radio][name=insured]');
+                }
+
+                if ($('input[type=radio][name=title_name]:checked').length == 0) {
+                    $('.title_name_error_msg').text("Bitte wählen Sie Ihre Anrede (Herr/Frau)");
+                    addErrorClass('input[type=radio][name=title_name]');
+                    isValid = false;
+                    errorMessages.push("Bitte wählen Sie Ihre Anrede (Herr/Frau)");
+                } else {
+                    $('.title_name_error_msg').text("");
+                    removeErrorClass('input[type=radio][name=title_name]');
+                }
+
+                if ($("#first_name").val() == '') {
+                    $('.first_name_error_msg').text("Bitte geben Sie den Vornamen ein");
+                    addErrorClass('#first_name');
+                    isValid = false;
+                    errorMessages.push("Bitte geben Sie den Vornamen ein");
+                } else {
+                    $('.first_name_error_msg').text("");
+                    removeErrorClass('#first_name');
+                }
+
+                if ($("#last_name").val() == '') {
+                    $('.last_name_error_msg').text("Bitte geben Sie den Nachnamen ein");
+                    addErrorClass('#last_name');
+                    isValid = false;
+                    errorMessages.push("Bitte geben Sie den Nachnamen ein");
+                } else {
+                    $('.last_name_error_msg').text("");
+                    removeErrorClass('#last_name');
+                }
+
+                if ($("#streetno").val() == '') {
+                    $('.streetno_error_msg').text("Bitte geben Sie die Straße ein");
+                    addErrorClass('#streetno');
+                    isValid = false;
+                    errorMessages.push("Bitte geben Sie die Straße ein");
+                } else {
+                    $('.streetno_error_msg').text("");
+                    removeErrorClass('#streetno');
+                }
+
+                if ($("#houseno").val() == '') {
+                    $('.houseno_error_msg').text("Bitte geben Sie die Hausnummer ein");
+                    addErrorClass('#houseno');
+                    isValid = false;
+                    errorMessages.push("Bitte geben Sie die Hausnummer ein");
+                } else {
+                    $('.houseno_error_msg').text("");
+                    removeErrorClass('#houseno');
+                }
+
+                if ($("#zip").val() == '') {
+                    $('.zip_error_msg').text("Bitte geben Sie die PLZ ein");
+                    addErrorClass('#zip');
+                    isValid = false;
+                    errorMessages.push("Bitte geben Sie die PLZ ein");
+                } else {
+                    $('.zip_error_msg').text("");
+                    removeErrorClass('#zip');
+                }
+
+                if ($("#city").val() == '') {
+                    $('.city_error_msg').text("Bitte geben Sie den Ort ein");
+                    addErrorClass('#city');
+                    isValid = false;
+                    errorMessages.push("Bitte geben Sie den Ort ein");
+                } else {
+                    $('.city_error_msg').text("");
+                    removeErrorClass('#city');
+                }
+
+                if ($("#Gaburtadatum").val() == '') {
+                    $('.gaburtadatum_error_msg').text("Bitte geben Sie das Geburtsdatum ein");
+                    addErrorClass('#Gaburtadatum');
+                    isValid = false;
+                    errorMessages.push("Bitte geben Sie das Geburtsdatum ein");
+                } else {
+                    $('.gaburtadatum_error_msg').text("");
+                    removeErrorClass('#Gaburtadatum');
+                }
+
+                if ($("#telno").val() == '') {
+                    $('.telno_error_msg').text("Bitte geben Sie die Telefonnummer ein");
+                    addErrorClass('#telno');
+                    isValid = false;
+                    errorMessages.push("Bitte geben Sie die Telefonnummer ein");
+                } else {
+                    $('.telno_error_msg').text("");
+                    removeErrorClass('#telno');
+                }
+
+                if ($("#email2").val() == '') {
+                    $('.email2_error_msg').text("Bitte geben Sie die E-Mail-Adresse ein");
+                    addErrorClass('#email2');
+                    isValid = false;
+                    errorMessages.push("Bitte geben Sie die E-Mail-Adresse ein");
+                } else {
+                    $('.email2_error_msg').text("");
+                    removeErrorClass('#email2');
+                }
+
+                // Validation des champs d'assurance
+                if ($("#health-insurance").val() == '') {
+                    $('.hinsurance_error_msg').text("Bitte geben Sie den Krankenkassen-Namen ein");
+                    addErrorClass('#health-insurance');
+                    isValid = false;
+                    errorMessages.push("Bitte geben Sie den Krankenkassen-Namen ein");
+                } else {
+                    $('.hinsurance_error_msg').text("");
+                    removeErrorClass('#health-insurance');
+                }
+
+                if ($("#insurance-no").val() == '') {
+                    $('.insuranceno_error_msg').text("Bitte geben Sie die Versicherungsnummer ein");
+                    addErrorClass('#insurance-no');
+                    isValid = false;
+                    errorMessages.push("Bitte geben Sie die Versicherungsnummer ein");
+                } else {
+                    $('.insuranceno_error_msg').text("");
+                    removeErrorClass('#insurance-no');
+                }
+
+                if ($("#KrankenkasseNummer").val() == '') {
+                    $('.krankenkasse_error_msg').text("Bitte geben Sie die Krankenkassen-Nummer ein");
+                    addErrorClass('#KrankenkasseNummer');
+                    isValid = false;
+                    errorMessages.push("Bitte geben Sie die Krankenkassen-Nummer ein");
+                } else {
+                    $('.krankenkasse_error_msg').text("");
+                    removeErrorClass('#KrankenkasseNummer');
+                }
+
+                // Validation du type d'assurance
+                const insuranceType1 = $('input[type=radio][name=inlineRadioOptions5]:checked').length;
+                const insuranceType2 = $('input[type=radio][name=inlineRadioOptions5_2]:checked').length;
+                
+                if (insuranceType1 == 0 && insuranceType2 == 0) {
+                    $('.inlineRadioOptions5_error_msg, .inlineRadioOptions5_2_error_msg').text("Bitte wählen Sie den Versicherungstyp");
+                    addErrorClass('input[type=radio][name=inlineRadioOptions5], input[type=radio][name=inlineRadioOptions5_2]');
+                    isValid = false;
+                    errorMessages.push("Bitte wählen Sie den Versicherungstyp");
+                } else {
+                    $('.inlineRadioOptions5_error_msg, .inlineRadioOptions5_2_error_msg').text("");
+                    removeErrorClass('input[type=radio][name=inlineRadioOptions5], input[type=radio][name=inlineRadioOptions5_2]');
+                }
+
+                // Validation du Pflegegrad (vérifier les deux noms possibles)
+                const pflegegradChecked1 = $('input[type=radio][name=pflegegrad]:checked').length;
+                const pflegegradChecked2 = $('input[type=radio][name=Pflegegrad]:checked').length;
+                
+                if (pflegegradChecked1 == 0 && pflegegradChecked2 == 0) {
+                    $('.pflegegrad_error_msg').text("Bitte wählen Sie einen Pflegegrad");
+                    addErrorClass('input[type=radio][name=pflegegrad], input[type=radio][name=Pflegegrad]');
+                    isValid = false;
+                    errorMessages.push("Bitte wählen Sie einen Pflegegrad");
+                } else {
+                    $('.pflegegrad_error_msg').text("");
+                    removeErrorClass('input[type=radio][name=pflegegrad], input[type=radio][name=Pflegegrad]');
+                }
+
+                // Validation du consentement
+                if ($('input[type=checkbox][name=condition_chcek]:checked').length == 0) {
+                    $('.condition_chcek_error_msg').text("Bitte akzeptieren Sie die Allgemeinen Geschäftsbedingungen");
+                    addErrorClass('input[type=checkbox][name=condition_chcek]');
+                    isValid = false;
+                    errorMessages.push("Bitte akzeptieren Sie die Allgemeinen Geschäftsbedingungen");
+                } else {
+                    $('.condition_chcek_error_msg').text("");
+                    removeErrorClass('input[type=checkbox][name=condition_chcek]');
+                }
+
+                // Si la validation échoue
+                if (!isValid) {
+                    showCustomErrorModal('Validierung fehlgeschlagen', 'Bitte überprüfen Sie Ihre Eingaben: ' + errorMessages.join(', '));
+                    return false;
+                } else {
+                    console.log('Validation passed - proceeding to step 3');
+                }
+
+                // Remplir les champs de l'étape 3 avec les données du formulaire
+                var u_name = $("#first_name").val() + ' ' + $("#last_name").val();
+                $('#Drecipient_name').val(u_name);
+
+                var u_streetno = $("#streetno").val();
+                $('#Dstreetno').val(u_streetno);
+
+                var u_houseno = $("#houseno").val();
+                $('#Dhouseno').val(u_houseno);
+
+                var u_zip = $("#zip").val();
+                $('#Dzip').val(u_zip);
+
+                var u_city = $("#city").val();
+                $('#Dcity').val(u_city);
+
+                // Sauvegarder les données du formulaire
+                console.log('=== SAUVEGARDE AVANT MASQUAGE ÉTAPE 2 ===');
+                saveFormData();
+
+                // Transition vers l'étape 3 après validation réussie
+                $("#step2").css("display", "none");
+                $("#step3").css("display", "block");
+                $(".step2").removeClass("active");
+                $(".step3").addClass("active");
+                
+                // Forcer les couleurs après changement d'étape
+                setTimeout(function() {
+                    forceStepColors();
+                }, 100);
+
+                console.log('✅ Passage à l\'étape 3 effectué avec second-button-route2');
+            });
+        });
+</script>
+
+<!-- Modal des protections de lit réutilisables -->
+<div class="modal" style="display: none" id="bed_protector_modal" tabindex="-1" aria-labelledby="add_bed_protector" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header d-block text-center">
+                <h4 class="modal-title" id="add_bed_protector">Wiederverwendbare
+                    Bettschutzeinlagen</h4>
+                <p>Bis zu 250 Mal waschbar.</p>
+            </div>
+            <div class="modal-body">
+                <div class="cure-box-modal-content">
+                    <img src="{{asset('frontend/assets/images/backgrounds/produkt-wiederverwbettschutzeinl.png')}}" class="img-fluid">
+                    <div class="image-content">
+                        <h6>Zusätzlich zu Ihren 42€</h6>
+                        <h4>Extra Schutz für 0,00€</h4>
+                        <p>statt 26,16€ pro Stück</p>
+                    </div>
+                    <h6>Wie viele Bettschutzeinlagen möchten Sie kostenfrei erhalten?</h6>
+                    <div class="product-count-list">
+                        <div class="lengend-action-buttons lengend-action-buttons-first">
+                            <label for="d3_graph_chart0011day" class="prod-count">
+                                <input type="radio" name="number_of_bed" onchange="pdBedProtection()" id="d3_graph_chart0011day" value="1">
+                                <span>
+                                    <p>1</p>
+                                </span>
+                            </label>
+                        </div>
+
+                        <div class="lengend-action-buttons lengend-action-buttons-first">
+                            <label for="d3_graph_chart0017day" class="prod-count">
+                                <input type="radio" name="number_of_bed" onchange="pdBedProtection()" id="d3_graph_chart0017day" value="2">
+                                <span>
+                                    <p>2</p>
+                                </span>
+                            </label>
+                        </div>
+
+                        <div class="lengend-action-buttons lengend-action-buttons-first">
+                            <label for="d3_graph_chart00130day" class="prod-count">
+                                <input type="radio" name="number_of_bed" onchange="pdBedProtection()" id="d3_graph_chart00130day" value="3">
+                                <span>
+                                    <p>3</p>
+                                </span>
+                            </label>
+                        </div>
+
+                        <div class="lengend-action-buttons lengend-action-buttons-first">
+                            <label for="d3_graph_chart00190day" class="prod-count">
+                                <input type="radio" name="number_of_bed" id="d3_graph_chart00190day" onchange="pdBedProtection()" value="4">
+                                <span>
+                                    <p>4</p>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                    <p><i class="fa fa-exclamation-circle"> </i> Sie können bis zu 4
+                        Bettschutzeinlagen
+                        einmal pro Jahr beantragen.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn_secondary btn__rounded" onclick="closeBedProtectorModal(); return false;">Schließen
+                </button>
+                <button type="button" class="btn btn__primary btn__rounded with-bed-protection">
+                    Weiter mit
+                    Bettschutzeinlagen
+                </button>
             </div>
         </div>
     </div>

@@ -1,0 +1,739 @@
+@section('title',$title)
+<div class="wrapper">
+    @livewire('admin.includes.left-menu')
+    <div class="main">
+        @livewire('admin.includes.header')
+        <style type="text/css">
+            .sort:hover{
+                cursor: pointer;
+            }
+        </style>
+        <main class="content">
+            <div class="container-fluid p-0">
+                {{--<a href="javascript:;" data-bs-toggle="modal" data-bs-target="#createTeam"
+                   class="btn btn-primary float-end mt-n1"><i class="fas fa-plus"></i> New Team</a>--}}
+                <div class="mb-3">
+                    <h1 class="h3 d-inline align-middle">{{$title}}</h1>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 d-flex">
+                        <div class="card flex-fill">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input type="search" class="form-control float-end mt-2 mr-2" placeholder="Search" style="width: 250px;" wire:model="searchTerm" >
+                                </div>
+                            </div>
+                            <table class="table table-striped dataTable no-footer dtr-inline" width="100%">
+                                <thead>
+                                <tr>
+                                    <th class="sort" wire:click="sortOrder('orderId')">Order Id {!! $sortLink !!}</th>
+                                    <th class="sort" wire:click="sortOrder('orderType')">Type {!! $sortLink !!}</th>
+                                    <th class="sort" wire:click="sortOrder('created_at')">Order Date {!! $sortLink !!}</th>
+                                    <th class="sort" wire:click="sortOrder('deliveryStatus')">Delivery Status {!! $sortLink !!}</th>
+                                    <th>Customer Name</th>
+                                    <th>Insurance Id</th>
+                                    <th>Insurance Name</th>
+                                    <th class="d-none d-xl-table-cell">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody class="row_position1">
+                                @isset($orders)
+                                    @foreach($orders as $key=>$order)
+                                        <tr id="{{$order[0]->id}}">
+                                            <td>{{$order[0]->orderId}}</td>
+                                            <td>
+                                                @if($order[0]->orderType =='1')
+                                                    <button class="btn btn-outline-warning">Package</button>
+                                                @else
+                                                    <button class="btn btn-outline-primary">Custom product</button>
+                                                @endif
+                                            </td>
+                                            <td>{{$order[0]->created_at}}</td>
+                                            <td>
+                                                @if($order[0]->deliveryStatus =='0')
+                                                    <button class="btn btn-outline-warning">Pending</button>
+                                                @elseif($order[0]->deliveryStatus =='1')
+                                                    <button class="btn btn-outline-primary">Accepted</button>
+                                                @elseif($order[0]->deliveryStatus =='2')
+                                                    <button class="btn btn-outline-warning">On Transit</button>
+                                                @elseif($order[0]->deliveryStatus =='3')
+                                                    <button class="btn btn-outline-success">Delivered</button>
+                                                @else
+                                                    <button class="btn btn-outline-danger">Rejected</button>
+                                                @endif
+
+                                            </td>
+                                            <td>
+                                                @if($order[0]->getCustomer)
+                                                    {{ucfirst($order[0]->getCustomer->firstName)}} {{ucfirst($order[0]->getCustomer->lastName)}}
+                                                @else
+                                                    {{ucfirst(customerDetails($order[0]->customerId)->firstName)}} {{ucfirst(customerDetails($order[0]->customerId)->lastName)}}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if($order[0]->getCustomer)
+                                                    {{$order[0]->getCustomer->insuranceNumber}}
+                                                @else
+                                                    {{customerDetails($order[0]->customerId)->insuranceNumber}}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if($order[0]->getCustomer)
+                                                    {{$order[0]->getCustomer->insuranceName}}
+                                                @else
+                                                    {{customerDetails($order[0]->customerId)->insuranceName}}
+                                                @endif
+                                            </td>
+                                            <td class="d-none d-xl-table-cell">
+                                                <div class="btn-group btn-group-md">
+                                                    <button type="button" class="btn btn-info dropdown-toggle"
+                                                            data-bs-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false" id="actionBtn{{$order[0]->orderId}}"> Action
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="actionBtn{{$order[0]->orderId}}" style="">
+                                                        <a class="dropdown-item" href="javascript:;"
+                                                           data-bs-toggle="modal" data-bs-target="#editCustomer"
+                                                           wire:click="editCustomer({{$order[0]->orderId}},{{$order[0]->orderType}})">View Details</a>
+                                                        <a class="dropdown-item" href="javascript:;"
+                                                           data-bs-toggle="modal" data-bs-target="#changeDeliveryStatus"
+                                                           wire:click="editCustomer({{$order[0]->orderId}},{{$order[0]->orderType}})">Change Delivery Status</a>
+
+                                                           <a class="dropdown-item" href="{{url('update-order?orderId='.$order[0]->orderId)}}" target="_blank">Edit Order</a>
+                                                           <a class="dropdown-item" href="javascript:;" onclick="downloadOrderPdfAdmin({{$order[0]->orderId}})">
+                                                               <i class="fa fa-download"></i> PDF herunterladen
+                                                           </a>
+
+                                                        <div class="dropdown-divider"></div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endisset
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="text-center">
+{{--                        {{ $customers->links() }}--}}
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        @livewire('admin.includes.footer')
+        <!-- BEGIN Update new team -->
+        <div class="modal fade" wire:ignore.self id="editCustomer" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Order Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                        <div class="card">
+
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3">Product Image</div>
+                                    <div class="col-md-3">Name</div>
+                                    <div class="col-md-3">Title</div>
+                                    <div class="col-md-3">Quantity</div>
+                                </div>
+                                @if(count($orderss)>0)
+                                    @foreach($orderss as $od)
+                                    <div class="row">
+                                    <div class="col-md-3"><img class="p-2"
+                                                               src="{{asset('storage/'.$od['image'])}}"
+                                                               width="70px" alt="{{$od['altTag']}}"
+                                                               title="{{$od['titleTag']}}"></div>
+                                    <div class="col-md-3">{{$od['name']}}</div>
+                                    <div class="col-md-3">{{$od['title']}}</div>
+                                    <div class="col-md-3">{{$od['qty']}}</div>
+                                    </div>
+                                    @endforeach
+                                 @endif
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- END Update team -->
+
+        <!-- BEGIN Update Delivery Status -->
+        <div class="modal fade" wire:ignore.self id="changeDeliveryStatus" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Update Delivery Stats</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form autocomplete="off" wire:submit.prevent="updateDelivery">
+                        <div class="card">
+
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12 mb-12">
+                                        <label class="form-label">Select Delivery Status</label>
+                                        <select name="status" class="form-control" wire:model="deliveryStatus">
+                                            <option value="">Select Status</option>
+                                            <option value="1">Accepted</option>
+                                            <option value="0">Pending</option>
+                                            <option value="2">On Transit</option>
+                                            <option value="3">Delivered</option>
+                                            <option value="4">Rejected</option>
+                                        </select>
+                                        @error('status') <span class="text-danger">{{$message}}</span> @enderror
+                                    </div>
+                                </div>
+
+                             </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        <!-- END Update Delivery Status -->
+
+
+    </div>
+</div>
+
+<!-- Template PDF caché (comme dans l'étape 4) -->
+<div id="printableArea" style="display: none; font-family: Arial, sans-serif;">
+    <div class="container-fluid" style="width: 100%!important;">
+        <div class="row" style="display: flex; flex-wrap: wrap;">
+            <div class="top-header" style="display: flex;width: 100%;justify-content: space-between;align-items: start;">
+                <div class="top-heading-sec">
+                    <h1 class="heading-1" style="color:#009ee1;font-family: sans-serif;margin-bottom:10px;font-weight: 500;">
+                        Antrag auf Kostenübernahme</h1>
+                    <p class="sub-heading" style="margin: 0;font-family: sans-serif;">zur
+                        Versorgung mit Pflegehilfsmitteln gemäß § 78 Absatz 1 in Verbindung
+                        mit § 40 Absatz 2 SGB XI</p>
+                </div>
+
+                <div class="top-logo-sec" style="display: flex;">
+                    <img src="/frontend/assets/images/logo/belesch-logo-dark.png" class="logo-img" style="max-width: 250px; width: 100%; min-width: 100px;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid" style="width: 100%!important;">
+        <div class="table-form">
+            <h3>Versicherte / r:</h3>
+            <table style="width: 100%;border: 1px solid #000;">
+                <tbody>
+                    <tr>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; display: flex; max-width: 100%;" class="multiple-checkboxes">
+                            <div class="checkbox-wrap" style="display: flex;align-items: center;margin-right: 10px;">
+                                <div class="checkbox title_name_pd" style="border: 2px solid #009ee1;text-align: center;color: #009ee1;
+				height: 25px; width: 25px;margin-right: 10px; display: flex;align-items: center; justify-content: center;" id="title_name_fr_pd">
+                                </div>
+                                Frau
+                            </div>
+
+                            <div class="checkbox-wrap" style="display: flex;align-items: center;margin-right: 10px;">
+                                <div class="checkbox title_name_pd" style="border: 2px solid #009ee1;text-align: center;color: #009ee1;
+				height: 25px; width: 25px;margin-right: 10px;display: flex;align-items: center; justify-content: center;" id="title_name_her_pd">
+                                </div>
+                                Herr
+                            </div>
+
+                        </td>
+
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">
+                            <label style="font-weight: 600;margin-right: 5px;">Vorname:</label>
+                            <span id="first_name_pd">Max</span>
+                        </td>
+
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">
+                            <label style="font-weight: 600;margin-right: 5px; ">Nachname:</label>
+                            <span id="last_name_pd">Mustermann</span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; " colspan="2">
+                            <label style="font-weight: 600;margin-right: 5px; ">Straße,
+                                Nr.:</label>
+                            <span id="street_pd">Main street, street no-13B</span>
+                        </td>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">
+                            <label style="font-weight: 600;margin-right: 5px; ">Telefon /
+                                Mobil:</label>
+                            <span id="mobile_pd">+97-9854632185</span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">
+                            <label style="font-weight: 600;margin-right: 5px; ">PLZ:</label>
+                            <span id="zip_pd">1100251</span>
+                        </td>
+
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; " colspan="2">
+                            <label style="font-weight: 600;margin-right: 5px; ">Ort:</label>
+                            <span id="city_pd">Boston</span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; " colspan="2">
+                            <label style="font-weight: 600;margin-right: 5px; ">Email:</label>
+                            <span id="email_pd">info@bleschbox.com</span>
+                        </td>
+
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">
+                            <label style="font-weight: 600;margin-right: 5px; ">Geburtsdatum:</label>
+                            <span id="dob_pd">30-01-1993</span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; " colspan="2">
+                            <label style="font-weight: 600;margin-right: 5px; ">Krankenkasse:</label>
+                            <span id="health-insurance_pd">Krankenkassenname</span>
+                        </td>
+
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">
+                            <label style="font-weight: 600;margin-right: 5px; ">Versichertennr.:</label>
+                            <span id="insurance_no_pd">Versicherungsnummer</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>Antrag auf Kostenübernahme:</h3>
+        <div class="application-div" style="display: flex;align-items: flex-start;height: 100%;border: 1px solid; padding: 10px;">
+            <div class="checkbox" style="border: 2px solid #009ee1;text-align: center;color: #009ee1; height: 25px; width: 25px;margin-right: 10px;
+            display: flex;align-items: center; justify-content: center; ">X
+            </div>
+            <p style="margin: 0;">Zum Verbrauch bestimmte Pflegehilfsmittel - Produktgruppe
+                (PG 54) - bis maximal des monatlichen Höchstbetrages nach § 40
+                Abs. 2 SGB XI / bei Beihilfeberechtigung bis maximal der Hälfte des
+                monatlichen Höchstbetrages nach § 40 Abs. 2 SGB XI</p>
+        </div>
+
+        <div class="table-list-form">
+            <table style="width: 100%;margin-top: 30px;text-align: center;border: 1px solid #000;">
+                <thead>
+                    <tr>
+                        <th style="height: 40px;border-bottom: 1px solid #000;padding: 5px;">
+                            Wird grundsätzlich benötigt
+                        </th>
+                        <th style="height: 40px;border-bottom: 1px solid #000;padding: 5px;">Zum
+                            Verbrauch bestimmte Pflegehilfsmittel
+                        </th>
+                        <th style="height: 40px;border-bottom: 1px solid #000;padding: 5px;">
+                            Menge
+                        </th>
+                        <th style="height: 40px;border-bottom: 1px solid #000;padding: 5px;">
+                            Positionsnummer
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px;display: flex;justify-content: center;align-items: center; " class="checkbox-td">
+                            <div class="checkbox" style="border: 2px solid #009ee1;text-align: center;color: #009ee1;height: 25px; width: 25px;margin-right: 10px;display: flex;align-items: center; justify-content: center;">
+                                <span id="pd_1"></span>
+                            </div>
+                        </td>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">Einmalhandschuhe
+                            <span id="pd_size_1"></span>
+                        </td>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; " id="qty_pd_1">200</td>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">54.20.01.1</td>
+                    </tr>
+                    <tr>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px;display: flex;justify-content: center;align-items: center; " class="checkbox-td">
+                            <div class="checkbox" style="border: 2px solid #009ee1;text-align: center;color: #009ee1;height: 25px; width: 25px;margin-right: 10px;display: flex;align-items: center; justify-content: center;">
+                                <span id="pd_2"></span>
+                            </div>
+                        </td>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">Handdesinfektion
+                            <span id="pd_size_2"></span>
+                        </td>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; " id="qty_pd_2">500ml</td>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">54.30.01.1</td>
+                    </tr>
+                    <tr>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px;display: flex;justify-content: center;align-items: center; " class="checkbox-td">
+                            <div class="checkbox" style="border: 2px solid #009ee1;text-align: center;color: #009ee1;height: 25px; width: 25px;margin-right: 10px;display: flex;align-items: center; justify-content: center;">
+                                <span id="pd_3"></span>
+                            </div>
+                        </td>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">Flächendesinfektion
+                            <span id="pd_size_3"></span>
+                        </td>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; " id="qty_pd_3">500ml</td>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">54.30.01.2</td>
+                    </tr>
+                    <tr>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px;display: flex;justify-content: center;align-items: center; " class="checkbox-td">
+                            <div class="checkbox" style="border: 2px solid #009ee1;text-align: center;color: #009ee1;height: 25px; width: 25px;margin-right: 10px;display: flex;align-items: center; justify-content: center;">
+                                <span id="pd_4"></span>
+                            </div>
+                        </td>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">FFP2 Masken
+                            <span id="pd_size_4"></span>
+                        </td>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; " id="qty_pd_4">12</td>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">54.10.01.1</td>
+                    </tr>
+                    <tr>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px;display: flex;justify-content: center;align-items: center; " class="checkbox-td">
+                            <div class="checkbox" style="border: 2px solid #009ee1;text-align: center;color: #009ee1;height: 25px; width: 25px;margin-right: 10px;display: flex;align-items: center; justify-content: center;">
+                                <span id="pd_5"></span>
+                            </div>
+                        </td>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">Bettschutzeinlagen
+                            <span id="pd_size_5"></span>
+                        </td>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; " id="qty_pd_5">25</td>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">54.20.01.2</td>
+                    </tr>
+                    <tr>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px;display: flex;justify-content: center;align-items: center; " class="checkbox-td">
+                            <div class="checkbox" style="border: 2px solid #009ee1;text-align: center;color: #009ee1;height: 25px; width: 25px;margin-right: 10px;display: flex;align-items: center; justify-content: center;">
+                                <span id="pd_6"></span>
+                            </div>
+                        </td>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">Desinfektionstücher
+                            <span id="pd_size_6"></span>
+                        </td>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; " id="qty_pd_6">1 Pack</td>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">54.30.01.3</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>Wiederverwendbare Bettschutzeinlagen</h3>
+        <div class="application-div" style="display: flex;align-items: flex-start;height: 100%;border: 1px solid; padding: 10px;">
+            <div class="checkbox" style="border: 2px solid #009ee1;text-align: center;color: #009ee1; height: 25px; width: 25px;margin-right: 10px;
+display: flex;align-items: center; justify-content: center; "></div>
+            <p style="margin: 0;">Pflegehilfsmittel zur Körperpflege / Körperhygiene (PG 51)
+                unter Abzug eines Eigenanteils von 10 v.H. soweit keine
+                Befreiung von Zuzahlungen nach § 40 Abs. 3 Satz 5 SGB XI vorliegt.</p>
+        </div>
+
+        <div class="reuseable-table">
+            <table style="width: 100%;margin-top: 30px;text-align: center;border: 1px solid #000;">
+                <thead>
+                    <tr>
+                        <th style="height: 40px;border-bottom: 1px solid #000;padding: 5px;">
+                            Benötigte Stückzahl (Max. 4 Stück/Jahr)
+                        </th>
+                        <th style="height: 40px;border-bottom: 1px solid #000;padding: 5px;">
+                            Pflegehilfsmittel zur Körperpflege / Körperhygiene
+                        </th>
+                        <th style="height: 40px;border-bottom: 1px solid #000;padding: 5px;">
+                            Positionsnummer
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px;display: flex;justify-content: center;align-items: center; " class=" checkbox-td">
+                            <div class="checkbox-wrap" style="display: flex;align-items: center;margin-right: 10px;">
+                                <div class="checkbox" style="border: 2px solid #009ee1;text-align: center;color: #009ee1; height: 25px; width: 25px;margin-right: 10px; display: flex;align-items: center; justify-content: center; ">
+                                    <span id="bed1" class="bed_pd"></span>
+                                </div>
+                                1
+                            </div>
+
+                            <div class="checkbox-wrap" style="display: flex;align-items: center;margin-right: 10px;">
+                                <div class="checkbox" style="border: 2px solid #009ee1;text-align: center;color: #009ee1; height: 25px; width: 25px;margin-right: 10px; display: flex;align-items: center; justify-content: center; ">
+                                    <span id="bed2" class="bed_pd"></span>
+                                </div>
+                                2
+                            </div>
+                            <div class="checkbox-wrap" style="display: flex;align-items: center;margin-right: 10px;">
+                                <div class="checkbox" style="border: 2px solid #009ee1;text-align: center;color: #009ee1; height: 25px; width: 25px;margin-right: 10px; display: flex;align-items: center; justify-content: center;">
+                                    <span id="bed3" class="bed_pd"></span>
+                                </div>
+                                3
+                            </div>
+                            <div class="checkbox-wrap" style="display: flex;align-items: center;margin-right: 10px;">
+                                <div class="checkbox" style="border: 2px solid #009ee1;text-align: center;color: #009ee1; height: 25px; width: 25px;margin-right: 10px; display: flex;align-items: center; justify-content: center;">
+                                    <span id="bed4" class="bed_pd"></span>
+                                </div>
+                                4
+                            </div>
+
+                        </td>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">
+                            Wiederverwendbare Bettschutzeinlagen
+                        </td>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">
+                            51.40.01.4
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-below-content" style="padding: 10px;">
+            <p style="line-height: 28px;">Hiermit bevollmächtige ich MedicCos mit der
+                Antragstellung, Belieferung und Abwicklung hinsichtlich der Gewährung von
+                Leistungen für
+                die Versorgung mit Pflegehilfsmitteln bei meiner zuständigen Pflegekasse in
+                meinem Namen. Die erforderliche Kommunikation erfolgt
+                ausschließlich durch MedicCos, welche meine Daten zum Zwecke der
+                Leistungserbringung nutzen darf. Ich bin über mein Recht informiert
+                worden, der Weitergabe meiner Daten an Dritte zu widerrufen. Ich befreie
+                meine Pflegekasse von ihrer Geheimhaltungspflicht gegenüber
+                MedicCos solange die Leistungspflicht besteht. Bitte verzeichnen Sie
+                MedicCos als meinen Leistungserbinger für Pflegehilfsmittel und
+                Empfänger der Kostenübernahmebestätigung der Pflegekasse und streichen Sie
+                bereits vorhandene Leistungserbringer. Gewünschte
+                Produkte werden von mir ausnahmslos für die ambulante private Pflege im
+                angegebenen Umfang bezogen.</p>
+        </div>
+        <div class="date_sign_wrap" style="display: flex;width: 100%;justify-content: space-between;padding: 0 10px;">
+            <div class="date" style="text-align: center;min-width: 200px;border-top: 2px solid;padding: 10px;margin-top: 50px;">
+                <label style="font-weight: 600;margin-right: 5px;padding: 9px 0px;">Datum</label>
+            </div>
+            <div class="sign" style="text-align: center;min-width: 200px;border-top: 2px solid;padding: 10px;margin-top: 50px;">
+                <label style="font-weight: 600;margin-right: 5px;padding: 9px 0px;">Unterschrift
+                    Versicherte(r) oder Bevollmächtigte(r)</label>
+            </div>
+        </div>
+
+        <div class="bottom-table" style="margin-top: 50px;border: 2px solid #d95053;padding: 0px 15px 15px 15px;">
+            <div class="overlap-heading" style="text-align: center;margin-top: -10px;">
+                <h3 style="max-width: 570px;background: #fff;margin: auto;">Genehmigung der
+                    Pflegekasse<small style="color: #d95053;">(wird von der Pflegekasse
+                        ausgefüllt)</small></h3>
+            </div>
+            <p>Bitte zurück an die Mailadresse: kasse@medic-cos.de oder per Fax: 0531 516
+                057 13 </p>
+            <table style="width: 100%;">
+                <tbody>
+                    <tr>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">
+                            <div class="checkbox-wrap" style="display: flex;align-items: center;margin-right: 10px;">
+                                <div class="checkbox" style="border: 2px solid var(--sky-blu);text-align: center;color: var(--sky-blu);height: 25px; width: 25px;margin-right: 10px;display: flex;align-items: center; justify-content: center;"></div>
+                                PG 54 bis 42,- € monatlich
+                            </div>
+                        </td>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">
+                            <div class="checkbox-wrap" style="display: flex;align-items: center;margin-right: 10px;">
+                                <div class="checkbox" style="border: 2px solid var(--sky-blu);text-align: center;color: var(--sky-blu);height: 25px; width: 25px;margin-right: 10px;display: flex;align-items: center; justify-content: center;"></div>
+                                PG 51 ohne Zzgl./Beihilfeberechtigter
+                            </div>
+                        </td>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; " colspan="2">
+                            IK 330302697
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">
+                            <div class="checkbox-wrap" style="display: flex;align-items: center;margin-right: 10px;">
+                                <div class="checkbox" style="border: 2px solid #009ee1;text-align: center;color: #009ee1;height: 25px; width: 25px;margin-right: 10px;display: flex;align-items: center; justify-content: center;"></div>
+                                PG 54 bis 20,- € monatlich
+                            </div>
+                        </td>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">
+                            <div class="checkbox-wrap" style="display: flex;align-items: center;margin-right: 10px;">
+                                <div class="checkbox" style="border: 2px solid #009ee1;text-align: center;color: #009ee1;height: 25px; width: 25px;margin-right: 10px;display: flex;align-items: center; justify-content: center;"></div>
+                                PG 51 mit Zzgl./Beihilfeberechtigter
+                            </div>
+                        </td>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">
+                            <div class="checkbox-wrap" style="display: flex;align-items: center;margin-right: 10px;">
+                                <div class="checkbox" style="border: 2px solid #009ee1;text-align: center;color: #009ee1;height: 25px; width: 25px;margin-right: 10px;display: flex;align-items: center; justify-content: center;"></div>
+                                PG 51 Ohne Zzgl.
+                            </div>
+                        </td>
+                        <td style="height: 50px;border: 1px solid var(--sky-blu);padding: 0px 10px; ">
+                            <div class="checkbox-wrap" style="display: flex;align-items: center;margin-right: 10px;">
+                                <div class="checkbox" style="border: 2px solid #009ee1;text-align: center;color: #009ee1;height: 25px; width: 25px;margin-right: 10px;display: flex;align-items: center; justify-content: center;"></div>
+                                PG 51 mit Zzgl.
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+</div>
+
+<!-- Script immédiat pour s'assurer que la fonction est disponible -->
+<script>
+    console.log('=== IMMEDIATE SCRIPT EXECUTION ===');
+    console.log('Page loaded, setting up PDF function...');
+    
+    // Définir la fonction exactement comme dans l'étape 4
+    window.downloadOrderPdfAdmin = function(orderId) {
+        console.log('downloadOrderPdfAdmin called with orderId:', orderId);
+        
+        // Récupérer les données de la commande
+        fetch('/generate-order-data', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({
+                orderId: orderId
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Order data received:', data);
+            console.log('UserData:', data.orderData?.userData);
+            console.log('CartData:', data.orderData?.cartData);
+            console.log('SignatureData:', data.orderData?.signatureData);
+            
+            if (data && data.success && data.orderData) {
+                console.log('Calling updatePDF1DataAdmin with orderData:', data.orderData);
+                updatePDF1DataAdmin(data.orderData);
+                
+                // Utiliser exactement la même logique que printPageArea (le bon template)
+                var printContents = document.getElementById('printableArea').innerHTML;
+                console.log('Print contents length:', printContents.length);
+                
+                if (printContents.length === 0) {
+                    alert('Template PDF1 vide! Vérifiez que printPageArea1 contient du contenu.');
+                    return;
+                }
+                
+                var originalContents = document.body.innerHTML;
+                
+                document.body.innerHTML = printContents;
+                window.print();
+                document.body.innerHTML = originalContents;
+                
+                console.log('PDF generation completed successfully!');
+            } else {
+                console.error('Data not successful:', data);
+                alert('Daten konnten nicht abgerufen werden: ' + (data.error || 'Unbekannter Fehler'));
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching order data:', error);
+            alert('Fehler beim Abrufen der Bestelldaten');
+        });
+    };
+    
+    // Fonction pour remplir les données PDF (comme updatePDF1Data dans l'étape 4)
+    function updatePDF1DataAdmin(orderData) {
+        console.log('updatePDF1DataAdmin called with orderData:', orderData);
+        
+        const userData = orderData.userData || {};
+        const cartData = orderData.cartData || {};
+        const signatureData = orderData.signatureData || {};
+        
+        // Remplir les informations personnelles du formulaire "Antrag auf Kostenübernahme"
+        console.log('Filling personal data:', userData);
+        
+        // Test si l'élément existe
+        const firstNameElement = document.getElementById('first_name_pd');
+        console.log('First name element found:', firstNameElement);
+        
+        if (firstNameElement) {
+            firstNameElement.textContent = userData.first_name || 'TEST NAME';
+            console.log('Set first name to:', userData.first_name || 'TEST NAME');
+        } else {
+            console.error('First name element not found!');
+        }
+        document.getElementById('last_name_pd').textContent = userData.last_name || '';
+        document.getElementById('street_pd').textContent = userData.street || '';
+        document.getElementById('mobile_pd').textContent = userData.telephone || '';
+        document.getElementById('zip_pd').textContent = userData.zipcode || '';
+        document.getElementById('city_pd').textContent = userData.city || '';
+        document.getElementById('email_pd').textContent = userData.email || '';
+        document.getElementById('dob_pd').textContent = userData.dob || '';
+        document.getElementById('health-insurance_pd').textContent = userData.insuranceName || '';
+        document.getElementById('insurance_no_pd').textContent = userData.insuranceNumber || '';
+        
+        console.log('Personal data filled');
+        
+        // Genre
+        if (userData.gender === 'Frau') {
+            document.getElementById('title_name_fr_pd').innerHTML = '✓';
+        } else if (userData.gender === 'Herr') {
+            document.getElementById('title_name_her_pd').innerHTML = '✓';
+        }
+        
+        // Remplir les produits sélectionnés dans le tableau
+        if (cartData.products && Array.isArray(cartData.products)) {
+            cartData.products.forEach(product => {
+                const productId = product.productId || product.id;
+                const quantity = product.quantity || 0;
+                
+                // Cocher la case si le produit est sélectionné
+                const checkboxElement = document.getElementById(`pd_${productId}`);
+                if (checkboxElement) {
+                    checkboxElement.innerHTML = quantity > 0 ? 'X' : '';
+                }
+                
+                // Remplir la quantité
+                const quantityElement = document.getElementById(`qty_pd_${productId}`);
+                if (quantityElement && quantity > 0) {
+                    quantityElement.textContent = quantity;
+                }
+            });
+        }
+        
+        // Remplir les Bettschutzeinlagen si sélectionnées
+        const bettSchutz = userData.bett_schutz || cartData.bett_schutz || '';
+        if (bettSchutz) {
+            for (let i = 1; i <= 4; i++) {
+                const element = document.getElementById(`bed${i}`);
+                if (element) {
+                    element.innerHTML = (bettSchutz === i.toString()) ? 'X' : '';
+                }
+            }
+        }
+        
+        // Remplir la signature si disponible (sans image pour éviter l'erreur)
+        if (signatureData && signatureData.image_path) {
+            console.log('Signature data found, but skipping image to avoid URL error');
+            // On ne met pas l'image pour éviter l'erreur ERR_INVALID_URL
+            // La signature sera affichée comme une zone vide
+        }
+        
+        // Remplir la date
+        const dateElement = document.querySelector('.date');
+        if (dateElement) {
+            const today = new Date().toLocaleDateString('de-DE');
+            dateElement.innerHTML = `
+                <div style="margin-top: 20px; font-size: 16px;">${today}</div>
+                <label style="font-weight: 600;margin-right: 5px;padding: 9px 0px;">Datum</label>
+            `;
+        }
+        
+        console.log('PDF data updated successfully with products and signature');
+    }
+    
+    console.log('PDF function defined immediately:', typeof window.downloadOrderPdfAdmin);
+</script>
+
+    <script>
+        window.addEventListener('close-modal', event => {
+            $('#deleteCustomer').modal('hide');
+        })
+
+    // Les fonctions PDF sont maintenant définies dans le script immédiat ci-dessus
+</script>
+
+@section('extraJs')
+    <script>
+        // Additional JavaScript if needed
+    </script>
+@endsection

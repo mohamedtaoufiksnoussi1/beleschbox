@@ -1,0 +1,2608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="description" content="Belesch-box">
+    <meta name="csrf-token" content="46cbcIAlZxCuOHYn9QXfPE8wQ5IOOdmJhsnaXP2e" />
+    <link href="http://127.0.0.1:8000/frontend/assets/images/favicon/favicon.png" rel="icon">
+    <title>Belesch-box</title>
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&amp;family=Roboto:wght@400;700&amp;display=swap">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="http://127.0.0.1:8000/frontend/assets/css/libraries.css">
+    <link rel="stylesheet" href="http://127.0.0.1:8000/frontend/assets/css/style.css">
+    <!-- Livewire Styles -->
+<style >
+    [wire\:loading], [wire\:loading\.delay], [wire\:loading\.inline-block], [wire\:loading\.inline], [wire\:loading\.block], [wire\:loading\.flex], [wire\:loading\.table], [wire\:loading\.grid], [wire\:loading\.inline-flex] {
+        display: none;
+    }
+
+    [wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short], [wire\:loading\.delay\.long], [wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest] {
+        display:none;
+    }
+
+    [wire\:offline] {
+        display: none;
+    }
+
+    [wire\:dirty]:not(textarea):not(input):not(select) {
+        display: none;
+    }
+
+    input:-webkit-autofill, select:-webkit-autofill, textarea:-webkit-autofill {
+        animation-duration: 50000s;
+        animation-name: livewireautofill;
+    }
+
+    @keyframes livewireautofill { from {} }
+</style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="preloader">
+        <div class="loading"><span></span><span></span><span></span><span></span></div>
+    </div>
+    <style wire:id="wPVeBUQOwiUYR4tRj45R" wire:initial-data="{&quot;fingerprint&quot;:{&quot;id&quot;:&quot;wPVeBUQOwiUYR4tRj45R&quot;,&quot;name&quot;:&quot;frontend.includes.header&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;customer\/orders&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;v&quot;:&quot;acj&quot;},&quot;effects&quot;:{&quot;listeners&quot;:[]},&quot;serverMemo&quot;:{&quot;children&quot;:[],&quot;errors&quot;:[],&quot;htmlHash&quot;:&quot;8b1fbb2d&quot;,&quot;data&quot;:[],&quot;dataMeta&quot;:[],&quot;checksum&quot;:&quot;323d19305ca29cfc5040ca7c389c41ef92c541cd979791fece5dc4a8e366247d&quot;}}">
+    /* Header ultra-moderne */
+    .header {
+        box-shadow: 0 4px 30px rgba(0, 158, 225, 0.15);
+        position: relative;
+        z-index: 1000;
+        backdrop-filter: blur(20px);
+        background: rgba(255, 255, 255, 0.95);
+    }
+    
+    /* Topbar ultra-moderne avec dégradé */
+    .header-topbar {
+        background: linear-gradient(135deg, #009ee1 0%, #39cdc1 50%, #0077b3 100%);
+        padding: 0.12rem 0; /* encore plus fin */
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .header-topbar::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+        pointer-events: none;
+    }
+    
+    .contact__list li {
+        margin-right: 1.1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .contact__list li i {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 0.65rem;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 0.12rem;
+        border-radius: 50%;
+        backdrop-filter: blur(10px);
+    }
+    
+    .contact__list li a {
+        color: white;
+        font-size: 0.72rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+    
+    .contact__list li a:hover {
+        color: rgba(255, 255, 255, 0.9);
+        transform: translateY(-2px);
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Social icons ultra-modernes */
+    .social-icons {
+        display: flex;
+        gap: 0.35rem;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .social-icons li a {
+        width: 22px;
+        height: 22px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        transition: all 0.4s ease;
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        font-size: 0.65rem;
+    }
+    
+    .social-icons li a:hover {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        border-color: rgba(255, 255, 255, 0.4);
+    }
+    
+    /* Search modernisé */
+    .header-topbar__search {
+        display: flex;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 18px;
+        padding: 0.15rem;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .header-topbar__search .form-control {
+        background: transparent;
+        border: none;
+        color: white;
+        padding: 0.3rem 0.6rem;
+        font-size: 0.7rem;
+    }
+    
+    .header-topbar__search .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+    }
+    
+    .header-topbar__search-btn {
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        transition: all 0.3s ease;
+        font-size: 0.65rem;
+    }
+    
+    .header-topbar__search-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: none;
+    }
+    
+    /* Navigation ultra-moderne */
+    .navbar {
+        background: rgba(255, 255, 255, 0.95) !important;
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(0, 158, 225, 0.1);
+        padding: 0.2rem 0;
+    }
+    
+    .navbar-brand img {
+        max-height: 82px !important;
+        height: 82px !important;
+        transition: all 0.3s ease;
+        filter: brightness(1.1) contrast(1.1);
+    }
+    
+    .navbar-brand:hover img {
+        transform: none;
+        filter: brightness(1.15) contrast(1.15);
+    }
+    
+    .nav__item-link {
+        color: #2d3748 !important;
+        font-weight: 600 !important;
+        font-size: 0.8rem !important;
+        padding: 0.3rem 0.6rem !important;
+        border-radius: 6px !important;
+        transition: all 0.3s ease !important;
+        position: relative !important;
+        text-decoration: none !important;
+        display: inline-block !important;
+        transform: none !important;
+    }
+    
+    .nav__item-link:hover {
+        color: #009ee1 !important;
+        background: linear-gradient(135deg, rgba(0, 158, 225, 0.1) 0%, rgba(57, 205, 193, 0.1) 100%) !important;
+        transform: none !important;
+        box-shadow: 0 3px 12px rgba(0, 158, 225, 0.15) !important;
+    }
+    
+    .nav__item-link.active {
+        color: white !important;
+        background: linear-gradient(135deg, #009ee1 0%, #39cdc1 100%) !important;
+        box-shadow: 0 2px 8px rgba(0, 158, 225, 0.2) !important;
+        transform: none !important;
+    }
+    
+    .nav__item-link.active::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 30px;
+        height: 3px;
+        background: linear-gradient(135deg, #009ee1 0%, #39cdc1 100%);
+        border-radius: 2px;
+    }
+    
+    
+    /* Navigation principale modernisée */
+    .navbar {
+        background: white;
+        padding: 0.35rem 0; /* diminue */
+        border-bottom: 1px solid rgba(0, 158, 225, 0.1);
+    }
+    
+    .navbar-brand {
+        display: flex;
+        align-items: center;
+    }
+    
+    .navbar-brand img {
+        height: 82px !important; /* assurer 82px effectif */
+        transition: all 0.3s ease;
+    }
+    
+    .navbar-brand:hover img {
+        transform: none;
+    }
+    
+    /* Navigation links modernisés */
+    .navbar-nav {
+        gap: 1rem; /* plus serré */
+    }
+    
+    .nav__item-link {
+        color: #2d3748;
+        font-weight: 500;
+        font-size: 0.74rem; /* plus petit */
+        text-decoration: none;
+        padding: 0.25rem 0; /* réduire padding vertical */
+        position: relative;
+        transition: all 0.3s ease;
+    }
+    
+    .nav__item-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(135deg, #009ee1 0%, #0077b3 100%);
+        transition: width 0.3s ease;
+    }
+    
+    .nav__item-link:hover::after,
+    .nav__item-link.active::after {
+        width: 100%;
+    }
+    
+    .nav__item-link:hover {
+        color: #009ee1;
+        transform: translateY(-1px);
+    }
+    
+    .nav__item-link.active {
+        color: #009ee1;
+        font-weight: 600;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .contact__list li {
+            margin-right: 1rem;
+            font-size: 0.8rem;
+        }
+        
+        .social-icons {
+            gap: 0.5rem;
+        }
+        
+        .social-icons li a {
+            width: 28px;
+            height: 28px;
+        }
+    }
+</style>
+
+<!-- =========================  Header  =========================== -->
+<header class="header header-layout1">
+    <div class="header-topbar">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-12">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <ul class="contact__list d-flex flex-wrap align-items-center list-unstyled mb-0">
+
+                            <li>
+                                <i class="icon-phone"></i><a href="tel:+5565454117">+49 531 516 057 12</a>
+                            </li>
+                            <li>
+                                <i class="icon-clock"></i><a
+                                    href="http://127.0.0.1:8000/contact">Monday
+                                    - Friday: 08:30 AM
+                                    - 16:30 PM</a>
+                            </li>
+                        </ul><!-- /.contact__list -->
+                        <div class="d-flex">
+                            <ul class="social-icons list-unstyled mb-0 mr-30">
+
+                                                                    <li><a href="https://www.youtube.com" target="_blank"><i
+                                                class="fab fa-youtube"></i></a></li>
+                                                                    <li><a href="https://www.facebook.com" target="_blank"><i
+                                                class="fab fa-facebook"></i></a></li>
+                                                                    <li><a href="http://localhost/admin-master" target="_blank"><i
+                                                class="fab fa-twitter"></i></a></li>
+                                                                    <li><a href="http://localhost/admin-master" target="_blank"><i
+                                                class="fab fa-instagram"></i></a></li>
+                                                            </ul><!-- /.social-icons -->
+                            <form class="header-topbar__search">
+                                <input type="text" class="form-control" placeholder="Suchen...">
+                                <button class="header-topbar__search-btn"><i class="fa fa-search"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div><!-- /.col-12 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </div><!-- /.header-top -->
+    <nav class="navbar navbar-expand-lg sticky-navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="http://127.0.0.1:8000">
+                <img src="http://127.0.0.1:8000/frontend/assets/images/logo/belesch-logo-light.png" class="logo-light"
+                     alt="logo">
+                <img src="http://127.0.0.1:8000/frontend/assets/images/logo/belesch-logo-light.png" class="logo-dark" alt="logo">
+            </a>
+            <button class="navbar-toggler" type="button">
+                <span class="menu-lines"><span></span></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNavigation">
+                <ul class="navbar-nav m-auto">
+                    <li class="nav__item">
+                        <a href="http://127.0.0.1:8000" class="nav__item-link ">Startseite</a>
+                    </li><!-- /.nav-item -->
+                    <li class="nav__item">
+                        <a href="http://127.0.0.1:8000/about" class="nav__item-link ">Über uns</a>
+                    </li><!-- /.nav-item -->
+                    <li class="nav__item">
+                        <a href="http://127.0.0.1:8000/contact" class="nav__item-link ">Kontakt</a>
+                    </li> <!-- /.nav-item -->
+
+                                        <li class="nav__item">
+                        <a href="http://127.0.0.1:8000/customer/profile" class="nav__item-link">Profil</a>
+                    </li> <!-- /.nav-item -->
+                    <li class="nav__item">
+                        <a href="http://127.0.0.1:8000/customer/orders" class="nav__item-link">Meine Bestellungen</a>
+                    </li> <!-- /.nav-item -->
+                    <li class="nav__item">
+                        <a href="http://127.0.0.1:8000/userLogout" class="nav__item-link">Abmelden</a>
+                    </li> <!-- /.nav-item -->
+                    
+                </ul><!-- /.navbar-nav -->
+                <button class="close-mobile-menu d-block d-lg-none"><i class="fas fa-times"></i></button>
+            </div><!-- /.navbar-collapse -->
+            <div class="d-none d-xl-flex align-items-center position-relative ml-30">
+                <!-- Bouton déplacé vers la section des packages -->
+            </div>
+        </div><!-- /.container -->
+    </nav><!-- /.navbar -->
+</header><!-- /.Header -->
+<!-- Livewire Component wire-end:wPVeBUQOwiUYR4tRj45R -->    <!-- ========================  page title  =========================== -->
+    <section class="page-title page-title-layout1" style="background: linear-gradient(135deg, #009ee1 0%, #39cdc1 100%); padding: 18px 0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-5">
+                    <h1 class="pagetitle__heading" style="color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.1); font-size: 1.35rem; margin: 0;">
+                        <i class="fas fa-shopping-bag me-2"></i>
+                        Meine Bestellungen
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div wire:id="lYFprNtdhFPstGdgXliF" wire:initial-data="{&quot;fingerprint&quot;:{&quot;id&quot;:&quot;lYFprNtdhFPstGdgXliF&quot;,&quot;name&quot;:&quot;frontend.user-orders-component&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;customer\/orders&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;v&quot;:&quot;acj&quot;},&quot;effects&quot;:{&quot;listeners&quot;:[],&quot;path&quot;:&quot;http:\/\/127.0.0.1:8000\/customer\/orders&quot;},&quot;serverMemo&quot;:{&quot;children&quot;:[],&quot;errors&quot;:[],&quot;htmlHash&quot;:&quot;80c213c0&quot;,&quot;data&quot;:{&quot;orderColumn&quot;:&quot;id&quot;,&quot;sortOrder&quot;:&quot;desc&quot;,&quot;sortLink&quot;:&quot;&lt;i class=\&quot;sorticon fa-solid fa-caret-up\&quot;&gt;&lt;\/i&gt;&quot;,&quot;searchTerm&quot;:&quot;&quot;,&quot;orderss&quot;:[],&quot;deliveryStatus&quot;:null,&quot;orderId&quot;:null,&quot;page&quot;:1,&quot;paginators&quot;:{&quot;page&quot;:1}},&quot;dataMeta&quot;:[],&quot;checksum&quot;:&quot;2be64b3992540a6e9f63c39904b8c0792237841d1c5dae0f30123d8866ee171c&quot;}}">
+    <style>
+        /* Styles modernes inspirés de l'admin mais adaptés pour l'utilisateur */
+        .user-orders-container {
+            background: linear-gradient(135deg, #f8f9fc 0%, #e3f2fd 100%);
+            min-height: 100vh;
+            padding: 1rem 0; /* réduit */
+        }
+        
+        .orders-card {
+            background: white;
+            border-radius: 12px; /* légèrement plus compact */
+            box-shadow: 0 6px 24px rgba(0, 158, 225, 0.1);
+            border: none;
+            overflow: hidden;
+            margin-bottom: 0.75rem; /* réduit */
+        }
+        
+        .orders-header {
+            background: linear-gradient(135deg, #009ee1 0%, #39cdc1 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            margin: 0;
+        }
+        
+        .orders-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-container {
+            padding: 0.75rem 1rem; /* réduit */
+            background: #f8f9fc;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .search-input {
+            border: 2px solid #e9ecef;
+            border-radius: 20px; /* plus compact */
+            padding: 0.55rem 1rem; /* réduit */
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .search-input:focus {
+            border-color: #009ee1;
+            box-shadow: 0 0 0 0.2rem rgba(0, 158, 225, 0.25);
+            outline: none;
+        }
+        
+        .orders-table {
+            margin: 0;
+        }
+        
+        .orders-table thead th {
+            background: linear-gradient(135deg, #009ee1 0%, #39cdc1 100%);
+            color: white;
+            font-weight: 600;
+            font-size: 0.85rem; /* réduit */
+            padding: 0.8rem; /* réduit */
+            border: none;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .orders-table tbody tr {
+            transition: all 0.3s ease;
+            border-bottom: 1px solid #f1f3f4;
+        }
+        
+        .orders-table tbody tr:hover {
+            background: linear-gradient(135deg, rgba(0, 158, 225, 0.05) 0%, rgba(57, 205, 193, 0.05) 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(0, 158, 225, 0.1);
+        }
+        
+        .orders-table tbody td {
+            padding: 0.75rem; /* réduit */
+            vertical-align: middle;
+            font-size: 0.9rem;
+            color: #2d3748;
+        }
+        
+        .status-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: 2px solid;
+        }
+        
+        .status-pending {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            color: #856404;
+            border-color: #ffc107;
+        }
+        
+        .status-accepted {
+            background: linear-gradient(135deg, #cce5ff 0%, #74b9ff 100%);
+            color: #004085;
+            border-color: #007bff;
+        }
+        
+        .status-transit {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            color: #856404;
+            border-color: #ffc107;
+        }
+        
+        .status-delivered {
+            background: linear-gradient(135deg, #d4edda 0%, #00b894 100%);
+            color: #155724;
+            border-color: #28a745;
+        }
+        
+        .status-rejected {
+            background: linear-gradient(135deg, #f8d7da 0%, #e17055 100%);
+            color: #721c24;
+            border-color: #dc3545;
+        }
+        
+        .type-badge {
+            padding: 0.4rem 0.8rem;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .type-package {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            color: #856404;
+        }
+        
+        .type-product {
+            background: linear-gradient(135deg, #cce5ff 0%, #74b9ff 100%);
+            color: #004085;
+        }
+        
+        .action-btn {
+            background: linear-gradient(135deg, #009ee1 0%, #39cdc1 100%);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .action-btn:hover {
+            background: linear-gradient(135deg, #0088cc 0%, #2fb8b0 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 158, 225, 0.3);
+        }
+        
+        .sort:hover {
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+        }
+        
+        .no-orders {
+            text-align: center;
+            padding: 2rem; /* réduit */
+            color: #6c757d;
+        }
+        
+        .no-orders i {
+            font-size: 3rem;
+            color: #009ee1;
+            margin-bottom: 1rem;
+        }
+        
+        .modal-content {
+            border-radius: 15px;
+            border: none;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, #009ee1 0%, #39cdc1 100%);
+            color: white;
+            border-radius: 15px 15px 0 0;
+            border: none;
+        }
+        
+        .modal-title {
+            font-weight: 700;
+        }
+        
+        .btn-close {
+            filter: brightness(0) invert(1);
+        }
+        
+        .product-detail-row {
+            border-bottom: 1px solid #f1f3f4;
+            padding: 1rem 0;
+        }
+        
+        .product-detail-row:last-child {
+            border-bottom: none;
+        }
+        
+        .product-image {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .orders-table {
+                font-size: 0.8rem;
+            }
+            
+            .orders-table thead th,
+            .orders-table tbody td {
+                padding: 0.5rem;
+            }
+            
+            .search-container {
+                padding: 1rem;
+            }
+        }
+    </style>
+
+    <!-- Script JavaScript global pour les fonctions PDF -->
+    <script>
+    // Variables globales pour stocker les données de commande
+    let currentOrderId = null;
+    let currentOrderData = null;
+
+    // Télécharge le PDF avec exactement la même logique que printPageArea1 de l'étape 5
+    window.downloadOrderPdf = function() {
+        console.log('downloadOrderPdf called with currentOrderId:', currentOrderId);
+        
+        if (!currentOrderId) {
+            alert('Keine Bestellung ausgewählt.');
+            return;
+        }
+
+        console.log('Fetching order data for orderId:', currentOrderId);
+
+        // Récupérer les données de la commande d'abord
+        fetch('/generate-order-data', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({ orderId: currentOrderId })
+        })
+        .then(response => {
+            console.log('Response received:', response);
+            return response.json();
+        })
+        .then(data => {
+            console.log('=== DEBUG FETCH RESPONSE ===');
+            console.log('Data received:', data);
+            console.log('Data type:', typeof data);
+            console.log('Data keys:', Object.keys(data || {}));
+            console.log('data.success:', data.success);
+            console.log('data.userData:', data.userData);
+            console.log('data.cartData:', data.cartData);
+            console.log('data.signatureData:', data.signatureData);
+            
+            if (data && data.success && data.orderData) {
+                console.log('=== CALLING printOrderPdfLikeStep5 ===');
+                console.log('Calling printOrderPdfLikeStep5 with orderData:', data.orderData);
+                // Utiliser exactement la même logique que printPageArea1 de l'étape 5
+                printOrderPdfLikeStep5(data.orderData);
+            } else {
+                console.error('Data not successful:', data);
+                alert('Daten konnten nicht abgerufen werden: ' + (data.error || 'Unbekannter Fehler'));
+            }
+        })
+        .catch(error => {
+            console.error('Error in downloadOrderPdf:', error);
+            alert('Fehler beim Abrufen der Bestelldaten: ' + error.message);
+        });
+    };
+
+    // Fonction qui utilise exactement la même logique que printPageArea1 de l'étape 5
+    window.printOrderPdfLikeStep5 = function(orderData) {
+        console.log('printOrderPdfLikeStep5 called with orderData:', orderData);
+        
+        try {
+            // Créer le HTML exact comme dans l'étape 5
+            console.log('Creating exact step 5 HTML...');
+            const pdfHtml = createExactStep5Html(orderData);
+            console.log('HTML created, length:', pdfHtml.length);
+            
+            // Utiliser exactement la même logique que printPageArea1
+            console.log('Saving original content...');
+            const originalContents = document.body.innerHTML;
+            
+            // Remplacer le contenu du body avec notre PDF
+            console.log('Replacing body content with PDF HTML...');
+            document.body.innerHTML = pdfHtml;
+            
+            // Imprimer (comme dans printPageArea1)
+            console.log('Calling window.print()...');
+            window.print();
+            
+            // Restaurer le contenu original
+            console.log('Restoring original content...');
+            document.body.innerHTML = originalContents;
+            
+            console.log('PDF generation completed successfully!');
+        } catch (error) {
+            console.error('Error in printOrderPdfLikeStep5:', error);
+            alert('Fehler beim Generieren des PDFs: ' + error.message);
+        }
+    };
+
+    // Créer le HTML exact de l'étape 5
+    window.createExactStep5Html = function(orderData) {
+        console.log('=== DEBUG createExactStep5Html ===');
+        console.log('createExactStep5Html called with orderData:', orderData);
+        console.log('orderData type:', typeof orderData);
+        console.log('orderData keys:', Object.keys(orderData || {}));
+        
+        const userData = orderData.userData || {};
+        const cartData = orderData.cartData || {};
+        const signatureData = orderData.signatureData || {};
+        
+        console.log('userData:', userData);
+        console.log('userData.gender:', userData.gender);
+        console.log('userData.first_name:', userData.first_name);
+        console.log('userData.last_name:', userData.last_name);
+        console.log('userData.pflegegrad:', userData.pflegegrad);
+        console.log('cartData:', cartData);
+        console.log('cartData.beleschbox_number:', cartData.beleschbox_number);
+        console.log('cartData.products:', cartData.products);
+        console.log('signatureData:', signatureData);
+        
+        // Préparer les données exactement comme dans l'étape 5
+        const boxChecked = {};
+        for (let i = 1; i <= 6; i++) {
+            boxChecked[i] = (cartData.beleschbox_number === i.toString()) ? '✓' : '';
+        }
+        
+        const individuellChecked = (cartData.beleschbox_number === 'Individuell') ? '✓' : '';
+        
+        // Produits personnalisés
+        let customProductsHtml = '';
+        if (cartData.products && Array.isArray(cartData.products)) {
+            cartData.products.forEach(product => {
+                customProductsHtml += `<div style="border-bottom: 1px solid #ddd; height: 16px; margin-bottom: 6px; width: 100%; padding: 2px 0;">`;
+                customProductsHtml += `${product.quantity}x ${product.name}`;
+                customProductsHtml += `</div>`;
+            });
+        }
+        
+        // Gants
+        const gloveChecked = { S: '', M: '', L: '', XL: '' };
+        const gloveSize = cartData.glove_size || '';
+        if (gloveSize) {
+            gloveChecked[gloveSize.toUpperCase()] = '✓';
+        }
+        
+        const gloveSectionDisplay = gloveSize ? '' : 'display: none;';
+        
+        // Signature - Version avec nettoyage et validation base64
+        let signatureHtml = '';
+        console.log('=== SIGNATURE DEBUG START ===');
+        console.log('signatureData:', signatureData);
+        
+        if (signatureData && signatureData.image_path) {
+            console.log('=== SIGNATURE FOUND ===');
+            console.log('Signature length:', signatureData.image_path.length);
+            
+            // Nettoyer et valider la signature base64
+            let cleanSignature = signatureData.image_path;
+            
+            // Vérifier si c'est un format data:image valide
+            if (cleanSignature.startsWith('data:image/')) {
+                console.log('✅ Valid data:image format detected');
+                
+                // Extraire la partie base64 pure
+                const base64Part = cleanSignature.split(',')[1];
+                if (base64Part) {
+                    console.log('Base64 part length:', base64Part.length);
+                    console.log('Base64 part first 100 chars:', base64Part.substring(0, 100));
+                    console.log('Base64 part last 100 chars:', base64Part.substring(base64Part.length - 100));
+                    
+                    // Nettoyer la chaîne base64 (supprimer espaces, retours à la ligne, etc.)
+                    const cleanedBase64 = base64Part.replace(/[\s\r\n]/g, '');
+                    console.log('Cleaned base64 length:', cleanedBase64.length);
+                    console.log('Cleaned base64 first 100 chars:', cleanedBase64.substring(0, 100));
+                    console.log('Cleaned base64 last 100 chars:', cleanedBase64.substring(cleanedBase64.length - 100));
+                    
+                    // Vérifier que la chaîne base64 ne contient que des caractères valides
+                    const isValidBase64 = /^[A-Za-z0-9+/]*={0,2}$/.test(cleanedBase64);
+                    console.log('Is valid base64:', isValidBase64);
+                    
+                    // Test de décodage pour voir si c'est vraiment une image valide
+                    let isDecodable = false;
+                    try {
+                        const binaryString = atob(cleanedBase64);
+                        console.log('Base64 decode successful, binary length:', binaryString.length);
+                        console.log('Binary string first 20 chars:', binaryString.substring(0, 20));
+                        
+                        // Vérifier si c'est bien un PNG (commence par PNG signature)
+                        if (binaryString.startsWith('\x89PNG')) {
+                            console.log('✅ Valid PNG signature detected');
+                            isDecodable = true;
+                        } else {
+                            console.log('❌ Not a valid PNG file');
+                        }
+                    } catch (e) {
+                        console.log('❌ Base64 decode failed:', e.message);
+                        isDecodable = false;
+                    }
+                    
+                    if (isValidBase64 && cleanedBase64.length > 100) {
+                        // Reconstruire l'URL avec la base64 nettoyée
+                        const mimeType = cleanSignature.split(',')[0];
+                        const finalSignature = mimeType + ',' + cleanedBase64;
+                        console.log('✅ Attempting to display signature (even if corrupted)');
+                        
+                        signatureHtml = `
+                            <div style="position: relative;">
+                                <img src="${finalSignature}" 
+                                     alt="Signature" 
+                                     style="max-width: 250px; max-height: 120px; border: 1px solid #ddd; background: white; display: block; margin: 0 auto; object-fit: contain;" 
+                                     onload="console.log('✅ Signature loaded successfully')" 
+                                     onerror="console.error('❌ Signature failed to load')">
+                            </div>
+                        `;
+                    } else {
+                        console.log('❌ Signature base64 is too short or invalid - no display');
+                        signatureHtml = '';
+                    }
+                } else {
+                    console.log('❌ No base64 part found');
+                    signatureHtml = '<div style="width: 250px; height: 120px; border: 2px solid #ccc; background: #f0f0f0; display: flex; align-items: center; justify-content: center; margin: 0 auto; color: #666; font-size: 12px; text-align: center;">Format de signature invalide</div>';
+                }
+            } else {
+                console.log('❌ Not a data:image format');
+                signatureHtml = '<div style="width: 250px; height: 120px; border: 2px solid #ccc; background: #f0f0f0; display: flex; align-items: center; justify-content: center; margin: 0 auto; color: #666; font-size: 12px; text-align: center;">Format de signature invalide</div>';
+            }
+        } else {
+            console.log('❌ No signature data found');
+            signatureHtml = '<div style="width: 250px; height: 120px; border: 2px solid #ccc; background: #f0f0f0; display: flex; align-items: center; justify-content: center; margin: 0 auto; color: #666; font-size: 12px; text-align: center;">Aucune signature</div>';
+        }
+        
+        console.log('=== SIGNATURE DEBUG END ===');
+        
+        // Générer le HTML exact de l'étape 5
+        return `
+            <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 10px; background: white;">
+                <!-- Header -->
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
+                    <div>
+                        <h1 style="color: #333; font-size: 22px; font-weight: bold; margin: 0 0 3px 0; font-family: serif;">
+                            Auswahl der gewünschten BeleschBox
+                        </h1>
+                        <div style="color: #009ee1; font-size: 11px; font-weight: bold; margin-bottom: 3px;">
+                            Lieferinformationen angeben
+                        </div>
+                        <div style="font-size: 11px; margin-bottom: 8px;">
+                            Versicherte/r (gemäß Antrag auf Kostenübernahme):
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <img src="/frontend/assets/images/logo/belesch-logo-light.png" alt="BeleschBox Logo" style="height: 60px; width: auto; margin-bottom: 5px;">
+                    </div>
+                </div>
+
+                <!-- Personal Information -->
+                <div style="margin-bottom: 10px;">
+                    <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <div style="display: flex; align-items: center; margin-right: 20px;">
+                            <div style="width: 16px; height: 16px; border: 2px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;">${(userData.gender === 'Frau') ? '✓' : ''}</div>
+                            <span style="font-size: 12px;">Frau</span>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-right: 20px;">
+                            <div style="width: 16px; height: 16px; border: 2px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;">${(userData.gender === 'Herr') ? '✓' : ''}</div>
+                            <span style="font-size: 12px;">Herr</span>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; margin-bottom: 8px;">
+                        <div style="margin-right: 40px;">
+                            <span>Vorname:</span>
+                            <div style="border-bottom: 1px solid #333; width: 200px; display: inline-block; margin-left: 10px;">
+                                <span style="padding: 0 5px;">${userData.first_name || ''}</span>
+                            </div>
+                        </div>
+                        <div>
+                            <span>Nachname:</span>
+                            <div style="border-bottom: 1px solid #333; width: 200px; display: inline-block; margin-left: 10px;">
+                                <span style="padding: 0 5px;">${userData.last_name || ''}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 8px;">
+                        <span style="font-size: 12px;">Pflegegrad:</span>
+                        <div style="display: inline-flex; margin-left: 15px;">
+                            <div style="display: flex; align-items: center; margin-right: 15px;">
+                                <div style="width: 16px; height: 16px; border: 2px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;">${(userData.pflegegrad === '1') ? '✓' : ''}</div>
+                                <span style="font-size: 12px;">1</span>
+                            </div>
+                            <div style="display: flex; align-items: center; margin-right: 15px;">
+                                <div style="width: 16px; height: 16px; border: 2px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;">${(userData.pflegegrad === '2') ? '✓' : ''}</div>
+                                <span style="font-size: 12px;">2</span>
+                            </div>
+                            <div style="display: flex; align-items: center; margin-right: 15px;">
+                                <div style="width: 16px; height: 16px; border: 2px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;">${(userData.pflegegrad === '3') ? '✓' : ''}</div>
+                                <span style="font-size: 12px;">3</span>
+                            </div>
+                            <div style="display: flex; align-items: center; margin-right: 15px;">
+                                <div style="width: 16px; height: 16px; border: 2px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;">${(userData.pflegegrad === '4') ? '✓' : ''}</div>
+                                <span style="font-size: 12px;">4</span>
+                            </div>
+                            <div style="display: flex; align-items: center;">
+                                <div style="width: 16px; height: 16px; border: 2px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;">${(userData.pflegegrad === '5') ? '✓' : ''}</div>
+                                <span style="font-size: 12px;">5</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BeleschBox Selection -->
+                <div style="margin-bottom: 8px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 8px;">
+                        <!-- BeleschBox 1 -->
+                        <div style="border: 1px solid #ddd; padding: 8px; position: relative;">
+                            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                <div style="width: 14px; height: 14px; border: 1px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;">${boxChecked[1]}</div>
+                                <img src="/frontend/assets/images/cubes/cube_blue.png" alt="BeleschBox" style="width: 60px; height: 60px; margin-right: 8px; object-fit: contain;">
+                                <strong style="color: #009ee1; font-size: 11px; font-weight: bold;">BeleschBox 1</strong>
+                            </div>
+                            <div style="font-size: 9px; line-height: 1.2; color: #333; margin-left: 28px;">
+                                2x 100 Stück Einmalhandschuhe<br>
+                                500 ml Handdesinfektion<br>
+                                500 ml Flächendesinfektion<br>
+                                12 Stück FFP2 Masken
+                            </div>
+                        </div>
+
+                        <!-- BeleschBox 2 -->
+                        <div style="border: 1px solid #ddd; padding: 8px; position: relative;">
+                            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                <div style="width: 14px; height: 14px; border: 1px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;">${boxChecked[2]}</div>
+                                <img src="/frontend/assets/images/cubes/cube_blue.png" alt="BeleschBox" style="width: 60px; height: 60px; margin-right: 8px; object-fit: contain;">
+                                <strong style="color: #009ee1; font-size: 11px; font-weight: bold;">BeleschBox 2</strong>
+                            </div>
+                            <div style="font-size: 9px; line-height: 1.2; color: #333; margin-left: 28px;">
+                                100 Stück Einmalhandschuhe<br>
+                                2x 500 ml Handdesinfektion<br>
+                                25 Stück Bettschutzeinlagen<br>
+                                8 Stück FFP2 Masken
+                            </div>
+                        </div>
+
+                        <!-- BeleschBox 3 -->
+                        <div style="border: 1px solid #ddd; padding: 8px; position: relative;">
+                            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                <div style="width: 14px; height: 14px; border: 1px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;">${boxChecked[3]}</div>
+                                <img src="/frontend/assets/images/cubes/cube_blue.png" alt="BeleschBox" style="width: 60px; height: 60px; margin-right: 8px; object-fit: contain;">
+                                <strong style="color: #009ee1; font-size: 11px; font-weight: bold;">BeleschBox 3</strong>
+                            </div>
+                            <div style="font-size: 9px; line-height: 1.2; color: #333; margin-left: 28px;">
+                                1 Pack Desinfektionstücher<br>
+                                1x 500 ml Handdesinfektion<br>
+                                1x 500 ml Flächendesinfektion<br>
+                                10 Stück FFP2 Masken
+                            </div>
+                        </div>
+
+                        <!-- BeleschBox 4 -->
+                        <div style="border: 1px solid #ddd; padding: 8px; position: relative;">
+                            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                <div style="width: 14px; height: 14px; border: 1px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;">${boxChecked[4]}</div>
+                                <img src="/frontend/assets/images/cubes/cube_blue.png" alt="BeleschBox" style="width: 60px; height: 60px; margin-right: 8px; object-fit: contain;">
+                                <strong style="color: #009ee1; font-size: 11px; font-weight: bold;">BeleschBox 4</strong>
+                            </div>
+                            <div style="font-size: 9px; line-height: 1.2; color: #333; margin-left: 28px;">
+                                2x 500 ml Flächendesinfektion<br>
+                                2x 500 ml Handdesinfektion<br>
+                                25 Stück Bettschutzeinlagen<br>
+                                25 Stück FFP2 Masken
+                            </div>
+                        </div>
+
+                        <!-- BeleschBox 5 -->
+                        <div style="border: 1px solid #ddd; padding: 8px; position: relative;">
+                            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                <div style="width: 14px; height: 14px; border: 1px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;">${boxChecked[5]}</div>
+                                <img src="/frontend/assets/images/cubes/cube_blue.png" alt="BeleschBox" style="width: 60px; height: 60px; margin-right: 8px; object-fit: contain;">
+                                <strong style="color: #009ee1; font-size: 11px; font-weight: bold;">BeleschBox 5</strong>
+                            </div>
+                            <div style="font-size: 9px; line-height: 1.2; color: #333; margin-left: 28px;">
+                                2x 100 Stück Einmalhandschuhe<br>
+                                500 ml Handdesinfektion<br>
+                                1 Pack Desinfektionstücher<br>
+                                4 Stück FFP2 Masken
+                            </div>
+                        </div>
+
+                        <!-- BeleschBox 6 -->
+                        <div style="border: 1px solid #ddd; padding: 8px; position: relative;">
+                            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                <div style="width: 14px; height: 14px; border: 1px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;">${boxChecked[6]}</div>
+                                <img src="/frontend/assets/images/cubes/cube_blue.png" alt="BeleschBox" style="width: 60px; height: 60px; margin-right: 8px; object-fit: contain;">
+                                <strong style="color: #009ee1; font-size: 11px; font-weight: bold;">BeleschBox 6</strong>
+                            </div>
+                            <div style="font-size: 9px; line-height: 1.2; color: #333; margin-left: 28px;">
+                                100 Stück Einmalhandschuhe<br>
+                                500 ml Handdesinfektion<br>
+                                500 ml Flächendesinfektion<br>
+                                25 Stück Bettschutzeinlagen<br>
+                                6 Stück FFP2 Masken
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BeleschBox Individuell -->
+                    <div style="border: 1px solid #ddd; padding: 8px; margin-bottom: 10px;">
+                        <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                            <div style="width: 14px; height: 14px; border: 1px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;">${individuellChecked}</div>
+                            <img src="/frontend/assets/images/cubes/cube_blue.png" alt="BeleschBox" style="width: 60px; height: 60px; margin-right: 8px; object-fit: contain;">
+                            <strong style="color: #009ee1; font-size: 11px; font-weight: bold;">BeleschBox Individuell</strong>
+                        </div>
+                        <div style="margin-left: 28px; margin-top: 8px;">
+                            <div style="border-bottom: 1px solid #ddd; height: 16px; margin-bottom: 6px; width: 100%;"></div>
+                            <div style="border-bottom: 1px solid #ddd; height: 16px; margin-bottom: 6px; width: 100%;"></div>
+                            <div style="border-bottom: 1px solid #ddd; height: 16px; margin-bottom: 6px; width: 100%;"></div>
+                        </div>
+                        <div style="margin-top: 5px;">
+                            ${customProductsHtml}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bettschutzeinlagen -->
+                <div style="margin-bottom: 8px;">
+                    <div style="margin-bottom: 10px;">
+                        <span style="font-weight: bold;">Wiederverwendbare Bettschutzeinlagen:</span>
+                        <div style="display: inline-flex; margin-left: 20px;">
+                            <div style="display: flex; align-items: center; margin-right: 20px;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">${(userData.bett_schutz === '1') ? '✓' : ''}</div>
+                                <span>1</span>
+                            </div>
+                            <div style="display: flex; align-items: center; margin-right: 20px;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">${(userData.bett_schutz === '2') ? '✓' : ''}</div>
+                                <span>2</span>
+                            </div>
+                            <div style="display: flex; align-items: center; margin-right: 20px;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">${(userData.bett_schutz === '3') ? '✓' : ''}</div>
+                                <span>3</span>
+                            </div>
+                            <div style="display: flex; align-items: center; margin-right: 20px;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">${(userData.bett_schutz === '4') ? '✓' : ''}</div>
+                                <span>4</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="font-size: 12px; color: #666; margin-top: 5px;">
+                        (Bis zu 250 Mal waschbar - Kostenfrei)
+                    </div>
+                </div>
+
+                <!-- Handschuhgröße -->
+                <div style="margin-bottom: 8px; ${gloveSectionDisplay}">
+                    <div style="margin-bottom: 10px;">
+                        <span style="font-weight: bold;">Handschuhgröße:</span>
+                        <div style="display: inline-flex; margin-left: 20px;">
+                            <div style="display: flex; align-items: center; margin-right: 20px;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">${gloveChecked.S}</div>
+                                <span>S</span>
+                            </div>
+                            <div style="display: flex; align-items: center; margin-right: 20px;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">${gloveChecked.M}</div>
+                                <span>M</span>
+                            </div>
+                            <div style="display: flex; align-items: center; margin-right: 20px;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">${gloveChecked.L}</div>
+                                <span>L</span>
+                            </div>
+                            <div style="display: flex; align-items: center;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">${gloveChecked.XL}</div>
+                                <span>XL</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="font-size: 12px; color: #666; margin-left: 20px;">
+                        (Bei fehlender Angabe wird Größe M geliefert)
+                    </div>
+                </div>
+
+                <!-- Agreement Text -->
+                <div style="margin-bottom: 8px; padding: 8px; border: 1px solid #ddd; background-color: #f9f9f9;">
+                    <p style="margin: 0; font-size: 14px; line-height: 1.5;">
+                        Die von mir getroffene Auswahl der BeleschBox kann ich jeden Monat neu festlegen.<br>
+                        Änderungen werde ich der MedicCos Inko&Care GmbH rechtzeitig mitteilen.
+                    </p>
+                </div>
+
+                <!-- Signature and Date -->
+                <div style="margin-bottom: 15px; margin-top: 20px;">
+                    <div style="margin-bottom: 8px;">
+                        ${signatureHtml}
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <div style="border-bottom: 1px solid #333; width: 200px; height: 20px; margin-bottom: 5px;"></div>
+                            <span style="font-size: 12px;">Unterschrift</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <div style="border-bottom: 1px solid #333; width: 150px; height: 20px; margin-bottom: 5px;">
+                                <span style="font-size: 12px; color: #333;">${new Date().toLocaleDateString('de-DE')}</span>
+                            </div>
+                            <span style="font-size: 12px;">Datum</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div style="text-align: center; font-size: 11px; color: #666; border-top: 1px solid #ddd; padding-top: 8px; margin-top: 15px;">
+                    MedicCos Inko&Care GmbH Lindenbergplatz 1 - 38126 Braunschweig | +49 (0) 531 51605712 | info@belesch-box.de
+                </div>
+            </div>
+        `;
+    };
+
+    // Affiche le PDF dans une modal avec le template de l'étape 5
+    function showOrderPdfInModal(orderId) {
+        console.log('showOrderPdfInModal called with orderId:', orderId);
+        
+        if (!orderId) {
+            alert('Order ID nicht gefunden.');
+            return;
+        }
+
+        currentOrderId = orderId;
+
+        // Afficher un indicateur de chargement dans la modal
+        const modalBody = document.getElementById('pdf-content');
+        modalBody.innerHTML = '<div class="text-center"><div class="spinner-border" role="status"><span class="visually-hidden">Chargement...</span></div><p class="mt-2">Chargement des données...</p></div>';
+        
+        // Ouvrir la modal
+        $('#pdfModal').modal('show');
+
+        // Récupérer les données de la commande et afficher le template HTML de l'étape 5
+        fetch('/generate-order-data', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({
+                orderId: orderId
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success && data.orderData) {
+                currentOrderData = data.orderData;
+                displayStep5Template(data.orderData);
+            } else {
+                modalBody.innerHTML = '<div class="alert alert-danger">Erreur lors du chargement des données: ' + (data.message || 'Erreur inconnue') + '</div>';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            modalBody.innerHTML = '<div class="alert alert-danger">Erreur lors du chargement des données</div>';
+        });
+    }
+
+    // Affiche le template HTML EXACT de l'étape 5
+    function displayStep5Template(orderData) {
+        const modalBody = document.getElementById('pdf-content');
+        
+        // Template HTML EXACT de l'étape 5 (copié de assemble.blade.php)
+        const template = `
+            <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: white;">
+                <!-- Header -->
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                    <div>
+                        <h1 style="color: #333; font-size: 28px; font-weight: bold; margin: 0 0 10px 0; font-family: serif;">
+                            Auswahl der gewünschten BeleschBox
+                        </h1>
+                        <div style="color: #009ee1; font-size: 16px; font-weight: bold; margin-bottom: 8px;">
+                            Lieferinformationen angeben
+                        </div>
+                        <div style="font-size: 14px; margin-bottom: 10px;">
+                            Versicherte/r (gemäß Antrag auf Kostenübernahme):
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <img src="http://127.0.0.1:8000/frontend/assets/images/logo/belesch-logo-light.png" alt="BeleschBox Logo" style="height: 80px; width: auto; margin-bottom: 10px;">
+                    </div>
+                </div>
+
+                <!-- Personal Information -->
+                <div style="margin-bottom: 8px;">
+                    <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <div style="display: flex; align-items: center; margin-right: 30px;">
+                            <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">${orderData.userData.gender === 'Frau' ? '✓' : ''}</div>
+                            <span>Frau</span>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-right: 30px;">
+                            <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">${orderData.userData.gender === 'Herr' ? '✓' : ''}</div>
+                            <span>Herr</span>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; margin-bottom: 8px;">
+                        <div style="margin-right: 40px;">
+                            <span>Vorname:</span>
+                            <div style="border-bottom: 1px solid #333; width: 200px; display: inline-block; margin-left: 10px;">
+                                <span style="padding: 0 5px;">${orderData.userData.first_name || ''}</span>
+                            </div>
+                        </div>
+                        <div>
+                            <span>Nachname:</span>
+                            <div style="border-bottom: 1px solid #333; width: 200px; display: inline-block; margin-left: 10px;">
+                                <span style="padding: 0 5px;">${orderData.userData.last_name || ''}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 8px;">
+                        <span>Pflegegrad:</span>
+                        <div style="display: inline-flex; margin-left: 20px;">
+                            <div style="display: flex; align-items: center; margin-right: 20px;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">${orderData.userData.pflegegrad === '1' ? '✓' : ''}</div>
+                                <span>1</span>
+                            </div>
+                            <div style="display: flex; align-items: center; margin-right: 20px;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">${orderData.userData.pflegegrad === '2' ? '✓' : ''}</div>
+                                <span>2</span>
+                            </div>
+                            <div style="display: flex; align-items: center; margin-right: 20px;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">${orderData.userData.pflegegrad === '3' ? '✓' : ''}</div>
+                                <span>3</span>
+                            </div>
+                            <div style="display: flex; align-items: center; margin-right: 20px;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">${orderData.userData.pflegegrad === '4' ? '✓' : ''}</div>
+                                <span>4</span>
+                            </div>
+                            <div style="display: flex; align-items: center;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">${orderData.userData.pflegegrad === '5' ? '✓' : ''}</div>
+                                <span>5</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BeleschBox Selection -->
+                <div style="margin-bottom: 8px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 8px;">
+                        <!-- BeleschBox 1 -->
+                        <div style="border: 1px solid #ddd; padding: 8px; position: relative;">
+                            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                <div style="width: 14px; height: 14px; border: 1px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;">${orderData.cartData.beleschbox_number === 'BeleschBox 1' ? '✓' : ''}</div>
+                                <!-- Logo cube bleu -->
+                                <img src="http://127.0.0.1:8000/frontend/assets/images/cubes/cube_blue.png" alt="BeleschBox" style="width: 60px; height: 60px; margin-right: 8px; object-fit: contain;">
+                                <strong style="color: #009ee1; font-size: 11px; font-weight: bold;">BeleschBox 1</strong>
+                            </div>
+                            <div style="font-size: 9px; line-height: 1.2; color: #333; margin-left: 28px;">
+                                2x 100 Stück Einmalhandschuhe<br>
+                                500 ml Handdesinfektion<br>
+                                500 ml Flächendesinfektion<br>
+                                12 Stück FFP2 Masken
+                            </div>
+                        </div>
+
+                        <!-- BeleschBox 2 -->
+                        <div style="border: 1px solid #ddd; padding: 8px; position: relative;">
+                            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                <div style="width: 14px; height: 14px; border: 1px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;">${orderData.cartData.beleschbox_number === 'BeleschBox 2' ? '✓' : ''}</div>
+                                <!-- Logo cube bleu -->
+                                <img src="http://127.0.0.1:8000/frontend/assets/images/cubes/cube_blue.png" alt="BeleschBox" style="width: 60px; height: 60px; margin-right: 8px; object-fit: contain;">
+                                <strong style="color: #009ee1; font-size: 11px; font-weight: bold;">BeleschBox 2</strong>
+                            </div>
+                            <div style="font-size: 9px; line-height: 1.2; color: #333; margin-left: 28px;">
+                                100 Stück Einmalhandschuhe<br>
+                                2x 500 ml Handdesinfektion<br>
+                                25 Stück Bettschutzeinlagen<br>
+                                8 Stück FFP2 Masken
+                            </div>
+                        </div>
+
+                        <!-- BeleschBox 3 -->
+                        <div style="border: 1px solid #ddd; padding: 8px; position: relative;">
+                            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                <div style="width: 14px; height: 14px; border: 1px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;">${orderData.cartData.beleschbox_number === 'BeleschBox 3' ? '✓' : ''}</div>
+                                <!-- Logo cube bleu -->
+                                <img src="http://127.0.0.1:8000/frontend/assets/images/cubes/cube_blue.png" alt="BeleschBox" style="width: 60px; height: 60px; margin-right: 8px; object-fit: contain;">
+                                <strong style="color: #009ee1; font-size: 11px; font-weight: bold;">BeleschBox 3</strong>
+                            </div>
+                            <div style="font-size: 9px; line-height: 1.2; color: #333; margin-left: 28px;">
+                                1 Pack Desinfektionstücher<br>
+                                1x 500 ml Handdesinfektion<br>
+                                1x 500 ml Flächendesinfektion<br>
+                                10 Stück FFP2 Masken
+                            </div>
+                        </div>
+
+                        <!-- BeleschBox 4 -->
+                        <div style="border: 1px solid #ddd; padding: 8px; position: relative;">
+                            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                <div style="width: 14px; height: 14px; border: 1px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;">${orderData.cartData.beleschbox_number === 'BeleschBox 4' ? '✓' : ''}</div>
+                                <!-- Logo cube bleu -->
+                                <img src="http://127.0.0.1:8000/frontend/assets/images/cubes/cube_blue.png" alt="BeleschBox" style="width: 60px; height: 60px; margin-right: 8px; object-fit: contain;">
+                                <strong style="color: #009ee1; font-size: 11px; font-weight: bold;">BeleschBox 4</strong>
+                            </div>
+                            <div style="font-size: 9px; line-height: 1.2; color: #333; margin-left: 28px;">
+                                2x 500 ml Flächendesinfektion<br>
+                                2x 500 ml Handdesinfektion<br>
+                                25 Stück Bettschutzeinlagen<br>
+                                25 Stück FFP2 Masken
+                            </div>
+                        </div>
+
+                        <!-- BeleschBox 5 -->
+                        <div style="border: 1px solid #ddd; padding: 8px; position: relative;">
+                            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                <div style="width: 14px; height: 14px; border: 1px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;">${orderData.cartData.beleschbox_number === 'BeleschBox 5' ? '✓' : ''}</div>
+                                <!-- Logo cube bleu -->
+                                <img src="http://127.0.0.1:8000/frontend/assets/images/cubes/cube_blue.png" alt="BeleschBox" style="width: 60px; height: 60px; margin-right: 8px; object-fit: contain;">
+                                <strong style="color: #009ee1; font-size: 11px; font-weight: bold;">BeleschBox 5</strong>
+                            </div>
+                            <div style="font-size: 9px; line-height: 1.2; color: #333; margin-left: 28px;">
+                                2x 100 Stück Einmalhandschuhe<br>
+                                500 ml Handdesinfektion<br>
+                                1 Pack Desinfektionstücher<br>
+                                4 Stück FFP2 Masken
+                            </div>
+                        </div>
+
+                        <!-- BeleschBox 6 -->
+                        <div style="border: 1px solid #ddd; padding: 8px; position: relative;">
+                            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                <div style="width: 14px; height: 14px; border: 1px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;">${orderData.cartData.beleschbox_number === 'BeleschBox 6' ? '✓' : ''}</div>
+                                <!-- Logo cube bleu -->
+                                <img src="http://127.0.0.1:8000/frontend/assets/images/cubes/cube_blue.png" alt="BeleschBox" style="width: 60px; height: 60px; margin-right: 8px; object-fit: contain;">
+                                <strong style="color: #009ee1; font-size: 11px; font-weight: bold;">BeleschBox 6</strong>
+                            </div>
+                            <div style="font-size: 9px; line-height: 1.2; color: #333; margin-left: 28px;">
+                                100 Stück Einmalhandschuhe<br>
+                                500 ml Handdesinfektion<br>
+                                500 ml Flächendesinfektion<br>
+                                25 Stück Bettschutzeinlagen<br>
+                                6 Stück FFP2 Masken
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BeleschBox Individuell -->
+                    <div style="border: 1px solid #ddd; padding: 8px; margin-bottom: 10px;">
+                        <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                            <div style="width: 14px; height: 14px; border: 1px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;">${orderData.cartData.beleschbox_number === 'Individuell' ? '✓' : ''}</div>
+                            <!-- Logo cube bleu -->
+                            <img src="http://127.0.0.1:8000/frontend/assets/images/cubes/cube_blue.png" alt="BeleschBox" style="width: 60px; height: 60px; margin-right: 8px; object-fit: contain;">
+                            <strong style="color: #009ee1; font-size: 11px; font-weight: bold;">BeleschBox Individuell</strong>
+                        </div>
+                        <div style="margin-left: 28px; margin-top: 8px;">
+                            <div style="border-bottom: 1px solid #ddd; height: 16px; margin-bottom: 6px; width: 100%;"></div>
+                            <div style="border-bottom: 1px solid #ddd; height: 16px; margin-bottom: 6px; width: 100%;"></div>
+                            <div style="border-bottom: 1px solid #ddd; height: 16px; margin-bottom: 6px; width: 100%;"></div>
+                        </div>
+                        <div style="margin-top: 5px;">
+                            ${orderData.cartData.products ? orderData.cartData.products.map(product => 
+                                '<div style="font-size: 9px; line-height: 1.2; color: #333; margin-left: 28px;">' + product.quantity + 'x ' + product.name + '<br></div>'
+                            ).join('') : ''}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bettschutzeinlagen -->
+                <div style="margin-bottom: 8px;">
+                    <div style="margin-bottom: 10px;">
+                        <span style="font-weight: bold;">Wiederverwendbare Bettschutzeinlagen:</span>
+                        <div style="display: inline-flex; margin-left: 20px;">
+                            <div style="display: flex; align-items: center; margin-right: 20px;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;"></div>
+                                <span>1</span>
+                            </div>
+                            <div style="display: flex; align-items: center; margin-right: 20px;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;"></div>
+                                <span>2</span>
+                            </div>
+                            <div style="display: flex; align-items: center; margin-right: 20px;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;"></div>
+                                <span>3</span>
+                            </div>
+                            <div style="display: flex; align-items: center; margin-right: 20px;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;"></div>
+                                <span>4</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="font-size: 12px; color: #666; margin-top: 5px;">
+                        (Bis zu 250 Mal waschbar - Kostenfrei)
+                    </div>
+                </div>
+
+                <!-- Handschuhgröße -->
+                <div style="margin-bottom: 8px; ${orderData.cartData.glove_size ? '' : 'display: none;'}">
+                    <div style="margin-bottom: 10px;">
+                        <span style="font-weight: bold;">Handschuhgröße:</span>
+                        <div style="display: inline-flex; margin-left: 20px;">
+                            <div style="display: flex; align-items: center; margin-right: 20px;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">${orderData.cartData.glove_size === 'S' ? '✓' : ''}</div>
+                                <span>S</span>
+                            </div>
+                            <div style="display: flex; align-items: center; margin-right: 20px;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">${orderData.cartData.glove_size === 'M' ? '✓' : ''}</div>
+                                <span>M</span>
+                            </div>
+                            <div style="display: flex; align-items: center; margin-right: 20px;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">${orderData.cartData.glove_size === 'L' ? '✓' : ''}</div>
+                                <span>L</span>
+                            </div>
+                            <div style="display: flex; align-items: center;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">${orderData.cartData.glove_size === 'XL' ? '✓' : ''}</div>
+                                <span>XL</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="font-size: 12px; color: #666; margin-left: 20px;">
+                        (Bei fehlender Angabe wird Größe M geliefert)
+                    </div>
+                </div>
+
+                <!-- Agreement Text -->
+                <div style="margin-bottom: 8px; padding: 8px; border: 1px solid #ddd; background-color: #f9f9f9;">
+                    <p style="margin: 0; font-size: 14px; line-height: 1.5;">
+                        Die von mir getroffene Auswahl der BeleschBox kann ich jeden Monat neu festlegen.<br>
+                        Änderungen werde ich der MedicCos Inko&Care GmbH rechtzeitig mitteilen.
+                    </p>
+                </div>
+
+                <!-- Signature and Date -->
+                <div style="margin-bottom: 10px;">
+                    <div style="margin-bottom: 8px;">
+                        ${orderData.signatureData && orderData.signatureData.image_path ? 
+                            '<img src="' + orderData.signatureData.image_path + '" style="width: 250px; height: 80px; border: 1px solid #ddd; border-radius: 3px; background: white; object-fit: contain;">' : 
+                            ''
+                        }
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <div style="border-bottom: 1px solid #333; width: 200px; height: 20px; margin-bottom: 5px;"></div>
+                            <span>Unterschrift</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <div style="border-bottom: 1px solid #333; width: 150px; height: 20px; margin-bottom: 5px;">
+                                <span style="font-size: 12px; color: #333;">${new Date().toLocaleDateString('de-DE')}</span>
+                            </div>
+                            <span>Datum</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div style="text-align: center; font-size: 12px; color: #666; border-top: 1px solid #ddd; padding-top: 10px;">
+                    MedicCos Inko&Care GmbH Lindenbergplatz 1 - 38126 Braunschweig | +49 (0) 531 51605712 | info@belesch-box.de
+                </div>
+            </div>
+        `;
+        
+        modalBody.innerHTML = template;
+    }
+
+    // Affiche le PDF dans la modal avec le template EXACT de l'étape 5
+    function displayPdfInModal(orderData) {
+        const pdfContent = document.getElementById('pdf-content');
+        
+        // Template HTML EXACT de l'étape 5
+        const template = `
+            <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: white;">
+                <!-- Header -->
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                    <div>
+                        <h1 style="color: #333; font-size: 28px; font-weight: bold; margin: 0 0 10px 0; font-family: serif;">
+                            Auswahl der gewünschten BeleschBox
+                        </h1>
+                        <div style="color: #009ee1; font-size: 16px; font-weight: bold; margin-bottom: 8px;">
+                            Lieferinformationen angeben
+                        </div>
+                        <div style="font-size: 14px; margin-bottom: 10px;">
+                            Versicherte/r (gemäß Antrag auf Kostenübernahme):
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <img src="http://127.0.0.1:8000/frontend/assets/images/logo/belesch-logo-light.png" alt="BeleschBox Logo" style="height: 80px; width: auto; margin-bottom: 10px;">
+                    </div>
+                </div>
+
+                <!-- Personal Information -->
+                <div style="margin-bottom: 8px;">
+                    <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <div style="display: flex; align-items: center; margin-right: 30px;">
+                            <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">${orderData.userData.gender === 'Frau' ? '✓' : ''}</div>
+                            <span>Frau</span>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-right: 30px;">
+                            <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">${orderData.userData.gender === 'Herr' ? '✓' : ''}</div>
+                            <span>Herr</span>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; margin-bottom: 8px;">
+                        <div style="margin-right: 40px;">
+                            <span>Vorname:</span>
+                            <div style="border-bottom: 1px solid #333; width: 200px; display: inline-block; margin-left: 10px;">
+                                <span style="padding: 0 5px;">${orderData.userData.first_name || ''}</span>
+                            </div>
+                        </div>
+                        <div>
+                            <span>Nachname:</span>
+                            <div style="border-bottom: 1px solid #333; width: 200px; display: inline-block; margin-left: 10px;">
+                                <span style="padding: 0 5px;">${orderData.userData.last_name || ''}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 8px;">
+                        <span>Pflegegrad:</span>
+                        <div style="display: inline-flex; margin-left: 20px;">
+                            <div style="display: flex; align-items: center; margin-right: 20px;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">${orderData.userData.pflegegrad === '1' ? '✓' : ''}</div>
+                                <span>1</span>
+                            </div>
+                            <div style="display: flex; align-items: center; margin-right: 20px;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">${orderData.userData.pflegegrad === '2' ? '✓' : ''}</div>
+                                <span>2</span>
+                            </div>
+                            <div style="display: flex; align-items: center; margin-right: 20px;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">${orderData.userData.pflegegrad === '3' ? '✓' : ''}</div>
+                                <span>3</span>
+                            </div>
+                            <div style="display: flex; align-items: center; margin-right: 20px;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">${orderData.userData.pflegegrad === '4' ? '✓' : ''}</div>
+                                <span>4</span>
+                            </div>
+                            <div style="display: flex; align-items: center;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">${orderData.userData.pflegegrad === '5' ? '✓' : ''}</div>
+                                <span>5</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BeleschBox Selection -->
+                <div style="margin-bottom: 8px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 8px;">
+                        <!-- BeleschBox 1 -->
+                        <div style="border: 1px solid #ddd; padding: 8px; position: relative;">
+                            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                <div style="width: 14px; height: 14px; border: 1px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;">${orderData.cartData.beleschbox_number === 'BeleschBox 1' ? '✓' : ''}</div>
+                                <!-- Logo cube bleu -->
+                                <img src="http://127.0.0.1:8000/frontend/assets/images/cubes/cube_blue.png" alt="BeleschBox" style="width: 60px; height: 60px; margin-right: 8px; object-fit: contain;">
+                                <strong style="color: #009ee1; font-size: 11px; font-weight: bold;">BeleschBox 1</strong>
+                            </div>
+                            <div style="font-size: 9px; line-height: 1.2; color: #333; margin-left: 28px;">
+                                2x 100 Stück Einmalhandschuhe<br>
+                                500 ml Handdesinfektion<br>
+                                500 ml Flächendesinfektion<br>
+                                12 Stück FFP2 Masken
+                            </div>
+                        </div>
+
+                        <!-- BeleschBox 2 -->
+                        <div style="border: 1px solid #ddd; padding: 8px; position: relative;">
+                            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                <div style="width: 14px; height: 14px; border: 1px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;">${orderData.cartData.beleschbox_number === 'BeleschBox 2' ? '✓' : ''}</div>
+                                <!-- Logo cube bleu -->
+                                <img src="http://127.0.0.1:8000/frontend/assets/images/cubes/cube_blue.png" alt="BeleschBox" style="width: 60px; height: 60px; margin-right: 8px; object-fit: contain;">
+                                <strong style="color: #009ee1; font-size: 11px; font-weight: bold;">BeleschBox 2</strong>
+                            </div>
+                            <div style="font-size: 9px; line-height: 1.2; color: #333; margin-left: 28px;">
+                                100 Stück Einmalhandschuhe<br>
+                                2x 500 ml Handdesinfektion<br>
+                                25 Stück Bettschutzeinlagen<br>
+                                8 Stück FFP2 Masken
+                            </div>
+                        </div>
+
+                        <!-- BeleschBox 3 -->
+                        <div style="border: 1px solid #ddd; padding: 8px; position: relative;">
+                            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                <div style="width: 14px; height: 14px; border: 1px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;">${orderData.cartData.beleschbox_number === 'BeleschBox 3' ? '✓' : ''}</div>
+                                <!-- Logo cube bleu -->
+                                <img src="http://127.0.0.1:8000/frontend/assets/images/cubes/cube_blue.png" alt="BeleschBox" style="width: 60px; height: 60px; margin-right: 8px; object-fit: contain;">
+                                <strong style="color: #009ee1; font-size: 11px; font-weight: bold;">BeleschBox 3</strong>
+                            </div>
+                            <div style="font-size: 9px; line-height: 1.2; color: #333; margin-left: 28px;">
+                                1 Pack Desinfektionstücher<br>
+                                1x 500 ml Handdesinfektion<br>
+                                1x 500 ml Flächendesinfektion<br>
+                                10 Stück FFP2 Masken
+                            </div>
+                        </div>
+
+                        <!-- BeleschBox 4 -->
+                        <div style="border: 1px solid #ddd; padding: 8px; position: relative;">
+                            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                <div style="width: 14px; height: 14px; border: 1px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;">${orderData.cartData.beleschbox_number === 'BeleschBox 4' ? '✓' : ''}</div>
+                                <!-- Logo cube bleu -->
+                                <img src="http://127.0.0.1:8000/frontend/assets/images/cubes/cube_blue.png" alt="BeleschBox" style="width: 60px; height: 60px; margin-right: 8px; object-fit: contain;">
+                                <strong style="color: #009ee1; font-size: 11px; font-weight: bold;">BeleschBox 4</strong>
+                            </div>
+                            <div style="font-size: 9px; line-height: 1.2; color: #333; margin-left: 28px;">
+                                2x 500 ml Flächendesinfektion<br>
+                                2x 500 ml Handdesinfektion<br>
+                                25 Stück Bettschutzeinlagen<br>
+                                25 Stück FFP2 Masken
+                            </div>
+                        </div>
+
+                        <!-- BeleschBox 5 -->
+                        <div style="border: 1px solid #ddd; padding: 8px; position: relative;">
+                            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                <div style="width: 14px; height: 14px; border: 1px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;">${orderData.cartData.beleschbox_number === 'BeleschBox 5' ? '✓' : ''}</div>
+                                <!-- Logo cube bleu -->
+                                <img src="http://127.0.0.1:8000/frontend/assets/images/cubes/cube_blue.png" alt="BeleschBox" style="width: 60px; height: 60px; margin-right: 8px; object-fit: contain;">
+                                <strong style="color: #009ee1; font-size: 11px; font-weight: bold;">BeleschBox 5</strong>
+                            </div>
+                            <div style="font-size: 9px; line-height: 1.2; color: #333; margin-left: 28px;">
+                                2x 100 Stück Einmalhandschuhe<br>
+                                500 ml Handdesinfektion<br>
+                                1 Pack Desinfektionstücher<br>
+                                4 Stück FFP2 Masken
+                            </div>
+                        </div>
+
+                        <!-- BeleschBox 6 -->
+                        <div style="border: 1px solid #ddd; padding: 8px; position: relative;">
+                            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                <div style="width: 14px; height: 14px; border: 1px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;">${orderData.cartData.beleschbox_number === 'BeleschBox 6' ? '✓' : ''}</div>
+                                <!-- Logo cube bleu -->
+                                <img src="http://127.0.0.1:8000/frontend/assets/images/cubes/cube_blue.png" alt="BeleschBox" style="width: 60px; height: 60px; margin-right: 8px; object-fit: contain;">
+                                <strong style="color: #009ee1; font-size: 11px; font-weight: bold;">BeleschBox 6</strong>
+                            </div>
+                            <div style="font-size: 9px; line-height: 1.2; color: #333; margin-left: 28px;">
+                                100 Stück Einmalhandschuhe<br>
+                                500 ml Handdesinfektion<br>
+                                500 ml Flächendesinfektion<br>
+                                25 Stück Bettschutzeinlagen<br>
+                                6 Stück FFP2 Masken
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BeleschBox Individuell -->
+                    <div style="border: 1px solid #ddd; padding: 8px; margin-bottom: 10px;">
+                        <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                            <div style="width: 14px; height: 14px; border: 1px solid #333; margin-right: 6px; display: flex; align-items: center; justify-content: center;">${orderData.cartData.beleschbox_number === 'Individuell' ? '✓' : ''}</div>
+                            <!-- Logo cube bleu -->
+                            <img src="http://127.0.0.1:8000/frontend/assets/images/cubes/cube_blue.png" alt="BeleschBox" style="width: 60px; height: 60px; margin-right: 8px; object-fit: contain;">
+                            <strong style="color: #009ee1; font-size: 11px; font-weight: bold;">BeleschBox Individuell</strong>
+                        </div>
+                        <div style="margin-left: 28px; margin-top: 8px;">
+                            <div style="border-bottom: 1px solid #ddd; height: 16px; margin-bottom: 6px; width: 100%;"></div>
+                            <div style="border-bottom: 1px solid #ddd; height: 16px; margin-bottom: 6px; width: 100%;"></div>
+                            <div style="border-bottom: 1px solid #ddd; height: 16px; margin-bottom: 6px; width: 100%;"></div>
+                        </div>
+                        <div style="margin-top: 5px;">
+                            ${orderData.cartData.products ? orderData.cartData.products.map(product => 
+                                `<div style="font-size: 9px; line-height: 1.2; color: #333; margin-left: 28px;">${product.quantity}x ${product.name}<br></div>`
+                            ).join('') : ''}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bettschutzeinlagen -->
+                <div style="margin-bottom: 8px;">
+                    <div style="margin-bottom: 10px;">
+                        <span style="font-weight: bold;">Wiederverwendbare Bettschutzeinlagen:</span>
+                        <div style="display: inline-flex; margin-left: 20px;">
+                            <div style="display: flex; align-items: center; margin-right: 20px;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;"></div>
+                                <span>1</span>
+                            </div>
+                            <div style="display: flex; align-items: center; margin-right: 20px;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;"></div>
+                                <span>2</span>
+                            </div>
+                            <div style="display: flex; align-items: center; margin-right: 20px;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;"></div>
+                                <span>3</span>
+                            </div>
+                            <div style="display: flex; align-items: center; margin-right: 20px;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;"></div>
+                                <span>4</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="font-size: 12px; color: #666; margin-top: 5px;">
+                        (Bis zu 250 Mal waschbar - Kostenfrei)
+                    </div>
+                </div>
+
+                <!-- Handschuhgröße -->
+                <div style="margin-bottom: 8px; ${orderData.cartData.glove_size ? '' : 'display: none;'}">
+                    <div style="margin-bottom: 10px;">
+                        <span style="font-weight: bold;">Handschuhgröße:</span>
+                        <div style="display: inline-flex; margin-left: 20px;">
+                            <div style="display: flex; align-items: center; margin-right: 20px;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">${orderData.cartData.glove_size === 'S' ? '✓' : ''}</div>
+                                <span>S</span>
+                            </div>
+                            <div style="display: flex; align-items: center; margin-right: 20px;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">${orderData.cartData.glove_size === 'M' ? '✓' : ''}</div>
+                                <span>M</span>
+                            </div>
+                            <div style="display: flex; align-items: center; margin-right: 20px;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">${orderData.cartData.glove_size === 'L' ? '✓' : ''}</div>
+                                <span>L</span>
+                            </div>
+                            <div style="display: flex; align-items: center;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #333; margin-right: 8px; display: flex; align-items: center; justify-content: center;">${orderData.cartData.glove_size === 'XL' ? '✓' : ''}</div>
+                                <span>XL</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="font-size: 12px; color: #666; margin-left: 20px;">
+                        (Bei fehlender Angabe wird Größe M geliefert)
+                    </div>
+                </div>
+
+                <!-- Agreement Text -->
+                <div style="margin-bottom: 8px; padding: 8px; border: 1px solid #ddd; background-color: #f9f9f9;">
+                    <p style="margin: 0; font-size: 14px; line-height: 1.5;">
+                        Die von mir getroffene Auswahl der BeleschBox kann ich jeden Monat neu festlegen.<br>
+                        Änderungen werde ich der MedicCos Inko&Care GmbH rechtzeitig mitteilen.
+                    </p>
+                </div>
+
+                <!-- Signature and Date -->
+                <div style="margin-bottom: 10px;">
+                    <div style="margin-bottom: 8px;">
+                        ${orderData.signatureData && orderData.signatureData.image_path ? 
+                            `<img src="${orderData.signatureData.image_path}" style="width: 250px; height: 80px; border: 1px solid #ddd; border-radius: 3px; background: white; object-fit: contain;">` : 
+                            ''
+                        }
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <div style="border-bottom: 1px solid #333; width: 200px; height: 20px; margin-bottom: 5px;"></div>
+                            <span>Unterschrift</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <div style="border-bottom: 1px solid #333; width: 150px; height: 20px; margin-bottom: 5px;">
+                                <span style="font-size: 12px; color: #333;">${new Date().toLocaleDateString('de-DE')}</span>
+                            </div>
+                            <span>Datum</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div style="text-align: center; font-size: 12px; color: #666; border-top: 1px solid #ddd; padding-top: 10px;">
+                    MedicCos Inko&Care GmbH Lindenbergplatz 1 - 38126 Braunschweig | +49 (0) 531 51605712 | info@belesch-box.de
+                </div>
+            </div>
+        `;
+        
+        pdfContent.innerHTML = template;
+    }
+
+    </script>
+
+    <div class="user-orders-container">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="orders-card">
+                        
+                        
+                        <div class="search-container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="search" 
+                                           class="form-control search-input" 
+                                           placeholder="Suchen nach ID, Typ, Status oder Datum..." 
+                                           wire:model="searchTerm">
+                                </div>
+                                <div class="col-md-6 text-end">
+                                    <small class="text-muted">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        Klicken Sie auf die Überschriften zum Sortieren
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="table-responsive">
+                            <table class="table orders-table">
+                                <thead>
+                                    <tr>
+                                        <th class="sort" wire:click="sortOrder('orderId')">
+                                            Bestell-ID <i class="sorticon fa-solid fa-caret-up"></i>
+                                        </th>
+                                        <th class="sort" wire:click="sortOrder('orderType')">
+                                            Typ <i class="sorticon fa-solid fa-caret-up"></i>
+                                        </th>
+                                        <th class="sort" wire:click="sortOrder('created_at')">
+                                            Datum <i class="sorticon fa-solid fa-caret-up"></i>
+                                        </th>
+                                        <th class="sort" wire:click="sortOrder('deliveryStatus')">
+                                            Status <i class="sorticon fa-solid fa-caret-up"></i>
+                                        </th>
+                                        <th>Aktionen</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                                                                                                        <tr>
+                                                <td>
+                                                    <strong>#424108359</strong>
+                                                </td>
+                                                <td>
+                                                                                                            <span class="type-badge type-package">
+                                                            <i class="fas fa-box me-1"></i>
+                                                            Paket
+                                                        </span>
+                                                                                                    </td>
+                                                <td>
+                                                    <i class="fas fa-calendar me-1 text-muted"></i>
+                                                    18/09/2025 01:56
+                                                </td>
+                                                <td>
+                                                                                                            <span class="status-badge status-pending">
+                                                            <i class="fas fa-clock me-1"></i>
+                                                            Ausstehend
+                                                        </span>
+                                                                                                    </td>
+                                                <td>
+                                                    <div class="btn-group" role="group">
+                                                        <button type="button" 
+                                                                class="action-btn" 
+                                                                wire:click="editOrder('424108359', '1')"
+                                                                data-toggle="modal" 
+                                                                data-target="#editCustomer">
+                                                            <i class="fas fa-eye me-1"></i>
+                                                            Einzelheiten
+                                                        </button>
+                                                                                                                    <a href="http://127.0.0.1:8000/update-order?orderId=424108359" 
+                                                               class="action-btn ms-2">
+                                                                <i class="fas fa-edit me-1"></i>
+                                                                Bearbeiten
+                                                            </a>
+                                                                                                                <button type="button" class="action-btn ms-2" onclick="console.log('Button clicked'); showOrderPdfInModal('424108359')">
+                                                            <i class="fas fa-file-pdf me-1"></i>
+                                                            PDF anzeigen
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <td>
+                                                    <strong>#832439705</strong>
+                                                </td>
+                                                <td>
+                                                                                                            <span class="type-badge type-package">
+                                                            <i class="fas fa-box me-1"></i>
+                                                            Paket
+                                                        </span>
+                                                                                                    </td>
+                                                <td>
+                                                    <i class="fas fa-calendar me-1 text-muted"></i>
+                                                    18/09/2025 01:54
+                                                </td>
+                                                <td>
+                                                                                                            <span class="status-badge status-pending">
+                                                            <i class="fas fa-clock me-1"></i>
+                                                            Ausstehend
+                                                        </span>
+                                                                                                    </td>
+                                                <td>
+                                                    <div class="btn-group" role="group">
+                                                        <button type="button" 
+                                                                class="action-btn" 
+                                                                wire:click="editOrder('832439705', '1')"
+                                                                data-toggle="modal" 
+                                                                data-target="#editCustomer">
+                                                            <i class="fas fa-eye me-1"></i>
+                                                            Einzelheiten
+                                                        </button>
+                                                                                                                    <a href="http://127.0.0.1:8000/update-order?orderId=832439705" 
+                                                               class="action-btn ms-2">
+                                                                <i class="fas fa-edit me-1"></i>
+                                                                Bearbeiten
+                                                            </a>
+                                                                                                                <button type="button" class="action-btn ms-2" onclick="console.log('Button clicked'); showOrderPdfInModal('832439705')">
+                                                            <i class="fas fa-file-pdf me-1"></i>
+                                                            PDF anzeigen
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <td>
+                                                    <strong>#771985006</strong>
+                                                </td>
+                                                <td>
+                                                                                                            <span class="type-badge type-product">
+                                                            <i class="fas fa-shopping-cart me-1"></i>
+                                                            Produkt
+                                                        </span>
+                                                                                                    </td>
+                                                <td>
+                                                    <i class="fas fa-calendar me-1 text-muted"></i>
+                                                    15/09/2025 18:15
+                                                </td>
+                                                <td>
+                                                                                                            <span class="status-badge status-pending">
+                                                            <i class="fas fa-clock me-1"></i>
+                                                            Ausstehend
+                                                        </span>
+                                                                                                    </td>
+                                                <td>
+                                                    <div class="btn-group" role="group">
+                                                        <button type="button" 
+                                                                class="action-btn" 
+                                                                wire:click="editOrder('771985006', '0')"
+                                                                data-toggle="modal" 
+                                                                data-target="#editCustomer">
+                                                            <i class="fas fa-eye me-1"></i>
+                                                            Einzelheiten
+                                                        </button>
+                                                                                                                    <a href="http://127.0.0.1:8000/update-order?orderId=771985006" 
+                                                               class="action-btn ms-2">
+                                                                <i class="fas fa-edit me-1"></i>
+                                                                Bearbeiten
+                                                            </a>
+                                                                                                                <button type="button" class="action-btn ms-2" onclick="console.log('Button clicked'); showOrderPdfInModal('771985006')">
+                                                            <i class="fas fa-file-pdf me-1"></i>
+                                                            PDF anzeigen
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                                                                                            </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Détails de la commande - Structure identique à l'admin -->
+    <div class="modal fade" wire:ignore.self id="editCustomer" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Bestelldetails #</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">Produktbild</div>
+                            <div class="col-md-3">Name</div>
+                            <div class="col-md-3">Titel</div>
+                            <div class="col-md-3">Menge</div>
+                        </div>
+                                                    <div class="row">
+                                <div class="col-md-12 text-center py-4">
+                                    <p class="text-muted">Keine Details für diese Bestellung verfügbar.</p>
+                                </div>
+                            </div>
+                                            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal pour afficher le PDF -->
+<div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pdfModalLabel">BeleschBox Bestellformular</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="padding: 0;">
+                <div id="pdf-content" style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: white;">
+                    <!-- Le contenu PDF sera inséré ici -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                <button type="button" class="btn btn-primary" onclick="downloadOrderPdf()">
+                    <i class="fas fa-download"></i> PDF herunterladen
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('livewire:load', function () {
+    window.addEventListener('orderUpdated', () => {
+        // Forcer l'ouverture de la modal après la mise à jour des données
+        setTimeout(() => {
+            $('#editCustomer').modal('show');
+        }, 200);
+    });
+});
+
+</script>
+
+<script>
+// Script supprimé - fonction déplacée en haut du fichier
+</script>
+
+<!-- Livewire Component wire-end:lYFprNtdhFPstGdgXliF -->    <!-- ========================  Footer  ========================== -->
+<style wire:id="ySCiOWrEeImsFbjra1go" wire:initial-data="{&quot;fingerprint&quot;:{&quot;id&quot;:&quot;ySCiOWrEeImsFbjra1go&quot;,&quot;name&quot;:&quot;frontend.includes.footer&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;customer\/orders&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;v&quot;:&quot;acj&quot;},&quot;effects&quot;:{&quot;listeners&quot;:[]},&quot;serverMemo&quot;:{&quot;children&quot;:[],&quot;errors&quot;:[],&quot;htmlHash&quot;:&quot;f188e3c9&quot;,&quot;data&quot;:[],&quot;dataMeta&quot;:[],&quot;checksum&quot;:&quot;a885bab25b86347f9e74f33849507d9c5e37d2fd668cb3df28e20e94ad06933c&quot;}}">
+    /* ===== MODERN FOOTER STYLES ===== */
+    :root {
+        --sky-blu: #009ee1;
+        --turquoise: #39cdc1;
+        --blue-gradient: linear-gradient(135deg, #009ee1 0%, #39cdc1 100%);
+        --blue-gradient-hover: linear-gradient(135deg, #0088cc 0%, #2fb8b0 100%);
+        --light-blue: #e3f2fd;
+        --dark-blue: #0056b3;
+        --white: #ffffff;
+        --footer-bg: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
+        --footer-text: #e2e8f0;
+        --footer-link: #cbd5e0;
+        --footer-link-hover: #ffffff;
+        --border-radius: 12px;
+        --shadow: 0 4px 20px rgba(0, 158, 225, 0.15);
+        --shadow-hover: 0 8px 30px rgba(0, 158, 225, 0.25);
+    }
+    
+    .footer {
+        background: var(--footer-bg) !important;
+        color: var(--footer-text) !important;
+        position: relative;
+        overflow: hidden;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    body .footer {
+        background: var(--footer-bg) !important;
+    }
+    
+    .footer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, rgba(0, 158, 225, 0.1) 0%, rgba(57, 205, 193, 0.1) 100%);
+        pointer-events: none;
+    }
+    
+    .footer-primary {
+        padding: 6px 0 4px !important;
+        position: relative;
+        z-index: 1;
+        background: transparent !important;
+        display: flex;
+        align-items: center;
+        min-height: 30vh;
+    }
+    
+    body .footer .footer-primary {
+        padding: 6px 0 4px !important;
+    }
+    
+    .footer-widget__title {
+        background: var(--blue-gradient) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+        font-weight: 700 !important;
+        font-size: 8px !important;
+        margin-bottom: 3px !important;
+        position: relative;
+        color: transparent !important;
+    }
+    
+    body .footer .footer-widget__title {
+        background: var(--blue-gradient) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+        font-size: 8px !important;
+        margin-bottom: 3px !important;
+        color: transparent !important;
+    }
+    
+    /* Fallback pour les navigateurs qui ne supportent pas background-clip */
+    .footer-widget__title {
+        color: var(--sky-blu) !important;
+    }
+    
+    .footer-widget__title[style*="background"] {
+        color: transparent !important;
+    }
+    
+    .footer-widget__title::after {
+        content: '';
+        position: absolute;
+        bottom: -6px;
+        left: 0;
+        width: 25px;
+        height: 2px;
+        background: var(--blue-gradient);
+        border-radius: 2px;
+    }
+    
+    .footer-widget-about p {
+        color: var(--footer-text) !important;
+        line-height: 1.2 !important;
+        margin-top: 3px !important;
+        font-size: 10px !important;
+    }
+    
+    .footer-widget-about img {
+        max-width: 120px !important;
+        height: auto !important;
+        filter: brightness(1.2) contrast(1.1) !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    .footer-widget-about img:hover {
+        filter: brightness(1.4) contrast(1.2) !important;
+        transform: scale(1.05) !important;
+    }
+    
+    body .footer .footer-widget-about p {
+        font-size: 10px !important;
+        line-height: 1.2 !important;
+        margin-top: 3px !important;
+    }
+    
+    .footer-widget-nav ul li {
+        margin-bottom: 1px !important;
+    }
+    
+    .footer-widget-nav ul li:first-child {
+        margin-top: 8px !important;
+    }
+    
+    .footer-widget-nav ul li a {
+        color: var(--footer-link) !important;
+        text-decoration: none !important;
+        transition: all 0.3s ease !important;
+        font-weight: 500 !important;
+        font-size: 10px !important;
+        position: relative;
+    }
+    
+    body .footer .footer-widget-nav ul li a {
+        font-size: 10px !important;
+        margin-bottom: 2px !important;
+        color: var(--footer-link) !important;
+    }
+    
+    .footer-widget-nav ul li a:hover {
+        background: var(--blue-gradient) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+        transform: translateX(3px) !important;
+    }
+    
+    .footer-widget-contact {
+        background: linear-gradient(135deg, var(--white) 0%, rgba(255, 255, 255, 0.95) 100%) !important;
+        padding: 10px !important;
+        border-radius: var(--border-radius) !important;
+        box-shadow: var(--shadow) !important;
+        border-left: 3px solid transparent !important;
+        background-image: linear-gradient(135deg, var(--white) 0%, rgba(255, 255, 255, 0.95) 100%), var(--blue-gradient) !important;
+        background-origin: border-box !important;
+        background-clip: content-box, border-box !important;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height: 100%;
+    }
+    
+    body .footer .footer-widget-contact {
+        padding: 10px !important;
+        background: linear-gradient(135deg, var(--white) 0%, rgba(255, 255, 255, 0.95) 100%) !important;
+    }
+    
+    .footer-widget-contact::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100px;
+        height: 100px;
+        background: var(--blue-gradient);
+        opacity: 0.1;
+        border-radius: 50%;
+        transform: translate(30px, -30px);
+    }
+    
+    .footer-widget-contact .footer-widget__title {
+        background: var(--blue-gradient) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+        margin-bottom: 6px !important;
+        font-size: 11px !important;
+    }
+    
+    .contact-list li {
+        color: var(--dark-blue) !important;
+        margin-bottom: 4px !important;
+        line-height: 1.2 !important;
+        font-size: 10px !important;
+    }
+    
+    .phone__number {
+        background: var(--blue-gradient) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+        font-weight: 600 !important;
+        text-decoration: none !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        font-size: 12px !important;
+    }
+    
+    .phone__number:hover {
+        background: var(--turquoise) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+    }
+    
+    .social-icons {
+        display: flex !important;
+        gap: 5px !important;
+        margin-top: 6px !important;
+    }
+    
+    .social-icons li a {
+        width: 24px !important;
+        height: 24px !important;
+        background: var(--blue-gradient) !important;
+        color: var(--white) !important;
+        border-radius: 50% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-decoration: none !important;
+        transition: all 0.3s ease !important;
+        box-shadow: var(--shadow) !important;
+    }
+    
+    .social-icons li a:hover {
+        transform: translateY(-3px) !important;
+        box-shadow: var(--shadow-hover) !important;
+        background: var(--blue-gradient-hover) !important;
+    }
+    
+    .footer-secondary {
+        background: linear-gradient(90deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 158, 225, 0.1) 50%, rgba(57, 205, 193, 0.1) 100%) !important;
+        padding: 2px 0 !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+        position: relative;
+        z-index: 1;
+    }
+    
+    body .footer .footer-secondary {
+        padding: 2px 0 !important;
+        background: linear-gradient(90deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 158, 225, 0.1) 50%, rgba(57, 205, 193, 0.1) 100%) !important;
+    }
+    
+    .footer-secondary span,
+    .footer-secondary a {
+        color: var(--footer-text) !important;
+        font-size: 8px !important;
+    }
+    
+    .footer-secondary a:hover {
+        background: var(--blue-gradient) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+    }
+    
+    .footer__copyright-links li {
+        margin-left: 12px !important;
+    }
+    
+    .footer__copyright-links li a {
+        color: var(--footer-link) !important;
+        text-decoration: none !important;
+        transition: all 0.3s ease !important;
+        font-size: 10px !important;
+    }
+    
+    .footer__copyright-links li a:hover {
+        background: var(--blue-gradient) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+    }
+    
+    #scrollTopBtn {
+        position: fixed !important;
+        bottom: 12px !important;
+        right: 12px !important;
+        width: 35px !important;
+        height: 35px !important;
+        background: var(--blue-gradient) !important;
+        color: var(--white) !important;
+        border: none !important;
+        border-radius: 50% !important;
+        box-shadow: var(--shadow) !important;
+        cursor: pointer !important;
+        transition: all 0.3s ease !important;
+        z-index: 1000 !important;
+    }
+    
+    #scrollTopBtn:hover {
+        transform: translateY(-3px) !important;
+        box-shadow: var(--shadow-hover) !important;
+    }
+    
+    @media (max-width: 768px) {
+        .footer-primary {
+            padding: 10px 0 8px !important;
+        }
+        
+        .footer-widget-contact {
+            margin-top: 10px !important;
+        }
+        
+        .social-icons {
+            justify-content: center !important;
+        }
+    }
+    
+    /* FORCE APPLICATION - OVERRIDE ALL OTHER STYLES */
+    .footer * {
+        box-sizing: border-box !important;
+    }
+    
+    .footer .container {
+        max-width: 100% !important;
+    }
+    
+    .footer .row {
+        margin: 0 !important;
+    }
+    
+    .footer .col-sm-12,
+    .footer .col-md-12,
+    .footer .col-lg-3,
+    .footer .col-lg-2,
+    .footer .col-lg-4 {
+        padding: 0 15px !important;
+    }
+    
+    /* FORCER LES COULEURS DÉGRADÉES */
+    .footer h6,
+    .footer .footer-widget__title {
+        background: linear-gradient(135deg, #009ee1 0%, #39cdc1 100%) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+        color: transparent !important;
+    }
+    
+    .footer a:hover {
+        background: linear-gradient(135deg, #009ee1 0%, #39cdc1 100%) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+    }
+</style>
+
+<footer class="footer">
+    <div class="footer-primary">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-3">
+                    <div class="footer-widget-about">
+                        <img src="http://127.0.0.1:8000/frontend/assets/images/logo/belesch-logo-light.png" alt="logo" class="mb-30">
+                        <img src="http://127.0.0.1:8000/frontend/assets/images/logo/MedicCos_Inko_and_Care.png" alt="logo" class="ml-30 mb-0">
+                        <p class="color-gray"><p>Seit 2019 helfen wir unseren Kunden dabei, ein unabhängigeres und aktiveres Leben zu führen. Einen besonderen Stellenwert legen wir auf die Beratung unserer Kunden, </p>
+                    </div><!-- /.footer-widget__content -->
+                </div><!-- /.col-xl-2 -->
+                <div class="col-sm-6 col-md-6 col-lg-2 offset-lg-1">
+                    <div class="footer-widget-nav">
+                        <h6 class="footer-widget__title">Useful links</h6>
+                        <nav>
+                            <ul class="list-unstyled">
+                                                                <li><a href="#" class="text-decoration-none">MedicCos Inkontinenzhilfe</a></li>
+                                <li><a href="#" class="text-decoration-none">Link2</a></li>
+                                <li><a href="#" class="text-decoration-none">Link3</a></li>
+                                <li><a href="#" class="text-decoration-none">Link4</a></li>
+                                <li><a href="#" class="text-decoration-none">Link5</a></li>
+                            </ul>
+                        </nav>
+                    </div><!-- /.footer-widget__content -->
+                </div><!-- /.col-lg-2 -->
+                <div class="col-sm-6 col-md-6 col-lg-2">
+                    <div class="footer-widget-nav">
+                        <h6 class="footer-widget__title">Links</h6>
+                        <nav>
+                            <ul class="list-unstyled">
+                                <li><a href="http://127.0.0.1:8000">Home</a></li>
+                                <li><a href="http://127.0.0.1:8000/about">About Us</a></li>
+                                <li><a href="http://127.0.0.1:8000/contact">Contact Us</a></li>
+                                <li><a href="http://127.0.0.1:8000/assemble">Assemble Curebox</a></li>
+                                <li><a href="http://127.0.0.1:8000/terms-conditions">Terms & Conditions</a></li>
+                                <li><a href="http://127.0.0.1:8000/privacy-policy">Privacy Policy</a></li>
+                                <li><a href="http://127.0.0.1:8000/cookie">Cookie</a></li>
+                            </ul>
+                        </nav>
+                    </div><!-- /.footer-widget__content -->
+                </div><!-- /.col-lg-2 -->
+                <div class="col-sm-12 col-md-6 col-lg-4">
+                    <div class="footer-widget-contact">
+                        <h6 class="footer-widget__title color-heading">Quick Contacts</h6>
+                        <ul class="contact-list list-unstyled">
+                            <li>If you have any questions or need help, feel free to contact with our team.</li>
+                            <li>
+                                <a href="tel:01061245741" class="phone__number">
+                                    <i class="icon-phone"></i> <span>+49 531 516 057 12</span>
+                                </a>
+                            </li>
+                            <li class="color-body">Lorem Ipsum is simply dummy text of the printing.</li>
+                        </ul>
+                        <div class="d-flex align-items-center">
+                            <!-- <a href="contact-us.html" class="btn btn__primary btn__link mr-30">
+                              <i class="icon-arrow-right"></i> <span>Get Directions</span>
+                            </a> -->
+                            <ul class="social-icons list-unstyled mb-0">
+                                                                    <li><a href="https://www.youtube.com" target="_blank"><i class="fab fa-youtube"></i></a></li>
+                                                                    <li><a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a></li>
+                                                                    <li><a href="http://localhost/admin-master" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                                                                    <li><a href="http://localhost/admin-master" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                                                            </ul><!-- /.social-icons -->
+                        </div>
+                    </div><!-- /.footer-widget__content -->
+                </div><!-- /.col-lg-2 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </div><!-- /.footer-primary -->
+    <div class="footer-secondary">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-sm-12 col-md-6 col-lg-6">
+                    <span class="fz-14">&copy; 2025 Laravel , All Rights Reserved. </span>
+                    <span>Designed by <a class="fz-14 color-primary" href="#">infoicon technology</a></span>
+                </div><!-- /.col-lg-6 -->
+                <div class="col-sm-12 col-md-6 col-lg-6">
+                    <nav>
+                        <ul class="list-unstyled footer__copyright-links d-flex flex-wrap justify-content-end mb-0">
+                            <li><a href="http://127.0.0.1:8000/terms-conditions">Terms & Conditions</a></li>
+                            <li><a href="http://127.0.0.1:8000/privacy-policy">Privacy Policy</a></li>
+                            <li><a href="http://127.0.0.1:8000/cookie">Cookies</a></li>
+                        </ul>
+                    </nav>
+                </div><!-- /.col-lg-6 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </div><!-- /.footer-secondary -->
+</footer><!-- /.Footer -->
+<button id="scrollTopBtn"><i class="fas fa-long-arrow-alt-up"></i></button>
+<!-- Livewire Component wire-end:ySCiOWrEeImsFbjra1go --></div>
+<!-- Livewire Scripts -->
+
+<script src="/vendor/livewire/livewire.js?id=90730a3b0e7144480175" data-turbo-eval="false" data-turbolinks-eval="false" ></script>
+<script data-turbo-eval="false" data-turbolinks-eval="false" >
+    if (window.livewire) {
+	    console.warn('Livewire: It looks like Livewire\'s @livewireScripts JavaScript assets have already been loaded. Make sure you aren\'t loading them twice.')
+	}
+
+    window.livewire = new Livewire();
+    window.livewire.devTools(true);
+    window.Livewire = window.livewire;
+    window.livewire_app_url = '';
+    window.livewire_token = '46cbcIAlZxCuOHYn9QXfPE8wQ5IOOdmJhsnaXP2e';
+
+	/* Make sure Livewire loads first. */
+	if (window.Alpine) {
+	    /* Defer showing the warning so it doesn't get buried under downstream errors. */
+	    document.addEventListener("DOMContentLoaded", function () {
+	        setTimeout(function() {
+	            console.warn("Livewire: It looks like AlpineJS has already been loaded. Make sure Livewire\'s scripts are loaded before Alpine.\\n\\n Reference docs for more info: http://laravel-livewire.com/docs/alpine-js")
+	        })
+	    });
+	}
+
+	/* Make Alpine wait until Livewire is finished rendering to do its thing. */
+    window.deferLoadingAlpine = function (callback) {
+        window.addEventListener('livewire:load', function () {
+            callback();
+        });
+    };
+
+    let started = false;
+
+    window.addEventListener('alpine:initializing', function () {
+        if (! started) {
+            window.livewire.start();
+
+            started = true;
+        }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        if (! started) {
+            window.livewire.start();
+
+            started = true;
+        }
+    });
+</script>
+<script src="http://127.0.0.1:8000/frontend/assets/js/jquery-3.5.1.min.js"></script>
+<script src="http://127.0.0.1:8000/frontend/assets/js/plugins.js"></script>
+<script src="http://127.0.0.1:8000/frontend/assets/js/main.js"></script>
+<link rel="stylesheet" href="http://127.0.0.1:8000/frontend/assets/css/jquery.toast.css">
+<script src="http://127.0.0.1:8000/frontend/assets/js/jquery.toast.min.js"></script>
+<!-- Bootstrap DatePicker -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" type="text/css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js" type="text/javascript"></script>
+<script>
+    function toastMessage(message) {
+        $.toast({
+            heading: 'Alert Message',
+            text: message,
+            icon: 'error',
+            loader: true,        // Change it to false to disable loader
+            loaderBg: '#de1414',  // To change the background
+            showHideTransition: 'slide',
+            hideAfter: 5000,
+            allowToastClose: true,
+            stack: 4,
+            position: 'top-center',
+        })
+    }
+	
+	function sendMail() {
+        var fullname = document.getElementById("contact-fname").value;
+        var email = document.getElementById("contact-email").value;
+        var phone = document.getElementById("contact-phone").value;
+		var message = document.getElementById("contact-message").value;
+			
+		var mailtoLink = "mailto:info@beleschbox.de"
+						+ "?subject=" + encodeURIComponent("Contact from " + fullname)
+						+ "&body=" + encodeURIComponent("Full Name: " + fullname + "\n"
+						+ "Phone: " + phone + "\n"
+						+ "Email: " + email + "\n\n"
+						+ "Message: \n" + message);
+			
+        window.location.href = mailtoLink;
+    } 
+</script>
+</body>
+</html>

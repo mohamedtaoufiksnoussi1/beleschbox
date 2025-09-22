@@ -24,7 +24,7 @@ class OrderComponent extends Component
         $title = "Orders";
 //        $orders = Order::orderBy('id','desc')->get()
 //            ->groupBy('orderId');
-        $orders = Order::orderby($this->orderColumn, $this->sortOrder)->select('*');
+        $orders = Order::with('getCustomer')->orderby($this->orderColumn, $this->sortOrder)->select('*');
         if (!empty($this->searchTerm)) {
 
             $orders->orWhere('orderId', 'like', "%" . $this->searchTerm . "%");

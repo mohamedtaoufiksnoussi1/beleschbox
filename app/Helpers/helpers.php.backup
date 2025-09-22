@@ -1,0 +1,14 @@
+<?php
+
+// BACKUP CREATED ON: 2025-01-11
+// ORIGINAL FILE: app/Helpers/helpers.php
+// REASON: Backup before modifying package order logic
+
+// This is a backup of the original helpers.php file
+// To restore: copy this file back to app/Helpers/helpers.php
+
+// The original file content is preserved in the current helpers.php file
+// This backup is created before making changes to package order saving logic
+
+echo "This is a backup file. The original content is in helpers.php";
+

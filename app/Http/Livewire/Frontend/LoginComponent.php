@@ -37,7 +37,7 @@ class LoginComponent extends Component
            if ($customer->get()->count()==1){
                \Session::put('Customer', $customer->first());
                //return redirect('customer/profile');
-               return redirect('/');
+               return redirect('/customer/orders');
            }
             session()->flash('message', 'You have entered invalid Email or Password');
             return redirect()->back();

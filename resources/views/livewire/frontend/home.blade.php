@@ -46,7 +46,9 @@
         }
         
         .slide-item .bg-img img {
-            display: none;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         
         .slide-item .container {
@@ -55,41 +57,46 @@
         }
         
         .slide__content {
-            background: rgba(255, 255, 255, 0.95);
+            background: transparent;
             padding: 3rem;
             border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: none;
+            border: none;
             position: relative;
             z-index: 20;
-            backdrop-filter: blur(20px);
+            backdrop-filter: none;
             transform: translateY(0);
             transition: all 0.3s ease;
         }
         
         .slide__content:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+            transform: none;
+            box-shadow: none;
         }
         
         .slide__title {
             font-size: 2.8rem;
             font-weight: 700;
             margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #009ee1 0%, #0077b3 100%);
+            background: linear-gradient(135deg, #00d4ff 0%, #39cdc1 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             letter-spacing: -0.02em;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         
         .slide__desc {
             font-size: 1.2rem;
             line-height: 1.8;
-            color: #2d3748;
+            color: #e0f2ff;
             margin-bottom: 2rem;
             font-weight: 500;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
         }
         
         /* Section contact - Design professionnel */
@@ -472,7 +479,7 @@
            <!-- Bouton Assemble Curebox déplacé ici -->
            <div class="row mt-5">
                <div class="col-12 text-center">
-                   <a href="{{route('assemble')}}" class="btn btn__secondary btn__rounded btn-lg" style="font-size: 1.2rem; padding: 1.2rem 3.5rem; background: white; color: #009ee1; border: 3px solid white; box-shadow: 0 8px 25px rgba(0,0,0,0.15); font-weight: 600;">
+                   <a href="{{route('assemble')}}?mode=custom" class="btn btn__secondary btn__rounded btn-lg" style="font-size: 1.2rem; padding: 1.2rem 3.5rem; background: white; color: #009ee1; border: 3px solid white; box-shadow: 0 8px 25px rgba(0,0,0,0.15); font-weight: 600;">
                        <i class="icon-container mr-2"></i>
                        <span>Assemble Curebox</span>
                    </a>

@@ -215,7 +215,7 @@ function customValidation() {
                                                                     $("#email2").removeClass("border-red"),
                                                                     $("#health-insurance").removeClass("border-red"),
                                                                     $("#insurance-no").removeClass("border-red"))
-                                                                : ("" == $("#carer-name").val() || $("#carer-name").val().length < 2) && !0 == optperson()
+                                                                : ("" == $("#carer-name").val() || ($("#carer-name").val() && $("#carer-name").val().length < 2)) && !0 == optperson()
                                                                     ? ($("#carer-name").addClass("border-red"),
                                                                         $("#carer-name").focus(),
                                                                         $('input[name="insured"]').each(function () {
@@ -236,7 +236,7 @@ function customValidation() {
                                                                         $("#health-insurance").removeClass("border-red"),
                                                                         $("#insurance-no").removeClass("border-red"),
                                                                         $("#KrankenkasseNummer").removeClass("border-red"))
-                                                                    : ("" == $("#carer-no").val() || $("#carer-no").val().length < 2) && !0 == optperson()
+                                                                    : ("" == $("#carer-no").val() || ($("#carer-no").val() && $("#carer-no").val().length < 2)) && !0 == optperson()
                                                                         ? ($("#carer-no").addClass("border-red"),
                                                                             $("#carer-no").focus(),
                                                                             $('input[name="insured"]').each(function () {
@@ -258,7 +258,7 @@ function customValidation() {
                                                                             $("#insurance-no").removeClass("border-red"),
                                                                             $("#KrankenkasseNummer").removeClass("border-red"),
                                                                             $("#carer-name").removeClass("border-red"))
-                                                                        : ("" == $("#carer-mail").val() || $("#carer-mail").val().length < 2) && !0 == optperson()
+                                                                        : ("" == $("#carer-mail").val() || ($("#carer-mail").val() && $("#carer-mail").val().length < 2)) && !0 == optperson()
                                                                             ? ($("#carer-mail").addClass("border-red"),
                                                                                 $("#carer-mail").focus(),
                                                                                 $('input[name="insured"]').each(function () {
@@ -400,39 +400,11 @@ $(".bed_protector_modal").click(function () {
     }
 }),
     $(".with-bed-protection").click(function () {
-        if ($("input:radio[name='number_of_bed']").is(":checked")) {
-            // Choix fait - continuer normalement
-            $("#bed_protector_modal").css("display", "none");
-            $("#step1").css("display", "none");
-            $("#step2").css("display", "block");
-            $(".step2").addClass("active");
-            
-            // Supprimer l'effet d'erreur si présent
-            $(".prod-count").removeClass("error-highlight");
-        } else {
-            // Aucun choix fait - afficher le modal d'erreur et l'effet visuel
-            if (typeof showBedProtectionErrorModal === 'function') {
-                showBedProtectionErrorModal();
-            } else {
-                // Fallback vers toast si la fonction n'est pas disponible
-                toastMessage("Bitte wählen Sie die Anzahl der Bettschutzeinlagen aus.");
-            }
-            
-            // Ajouter l'effet visuel sur les boutons
-            $(".prod-count").addClass("error-highlight");
-            
-            // Supprimer l'effet après 3 secondes
-            setTimeout(function() {
-                $(".prod-count").removeClass("error-highlight");
-            }, 3000);
-        }
+        $("input:radio[name='number_of_bed']").is(":checked")
+            ? ($("#bed_protector_modal").css("display", "none"), $("#step1").css("display", "none"), $("#step2").css("display", "block"), $(".step2").addClass("active"))
+            : showModernBedProtectionModal();
+
     }),
-    
-    // Supprimer l'effet d'erreur quand l'utilisateur fait un choix
-    $("input:radio[name='number_of_bed']").change(function() {
-        $(".prod-count").removeClass("error-highlight");
-    }),
-    
     $(".iAm-question").hover(
         function () {
             $(".iAm-question-ans").css({ top: "50px", display: "block" });
@@ -493,6 +465,69 @@ function DownloadCanvasAsImage() {
     $("#signatureImg").attr("src", e);
 }
 
+
+// Function called by the "einreichen" button
+function signature() {
+    const signatureImg = document.getElementById("signatureImg");
+    if (signatureImg && signatureImg.src) {
+        // Signature already stored, proceed with form submission
+        console.log('Signature ready for submission');
+        // You can add additional logic here if needed
+        return true;
+    } else {
+        alert("Bitte zeichnen Sie zuerst eine Unterschrift und klicken Sie auf 'Save'.");
+        return false;
+    }
+}
+
+// Test function to debug signature
+function testSignature() {
+    console.log('=== SIGNATURE DEBUG TEST ===');
+    
+    // Check canvas
+    const canvas = document.getElementById("sketchpad");
+    if (!canvas) {
+        console.error('❌ Canvas not found');
+        return;
+    }
+    console.log('✅ Canvas found');
+    
+    // Check if canvas has content
+    const ctx = canvas.getContext('2d');
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const data = imageData.data;
+    let hasContent = false;
+    
+    for (let i = 3; i < data.length; i += 4) {
+        if (data[i] > 0) {
+            hasContent = true;
+            break;
+        }
+    }
+    
+    if (!hasContent) {
+        console.warn('⚠️ Canvas is empty - draw something first');
+        return;
+    }
+    console.log('✅ Canvas has content');
+    
+    // Convert to base64
+    const dataURL = canvas.toDataURL("image/png");
+    console.log('✅ Canvas converted to base64, length:', dataURL.length);
+    console.log('Base64 preview:', dataURL.substring(0, 50) + '...');
+    
+    // Check sessionStorage
+    const storedSignature = sessionStorage.getItem('user_signature');
+    console.log('SessionStorage signature:', storedSignature ? 'EXISTS' : 'NOT FOUND');
+    if (storedSignature) {
+        console.log('Stored signature preview:', storedSignature.substring(0, 50) + '...');
+    }
+    
+    // Test server storage
+    console.log('Testing server storage...');
+    storeSignatureInSession(dataURL);
+}
+
 function deletesign() {
     $("#signatureImg").attr("src", ""), sketchpad.clear();
 }
@@ -503,15 +538,15 @@ $(".saveAddress").click(function () {
     });
 }),
     $(".deliveryAddress").click(function () {
-        $("#Drecipient_name").val().length < 1
+        ($("#Drecipient_name").val() && $("#Drecipient_name").val().length < 1)
             ? ($("#Drecipient_name").addClass("border-red"), $("#Drecipient_name").focus())
-            : $("#Dstreetno").val().length < 1
+            : ($("#Dstreetno").val() && $("#Dstreetno").val().length < 1)
                 ? ($("#Dstreetno").addClass("border-red"), $("#Dstreetno").focus(), $("#Drecipient_name").removeClass("border-red"))
-                : $("#Dhouseno").val().length < 1
+                : ($("#Dhouseno").val() && $("#Dhouseno").val().length < 1)
                     ? ($("#Dhouseno").addClass("border-red"), $("#Dhouseno").focus(), $("#Drecipient_name").removeClass("border-red"), $("#Dstreetno").removeClass("border-red"))
-                    : $("#Dzip").val().length < 1
+                    : ($("#Dzip").val() && $("#Dzip").val().length < 1)
                         ? ($("#Dzip").addClass("border-red"), $("#Dzip").focus(), $("#Drecipient_name").removeClass("border-red"), $("#Dstreetno").removeClass("border-red"), $("#Dhouseno").removeClass("border-red"))
-                        : $("#Dcity").val().length < 1
+                        : ($("#Dcity").val() && $("#Dcity").val().length < 1)
                             ? ($("#Dcity").addClass("border-red"),
                                 $("#Dcity").focus(),
                                 $("#Drecipient_name").removeClass("border-red"),
@@ -757,8 +792,8 @@ function searchCustomerByEmail() {
     
     setTimeout(() => {
         if (!email) {
-            showAlertMessage('Bitte geben Sie eine Email-Adresse ein.', 'warning');
-            debugInfo.textContent = 'Erreur - Email manquant';
+            showModernModal('Bitte geben Sie eine E-Mail-Adresse ein.', 'warning');
+            debugInfo.textContent = 'Fehler - E-Mail fehlt';
             debugInfo.style.color = '#dc3545';
             return;
         }
@@ -786,7 +821,7 @@ function searchCustomerByEmail() {
             $('.password-fields').hide();
             
             // Afficher le message de succès
-            showAlertMessage('✅ Kunde gefunden! Die Formularfelder werden automatisch ausgefüllt.', 'success');
+            showAlertMessage('✅ E-Mail gefunden! Die Kundendaten wurden automatisch geladen.', 'success');
             
             // Afficher le bouton de suppression
             clearBtn.style.display = 'inline-block';
@@ -804,8 +839,8 @@ function searchCustomerByEmail() {
             // Afficher les champs de mot de passe
             $('.password-fields').show();
             
-            // Afficher le message d'avertissement
-            showAlertMessage('⚠️ Kein Kunde gefunden! Bitte überprüfen Sie die Email-Adresse oder füllen Sie das Formular manuell aus.', 'warning');
+            // Afficher le modal d'avertissement
+            showModernModal('⚠️ Kein Kunde gefunden! Bitte überprüfen Sie die E-Mail-Adresse oder füllen Sie das Formular manuell aus.', 'warning');
             
             // Masquer le bouton de suppression
             clearBtn.style.display = 'none';
@@ -889,3 +924,97 @@ function clearFormFields() {
     });
     
 })();
+
+// ===== MODAL MODERNE POUR BETTSCHUTZEINLAGEN =====
+function showModernBedProtectionModal() {
+    // Créer le modal s'il n'existe pas
+    let modal = document.getElementById('modernBedProtectionModal');
+    if (!modal) {
+        modal = createModernBedProtectionModal();
+    }
+    
+    // Afficher le modal
+    modal.style.display = 'flex';
+    modal.classList.add('show');
+}
+
+function createModernBedProtectionModal() {
+    const modal = document.createElement('div');
+    modal.id = 'modernBedProtectionModal';
+    modal.className = 'modern-modal';
+    modal.innerHTML = `
+        <div class="modal-backdrop"></div>
+        <div class="modal-container">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h4 class="modal-title">Auswahl Erforderlich</h4>
+                    <button class="modal-close" onclick="closeModernBedProtectionModal()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Bitte wählen Sie eine Anzahl für die Bettschutzeinlagen aus, bevor Sie fortfahren.</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-modal-close" onclick="closeModernBedProtectionModal()">
+                        <i class="fas fa-check"></i> Verstanden
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    return modal;
+}
+
+function selectBedProtectionQuantity(quantity) {
+    // Sélectionner la quantité dans le modal original
+    $(`input[name="number_of_bed"][value="${quantity}"]`).prop('checked', true);
+    
+    // Mettre à jour l'affichage
+    pdBedProtection();
+    
+    // Fermer le modal moderne
+    closeModernBedProtectionModal();
+    
+    // Fermer le modal original des Bettschutzeinlagen
+    $("#bed_protector_modal").css("display", "none");
+    
+    // Passer à l'étape suivante
+    $("#step1").css("display", "none");
+    $("#step2").css("display", "block");
+    $(".step2").addClass("active");
+}
+
+function closeModernBedProtectionModal() {
+    const modal = document.getElementById('modernBedProtectionModal');
+    if (modal) {
+        modal.classList.remove('show');
+        setTimeout(() => {
+            modal.style.display = 'none';
+        }, 300);
+    }
+}
+
+// Gestion des événements pour le modal moderne des Bettschutzeinlagen
+document.addEventListener('DOMContentLoaded', function() {
+    // Fermer le modal en cliquant sur le backdrop
+    document.addEventListener('click', function(e) {
+        const modal = document.getElementById('modernBedProtectionModal');
+        if (modal && modal.classList.contains('show')) {
+            if (e.target.classList.contains('modal-backdrop')) {
+                closeModernBedProtectionModal();
+            }
+        }
+    });
+    
+    // Fermer le modal avec la touche Escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeModernBedProtectionModal();
+        }
+    });
+});

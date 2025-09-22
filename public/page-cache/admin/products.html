@@ -1,0 +1,2305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+    <meta name="author" content="AdminKit">
+    <meta name="keywords"
+          content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com/">
+    <link rel="shortcut icon" href="http://127.0.0.1:8000/admin/img/icons/icon-48x48.png"/>
+
+    <title>Products</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="http://127.0.0.1:8000/admin/css/light.css" rel="stylesheet">
+    
+    <style>
+        /* ===== MODERN ADMIN INTERFACE STYLES ===== */
+        
+        /* CSS Variables for consistent theming */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --secondary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --success-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            --warning-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --card-shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.15);
+            --border-radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* ===== MODERN CARDS ===== */
+        .card {
+            border: none !important;
+            border-radius: var(--border-radius) !important;
+            box-shadow: var(--card-shadow) !important;
+            transition: var(--transition) !important;
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px) !important;
+            overflow: hidden !important;
+        }
+        
+        .card:hover {
+            box-shadow: var(--card-shadow-hover) !important;
+            transform: translateY(-2px) !important;
+        }
+        
+        .card-header {
+            background: var(--primary-gradient) !important;
+            color: white !important;
+            border: none !important;
+            padding: 1.25rem !important;
+            font-weight: 600 !important;
+        }
+        
+        .card-body {
+            padding: 1.5rem !important;
+        }
+        
+        /* ===== MODERN BUTTONS ===== */
+        .btn {
+            border-radius: 8px !important;
+            font-weight: 500 !important;
+            transition: var(--transition) !important;
+            border: none !important;
+            position: relative !important;
+            overflow: hidden !important;
+            padding: 0.5rem 1.25rem !important;
+        }
+        
+        .btn-primary {
+            background: var(--primary-gradient) !important;
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4) !important;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-1px) !important;
+            box-shadow: 0 6px 20px rgba(79, 172, 254, 0.6) !important;
+        }
+        
+        .btn-success {
+            background: var(--success-gradient) !important;
+            box-shadow: 0 4px 15px rgba(17, 153, 142, 0.4) !important;
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-1px) !important;
+            box-shadow: 0 6px 20px rgba(17, 153, 142, 0.6) !important;
+        }
+        
+        .btn-warning {
+            background: var(--warning-gradient) !important;
+            box-shadow: 0 4px 15px rgba(240, 147, 251, 0.4) !important;
+        }
+        
+        .btn-warning:hover {
+            transform: translateY(-1px) !important;
+            box-shadow: 0 6px 20px rgba(240, 147, 251, 0.6) !important;
+        }
+        
+        /* ===== MODERN FORMS ===== */
+        .form-control, .form-select {
+            border-radius: 8px !important;
+            border: 2px solid #e9ecef !important;
+            transition: var(--transition) !important;
+            padding: 0.75rem 1rem !important;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: #4facfe !important;
+            box-shadow: 0 0 0 0.2rem rgba(79, 172, 254, 0.25) !important;
+        }
+        
+        .form-label {
+            font-weight: 600 !important;
+            color: #2c3e50 !important;
+            margin-bottom: 0.5rem !important;
+        }
+        
+        /* ===== MODERN TABLES ===== */
+        .table {
+            border-radius: var(--border-radius) !important;
+            overflow: hidden !important;
+            box-shadow: var(--card-shadow) !important;
+        }
+        
+        .table thead th {
+            background: var(--primary-gradient) !important;
+            color: white !important;
+            border: none !important;
+            font-weight: 600 !important;
+            padding: 1rem !important;
+        }
+        
+        .table tbody tr {
+            transition: var(--transition) !important;
+        }
+        
+        .table tbody tr:hover {
+            background: rgba(79, 172, 254, 0.05) !important;
+            transform: scale(1.01) !important;
+        }
+        
+        .table tbody td {
+            padding: 1rem !important;
+            border-color: #f8f9fa !important;
+        }
+        
+        /* ===== MODERN ALERTS ===== */
+        .alert {
+            border: none !important;
+            border-radius: var(--border-radius) !important;
+            box-shadow: var(--card-shadow) !important;
+            padding: 1rem 1.25rem !important;
+        }
+        
+        .alert-success {
+            background: linear-gradient(135deg, rgba(17, 153, 142, 0.1) 0%, rgba(56, 239, 125, 0.1) 100%) !important;
+            color: #11998e !important;
+            border-left: 4px solid #11998e !important;
+        }
+        
+        .alert-danger {
+            background: linear-gradient(135deg, rgba(240, 147, 251, 0.1) 0%, rgba(245, 87, 108, 0.1) 100%) !important;
+            color: #f5576c !important;
+            border-left: 4px solid #f5576c !important;
+        }
+        
+        .alert-warning {
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.1) 0%, rgba(255, 140, 0, 0.1) 100%) !important;
+            color: #ff8c00 !important;
+            border-left: 4px solid #ff8c00 !important;
+        }
+        
+        .alert-info {
+            background: linear-gradient(135deg, rgba(79, 172, 254, 0.1) 0%, rgba(0, 242, 254, 0.1) 100%) !important;
+            color: #4facfe !important;
+            border-left: 4px solid #4facfe !important;
+        }
+        
+        /* ===== MODERN BADGES ===== */
+        .badge {
+            border-radius: 20px !important;
+            padding: 0.5rem 0.75rem !important;
+            font-weight: 600 !important;
+            font-size: 0.75rem !important;
+        }
+        
+        .badge-primary {
+            background: var(--primary-gradient) !important;
+        }
+        
+        .badge-success {
+            background: var(--success-gradient) !important;
+        }
+        
+        .badge-warning {
+            background: var(--warning-gradient) !important;
+        }
+        
+        /* ===== MODERN NAVIGATION ===== */
+        .nav-pills .nav-link {
+            border-radius: 8px !important;
+            transition: var(--transition) !important;
+            margin: 0 0.25rem !important;
+        }
+        
+        .nav-pills .nav-link.active {
+            background: var(--primary-gradient) !important;
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4) !important;
+        }
+        
+        /* ===== MODERN PAGINATION ===== */
+        .pagination .page-link {
+            border-radius: 8px !important;
+            margin: 0 0.25rem !important;
+            border: none !important;
+            transition: var(--transition) !important;
+        }
+        
+        .pagination .page-item.active .page-link {
+            background: var(--primary-gradient) !important;
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4) !important;
+        }
+        
+        /* ===== MODERN MODALS ===== */
+        .modal-content {
+            border: none !important;
+            border-radius: var(--border-radius) !important;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25) !important;
+        }
+        
+        .modal-header {
+            background: var(--primary-gradient) !important;
+            color: white !important;
+            border: none !important;
+            border-radius: var(--border-radius) var(--border-radius) 0 0 !important;
+        }
+        
+        /* ===== HEADER ADJUSTMENTS ===== */
+        .navbar-breadcrumb {
+            margin-left: 20px;
+        }
+        
+        .navbar-breadcrumb .breadcrumb {
+            background: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .navbar-breadcrumb .breadcrumb-item {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .navbar-breadcrumb .breadcrumb-item.active {
+            color: #4facfe;
+        }
+        
+        /* Right side adjustments */
+        .navbar-right {
+            margin-right: 20px;
+        }
+        
+        .navbar-nav .nav-item {
+            margin: 0 8px;
+        }
+        
+        .nav-icon {
+            color: #6c757d;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            padding: 8px;
+            border-radius: 8px;
+        }
+        
+        .nav-icon:hover {
+            color: #4facfe;
+            background: rgba(79, 172, 254, 0.1);
+            transform: scale(1.1);
+        }
+        
+        .notification-icon {
+            position: relative;
+        }
+        
+        .notification-badge {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            color: white;
+            border-radius: 50%;
+            padding: 3px 7px;
+            font-size: 11px;
+            font-weight: 600;
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            min-width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(220, 53, 69, 0.3);
+        }
+        
+        .user-badge {
+            background: linear-gradient(135deg, #ffc107 0%, #ff8c00 100%);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .user-info {
+            margin-left: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .user-info .user-name {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 15px;
+            margin: 0;
+            line-height: 1.2;
+        }
+        
+        .user-info .user-role {
+            color: #6c757d;
+            font-size: 12px;
+            margin: 0;
+            line-height: 1.2;
+        }
+        
+        .user-avatar-wrapper {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-avatar-wrapper .avatar {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+        
+        .user-avatar-wrapper:hover .avatar {
+            border-color: #4facfe;
+            transform: scale(1.05);
+        }
+        
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        /* ===== DASHBOARD SPECIFIC STYLES ===== */
+        .dashboard-header {
+            margin-bottom: 2rem;
+        }
+        
+        .dashboard-title {
+            color: #2c3e50;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .dashboard-title i {
+            color: #4facfe;
+        }
+        
+        .dashboard-subtitle {
+            color: #6c757d;
+            font-size: 1.1rem;
+            margin: 0;
+        }
+        
+        /* ===== STATS CARDS TEXT IMPROVEMENTS ===== */
+        .card .card-title {
+            color: #2c3e50 !important;
+            font-weight: 700 !important;
+            font-size: 1rem !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+            margin-bottom: 0.75rem !important;
+            letter-spacing: 0.5px !important;
+        }
+        
+        .card h1 {
+            color: #1a252f !important;
+            font-weight: 800 !important;
+            font-size: 2.5rem !important;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+            margin: 0.5rem 0 !important;
+            line-height: 1.2 !important;
+        }
+        
+        .card .stat {
+            background: rgba(79, 172, 254, 0.1) !important;
+            border-radius: 50% !important;
+            width: 50px !important;
+            height: 50px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.2) !important;
+        }
+        
+        .card .stat i {
+            color: #4facfe !important;
+            font-size: 1.25rem !important;
+            font-weight: 600 !important;
+        }
+        
+        /* Enhanced card contrast */
+        .card {
+            background: rgba(255, 255, 255, 0.98) !important;
+            border: 1px solid rgba(79, 172, 254, 0.1) !important;
+        }
+        
+        .card:hover {
+            background: rgba(255, 255, 255, 1) !important;
+            border-color: rgba(79, 172, 254, 0.2) !important;
+        }
+        
+        /* Stats Cards */
+        .stats-card {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .stats-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary-gradient);
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stats-info {
+            padding: 0.5rem 0;
+        }
+        
+        .stats-title {
+            color: #6c757d;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stats-number {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0.5rem 0;
+            line-height: 1;
+        }
+        
+        .stats-trend {
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+        }
+        
+        .stats-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stats-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
+        }
+        
+        .stats-icon.bg-primary {
+            background: var(--primary-gradient);
+        }
+        
+        .stats-icon.bg-success {
+            background: var(--success-gradient);
+        }
+        
+        .stats-icon.bg-warning {
+            background: var(--warning-gradient);
+        }
+        
+        .stats-icon.bg-info {
+            background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+        }
+        
+        /* Products Table */
+        .products-table-card {
+            margin-top: 2rem;
+        }
+        
+        .card-subtitle {
+            color: #ffffff !important;
+            font-size: 0.9rem !important;
+            font-weight: 500 !important;
+            opacity: 0.9 !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        .card-title {
+            color: #ffffff !important;
+            font-weight: 700 !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        .card-title i {
+            color: #ffffff !important;
+            opacity: 0.9 !important;
+        }
+        
+        .card-actions .btn {
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        /* Enhanced Table Styles */
+        .table tbody tr {
+            border-bottom: 1px solid #f8f9fa;
+        }
+        
+        .table tbody tr:last-child {
+            border-bottom: none;
+        }
+        
+        .table tbody tr:hover {
+            background: rgba(79, 172, 254, 0.02);
+        }
+        
+        /* Product Image Styling */
+        .table .bg-light {
+            background: #f8f9fa !important;
+            border-radius: 8px;
+            padding: 0.5rem;
+        }
+        
+        .table img {
+            border-radius: 6px;
+            transition: transform 0.3s ease;
+        }
+        
+        .table tbody tr:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Status Buttons */
+        .btn-outline-success,
+        .btn-outline-danger {
+            border-radius: 20px;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* ===== SIDEBAR MODERNIZATION - FORCE BLUE GRADIENT ===== */
+        .sidebar,
+        .sidebar *,
+        .sidebar::before,
+        .sidebar::after {
+            background: var(--primary-gradient) !important;
+            background-color: transparent !important;
+        }
+        
+        .sidebar {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        /* Force override any dark backgrounds */
+        .sidebar[style*="background"],
+        .sidebar[style*="background-color"],
+        .sidebar *[style*="background"],
+        .sidebar *[style*="background-color"] {
+            background: var(--primary-gradient) !important;
+            background-color: transparent !important;
+        }
+        
+        .sidebar-header {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+        }
+        
+        .sidebar-brand {
+            color: white !important;
+        }
+        
+        .sidebar-brand:hover {
+            color: rgba(255, 255, 255, 0.9) !important;
+        }
+        
+        .sidebar-nav {
+            background: transparent !important;
+        }
+        
+        .sidebar-nav .sidebar-item {
+            background: transparent !important;
+            border-radius: 8px !important;
+            margin: 0.25rem 0 !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .sidebar-nav .sidebar-item:hover {
+            background: rgba(255, 255, 255, 0.1) !important;
+            transform: translateX(5px) !important;
+        }
+        
+        .sidebar-nav .sidebar-item.active {
+            background: rgba(255, 255, 255, 0.2) !important;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1) !important;
+        }
+        
+        .sidebar-nav .sidebar-link {
+            color: white !important;
+            padding: 0.75rem 1rem !important;
+            border-radius: 8px !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .sidebar-nav .sidebar-link:hover {
+            color: white !important;
+            background: rgba(255, 255, 255, 0.1) !important;
+        }
+        
+        .sidebar-nav .sidebar-link.active {
+            color: white !important;
+            background: rgba(255, 255, 255, 0.2) !important;
+            font-weight: 600 !important;
+        }
+        
+        .sidebar-nav .sidebar-link-icon {
+            color: rgba(255, 255, 255, 0.8) !important;
+            margin-right: 0.75rem !important;
+            width: 20px !important;
+            text-align: center !important;
+        }
+        
+        .sidebar-nav .sidebar-link-text {
+            color: white !important;
+            font-weight: 500 !important;
+        }
+        
+        .sidebar-nav .sidebar-link-arrow {
+            color: rgba(255, 255, 255, 0.6) !important;
+        }
+        
+        /* User Section in Sidebar */
+        .sidebar-user {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
+            margin-top: auto !important;
+        }
+        
+        .sidebar-user-info {
+            color: white !important;
+            padding: 1rem !important;
+        }
+        
+        .sidebar-user-info .user-name {
+            color: white !important;
+            font-weight: 600 !important;
+        }
+        
+        .sidebar-user-info .user-role {
+            color: rgba(255, 255, 255, 0.8) !important;
+        }
+        
+        .sidebar-user-info .avatar {
+            border: 2px solid rgba(255, 255, 255, 0.3) !important;
+        }
+        
+        /* Navigation Headers */
+        .sidebar-nav .nav-header {
+            color: rgba(255, 255, 255, 0.7) !important;
+            font-size: 0.75rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 1px !important;
+            margin: 1.5rem 0 0.5rem 0 !important;
+            padding: 0 1rem !important;
+        }
+        
+        /* Dropdown in Sidebar */
+        .sidebar-dropdown {
+            background: rgba(255, 255, 255, 0.05) !important;
+            border-radius: 8px !important;
+            margin: 0.25rem 0 !important;
+        }
+        
+        .sidebar-dropdown .sidebar-item {
+            background: transparent !important;
+        }
+        
+        .sidebar-dropdown .sidebar-item:hover {
+            background: rgba(255, 255, 255, 0.1) !important;
+        }
+        
+        /* User Dropdown in Sidebar */
+        .sidebar-user-info .dropdown-menu {
+            background: white !important;
+            border: none !important;
+            border-radius: 12px !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+            padding: 0.5rem 0 !important;
+            margin-top: 0.5rem !important;
+            min-width: 200px !important;
+        }
+        
+        .sidebar-user-info .dropdown-item {
+            color: #2c3e50 !important;
+            padding: 0.75rem 1rem !important;
+            border-radius: 0 !important;
+            transition: all 0.3s ease !important;
+            display: flex !important;
+            align-items: center !important;
+        }
+        
+        .sidebar-user-info .dropdown-item:hover {
+            background: rgba(79, 172, 254, 0.1) !important;
+            color: #4facfe !important;
+            transform: translateX(5px) !important;
+        }
+        
+        .sidebar-user-info .dropdown-item i {
+            margin-right: 0.75rem !important;
+            width: 16px !important;
+            text-align: center !important;
+        }
+        
+        .sidebar-user-info .dropdown-divider {
+            margin: 0.5rem 0 !important;
+            border-color: #e9ecef !important;
+        }
+        
+        .sidebar-user-info .dropdown-toggle {
+            cursor: pointer !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .sidebar-user-info .dropdown-toggle:hover {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border-radius: 8px !important;
+        }
+        
+        .sidebar-user-info .dropdown-arrow {
+            transition: transform 0.3s ease !important;
+        }
+        
+        .sidebar-user-info.show .dropdown-arrow {
+            transform: rotate(180deg) !important;
+        }
+        
+        /* Override any dark backgrounds - ULTRA AGGRESSIVE */
+        .sidebar * {
+            color: white !important;
+        }
+        
+        .sidebar .text-muted {
+            color: rgba(255, 255, 255, 0.7) !important;
+        }
+        
+        .sidebar .bg-dark,
+        .sidebar .bg-secondary,
+        .sidebar .bg-primary,
+        .sidebar .bg-black,
+        .sidebar .bg-gray,
+        .sidebar .bg-gray-900,
+        .sidebar .bg-gray-800,
+        .sidebar .bg-gray-700,
+        .sidebar .bg-gray-600,
+        .sidebar .bg-dark-mode,
+        .sidebar .dark,
+        .sidebar .navbar-dark,
+        .sidebar .sidebar-dark {
+            background: transparent !important;
+            background-color: transparent !important;
+        }
+        
+        /* Force all possible dark elements to be transparent */
+        .sidebar div,
+        .sidebar nav,
+        .sidebar ul,
+        .sidebar li,
+        .sidebar a,
+        .sidebar span,
+        .sidebar section,
+        .sidebar article,
+        .sidebar aside {
+            background: transparent !important;
+            background-color: transparent !important;
+        }
+        
+        /* Specific AdminKit overrides */
+        .sidebar[data-theme="dark"],
+        .sidebar.theme-dark,
+        .sidebar.dark-theme,
+        .sidebar .theme-dark,
+        .sidebar .dark-theme {
+            background: var(--primary-gradient) !important;
+            background-color: transparent !important;
+        }
+        
+        /* ===== RESPONSIVE ADJUSTMENTS ===== */
+        @media (max-width: 768px) {
+            .navbar-breadcrumb {
+                margin-left: 10px;
+            }
+            
+            .search-box {
+                margin: 0 10px;
+            }
+            
+            .navbar-right {
+                margin-right: 10px;
+            }
+            
+            .card {
+                margin-bottom: 1rem;
+            }
+            
+            .table-responsive {
+                border-radius: var(--border-radius);
+            }
+            
+            .dashboard-title {
+                font-size: 1.5rem;
+            }
+            
+            .stats-number {
+                font-size: 2rem;
+            }
+            
+            .stats-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.25rem;
+            }
+            
+            .sidebar {
+                box-shadow: none !important;
+            }
+        }
+    </style>
+    
+    <!-- Livewire Styles -->
+<style >
+    [wire\:loading], [wire\:loading\.delay], [wire\:loading\.inline-block], [wire\:loading\.inline], [wire\:loading\.block], [wire\:loading\.flex], [wire\:loading\.table], [wire\:loading\.grid], [wire\:loading\.inline-flex] {
+        display: none;
+    }
+
+    [wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short], [wire\:loading\.delay\.long], [wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest] {
+        display:none;
+    }
+
+    [wire\:offline] {
+        display: none;
+    }
+
+    [wire\:dirty]:not(textarea):not(input):not(select) {
+        display: none;
+    }
+
+    input:-webkit-autofill, select:-webkit-autofill, textarea:-webkit-autofill {
+        animation-duration: 50000s;
+        animation-name: livewireautofill;
+    }
+
+    @keyframes livewireautofill { from {} }
+</style>
+</head>
+<body class="antialiased">
+    <script src="http://127.0.0.1:8000/admin/js/app.js"></script>
+    <div wire:id="4VN3WiEoFQoHbb6X7zOi" wire:initial-data="{&quot;fingerprint&quot;:{&quot;id&quot;:&quot;4VN3WiEoFQoHbb6X7zOi&quot;,&quot;name&quot;:&quot;admin.product-component&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;admin\/products&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;v&quot;:&quot;acj&quot;},&quot;effects&quot;:{&quot;listeners&quot;:[],&quot;path&quot;:&quot;http:\/\/127.0.0.1:8000\/admin\/products&quot;},&quot;serverMemo&quot;:{&quot;children&quot;:{&quot;l1696119811-0&quot;:{&quot;id&quot;:&quot;RYkRwPQ214r7z2rlmQ6c&quot;,&quot;tag&quot;:&quot;nav&quot;},&quot;l1696119811-1&quot;:{&quot;id&quot;:&quot;CyTCloDwHZqVYdWPu3g6&quot;,&quot;tag&quot;:&quot;nav&quot;},&quot;l1696119811-2&quot;:{&quot;id&quot;:&quot;6MzomrGcWsQC8C2ECkbW&quot;,&quot;tag&quot;:&quot;footer&quot;}},&quot;errors&quot;:[],&quot;htmlHash&quot;:&quot;d02ab317&quot;,&quot;data&quot;:{&quot;positionNumber&quot;:null,&quot;heading&quot;:&quot;Was beinhalten unsere Boxen?&quot;,&quot;contents1&quot;:&quot;Hochwertige Produkte f\u00fcr Ihr Wohlbefinden!&quot;,&quot;image&quot;:null,&quot;rank&quot;:null,&quot;name&quot;:null,&quot;product_title&quot;:null,&quot;size_availability&quot;:[],&quot;altTag&quot;:null,&quot;titleTag&quot;:null,&quot;contents&quot;:null,&quot;price&quot;:null,&quot;measurement&quot;:null,&quot;status&quot;:null,&quot;showImage&quot;:null,&quot;product_id&quot;:null,&quot;description&quot;:&quot;&quot;,&quot;page&quot;:1,&quot;paginators&quot;:{&quot;page&quot;:1}},&quot;dataMeta&quot;:[],&quot;checksum&quot;:&quot;a519bdaea44bf0d7e4f2610f20f952bcc2e2d4b193fe65be0d4e1a24d3b9b5ec&quot;}}">
+    <div>
+        
+        <div class="wrapper">
+            <nav wire:id="RYkRwPQ214r7z2rlmQ6c" wire:initial-data="{&quot;fingerprint&quot;:{&quot;id&quot;:&quot;RYkRwPQ214r7z2rlmQ6c&quot;,&quot;name&quot;:&quot;admin.includes.left-menu&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;admin\/products&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;v&quot;:&quot;acj&quot;},&quot;effects&quot;:{&quot;listeners&quot;:[]},&quot;serverMemo&quot;:{&quot;children&quot;:[],&quot;errors&quot;:[],&quot;htmlHash&quot;:&quot;95c603c4&quot;,&quot;data&quot;:[],&quot;dataMeta&quot;:[],&quot;checksum&quot;:&quot;097ca7542907aa2f6b5a406403585197201534869bb51dea111676a0360b95a4&quot;}}" id="sidebar" class="sidebar js-sidebar">
+    <div class="sidebar-content js-simplebar">
+        <a class="sidebar-brand" href="http://127.0.0.1:8000/admin/dashboard">
+					<span class="sidebar-brand-text align-middle">
+						Admin
+					</span>
+            <svg class="sidebar-brand-icon align-middle" width="32px" height="32px" viewBox="0 0 24 24" fill="none"
+                 stroke="#FFFFFF" stroke-width="1.5"
+                 stroke-linecap="square" stroke-linejoin="miter" color="#FFFFFF" style="margin-left: -3px">
+                <path d="M12 4L20 8.00004L12 12L4 8.00004L12 4Z"></path>
+                <path d="M20 12L12 16L4 12"></path>
+                <path d="M20 16L12 20L4 16"></path>
+            </svg>
+        </a>
+
+        <div class="sidebar-user">
+            <div class="d-flex justify-content-center">
+                <div class="flex-shrink-0">
+                    <img src="http://127.0.0.1:8000/admin/img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1"
+                         alt="Charles Hall"/>
+                </div>
+                <div class="flex-grow-1 ps-2">
+                    <a class="sidebar-user-title dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                        Charles Hall
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-start">
+                        <a class="dropdown-item" href="http://127.0.0.1:8000/admin/profile"><i class="align-middle me-1"
+                                                                                      data-feather="user"></i>
+                            Profile</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="http://127.0.0.1:8000/admin/setting"><i class="align-middle me-1"
+                                                                                      data-feather="settings"></i>
+                            Settings &
+                            Privacy</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="http://127.0.0.1:8000/logout">Log out</a>
+                    </div>
+
+                    <div class="sidebar-user-subtitle">
+                                                    Super Admin
+                                            </div>
+                </div>
+            </div>
+        </div>
+
+        <ul class="sidebar-nav">
+            <li class="sidebar-header">
+                Pages
+            </li>
+            <li class="sidebar-item active">
+                <a href="http://127.0.0.1:8000/admin/dashboard" class="sidebar-link">
+                    <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboards</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item">
+                <a data-bs-target="#pages" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                    <i class="align-middle" data-feather="layout"></i> <span class="align-middle">Pages</span>
+                </a>
+                <ul id="pages" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+                    <li class="sidebar-item"><a class="sidebar-link" href="http://127.0.0.1:8000/admin/slider">Slider </a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="http://127.0.0.1:8000/admin/aboutUs">About Us </a>
+                    </li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="#">Services </a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="http://127.0.0.1:8000/admin/team">Team </a></li>
+                    <li class="sidebar-item"><a class="sidebar-link"
+                                                href="http://127.0.0.1:8000/admin/testimonial">Testimonial </a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="http://127.0.0.1:8000/admin/gallery">Gallery</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="http://127.0.0.1:8000/admin/partners">Clients</a></li>
+                </ul>
+            </li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="http://127.0.0.1:8000/admin/profile">
+                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="http://127.0.0.1:8000/admin/setting">
+                    <i class="align-middle me-1" data-feather="settings"></i> <span class="align-middle">Settings & Privacy</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="http://127.0.0.1:8000/admin/social-media">
+                    <i class="align-middle me-1" data-feather="linkedin"></i> <span
+                        class="align-middle">Social Media</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item">
+                <a data-bs-target="#products" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                    <i class="align-middle" data-feather="layout"></i> <span class="align-middle">Manage Products</span>
+                </a>
+                <ul id="products" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+                    <li class="sidebar-item"><a class="sidebar-link" href="http://127.0.0.1:8000/admin/products">Products </a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="http://127.0.0.1:8000/admin/packages">Packages </a></li>
+                </ul>
+            </li>
+
+            <li class="sidebar-item">
+                <a data-bs-target="#Customers" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                    <i class="align-middle" data-feather="users"></i> <span class="align-middle">Manage Customers</span>
+                </a>
+                <ul id="Customers" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+                    <li class="sidebar-item"><a class="sidebar-link" href="http://127.0.0.1:8000/admin/customers">Customers </a></li>
+                </ul>
+            </li>
+
+            <li class="sidebar-item">
+                <a data-bs-target="#Orders" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                    <i class="align-middle" data-feather="check-circle"></i> <span class="align-middle">Manage Orders</span>
+                </a>
+                <ul id="Orders" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+                    <li class="sidebar-item"><a class="sidebar-link" href="http://127.0.0.1:8000/admin/orders">Orders </a></li>
+                </ul>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="http://127.0.0.1:8000/admin/useful-link">
+                    <i class="align-middle me-1" data-feather="link"></i> <span
+                        class="align-middle">Useful Links </span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+
+<!-- Livewire Component wire-end:RYkRwPQ214r7z2rlmQ6c -->            <div class="main">
+                <nav wire:id="CyTCloDwHZqVYdWPu3g6" wire:initial-data="{&quot;fingerprint&quot;:{&quot;id&quot;:&quot;CyTCloDwHZqVYdWPu3g6&quot;,&quot;name&quot;:&quot;admin.includes.header&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;admin\/products&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;v&quot;:&quot;acj&quot;},&quot;effects&quot;:{&quot;listeners&quot;:[]},&quot;serverMemo&quot;:{&quot;children&quot;:[],&quot;errors&quot;:[],&quot;htmlHash&quot;:&quot;df192611&quot;,&quot;data&quot;:{&quot;message&quot;:&quot;hello mount data&quot;},&quot;dataMeta&quot;:[],&quot;checksum&quot;:&quot;117319052c106ea614842285a6eef8266570283c8696606b1275df24b368b08c&quot;}}" class="navbar navbar-expand navbar-light navbar-bg">
+    <a class="sidebar-toggle js-sidebar-toggle">
+        <i class="hamburger align-self-center"></i>
+    </a>
+
+    <ul class="navbar-nav d-none d-lg-flex">
+                 
+                <li>
+                            <div class="btn btn-success btn-lg">
+                    You have Super Admin Access
+                </div>
+                    </li>
+    </ul>
+
+    <div class="navbar-collapse collapse">
+        <ul class="navbar-nav navbar-align">
+            <li class="nav-item">
+                <a class="nav-icon js-fullscreen d-none d-lg-block" href="#">
+                    <div class="position-relative">
+                        <i class="align-middle" data-feather="maximize"></i>
+                    </div>
+                </a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-icon pe-md-0 dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                    <img src="http://127.0.0.1:8000/admin/img/avatars/avatar.jpg" class="avatar img-fluid rounded"
+                         alt="Charles Hall"/>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end">
+                    <a class="dropdown-item" href="http://127.0.0.1:8000/admin/profile"><i class="align-middle me-1"
+                                                                          data-feather="user"></i> Profile</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="http://127.0.0.1:8000/admin/setting"><i class="align-middle me-1"
+                                                                           data-feather="settings"></i> Settings &
+                        Privacy</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="http://127.0.0.1:8000/logout">Log out</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Livewire Component wire-end:CyTCloDwHZqVYdWPu3g6 -->                <main class="content">
+                    <script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/ckeditor.js"></script>
+                    <style>
+                        .ck-editor__editable_inline {
+                            min-height: 200px;
+                        }
+                    </style>
+                    <div class="container-fluid p-2 card">
+                        <form wire:submit.prevent="updateDynamic">
+                        <div class="mb-3">
+                            <h1 class="h3 d-inline align-middle">Home page product section</h1>
+                            <hr>
+                            <div class="row mb-2">
+                                <div class="col-md-12">
+                                    <label for="heading" class="p-2">Heading</label>
+                                    <input type="text" name="heading" id="heading" class="form-control" placeholder="Enter heading here.." wire:model.defer.1000ms="heading" value="Was beinhalten unsere Boxen?">
+                                                                    </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-12">
+                                    <label for="contents" class="p-2">Contents</label>
+                                    <textarea name="contents" id="contents" rows="3" class="form-control" placeholder="Enter descriptions here..." wire:model.defer.1000ms="contents1">Hochwertige Produkte für Ihr Wohlbefinden!</textarea>
+                                                                    </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <button type="submit" class="btn btn-success">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                    <div class="container-fluid p-0">
+                        <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#createProduct"
+                           class="btn btn-primary float-end mt-n1"><i class="fas fa-plus"></i> Add New</a>
+                        <div class="mb-3">
+                            <h1 class="h3 d-inline align-middle">Products</h1>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 d-flex">
+                                <div class="card flex-fill">
+                                    <div class="card-header">
+                                        <h5 class="card-title mb-0">Latest Products</h5>
+                                    </div>
+                                    <table class="table table-striped dataTable no-footer dtr-inline" width="100%">
+                                        <thead>
+                                        <tr>
+                                            <th>Sl. No.</th>
+                                            <th>Name</th>
+                                            <th>Position Number</th>
+                                            <th>Type</th>
+                                            <th>price</th>
+                                            <th>Status</th>
+                                            <th class="d-none d-xl-table-cell">Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="row_position1">
+                                                                                                                                    <tr id="1">
+                                                    <td>1.</td>
+                                                    <td>
+                                                        <div class="d-flex">
+                                                            <div class="flex-shrink-0">
+                                                                <div class="bg-light rounded-2">
+                                                                    <img class="p-2"
+                                                                         src="http://127.0.0.1:8000/storage/images/GARUNVvtUJShLtM7qi0GPz4YU3V9MgRb0vOR8IKY.png"
+                                                                         width="70px" alt="Actodermanol"
+                                                                         title="Actodermanol">
+                                                                </div>
+                                                            </div>
+                                                            <div class="flex-grow-1 ms-3">
+                                                                <strong>Händedesinfektion</strong>
+                                                                <div class="text-muted">
+                                                                   <small>500 ml</small>
+                                                                </div>
+                                                                <div class="text-muted">
+                                                                   <small><strong></strong></small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="text-muted">33.85.20.3204</div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="text-muted">ml</div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="text-muted">8.00</div>
+                                                    </td>
+                                                    <td>
+                                                                                                                    <button class="btn btn-outline-success">Active</button>
+                                                        
+                                                    </td>
+                                                    <td class="d-none d-xl-table-cell">
+                                                        <div class="btn-group btn-group-md">
+                                                            <button type="button" class="btn btn-info dropdown-toggle"
+                                                                    data-bs-toggle="dropdown" aria-haspopup="true"
+                                                                    aria-expanded="false"> Action
+                                                            </button>
+                                                            <div class="dropdown-menu" style="">
+                                                                <a class="dropdown-item" href="javascript:;"
+                                                                   data-bs-toggle="modal" data-bs-target="#EditProduct"
+                                                                   wire:click="editProduct(1)">Edit</a>
+                                                                <div class="dropdown-divider"></div>
+                                                                <a class="dropdown-item" href="javascript:;"
+                                                                   data-bs-toggle="modal"
+                                                                   data-bs-target="#deleteProduct"
+                                                                   wire:click="editProduct(1)">Delete</a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                                                            <tr id="7">
+                                                    <td>2.</td>
+                                                    <td>
+                                                        <div class="d-flex">
+                                                            <div class="flex-shrink-0">
+                                                                <div class="bg-light rounded-2">
+                                                                    <img class="p-2"
+                                                                         src="http://127.0.0.1:8000/storage/images/kt1htQglrHf2P3gogzp9sbax3Q1p2GW5VCswInxa.jpg"
+                                                                         width="70px" alt="Actoanid Spray"
+                                                                         title="Actoanid Spray Flächendesinfektion">
+                                                                </div>
+                                                            </div>
+                                                            <div class="flex-grow-1 ms-3">
+                                                                <strong>Flächendesinfektion</strong>
+                                                                <div class="text-muted">
+                                                                   <small>500 ml</small>
+                                                                </div>
+                                                                <div class="text-muted">
+                                                                   <small><strong></strong></small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="text-muted">25.31.91.9453</div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="text-muted">ml</div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="text-muted">8.00</div>
+                                                    </td>
+                                                    <td>
+                                                                                                                    <button class="btn btn-outline-success">Active</button>
+                                                        
+                                                    </td>
+                                                    <td class="d-none d-xl-table-cell">
+                                                        <div class="btn-group btn-group-md">
+                                                            <button type="button" class="btn btn-info dropdown-toggle"
+                                                                    data-bs-toggle="dropdown" aria-haspopup="true"
+                                                                    aria-expanded="false"> Action
+                                                            </button>
+                                                            <div class="dropdown-menu" style="">
+                                                                <a class="dropdown-item" href="javascript:;"
+                                                                   data-bs-toggle="modal" data-bs-target="#EditProduct"
+                                                                   wire:click="editProduct(7)">Edit</a>
+                                                                <div class="dropdown-divider"></div>
+                                                                <a class="dropdown-item" href="javascript:;"
+                                                                   data-bs-toggle="modal"
+                                                                   data-bs-target="#deleteProduct"
+                                                                   wire:click="editProduct(7)">Delete</a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                                                            <tr id="2">
+                                                    <td>3.</td>
+                                                    <td>
+                                                        <div class="d-flex">
+                                                            <div class="flex-shrink-0">
+                                                                <div class="bg-light rounded-2">
+                                                                    <img class="p-2"
+                                                                         src="http://127.0.0.1:8000/storage/images/O21XBESa8aiRyJfpHZRer80F8FgRVkKhzLymbNyb.png"
+                                                                         width="70px" alt="Acto FFP2"
+                                                                         title="Acto FFP2 Mundschutz">
+                                                                </div>
+                                                            </div>
+                                                            <div class="flex-grow-1 ms-3">
+                                                                <strong>FFP 2 Mundschutz</strong>
+                                                                <div class="text-muted">
+                                                                   <small>1 Stück</small>
+                                                                </div>
+                                                                <div class="text-muted">
+                                                                   <small><strong></strong></small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="text-muted">98.84.12.7806</div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="text-muted">pieces</div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="text-muted">35.40</div>
+                                                    </td>
+                                                    <td>
+                                                                                                                    <button class="btn btn-outline-success">Active</button>
+                                                        
+                                                    </td>
+                                                    <td class="d-none d-xl-table-cell">
+                                                        <div class="btn-group btn-group-md">
+                                                            <button type="button" class="btn btn-info dropdown-toggle"
+                                                                    data-bs-toggle="dropdown" aria-haspopup="true"
+                                                                    aria-expanded="false"> Action
+                                                            </button>
+                                                            <div class="dropdown-menu" style="">
+                                                                <a class="dropdown-item" href="javascript:;"
+                                                                   data-bs-toggle="modal" data-bs-target="#EditProduct"
+                                                                   wire:click="editProduct(2)">Edit</a>
+                                                                <div class="dropdown-divider"></div>
+                                                                <a class="dropdown-item" href="javascript:;"
+                                                                   data-bs-toggle="modal"
+                                                                   data-bs-target="#deleteProduct"
+                                                                   wire:click="editProduct(2)">Delete</a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                                                            <tr id="4">
+                                                    <td>4.</td>
+                                                    <td>
+                                                        <div class="d-flex">
+                                                            <div class="flex-shrink-0">
+                                                                <div class="bg-light rounded-2">
+                                                                    <img class="p-2"
+                                                                         src="http://127.0.0.1:8000/storage/images/dEWtWu8rhjpXJuREju8GqajZoMt5FmWLqiBgUudB.png"
+                                                                         width="70px" alt="Handschuhe Vinyl"
+                                                                         title="Handschuhe Ambulex Vinyl">
+                                                                </div>
+                                                            </div>
+                                                            <div class="flex-grow-1 ms-3">
+                                                                <strong>Einmalhandschuhe</strong>
+                                                                <div class="text-muted">
+                                                                   <small>100 Stück</small>
+                                                                </div>
+                                                                <div class="text-muted">
+                                                                   <small><strong>S,M,L,XL</strong></small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="text-muted">30.21.67.7428</div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="text-muted">pieces</div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="text-muted">13.35</div>
+                                                    </td>
+                                                    <td>
+                                                                                                                    <button class="btn btn-outline-success">Active</button>
+                                                        
+                                                    </td>
+                                                    <td class="d-none d-xl-table-cell">
+                                                        <div class="btn-group btn-group-md">
+                                                            <button type="button" class="btn btn-info dropdown-toggle"
+                                                                    data-bs-toggle="dropdown" aria-haspopup="true"
+                                                                    aria-expanded="false"> Action
+                                                            </button>
+                                                            <div class="dropdown-menu" style="">
+                                                                <a class="dropdown-item" href="javascript:;"
+                                                                   data-bs-toggle="modal" data-bs-target="#EditProduct"
+                                                                   wire:click="editProduct(4)">Edit</a>
+                                                                <div class="dropdown-divider"></div>
+                                                                <a class="dropdown-item" href="javascript:;"
+                                                                   data-bs-toggle="modal"
+                                                                   data-bs-target="#deleteProduct"
+                                                                   wire:click="editProduct(4)">Delete</a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                                                            <tr id="6">
+                                                    <td>5.</td>
+                                                    <td>
+                                                        <div class="d-flex">
+                                                            <div class="flex-shrink-0">
+                                                                <div class="bg-light rounded-2">
+                                                                    <img class="p-2"
+                                                                         src="http://127.0.0.1:8000/storage/images/TYa8USW3Ai9eJq5UiTj0K7CcPOJdEApIRvksmhl1.png"
+                                                                         width="70px" alt="Seni Soft Bettschutzeinlagen"
+                                                                         title="Seni Soft Bettschutzeinlagen">
+                                                                </div>
+                                                            </div>
+                                                            <div class="flex-grow-1 ms-3">
+                                                                <strong>Bettschutzeinlagen zum Einmalgebrauch</strong>
+                                                                <div class="text-muted">
+                                                                   <small>25 Stück</small>
+                                                                </div>
+                                                                <div class="text-muted">
+                                                                   <small><strong></strong></small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="text-muted">49.26.68.1408</div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="text-muted">pieces</div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="text-muted">10.50</div>
+                                                    </td>
+                                                    <td>
+                                                                                                                    <button class="btn btn-outline-success">Active</button>
+                                                        
+                                                    </td>
+                                                    <td class="d-none d-xl-table-cell">
+                                                        <div class="btn-group btn-group-md">
+                                                            <button type="button" class="btn btn-info dropdown-toggle"
+                                                                    data-bs-toggle="dropdown" aria-haspopup="true"
+                                                                    aria-expanded="false"> Action
+                                                            </button>
+                                                            <div class="dropdown-menu" style="">
+                                                                <a class="dropdown-item" href="javascript:;"
+                                                                   data-bs-toggle="modal" data-bs-target="#EditProduct"
+                                                                   wire:click="editProduct(6)">Edit</a>
+                                                                <div class="dropdown-divider"></div>
+                                                                <a class="dropdown-item" href="javascript:;"
+                                                                   data-bs-toggle="modal"
+                                                                   data-bs-target="#deleteProduct"
+                                                                   wire:click="editProduct(6)">Delete</a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                                                                                            </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            
+                        </div>
+                    </div>
+                </main>
+                <footer wire:id="6MzomrGcWsQC8C2ECkbW" wire:initial-data="{&quot;fingerprint&quot;:{&quot;id&quot;:&quot;6MzomrGcWsQC8C2ECkbW&quot;,&quot;name&quot;:&quot;admin.includes.footer&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;admin\/products&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;v&quot;:&quot;acj&quot;},&quot;effects&quot;:{&quot;listeners&quot;:[]},&quot;serverMemo&quot;:{&quot;children&quot;:[],&quot;errors&quot;:[],&quot;htmlHash&quot;:&quot;ff457bd3&quot;,&quot;data&quot;:{&quot;modelName&quot;:null,&quot;controllerName&quot;:null,&quot;tableName&quot;:null,&quot;columnName&quot;:null},&quot;dataMeta&quot;:[],&quot;checksum&quot;:&quot;edecc9f40a8d4d200fb3d231f1c4183ffefd0cb6bd9bb1cbb9c1d6e76bb5f1e9&quot;}}" class="footer">
+    <div class="container-fluid">
+        <div class="row text-muted">
+            <div class="col-6 text-start">
+                <p class="mb-0">
+                    <a href="http://127.0.0.1:8000/admin/dashboard" target="_blank" class="text-muted"><strong>Belesh-Box Admin</strong></a> &copy;
+                </p>
+            </div>
+            
+        </div>
+    </div>
+    <!-- BEGIN Create Table (Migration) -->
+    <div class="modal fade" wire:ignore.self id="createTable" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create Table (Migration)</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form autocomplete="off" wire:submit.prevent="createMigration">
+                    <div class="modal-body m-3 card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Enter Table Name</h5>
+                        </div>
+                        <div class="card-body">
+                            <input type="text" wire:model.debounce.1000ms="tableName" class="form-control noSpacesField"
+                                   onkeypress="return /[a-zA-Z]/i.test(event.key)" placeholder="Table Name">
+                                                    </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- END Create Table (Migration) -->
+
+    <!-- BEGIN Alter Table (Migration) -->
+    <div class="modal fade" wire:ignore.self id="alterTable" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Column (Migration)</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form autocomplete="off" wire:submit.prevent="alterTable" enctype="multipart/form-data">
+                    <div class="modal-body m-3 card">
+
+                    
+
+                        <br>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Enter Table Column Name</label>
+                            <input type="text" wire:model.debounce.1000ms="columnName"
+                                   class="form-control noSpacesField" onkeypress="return /[a-zA-Z]/i.test(event.key)"
+                                   placeholder="Table Column Name">
+                                                    </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- END Alter Table (Migration) -->
+
+    <!-- BEGIN CREATE CONTROLLER -->
+    <div class="modal fade" wire:ignore.self id="createController" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Controller</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form autocomplete="off" wire:submit.prevent="saveController">
+                    <div class="modal-body m-3 card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Enter Controller Name</h5>
+                        </div>
+                        <div class="card-body">
+                            <input type="text" wire:model.debounce.1000ms="controllerName"
+                                   class="form-control noSpacesField" onkeypress="return /[a-zA-Z]/i.test(event.key)"
+                                   placeholder="Controller Name">
+                                                    </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- END CREATE CONTROLLER -->
+
+    <!-- BEGIN CREATE MODEL -->
+    <div class="modal fade" wire:ignore.self id="createModel" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Model</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form autocomplete="off" wire:submit.prevent="saveModel">
+                    <div class="modal-body m-3 card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Enter Model Name</h5>
+                        </div>
+                        <div class="card-body">
+                            <input type="text" wire:model.debounce.1000ms="modelName" class="form-control noSpacesField"
+                                   onkeypress="return /[a-zA-Z]/i.test(event.key)" placeholder="Model Name">
+                                                    </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- END CREATE MODEL -->
+
+    <!-- BEGIN CREATE All -->
+    <div class="modal fade" wire:ignore.self id="createAll" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Model + Controller + Migration</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form autocomplete="off" wire:submit.prevent="createAll">
+                    <div class="modal-body m-3 card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Enter Model Name</h5>
+                        </div>
+                        <div class="card-body">
+                            <input type="text" wire:model.debounce.1000ms="modelName" class="form-control noSpacesField"
+                                   onkeypress="return /[a-zA-Z]/i.test(event.key)" placeholder="Model Name">
+                                                    </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- END CREATE All -->
+</footer>
+
+
+
+
+
+
+<!-- Livewire Component wire-end:6MzomrGcWsQC8C2ECkbW -->            </div>
+        </div>
+        <!-- BEGIN Add new product -->
+        <div class="modal fade" wire:ignore.self id="createProduct" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add New Product</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form autocomplete="off" wire:submit.prevent="uploadProduct">
+                        <div class="card">
+
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label class="form-label w-100">choose Image </label>
+                                    <input type="file" name="image" class="form-control" accept="image/*"
+                                           wire:model="image">
+                                                                    </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Image Alt Tag</label>
+                                    <input type="text" name="altTag" class="form-control" placeholder="Alt Tag"
+                                           wire:model.debounce.1000ms="altTag">
+                                                                    </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Image Title Tag</label>
+                                    <input type="text" name="titleTag" class="form-control" placeholder="Title Tag"
+                                           wire:model.debounce.1000ms="titleTag">
+                                                                    </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Position (Rank)</label>
+                                    <input type="text" name="rank" class="form-control" placeholder="Rank"
+                                           wire:model.debounce.1000ms="rank">
+                                                                    </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Product Name</label>
+                                    <input type="text" name="name" class="form-control" placeholder="Product name"
+                                           wire:model.debounce.1000ms="name">
+                                                                    </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Product Title</label>
+                                    <input type="text" name="product_title" class="form-control" placeholder="Product title"
+                                           wire:model.debounce.1000ms="product_title">
+                                                                    </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Price</label>
+                                    <input type="text" name="price" class="form-control" placeholder="00.00"
+                                           wire:model.debounce.1000ms="price">
+                                                                    </div>
+                                <div class="mb-3" wire:ignore>
+                                    <label class="form-label">Product Description</label>
+                                    <textarea name="contents" wire:model.defer.1000ms="contents" id="editor"
+                                              class="form-control" rows="4"></textarea>
+                                                                    </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Measurement Type</label>
+                                    <select name="measurement" class="form-control" wire:model="measurement">
+                                        <option value="">Select Measurement Type</option>
+                                        <option value="ml">ml</option>
+                                        <option value="gm">gm</option>
+                                        <option value="pieces">pieces</option>
+                                    </select>
+                                                                    </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label"> Size Available</label>
+                                    <div>
+                                        <label class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" value="S" wire:model.defer="size_availability">
+                                            <span class="form-check-label">
+												S
+											</span>
+                                        </label>
+                                        <label class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" value="M" wire:model.defer="size_availability">
+                                            <span class="form-check-label">
+												M
+											</span>
+                                        </label>
+                                        <label class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" value="L"  wire:model.defer="size_availability">
+                                            <span class="form-check-label">
+												L
+											</span>
+                                        </label>
+                                        <label class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" value="XL" wire:model.defer="size_availability" >
+                                            <span class="form-check-label">
+												XL
+											</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Product Status</label>
+                                    <select name="status" class="form-control" wire:model="status">
+                                        <option value="">Select Status</option>
+                                        <option value="1">Active</option>
+                                        <option value="0">Inactive</option>
+                                    </select>
+                                                                    </div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- END add product -->
+
+        <!-- BEGIN Edit new product -->
+        <div class="modal fade" wire:ignore.self id="EditProduct" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Update Product</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form autocomplete="off" wire:submit.prevent="updateProduct">
+                        <div class="card">
+
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <img src="http://127.0.0.1:8000/storage" alt="" width="100px">
+                                    <label class="form-label w-100">choose Image </label>
+                                    <input type="file" name="image" class="form-control" accept="image/*"
+                                           wire:model="image">
+                                                                    </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Image Alt Tag</label>
+                                    <input type="text" name="altTag" class="form-control" placeholder="Alt Tag"
+                                           wire:model.debounce.1000ms="altTag">
+                                                                    </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Image Title Tag</label>
+                                    <input type="text" name="titleTag" class="form-control" placeholder="Title Tag"
+                                           wire:model.debounce.1000ms="titleTag">
+                                                                    </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Position Number</label>
+                                    <input type="text" name="rank" class="form-control" placeholder="position Number"
+                                           wire:model.debounce.1000ms="positionNumber" readonly>
+                                                                    </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Position (Rank)</label>
+                                    <input type="text" name="rank" class="form-control" placeholder="Rank"
+                                           wire:model.debounce.1000ms="rank">
+                                                                    </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Product Name</label>
+                                    <input type="text" name="name" class="form-control" placeholder="Product name"
+                                           wire:model.debounce.1000ms="name">
+                                                                    </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Product Title</label>
+                                    <input type="text" name="product_title" class="form-control" placeholder="Product title"
+                                           wire:model.debounce.1000ms="product_title">
+                                                                    </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Price</label>
+                                    <input type="text" name="price" class="form-control" placeholder="00.00"
+                                           wire:model.debounce.1000ms="price">
+                                                                    </div>
+
+                                <div class="mb-3" wire:ignore>
+                                    <label class="form-label">Product Description </label>
+                                    <textarea name="contents" wire:model.defer="contents" id="description"
+                                              class="form-control" rows="4"></textarea>
+                                                                    </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Measurement Type</label>
+                                    <select name="measurement" class="form-control" wire:model="measurement">
+                                        <option value="">Select Measurement Type</option>
+                                        <option value="ml">ml</option>
+                                        <option value="gm">gm</option>
+                                        <option value="pieces">pieces</option>
+                                    </select>
+                                                                    </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label"> Size Available</label>
+
+                                    <div>
+                                        <label class="form-check form-check-inline" >
+                                            <input class="form-check-input"type="checkbox" value="S" wire:model.defer="size_availability">
+                                            <span class="form-check-label">
+												S
+											</span>
+                                        </label>
+                                        <label class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" value="M" wire:model.defer="size_availability">
+                                            <span class="form-check-label">
+												M
+											</span>
+                                        </label>
+                                        <label class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" value="L"  wire:model.defer="size_availability">
+                                            <span class="form-check-label">
+												L
+											</span>
+                                        </label>
+                                        <label class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" value="XL" wire:model.defer="size_availability" >
+                                            <span class="form-check-label">
+												XL
+											</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Product Status</label>
+                                    <select name="status" class="form-control" wire:model="status">
+                                        <option value="">Select Status</option>
+                                        <option value="1">Active</option>
+                                        <option value="0">Inactive</option>
+                                    </select>
+                                                                    </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- END Edit product -->
+
+
+        <!-- Start Delete product Modal -->
+        <div wire:ignore.self class="modal fade" id="deleteProduct" tabindex="-1" aria-labelledby="deleteSlider"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Delete Product</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" wire:click="closeModal"
+                                aria-label="Close"></button>
+                    </div>
+                    <form wire:submit.prevent="destroyProduct">
+                        <div class="modal-body">
+                            <h4>Are you sure you want to delete this data ?</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" wire:click="closeModal"
+                                    data-bs-dismiss="modal">Close
+                            </button>
+                            <button type="submit" class="btn btn-primary">Yes! Delete</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- End Delete product Modal -->
+    </div>
+</div>
+
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor'))
+        .then(editor => {
+
+            editor.model.document.on('change:data', () => {
+
+            window.livewire.find('4VN3WiEoFQoHbb6X7zOi').set('contents', editor.getData());
+            })
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+</script>
+
+<script>
+    window.addEventListener('close-modal', event => {
+        $('#deleteTeam').modal('hide');
+    })
+
+</script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script>
+    $(".row_position1").sortable({
+        delay: 150,
+        stop: function () {
+            var selectedData = new Array();
+            $('.row_position1>tr').each(function () {
+                selectedData.push($(this).attr("id"));
+            });
+            updateOrder(selectedData);
+        }
+    });
+
+    function updateOrder(data) {
+        $.ajax({
+            url: "http://127.0.0.1:8000/admin/productSequence",
+            type: 'post',
+            data: "position=" + data + '&_token=00HxMNENWoanBgqvZl2p1DuLhClJFwJQ3Xntkvv3',
+            success: function (data) {
+                toastMessage('Your Change Successfully Saved.', 'success');
+            }
+        })
+    }
+</script>
+
+<!-- Livewire Component wire-end:4VN3WiEoFQoHbb6X7zOi -->
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Livewire Scripts -->
+
+<script src="/vendor/livewire/livewire.js?id=90730a3b0e7144480175" data-turbo-eval="false" data-turbolinks-eval="false" ></script>
+<script data-turbo-eval="false" data-turbolinks-eval="false" >
+    if (window.livewire) {
+	    console.warn('Livewire: It looks like Livewire\'s @livewireScripts JavaScript assets have already been loaded. Make sure you aren\'t loading them twice.')
+	}
+
+    window.livewire = new Livewire();
+    window.livewire.devTools(true);
+    window.Livewire = window.livewire;
+    window.livewire_app_url = '';
+    window.livewire_token = '00HxMNENWoanBgqvZl2p1DuLhClJFwJQ3Xntkvv3';
+
+	/* Make sure Livewire loads first. */
+	if (window.Alpine) {
+	    /* Defer showing the warning so it doesn't get buried under downstream errors. */
+	    document.addEventListener("DOMContentLoaded", function () {
+	        setTimeout(function() {
+	            console.warn("Livewire: It looks like AlpineJS has already been loaded. Make sure Livewire\'s scripts are loaded before Alpine.\\n\\n Reference docs for more info: http://laravel-livewire.com/docs/alpine-js")
+	        })
+	    });
+	}
+
+	/* Make Alpine wait until Livewire is finished rendering to do its thing. */
+    window.deferLoadingAlpine = function (callback) {
+        window.addEventListener('livewire:load', function () {
+            callback();
+        });
+    };
+
+    let started = false;
+
+    window.addEventListener('alpine:initializing', function () {
+        if (! started) {
+            window.livewire.start();
+
+            started = true;
+        }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        if (! started) {
+            window.livewire.start();
+
+            started = true;
+        }
+    });
+</script>
+    <script>
+        Livewire.on('initializeEditor', (data) => {
+            $('.ck-rounded-corners').remove();
+            ClassicEditor .create(document.querySelector('#description'))
+             .then(editor => {
+                    //console.log(data.contents);
+                    editor.setData(data.contents);
+                    editor.model.document.on('change:data', () => {
+                    window.livewire.find('4VN3WiEoFQoHbb6X7zOi').set('contents', editor.getData());
+                    })
+                })
+        });
+    </script>
+
+<script>
+    // Vérifier que Livewire est chargé
+    if (typeof window.Livewire === 'undefined') {
+        console.log('Livewire not loaded, loading fallback...');
+        // Recharger les scripts Livewire
+        var script = document.createElement('script');
+        script.src = '/vendor/livewire/livewire.js';
+        document.head.appendChild(script);
+    } else {
+        console.log('Livewire loaded successfully');
+    }
+
+    // ===== MODERN ADMIN INTERACTIONS =====
+    $(document).ready(function() {
+        // Force sidebar to blue gradient
+        function forceSidebarBlue() {
+            $('.sidebar').css({
+                'background': 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important',
+                'background-color': 'transparent !important'
+            });
+            
+            $('.sidebar *').each(function() {
+                if ($(this).css('background-color') === 'rgb(0, 0, 0)' || 
+                    $(this).css('background-color') === 'black' ||
+                    $(this).attr('class') && $(this).attr('class').includes('dark')) {
+                    $(this).css({
+                        'background': 'transparent !important',
+                        'background-color': 'transparent !important'
+                    });
+                }
+            });
+        }
+        
+        // Apply immediately and on window load
+        forceSidebarBlue();
+        $(window).on('load', forceSidebarBlue);
+        
+        // Apply every 500ms to override any dynamic changes
+        setInterval(forceSidebarBlue, 500);
+        
+        // Add fade-in animation to cards
+        $('.card').addClass('fade-in-up');
+        
+        // Enhanced table interactions
+        $('.table tbody tr').hover(
+            function() {
+                $(this).addClass('shadow-sm');
+            },
+            function() {
+                $(this).removeClass('shadow-sm');
+            }
+        );
+        
+        // Modern button ripple effect
+        $('.btn').on('click', function(e) {
+            var $btn = $(this);
+            var $ripple = $('<span class="ripple"></span>');
+            var rect = this.getBoundingClientRect();
+            var size = Math.max(rect.width, rect.height);
+            var x = e.clientX - rect.left - size / 2;
+            var y = e.clientY - rect.top - size / 2;
+            
+            $ripple.css({
+                width: size,
+                height: size,
+                left: x,
+                top: y
+            });
+            
+            $btn.append($ripple);
+            
+            setTimeout(function() {
+                $ripple.remove();
+            }, 600);
+        });
+        
+        // Enhanced form interactions
+        $('.form-control, .form-select').on('focus', function() {
+            $(this).parent().addClass('focused');
+        }).on('blur', function() {
+            $(this).parent().removeClass('focused');
+        });
+        
+        
+        
+        // Modern loading states
+        $('form').on('submit', function() {
+            var $submitBtn = $(this).find('button[type="submit"]');
+            $submitBtn.html('<i class="fas fa-spinner fa-spin me-2"></i>Loading...');
+        });
+        
+        // Enhanced modal interactions
+        $('.modal').on('show.bs.modal', function() {
+            $(this).find('.modal-content').addClass('fade-in-up');
+        });
+        
+        // Auto-hide alerts with animation
+        $('.alert').each(function() {
+            var $alert = $(this);
+            setTimeout(function() {
+                $alert.fadeOut(500, function() {
+                    $(this).remove();
+                });
+            }, 5000);
+        });
+        
+        // Modern pagination
+        $('.pagination .page-link').on('click', function(e) {
+            var $link = $(this);
+            $link.addClass('loading');
+            setTimeout(function() {
+                $link.removeClass('loading');
+            }, 300);
+        });
+        
+        // Enhanced dropdown interactions for sidebar - Force Bootstrap collapse
+        $('.sidebar-link[data-bs-toggle="collapse"]').on('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            var $this = $(this);
+            var target = $this.attr('data-bs-target');
+            var $target = $(target);
+            var $arrow = $this.find('.sidebar-link-arrow i');
+            
+            console.log('Clicked on:', $this.text().trim(), 'Target:', target, 'Element found:', $target.length);
+            
+            // Close other sidebar dropdowns first
+            $('.sidebar-dropdown').not($target).removeClass('show').hide();
+            $('.sidebar-link-arrow i').not($arrow).removeClass('fa-chevron-down').addClass('fa-chevron-right');
+            
+            // Force toggle the current dropdown
+            if ($target.hasClass('show')) {
+                $target.removeClass('show').hide();
+                $arrow.removeClass('fa-chevron-down').addClass('fa-chevron-right');
+                console.log('Closed:', target);
+            } else {
+                $target.addClass('show').show();
+                $arrow.removeClass('fa-chevron-right').addClass('fa-chevron-down');
+                console.log('Opened:', target);
+            }
+        });
+        
+        // Also handle Bootstrap collapse events
+        $('.sidebar-dropdown').on('show.bs.collapse', function() {
+            var target = $(this).attr('id');
+            $('[data-bs-target="#' + target + '"] .sidebar-link-arrow i').removeClass('fa-chevron-right').addClass('fa-chevron-down');
+        });
+        
+        $('.sidebar-dropdown').on('hide.bs.collapse', function() {
+            var target = $(this).attr('id');
+            $('[data-bs-target="#' + target + '"] .sidebar-link-arrow i').removeClass('fa-chevron-down').addClass('fa-chevron-right');
+        });
+        
+        // Enhanced dropdown interactions for user menu
+        $('.dropdown-toggle').on('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            var $dropdown = $(this).next('.dropdown-menu');
+            var $parent = $(this).closest('.dropdown');
+            
+            // Close other dropdowns
+            $('.dropdown-menu').not($dropdown).removeClass('show').hide();
+            $('.dropdown').not($parent).removeClass('show');
+            
+            // Toggle current dropdown
+            $dropdown.toggleClass('show');
+            $parent.toggleClass('show');
+            
+            if ($dropdown.hasClass('show')) {
+                $dropdown.show().addClass('fade-in-up');
+            } else {
+                $dropdown.removeClass('fade-in-up').hide();
+            }
+        });
+        
+        // Close dropdown when clicking outside
+        $(document).on('click', function(e) {
+            if (!$(e.target).closest('.dropdown').length) {
+                $('.dropdown-menu').removeClass('show').hide();
+                $('.dropdown').removeClass('show');
+            }
+            
+            // Close sidebar dropdowns when clicking outside
+            if (!$(e.target).closest('.sidebar-nav').length) {
+                $('.sidebar-dropdown').removeClass('show').hide();
+                $('.sidebar-link-arrow i').removeClass('fa-chevron-down').addClass('fa-chevron-right');
+            }
+        });
+        
+        // Prevent dropdown from closing when clicking inside
+        $('.dropdown-menu').on('click', function(e) {
+            e.stopPropagation();
+        });
+        
+        // Modern tooltips
+        $('[data-bs-toggle="tooltip"]').tooltip({
+            animation: true,
+            delay: { show: 500, hide: 100 }
+        });
+        
+        // Smooth scrolling for anchor links
+        $('a[href^="#"]').on('click', function(e) {
+            e.preventDefault();
+            var target = $(this.getAttribute('href'));
+            if (target.length) {
+                $('html, body').animate({
+                    scrollTop: target.offset().top - 100
+                }, 800);
+            }
+        });
+        
+        // Modern card hover effects
+        $('.card').hover(
+            function() {
+                $(this).find('.card-header').addClass('glow');
+            },
+            function() {
+                $(this).find('.card-header').removeClass('glow');
+            }
+        );
+        
+        // Enhanced badge animations
+        $('.badge').each(function() {
+            $(this).addClass('pulse');
+        });
+        
+        // Modern table sorting indicators
+        $('.table th[data-sort]').on('click', function() {
+            $(this).addClass('sorting');
+            setTimeout(() => {
+                $(this).removeClass('sorting');
+            }, 300);
+        });
+    });
+    
+    // ===== ADDITIONAL CSS FOR INTERACTIONS =====
+    $('<style>')
+        .prop('type', 'text/css')
+        .html(`
+            .ripple {
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.6);
+                transform: scale(0);
+                animation: ripple 0.6s linear;
+                pointer-events: none;
+            }
+            
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+            
+            .focused .form-control,
+            .focused .form-select {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 25px rgba(79, 172, 254, 0.15);
+            }
+            
+            .searching {
+                background: rgba(79, 172, 254, 0.05);
+                border-color: #4facfe !important;
+            }
+            
+            .loading {
+                opacity: 0.7;
+                pointer-events: none;
+            }
+            
+            .glow {
+                box-shadow: 0 0 20px rgba(79, 172, 254, 0.3);
+            }
+            
+            .pulse {
+                animation: pulse 2s infinite;
+            }
+            
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+                100% { transform: scale(1); }
+            }
+            
+            .sorting {
+                background: rgba(79, 172, 254, 0.1) !important;
+                transform: scale(1.02);
+            }
+            
+            .dropdown-menu {
+                border: none;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                border-radius: 12px;
+                padding: 0.5rem;
+            }
+            
+            .dropdown-item {
+                border-radius: 8px;
+                margin: 0.25rem 0;
+                transition: all 0.3s ease;
+            }
+            
+            .dropdown-item:hover {
+                background: rgba(79, 172, 254, 0.1);
+                transform: translateX(5px);
+            }
+        `)
+        .appendTo('head');
+</script>
+
+    <script>
+        
+            </script>
+
+
+</body>
+</html>

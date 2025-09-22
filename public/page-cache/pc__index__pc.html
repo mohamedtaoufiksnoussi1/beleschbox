@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="description" content="Belesch-box">
-    <meta name="csrf-token" content="Ji76AJ8dvpyQDqQQXFx5zg9FXiqZlmDg2DL5Xxqq" />
+    <meta name="csrf-token" content="fvjGFj1wo7etBpifzlrpl0CiDtHvyUgeTd04c1m6" />
     <link href="http://127.0.0.1:8000/frontend/assets/images/favicon/favicon.png" rel="icon">
     <title>Belesch-box</title>
 
@@ -46,70 +46,99 @@
     <div class="preloader">
         <div class="loading"><span></span><span></span><span></span><span></span></div>
     </div>
-    <div wire:id="IygSBSKYpBhbfWFC9oJC" wire:initial-data="{&quot;fingerprint&quot;:{&quot;id&quot;:&quot;IygSBSKYpBhbfWFC9oJC&quot;,&quot;name&quot;:&quot;frontend.home&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;\/&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;v&quot;:&quot;acj&quot;},&quot;effects&quot;:{&quot;listeners&quot;:[]},&quot;serverMemo&quot;:{&quot;children&quot;:{&quot;l3766301975-0&quot;:{&quot;id&quot;:&quot;malBOdstlksLUfRTEOZ0&quot;,&quot;tag&quot;:&quot;style&quot;},&quot;l3766301975-1&quot;:{&quot;id&quot;:&quot;T5ax6B5oIcZGcrzHiBpE&quot;,&quot;tag&quot;:&quot;&quot;}},&quot;errors&quot;:[],&quot;htmlHash&quot;:&quot;1bf0d57c&quot;,&quot;data&quot;:[],&quot;dataMeta&quot;:[],&quot;checksum&quot;:&quot;4a41f92586da5a5e20105345a8804c2320dd37dabdabe37f84e9a764793edbb9&quot;}}">
-    <style wire:id="malBOdstlksLUfRTEOZ0" wire:initial-data="{&quot;fingerprint&quot;:{&quot;id&quot;:&quot;malBOdstlksLUfRTEOZ0&quot;,&quot;name&quot;:&quot;frontend.includes.header&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;\/&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;v&quot;:&quot;acj&quot;},&quot;effects&quot;:{&quot;listeners&quot;:[]},&quot;serverMemo&quot;:{&quot;children&quot;:[],&quot;errors&quot;:[],&quot;htmlHash&quot;:&quot;6c5ff5ee&quot;,&quot;data&quot;:[],&quot;dataMeta&quot;:[],&quot;checksum&quot;:&quot;3483352d629b16c5312cbf58239ecd8cdaef735db89acc357b1aafa999c74f8c&quot;}}">
-    /* Header modernisé */
+    <div wire:id="iNIO8AYtTY5uNmUauwwg" wire:initial-data="{&quot;fingerprint&quot;:{&quot;id&quot;:&quot;iNIO8AYtTY5uNmUauwwg&quot;,&quot;name&quot;:&quot;frontend.home&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;\/&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;v&quot;:&quot;acj&quot;},&quot;effects&quot;:{&quot;listeners&quot;:[]},&quot;serverMemo&quot;:{&quot;children&quot;:{&quot;l1766777860-0&quot;:{&quot;id&quot;:&quot;tlA7SmHr0ICmhZxfEpOz&quot;,&quot;tag&quot;:&quot;style&quot;},&quot;l1766777860-1&quot;:{&quot;id&quot;:&quot;8TaOJ3aM8qU7sURrmvcD&quot;,&quot;tag&quot;:&quot;&quot;}},&quot;errors&quot;:[],&quot;htmlHash&quot;:&quot;a97cbf28&quot;,&quot;data&quot;:[],&quot;dataMeta&quot;:[],&quot;checksum&quot;:&quot;dd611abb988e10a336333e0bca3c08b001e357145d284f1f49b4f8e7a2ece9a3&quot;}}">
+    <style wire:id="tlA7SmHr0ICmhZxfEpOz" wire:initial-data="{&quot;fingerprint&quot;:{&quot;id&quot;:&quot;tlA7SmHr0ICmhZxfEpOz&quot;,&quot;name&quot;:&quot;frontend.includes.header&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;\/&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;v&quot;:&quot;acj&quot;},&quot;effects&quot;:{&quot;listeners&quot;:[]},&quot;serverMemo&quot;:{&quot;children&quot;:[],&quot;errors&quot;:[],&quot;htmlHash&quot;:&quot;e7f3c4c9&quot;,&quot;data&quot;:[],&quot;dataMeta&quot;:[],&quot;checksum&quot;:&quot;df6df80f8168c9a6e6f5b467cb8e1727458835bed775e10572697d2e3674341f&quot;}}">
+    /* Header ultra-moderne */
     .header {
-        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 4px 30px rgba(0, 158, 225, 0.15);
         position: relative;
         z-index: 1000;
+        backdrop-filter: blur(20px);
+        background: rgba(255, 255, 255, 0.95);
     }
     
-    /* Topbar modernisé */
+    /* Topbar ultra-moderne avec dégradé */
     .header-topbar {
-        background: linear-gradient(135deg, #009ee1 0%, #0077b3 100%);
-        padding: 0.75rem 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        background: linear-gradient(135deg, #009ee1 0%, #39cdc1 50%, #0077b3 100%);
+        padding: 0.12rem 0; /* encore plus fin */
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .header-topbar::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+        pointer-events: none;
     }
     
     .contact__list li {
-        margin-right: 2rem;
+        margin-right: 1.1rem;
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.35rem;
+        position: relative;
+        z-index: 2;
     }
     
     .contact__list li i {
-        color: rgba(255, 255, 255, 0.8);
-        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 0.65rem;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 0.12rem;
+        border-radius: 50%;
+        backdrop-filter: blur(10px);
     }
     
     .contact__list li a {
         color: white;
-        font-size: 0.85rem;
-        font-weight: 500;
+        font-size: 0.72rem;
+        font-weight: 600;
         text-decoration: none;
         transition: all 0.3s ease;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     }
     
     .contact__list li a:hover {
-        color: rgba(255, 255, 255, 0.8);
-        transform: translateY(-1px);
+        color: rgba(255, 255, 255, 0.9);
+        transform: translateY(-2px);
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
     
-    /* Social icons modernisés */
+    /* Social icons ultra-modernes */
     .social-icons {
         display: flex;
-        gap: 0.75rem;
+        gap: 0.35rem;
+        position: relative;
+        z-index: 2;
     }
     
     .social-icons li a {
-        width: 32px;
-        height: 32px;
-        background: rgba(255, 255, 255, 0.1);
+        width: 22px;
+        height: 22px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         color: white;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
+        transition: all 0.4s ease;
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        font-size: 0.65rem;
     }
     
     .social-icons li a:hover {
-        background: rgba(255, 255, 255, 0.2);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%);
         transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        border-color: rgba(255, 255, 255, 0.4);
     }
     
     /* Search modernisé */
@@ -117,8 +146,8 @@
         display: flex;
         align-items: center;
         background: rgba(255, 255, 255, 0.1);
-        border-radius: 25px;
-        padding: 0.25rem;
+        border-radius: 18px;
+        padding: 0.15rem;
         backdrop-filter: blur(10px);
         border: 1px solid rgba(255, 255, 255, 0.2);
     }
@@ -127,8 +156,8 @@
         background: transparent;
         border: none;
         color: white;
-        padding: 0.5rem 1rem;
-        font-size: 0.85rem;
+        padding: 0.3rem 0.6rem;
+        font-size: 0.7rem;
     }
     
     .header-topbar__search .form-control::placeholder {
@@ -139,24 +168,85 @@
         background: rgba(255, 255, 255, 0.2);
         border: none;
         border-radius: 50%;
-        width: 32px;
-        height: 32px;
+        width: 24px;
+        height: 24px;
         display: flex;
         align-items: center;
         justify-content: center;
         color: white;
         transition: all 0.3s ease;
+        font-size: 0.65rem;
     }
     
     .header-topbar__search-btn:hover {
         background: rgba(255, 255, 255, 0.3);
-        transform: scale(1.1);
+        transform: none;
     }
+    
+    /* Navigation ultra-moderne */
+    .navbar {
+        background: rgba(255, 255, 255, 0.95) !important;
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(0, 158, 225, 0.1);
+        padding: 0.2rem 0;
+    }
+    
+    .navbar-brand img {
+        max-height: 82px !important;
+        height: 82px !important;
+        transition: all 0.3s ease;
+        filter: brightness(1.1) contrast(1.1);
+    }
+    
+    .navbar-brand:hover img {
+        transform: none;
+        filter: brightness(1.15) contrast(1.15);
+    }
+    
+    .nav__item-link {
+        color: #2d3748 !important;
+        font-weight: 600 !important;
+        font-size: 0.8rem !important;
+        padding: 0.3rem 0.6rem !important;
+        border-radius: 6px !important;
+        transition: all 0.3s ease !important;
+        position: relative !important;
+        text-decoration: none !important;
+        display: inline-block !important;
+        transform: none !important;
+    }
+    
+    .nav__item-link:hover {
+        color: #009ee1 !important;
+        background: linear-gradient(135deg, rgba(0, 158, 225, 0.1) 0%, rgba(57, 205, 193, 0.1) 100%) !important;
+        transform: none !important;
+        box-shadow: 0 3px 12px rgba(0, 158, 225, 0.15) !important;
+    }
+    
+    .nav__item-link.active {
+        color: white !important;
+        background: linear-gradient(135deg, #009ee1 0%, #39cdc1 100%) !important;
+        box-shadow: 0 2px 8px rgba(0, 158, 225, 0.2) !important;
+        transform: none !important;
+    }
+    
+    .nav__item-link.active::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 30px;
+        height: 3px;
+        background: linear-gradient(135deg, #009ee1 0%, #39cdc1 100%);
+        border-radius: 2px;
+    }
+    
     
     /* Navigation principale modernisée */
     .navbar {
         background: white;
-        padding: 1rem 0;
+        padding: 0.35rem 0; /* diminue */
         border-bottom: 1px solid rgba(0, 158, 225, 0.1);
     }
     
@@ -166,25 +256,25 @@
     }
     
     .navbar-brand img {
-        height: 45px;
+        height: 82px !important; /* assurer 82px effectif */
         transition: all 0.3s ease;
     }
     
     .navbar-brand:hover img {
-        transform: scale(1.05);
+        transform: none;
     }
     
     /* Navigation links modernisés */
     .navbar-nav {
-        gap: 2rem;
+        gap: 1rem; /* plus serré */
     }
     
     .nav__item-link {
         color: #2d3748;
         font-weight: 500;
-        font-size: 0.95rem;
+        font-size: 0.74rem; /* plus petit */
         text-decoration: none;
-        padding: 0.5rem 0;
+        padding: 0.25rem 0; /* réduire padding vertical */
         position: relative;
         transition: all 0.3s ease;
     }
@@ -265,7 +355,7 @@
                                                 class="fab fa-instagram"></i></a></li>
                                                             </ul><!-- /.social-icons -->
                             <form class="header-topbar__search">
-                                <input type="text" class="form-control" placeholder="Search...">
+                                <input type="text" class="form-control" placeholder="Suchen...">
                                 <button class="header-topbar__search-btn"><i class="fa fa-search"></i></button>
                             </form>
                         </div>
@@ -287,17 +377,17 @@
             <div class="collapse navbar-collapse" id="mainNavigation">
                 <ul class="navbar-nav m-auto">
                     <li class="nav__item">
-                        <a href="http://127.0.0.1:8000" class="nav__item-link active">Home</a>
+                        <a href="http://127.0.0.1:8000" class="nav__item-link active">Startseite</a>
                     </li><!-- /.nav-item -->
                     <li class="nav__item">
-                        <a href="http://127.0.0.1:8000/about" class="nav__item-link ">About Us</a>
+                        <a href="http://127.0.0.1:8000/about" class="nav__item-link ">Über uns</a>
                     </li><!-- /.nav-item -->
                     <li class="nav__item">
-                        <a href="http://127.0.0.1:8000/contact" class="nav__item-link ">Contacts</a>
+                        <a href="http://127.0.0.1:8000/contact" class="nav__item-link ">Kontakt</a>
                     </li> <!-- /.nav-item -->
 
                                             <li class="nav__item">
-                            <a href="http://127.0.0.1:8000/userLogin" class="nav__item-link">Sign-in</a>
+                            <a href="http://127.0.0.1:8000/userLogin" class="nav__item-link">Anmelden</a>
                         </li> <!-- /.nav-item -->
                     
                 </ul><!-- /.navbar-nav -->
@@ -309,7 +399,7 @@
         </div><!-- /.container -->
     </nav><!-- /.navbar -->
 </header><!-- /.Header -->
-<!-- Livewire Component wire-end:malBOdstlksLUfRTEOZ0 -->    
+<!-- Livewire Component wire-end:tlA7SmHr0ICmhZxfEpOz -->    
     <style>
         /* Design professionnel et épuré */
         
@@ -355,7 +445,9 @@
         }
         
         .slide-item .bg-img img {
-            display: none;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         
         .slide-item .container {
@@ -364,41 +456,46 @@
         }
         
         .slide__content {
-            background: rgba(255, 255, 255, 0.95);
+            background: transparent;
             padding: 3rem;
             border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: none;
+            border: none;
             position: relative;
             z-index: 20;
-            backdrop-filter: blur(20px);
+            backdrop-filter: none;
             transform: translateY(0);
             transition: all 0.3s ease;
         }
         
         .slide__content:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+            transform: none;
+            box-shadow: none;
         }
         
         .slide__title {
             font-size: 2.8rem;
             font-weight: 700;
             margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #009ee1 0%, #0077b3 100%);
+            background: linear-gradient(135deg, #00d4ff 0%, #39cdc1 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             letter-spacing: -0.02em;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         
         .slide__desc {
             font-size: 1.2rem;
             line-height: 1.8;
-            color: #2d3748;
+            color: #e0f2ff;
             margin-bottom: 2rem;
             font-weight: 500;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
         }
         
         /* Section contact - Design professionnel */
@@ -835,8 +932,6 @@
                             <ul>
                                                                 <li><i class="fa fa-check"></i> <strong> 500 ml</strong> Händedesinfektion</li>
                                                                     <li><i class="fa fa-check"></i> <strong> 1 Stück</strong> FFP 2 Mundschutz</li>
-                                                                    <li><i class="fa fa-check"></i> <strong> 25 Stück</strong> Bettschutzeinlagen zum Einmalgebrauch</li>
-                                                                    <li><i class="fa fa-check"></i> <strong> 500 ml</strong> Flächendesinfektion</li>
                                                                 </ul>
                         </div>
 
@@ -894,9 +989,9 @@
 
                         <div class="content-style" style="flex-grow: 1">
                             <ul>
-                                                                <li><i class="fa fa-check"></i> <strong> 1 Stück</strong> FFP 2 Mundschutz</li>
+                                                                <li><i class="fa fa-check"></i> <strong> 500 ml</strong> Händedesinfektion</li>
+                                                                    <li><i class="fa fa-check"></i> <strong> 1 Stück</strong> FFP 2 Mundschutz</li>
                                                                     <li><i class="fa fa-check"></i> <strong> 100 Stück</strong> Einmalhandschuhe</li>
-                                                                    <li><i class="fa fa-check"></i> <strong> 500 ml</strong> Händedesinfektion</li>
                                                                 </ul>
                         </div>
 
@@ -952,7 +1047,7 @@
            <!-- Bouton Assemble Curebox déplacé ici -->
            <div class="row mt-5">
                <div class="col-12 text-center">
-                   <a href="http://127.0.0.1:8000/assemble" class="btn btn__secondary btn__rounded btn-lg" style="font-size: 1.2rem; padding: 1.2rem 3.5rem; background: white; color: #009ee1; border: 3px solid white; box-shadow: 0 8px 25px rgba(0,0,0,0.15); font-weight: 600;">
+                   <a href="http://127.0.0.1:8000/assemble?mode=custom" class="btn btn__secondary btn__rounded btn-lg" style="font-size: 1.2rem; padding: 1.2rem 3.5rem; background: white; color: #009ee1; border: 3px solid white; box-shadow: 0 8px 25px rgba(0,0,0,0.15); font-weight: 600;">
                        <i class="icon-container mr-2"></i>
                        <span>Assemble Curebox</span>
                    </a>
@@ -996,7 +1091,7 @@
                 </div><!-- /.col-lg-6 -->
                 <div class="col-sm-12 col-md-12 col-lg-7">
                     <div class="about__text bg-white">
-                        <p>Seit 2019 helfen wir unseren Kunden dabei, ein unabhängigeres und aktiveres Leben zu führen. Einen besonderen Stellenwert legen wir auf die Beratung unserer Kunden, die oftmals unzureichend mit ihren Anrechten vertraut sind. Um dies zu ändern, klären, neben unserem eigenen Beratungsteam, auch Kooperationspartner aus dem Pflegebereich über Vermittlung und Unterstützung in der ambulanten Pflege auf und versorgen Sie mit relevanten Informationen.&nbsp;</p><p>Neben Kompetenz und Ehrlichkeit legen wir besonderen Wert auf Einfühlungsvermögen und eine familiäre Atmosphäre: „Uns ist bewusst, dass dies ein sensibler Bereich ist – umso wichtiger ist es, dass sich unsere Kunden wohlfühlen“.</p><p>Warum Sie sich für die Belesch-Box entscheiden sollten:</p><ul><li><strong>Hochwertige Produkte bekannter Markenhersteller</strong></li><li><strong>Inhabergeführtes mittelständisches Unternehmen mit starkem Wertekompass</strong></li><li><strong>Hohe Flexibilität und bestens geschulter Kundenservice</strong></li></ul>
+                        <p>Seit 2019 helfen wir unseren Kunden dabei, ein unabhängigeres und aktiveres Leben zu führen. Einen besonderen Stellenwert legen wir auf die Beratung unserer Kunden, die oftmals unzureichend mit ihren Anrechten vertraut sind. Um dies zu ändern, klären, neben unserem eigenen Beratungsteam, auch Kooperationspartner aus dem Pflegebereich über Vermittlung und Unterstützung in der ambulanten Pflege auf und versorgen Sie mit relevanten Informationen.&nbsp;</p><p>Neben Kompetenz und Ehrlichkeit legen wir besonderen Wert auf Einfühlungsvermögen und eine familiäre Atmosphäre: „Uns ist bewusst, dass dies ein sensibler Bereich ist – umso wichtiger ist es, dass sich unsere Kunden wohlfühlen“.</p><p>Warum Sie sich für die Belesch-Box entscheiden sollten:</p><ul><li><strong>Hochwertige Produkte bekannter Markenhersteller</strong></li><li><strong>Inhabergeführtes mittelständisches Unternehmen mit starkem Wertekompass</strong></li><li><strong>Hohe Flexibilität und bestens geschulter Kundenservice</strong></li></ul>
                     </div>
                 </div><!-- /.col-lg-6 -->
             </div><!-- /.row -->
@@ -1639,7 +1734,378 @@
     <!-- /.gallery 2 -->
 
     <!-- ========================  Footer  ========================== -->
-<footer wire:id="T5ax6B5oIcZGcrzHiBpE" wire:initial-data="{&quot;fingerprint&quot;:{&quot;id&quot;:&quot;T5ax6B5oIcZGcrzHiBpE&quot;,&quot;name&quot;:&quot;frontend.includes.footer&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;\/&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;v&quot;:&quot;acj&quot;},&quot;effects&quot;:{&quot;listeners&quot;:[]},&quot;serverMemo&quot;:{&quot;children&quot;:[],&quot;errors&quot;:[],&quot;htmlHash&quot;:&quot;9b96de1c&quot;,&quot;data&quot;:[],&quot;dataMeta&quot;:[],&quot;checksum&quot;:&quot;1b797ad1866dcfd7ecff1d23d6179088992aa10d7cbc9d9e0efe0e6b4e92e380&quot;}}" class="footer">
+<style wire:id="8TaOJ3aM8qU7sURrmvcD" wire:initial-data="{&quot;fingerprint&quot;:{&quot;id&quot;:&quot;8TaOJ3aM8qU7sURrmvcD&quot;,&quot;name&quot;:&quot;frontend.includes.footer&quot;,&quot;locale&quot;:&quot;en&quot;,&quot;path&quot;:&quot;\/&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;v&quot;:&quot;acj&quot;},&quot;effects&quot;:{&quot;listeners&quot;:[]},&quot;serverMemo&quot;:{&quot;children&quot;:[],&quot;errors&quot;:[],&quot;htmlHash&quot;:&quot;f188e3c9&quot;,&quot;data&quot;:[],&quot;dataMeta&quot;:[],&quot;checksum&quot;:&quot;280ec1873f710f0641ce78cce7b66914192bbd91c2d328696251c20856353a24&quot;}}">
+    /* ===== MODERN FOOTER STYLES ===== */
+    :root {
+        --sky-blu: #009ee1;
+        --turquoise: #39cdc1;
+        --blue-gradient: linear-gradient(135deg, #009ee1 0%, #39cdc1 100%);
+        --blue-gradient-hover: linear-gradient(135deg, #0088cc 0%, #2fb8b0 100%);
+        --light-blue: #e3f2fd;
+        --dark-blue: #0056b3;
+        --white: #ffffff;
+        --footer-bg: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
+        --footer-text: #e2e8f0;
+        --footer-link: #cbd5e0;
+        --footer-link-hover: #ffffff;
+        --border-radius: 12px;
+        --shadow: 0 4px 20px rgba(0, 158, 225, 0.15);
+        --shadow-hover: 0 8px 30px rgba(0, 158, 225, 0.25);
+    }
+    
+    .footer {
+        background: var(--footer-bg) !important;
+        color: var(--footer-text) !important;
+        position: relative;
+        overflow: hidden;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    body .footer {
+        background: var(--footer-bg) !important;
+    }
+    
+    .footer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, rgba(0, 158, 225, 0.1) 0%, rgba(57, 205, 193, 0.1) 100%);
+        pointer-events: none;
+    }
+    
+    .footer-primary {
+        padding: 6px 0 4px !important;
+        position: relative;
+        z-index: 1;
+        background: transparent !important;
+        display: flex;
+        align-items: center;
+        min-height: 30vh;
+    }
+    
+    body .footer .footer-primary {
+        padding: 6px 0 4px !important;
+    }
+    
+    .footer-widget__title {
+        background: var(--blue-gradient) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+        font-weight: 700 !important;
+        font-size: 8px !important;
+        margin-bottom: 3px !important;
+        position: relative;
+        color: transparent !important;
+    }
+    
+    body .footer .footer-widget__title {
+        background: var(--blue-gradient) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+        font-size: 8px !important;
+        margin-bottom: 3px !important;
+        color: transparent !important;
+    }
+    
+    /* Fallback pour les navigateurs qui ne supportent pas background-clip */
+    .footer-widget__title {
+        color: var(--sky-blu) !important;
+    }
+    
+    .footer-widget__title[style*="background"] {
+        color: transparent !important;
+    }
+    
+    .footer-widget__title::after {
+        content: '';
+        position: absolute;
+        bottom: -6px;
+        left: 0;
+        width: 25px;
+        height: 2px;
+        background: var(--blue-gradient);
+        border-radius: 2px;
+    }
+    
+    .footer-widget-about p {
+        color: var(--footer-text) !important;
+        line-height: 1.2 !important;
+        margin-top: 3px !important;
+        font-size: 10px !important;
+    }
+    
+    .footer-widget-about img {
+        max-width: 120px !important;
+        height: auto !important;
+        filter: brightness(1.2) contrast(1.1) !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    .footer-widget-about img:hover {
+        filter: brightness(1.4) contrast(1.2) !important;
+        transform: scale(1.05) !important;
+    }
+    
+    body .footer .footer-widget-about p {
+        font-size: 10px !important;
+        line-height: 1.2 !important;
+        margin-top: 3px !important;
+    }
+    
+    .footer-widget-nav ul li {
+        margin-bottom: 1px !important;
+    }
+    
+    .footer-widget-nav ul li:first-child {
+        margin-top: 8px !important;
+    }
+    
+    .footer-widget-nav ul li a {
+        color: var(--footer-link) !important;
+        text-decoration: none !important;
+        transition: all 0.3s ease !important;
+        font-weight: 500 !important;
+        font-size: 10px !important;
+        position: relative;
+    }
+    
+    body .footer .footer-widget-nav ul li a {
+        font-size: 10px !important;
+        margin-bottom: 2px !important;
+        color: var(--footer-link) !important;
+    }
+    
+    .footer-widget-nav ul li a:hover {
+        background: var(--blue-gradient) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+        transform: translateX(3px) !important;
+    }
+    
+    .footer-widget-contact {
+        background: linear-gradient(135deg, var(--white) 0%, rgba(255, 255, 255, 0.95) 100%) !important;
+        padding: 10px !important;
+        border-radius: var(--border-radius) !important;
+        box-shadow: var(--shadow) !important;
+        border-left: 3px solid transparent !important;
+        background-image: linear-gradient(135deg, var(--white) 0%, rgba(255, 255, 255, 0.95) 100%), var(--blue-gradient) !important;
+        background-origin: border-box !important;
+        background-clip: content-box, border-box !important;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height: 100%;
+    }
+    
+    body .footer .footer-widget-contact {
+        padding: 10px !important;
+        background: linear-gradient(135deg, var(--white) 0%, rgba(255, 255, 255, 0.95) 100%) !important;
+    }
+    
+    .footer-widget-contact::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100px;
+        height: 100px;
+        background: var(--blue-gradient);
+        opacity: 0.1;
+        border-radius: 50%;
+        transform: translate(30px, -30px);
+    }
+    
+    .footer-widget-contact .footer-widget__title {
+        background: var(--blue-gradient) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+        margin-bottom: 6px !important;
+        font-size: 11px !important;
+    }
+    
+    .contact-list li {
+        color: var(--dark-blue) !important;
+        margin-bottom: 4px !important;
+        line-height: 1.2 !important;
+        font-size: 10px !important;
+    }
+    
+    .phone__number {
+        background: var(--blue-gradient) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+        font-weight: 600 !important;
+        text-decoration: none !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        font-size: 12px !important;
+    }
+    
+    .phone__number:hover {
+        background: var(--turquoise) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+    }
+    
+    .social-icons {
+        display: flex !important;
+        gap: 5px !important;
+        margin-top: 6px !important;
+    }
+    
+    .social-icons li a {
+        width: 24px !important;
+        height: 24px !important;
+        background: var(--blue-gradient) !important;
+        color: var(--white) !important;
+        border-radius: 50% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-decoration: none !important;
+        transition: all 0.3s ease !important;
+        box-shadow: var(--shadow) !important;
+    }
+    
+    .social-icons li a:hover {
+        transform: translateY(-3px) !important;
+        box-shadow: var(--shadow-hover) !important;
+        background: var(--blue-gradient-hover) !important;
+    }
+    
+    .footer-secondary {
+        background: linear-gradient(90deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 158, 225, 0.1) 50%, rgba(57, 205, 193, 0.1) 100%) !important;
+        padding: 2px 0 !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+        position: relative;
+        z-index: 1;
+    }
+    
+    body .footer .footer-secondary {
+        padding: 2px 0 !important;
+        background: linear-gradient(90deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 158, 225, 0.1) 50%, rgba(57, 205, 193, 0.1) 100%) !important;
+    }
+    
+    .footer-secondary span,
+    .footer-secondary a {
+        color: var(--footer-text) !important;
+        font-size: 8px !important;
+    }
+    
+    .footer-secondary a:hover {
+        background: var(--blue-gradient) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+    }
+    
+    .footer__copyright-links li {
+        margin-left: 12px !important;
+    }
+    
+    .footer__copyright-links li a {
+        color: var(--footer-link) !important;
+        text-decoration: none !important;
+        transition: all 0.3s ease !important;
+        font-size: 10px !important;
+    }
+    
+    .footer__copyright-links li a:hover {
+        background: var(--blue-gradient) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+    }
+    
+    #scrollTopBtn {
+        position: fixed !important;
+        bottom: 12px !important;
+        right: 12px !important;
+        width: 35px !important;
+        height: 35px !important;
+        background: var(--blue-gradient) !important;
+        color: var(--white) !important;
+        border: none !important;
+        border-radius: 50% !important;
+        box-shadow: var(--shadow) !important;
+        cursor: pointer !important;
+        transition: all 0.3s ease !important;
+        z-index: 1000 !important;
+    }
+    
+    #scrollTopBtn:hover {
+        transform: translateY(-3px) !important;
+        box-shadow: var(--shadow-hover) !important;
+    }
+    
+    @media (max-width: 768px) {
+        .footer-primary {
+            padding: 10px 0 8px !important;
+        }
+        
+        .footer-widget-contact {
+            margin-top: 10px !important;
+        }
+        
+        .social-icons {
+            justify-content: center !important;
+        }
+    }
+    
+    /* FORCE APPLICATION - OVERRIDE ALL OTHER STYLES */
+    .footer * {
+        box-sizing: border-box !important;
+    }
+    
+    .footer .container {
+        max-width: 100% !important;
+    }
+    
+    .footer .row {
+        margin: 0 !important;
+    }
+    
+    .footer .col-sm-12,
+    .footer .col-md-12,
+    .footer .col-lg-3,
+    .footer .col-lg-2,
+    .footer .col-lg-4 {
+        padding: 0 15px !important;
+    }
+    
+    /* FORCER LES COULEURS DÉGRADÉES */
+    .footer h6,
+    .footer .footer-widget__title {
+        background: linear-gradient(135deg, #009ee1 0%, #39cdc1 100%) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+        color: transparent !important;
+    }
+    
+    .footer a:hover {
+        background: linear-gradient(135deg, #009ee1 0%, #39cdc1 100%) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+    }
+</style>
+
+<footer class="footer">
     <div class="footer-primary">
         <div class="container">
             <div class="row">
@@ -1655,12 +2121,12 @@
                         <h6 class="footer-widget__title">Useful links</h6>
                         <nav>
                             <ul class="list-unstyled">
-                                                                <li><a href="https://mediccos.eu" target="_blank">MedicCos Inkontinenzhilfe</a></li>
-                                                                <li><a href="http://www.link2.com" target="_blank">Link2</a></li>
-                                                                <li><a href="http://www.link3.com" target="_blank">Link3</a></li>
-                                                                <li><a href="http://www.link4.com" target="_blank">Link4</a></li>
-                                                                <li><a href="http://www.link5.com" target="_blank">Link5</a></li>
-                                                            </ul>
+                                                                <li><a href="#" class="text-decoration-none">MedicCos Inkontinenzhilfe</a></li>
+                                <li><a href="#" class="text-decoration-none">Link2</a></li>
+                                <li><a href="#" class="text-decoration-none">Link3</a></li>
+                                <li><a href="#" class="text-decoration-none">Link4</a></li>
+                                <li><a href="#" class="text-decoration-none">Link5</a></li>
+                            </ul>
                         </nav>
                     </div><!-- /.footer-widget__content -->
                 </div><!-- /.col-lg-2 -->
@@ -1729,14 +2195,11 @@
     </div><!-- /.footer-secondary -->
 </footer><!-- /.Footer -->
 <button id="scrollTopBtn"><i class="fas fa-long-arrow-alt-up"></i></button>
-<!-- Livewire Component wire-end:T5ax6B5oIcZGcrzHiBpE --></div>
-<!-- Livewire Component wire-end:IygSBSKYpBhbfWFC9oJC --></div>
+<!-- Livewire Component wire-end:8TaOJ3aM8qU7sURrmvcD --></div>
+<!-- Livewire Component wire-end:iNIO8AYtTY5uNmUauwwg --></div>
 <!-- Livewire Scripts -->
-<script >
-    console.warn("Livewire: The published Livewire assets are out of date
- See: https://laravel-livewire.com/docs/installation/")
-</script>
-<script src="http://localhost/vendor/livewire/livewire.js?id=de3fca26689cb5a39af4" data-turbo-eval="false" data-turbolinks-eval="false" ></script>
+
+<script src="/vendor/livewire/livewire.js?id=90730a3b0e7144480175" data-turbo-eval="false" data-turbolinks-eval="false" ></script>
 <script data-turbo-eval="false" data-turbolinks-eval="false" >
     if (window.livewire) {
 	    console.warn('Livewire: It looks like Livewire\'s @livewireScripts JavaScript assets have already been loaded. Make sure you aren\'t loading them twice.')
@@ -1745,8 +2208,8 @@
     window.livewire = new Livewire();
     window.livewire.devTools(true);
     window.Livewire = window.livewire;
-    window.livewire_app_url = 'http://localhost';
-    window.livewire_token = 'Ji76AJ8dvpyQDqQQXFx5zg9FXiqZlmDg2DL5Xxqq';
+    window.livewire_app_url = '';
+    window.livewire_token = 'fvjGFj1wo7etBpifzlrpl0CiDtHvyUgeTd04c1m6';
 
 	/* Make sure Livewire loads first. */
 	if (window.Alpine) {

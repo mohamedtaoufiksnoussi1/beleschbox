@@ -185,133 +185,14 @@
                     </div>
                     <div class="accordion-item">
                         <div class="accordion__header" data-toggle="collapse" data-target="#collapse2">
-                            <a class="accordion__title" href="#">Order History</a>
+                            <a class="accordion__title" href="#">
+                                <i class="fas fa-shopping-bag me-2"></i>
+                                Meine Bestellungen
+                            </a>
                         </div>
                         <div id="collapse2" class="collapse" data-parent="#accordion">
                             <div class="accordion__body">
-                                <div class="myaccount-table table-responsive text-center">
-                                    <table class="table table-bordered">
-                                        <thead class="thead-light">
-                                        <tr>
-                                            <th>Order-Id</th>
-                                            <th>Date</th>
-                                            <th>Order Type</th>
-                                            <th>Status</th>
-                                            <th>Details</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @if(isset($orders))
-                                            @foreach($orders as $key=>$order)
-                                                <tr>
-                                                    <td>{{$order[0]->orderId}}</td>
-                                                    <td>{{$order[0]->created_at}}</td>
-                                                    <td>
-                                                        @if($order[0]->orderType =='0') Product @else Package @endif
-                                                    </td>
-                                                    <td>
-                                                        @if($order[0]->deliveryStatus =='0')
-                                                            <button class="btn btn-outline-warning">Pending</button>
-                                                        @elseif($order[0]->deliveryStatus =='1')
-                                                            <button class="btn btn-outline-primary">Accepted</button>
-                                                        @elseif($order[0]->deliveryStatus =='2')
-                                                            <button class="btn btn-outline-warning">On Transit</button>
-                                                        @elseif($order[0]->deliveryStatus =='3')
-                                                            <button class="btn btn-outline-success">Delivered</button>
-                                                        @else
-                                                            <button class="btn btn-outline-danger">Rejected</button>
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                    @if($order[0]->deliveryStatus !='3')
-                                                    <a href="{{url('update-order?orderId='.$order[0]->orderId)}}" class="btn btn-info">Update Order</a> &nbsp;&nbsp;
-                                                     @endif   
-                                                    <a href="javascript;" data-toggle="modal"
-                                                           data-target="#exampleModal{{$order[0]->orderId}}" class="btn btn-success">View
-                                                            Details</a>
-                                                    </td>
-                                                </tr>
-                                                <!-- Modal -->
-                                                <div class="modal fade" id="exampleModal{{$order[0]->orderId}}"
-                                                     tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                                                     aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Order
-                                                                    Details</h5>
-                                                                <button type="button" class="close" data-dismiss="modal"
-                                                                        aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                @php
-                                                                    $orderDetails =  getorderDetails($order[0]->orderId, $order[0]->orderType);
-                                                                @endphp
-                                                                @if($order[0]->orderType =='0')
-                                                                    <div class="row">
-                                                                        <div class="col-md-3">Product Image</div>
-                                                                        <div class="col-md-3">Name</div>
-                                                                        <div class="col-md-3">Title</div>
-                                                                        <div class="col-md-3">Quantity</div>
-                                                                    </div>
-                                                                    @foreach ($orderDetails as $od)
-                                                                        <div class="row">
-                                                                            <div class="col-md-3"><img class="p-2"
-                                                                                                       src="{{asset('storage/'.$od->getProduct->image)}}"
-                                                                                                       width="70px"
-                                                                                                       alt="{{$od->getProduct->altTag}}"
-                                                                                                       title="{{$od->getProduct->titleTag}}">
-                                                                            </div>
-                                                                            <div
-                                                                                class="col-md-3">{{$od->getProduct->name}}</div>
-                                                                            <div
-                                                                                class="col-md-3">{{$od->getProduct->product_title}}</div>
-                                                                            <div class="col-md-3">{{$od->qty}}</div>
-
-                                                                        </div>
-                                                                    @endforeach
-                                                                @else
-                                                                    <div class="row">
-                                                                        <div class="col-md-3">Product Image</div>
-                                                                        <div class="col-md-3">Name</div>
-                                                                        <div class="col-md-3">Title</div>
-                                                                        <div class="col-md-3">Quantity</div>
-                                                                    </div>
-                                                                    @isset($orderDetails[0])
-                                                                        @foreach ($orderDetails[0]->getPerPageDetails as $od)
-                                                                            <div class="row">
-                                                                                <div class="col-md-3">
-                                                                                    <img class="p-2"
-                                                                                         src="{{asset('storage/'.getProductDetailsById($od->productId)->image)}}"
-                                                                                         width="70px"
-                                                                                         alt="{{getProductDetailsById($od->productId)->altTag}}"
-                                                                                         title="{{getProductDetailsById($od->productId)->titleTag}}">
-                                                                                </div>
-                                                                                <div
-                                                                                    class="col-md-3">{{getProductDetailsById($od->productId)->name}}</div>
-                                                                                <div
-                                                                                    class="col-md-3">{{getProductDetailsById($od->productId)->product_title}}</div>
-                                                                                <div class="col-md-3">{{$od->qty}}</div>
-                                                                            </div>
-                                                                        @endforeach
-                                                                    @endisset
-                                                                @endif
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary"
-                                                                        data-dismiss="modal">Close
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                        @endif
-                                        </tbody>
-                                    </table>
-                                </div>
+                                @livewire('frontend.user-orders-component')
                             </div>
                         </div>
                     </div>
