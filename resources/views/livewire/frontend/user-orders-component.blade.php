@@ -285,8 +285,15 @@
                 // Laisser le DOM finir de peindre
                 await new Promise(requestAnimationFrame);
                 
-                // Utiliser exactement la même logique que printPageArea1 de l'étape 5
-                var printContents = document.getElementById('printableArea').innerHTML;
+                // Vérifier que printableArea existe
+                const printableArea = document.getElementById('printableArea');
+                if (!printableArea) {
+                    console.error('printableArea not found');
+                    alert('PDF-Bereich nicht gefunden.');
+                    return;
+                }
+                
+                var printContents = printableArea.innerHTML;
                 console.log('Print contents length:', printContents.length);
                 
                 // Créer une nouvelle fenêtre pour l'impression
@@ -404,8 +411,23 @@
             });
         }
         
+        // Créer le conteneur printableArea avec le HTML du PDF
+        const existingPrintableArea = document.getElementById('printableArea');
+        if (existingPrintableArea) {
+            existingPrintableArea.remove();
+        }
+        
+        const printableArea = document.createElement('div');
+        printableArea.id = 'printableArea';
+        printableArea.style.display = 'none'; // Caché par défaut
+        document.body.appendChild(printableArea);
+        
+        // Générer le HTML du PDF et l'injecter dans printableArea
+        const pdfHtml = createExactStep5Html(orderData);
+        printableArea.innerHTML = pdfHtml;
+        
         // Remplir la signature si disponible
-        const signatureElement = document.querySelector('.signature');
+        const signatureElement = printableArea.querySelector('.signature');
         if (signatureElement) {
             if (signatureData && signatureData.image_path) {
                 // Nettoyer le base64
@@ -527,97 +549,9 @@
         
         const gloveSectionDisplay = gloveSize ? '' : 'display: none;';
         
-        // Signature - Version avec nettoyage et validation base64
-        let signatureHtml = '';
+        // Signature sera injectée après coup dans le DOM
         console.log('=== SIGNATURE DEBUG START ===');
         console.log('signatureData:', signatureData);
-        
-        if (signatureData && signatureData.image_path) {
-            console.log('=== SIGNATURE FOUND ===');
-            console.log('Signature length:', signatureData.image_path.length);
-            
-            // Nettoyer et valider la signature base64
-            let cleanSignature = signatureData.image_path;
-            
-            // Vérifier si c'est un format data:image valide
-            if (cleanSignature.startsWith('data:image/')) {
-                console.log('✅ Valid data:image format detected');
-                
-                // Extraire la partie base64 pure
-                const base64Part = cleanSignature.split(',')[1];
-                if (base64Part) {
-                    console.log('Base64 part length:', base64Part.length);
-                    console.log('Base64 part first 100 chars:', base64Part.substring(0, 100));
-                    console.log('Base64 part last 100 chars:', base64Part.substring(base64Part.length - 100));
-                    
-                    // Nettoyer la chaîne base64 (supprimer espaces, retours à la ligne, etc.)
-                    const cleanedBase64 = base64Part.replace(/[\s\r\n]/g, '');
-                    console.log('Cleaned base64 length:', cleanedBase64.length);
-                    console.log('Cleaned base64 first 100 chars:', cleanedBase64.substring(0, 100));
-                    console.log('Cleaned base64 last 100 chars:', cleanedBase64.substring(cleanedBase64.length - 100));
-                    
-                    // Vérifier que la chaîne base64 ne contient que des caractères valides
-                    const isValidBase64 = /^[A-Za-z0-9+/]*={0,2}$/.test(cleanedBase64);
-                    console.log('Is valid base64:', isValidBase64);
-                    
-                    // Test de décodage pour voir si c'est vraiment une image valide
-                    let isDecodable = false;
-                    try {
-                        const binaryString = atob(cleanedBase64);
-                        console.log('Base64 decode successful, binary length:', binaryString.length);
-                        console.log('Binary string first 20 chars:', binaryString.substring(0, 20));
-                        
-                        // Vérifier si c'est bien un PNG (commence par PNG signature)
-                        if (binaryString.startsWith('\x89PNG')) {
-                            console.log('✅ Valid PNG signature detected');
-                            isDecodable = true;
-                        } else {
-                            console.log('❌ Not a valid PNG file');
-                        }
-                    } catch (e) {
-                        console.log('❌ Base64 decode failed:', e.message);
-                        isDecodable = false;
-                    }
-                    
-                    // Reconstruire l'URL avec la base64 nettoyée (version simplifiée)
-                    const mimeType = cleanSignature.split(',')[0];
-                    const finalSignature = mimeType + ',' + cleanedBase64;
-                    console.log('✅ Attempting to display signature');
-                    
-                    signatureHtml = `
-                        <div style="margin-top: 8px; width: 200px; height: 60px; border: 1px solid #ddd; padding: 4px; background: white; display: flex; align-items: center; justify-content: center;">
-                            <img src="${finalSignature}" style="max-width: 100%; max-height: 100%; object-fit: contain; display: block;" alt="Signature" />
-                        </div>
-                        <div style="font-weight: 600; font-size: 10px; margin-top: 4px;">Unterschrift Versicherte(r) oder Bevollmächtigte(r)</div>
-                    `;
-                } else {
-                    console.log('❌ No base64 part found');
-                    signatureHtml = `
-                        <div style="margin-top: 8px; width: 200px; height: 60px; border: 1px solid #ddd; padding: 4px; background: #f9f9f9; display: flex; align-items: center; justify-content: center;">
-                            <span style="color: #999;">Format invalide</span>
-                        </div>
-                        <div style="font-weight: 600; font-size: 10px; margin-top: 4px;">Unterschrift Versicherte(r) oder Bevollmächtigte(r)</div>
-                    `;
-                }
-            } else {
-                console.log('❌ Not a data:image format');
-                signatureHtml = `
-                    <div style="margin-top: 8px; width: 200px; height: 60px; border: 1px solid #ddd; padding: 4px; background: #f9f9f9; display: flex; align-items: center; justify-content: center;">
-                        <span style="color: #999;">Format invalide</span>
-                    </div>
-                    <div style="font-weight: 600; font-size: 10px; margin-top: 4px;">Unterschrift Versicherte(r) oder Bevollmächtigte(r)</div>
-                `;
-            }
-        } else {
-            console.log('❌ No signature data found');
-            signatureHtml = `
-                <div style="margin-top: 8px; width: 200px; height: 60px; border: 1px solid #ddd; padding: 4px; background: #f9f9f9; display: flex; align-items: center; justify-content: center;">
-                    <span style="color: #999;">Keine Unterschrift</span>
-                </div>
-                <div style="font-weight: 600; font-size: 10px; margin-top: 4px;">Unterschrift Versicherte(r) oder Bevollmächtigte(r)</div>
-            `;
-        }
-        
         console.log('=== SIGNATURE DEBUG END ===');
         
         // Générer le HTML exact de l'étape 5
@@ -875,8 +809,8 @@
 
                 <!-- Signature and Date -->
                 <div style="margin-bottom: 15px; margin-top: 20px;">
-                    <div style="margin-bottom: 8px;">
-                        ${signatureHtml}
+                    <div class="signature" style="margin-bottom: 8px;">
+                        <!-- Signature will be injected here -->
                     </div>
                     <div style="display: flex; justify-content: space-between; align-items: flex-end;">
                         <div style="display: flex; flex-direction: column; align-items: center;">
