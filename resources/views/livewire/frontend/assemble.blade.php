@@ -2842,7 +2842,8 @@ display: flex;align-items: center; justify-content: center; "></div>
                                     </div>
                                     <div class="sign" style="text-align: center;min-width: 200px;border-top: 2px solid;padding: 10px;margin-top: 50px;">
                                         <div style="margin-bottom: 10px;">
-                                            {{SIGNATURE_IMAGE}}
+                                            {{-- Render placeholder token literally to be replaced later by service --}}
+                                            @php echo '{{SIGNATURE_IMAGE}}'; @endphp
                                         </div>
                                         <label style="font-weight: 600;margin-right: 5px;padding: 9px 0px;">Unterschrift
                                             Versicherte(r) oder Bevollmächtigte(r)</label>
