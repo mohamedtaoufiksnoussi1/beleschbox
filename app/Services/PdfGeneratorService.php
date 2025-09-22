@@ -188,16 +188,16 @@ class PdfGeneratorService
                     }
                 }
                 
-                // Fallback: ajouter un texte à la place de la signature
-                $pdf->SetXY($x, $y);
-                $pdf->SetFont('helvetica', 'B', 10);
-                $pdf->SetTextColor(0, 0, 0);
-                $pdf->Cell($width, $height, '[SIGNATURE]', 1, 0, 'C');
-                \Log::info('Added signature placeholder text as fallback (no GD available)');
-                
                 // Nettoyer le fichier temporaire
                 unlink($tempFile);
             }
+            
+            // Fallback: ajouter un texte à la place de la signature (toujours exécuté)
+            $pdf->SetXY($x, $y);
+            $pdf->SetFont('helvetica', 'B', 10);
+            $pdf->SetTextColor(0, 0, 0);
+            $pdf->Cell($width, $height, '[SIGNATURE]', 1, 0, 'C');
+            \Log::info('Added signature placeholder text as fallback');
         } catch (\Exception $e) {
             \Log::error('Error adding signature to TCPDF: ' . $e->getMessage());
             
