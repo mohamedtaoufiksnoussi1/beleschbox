@@ -241,8 +241,8 @@
     let currentOrderId = null;
     let currentOrderData = null;
 
-    // Télécharge le PDF avec exactement la même logique que printPageArea1 de l'étape 5
-    window.downloadOrderPdf = function() {
+    // Télécharge le PDF avec la même logique que l'admin
+    window.downloadOrderPdf = async function() {
         console.log('downloadOrderPdf called with currentOrderId:', currentOrderId);
         
         if (!currentOrderId) {
@@ -253,7 +253,7 @@
         console.log('Fetching order data for orderId:', currentOrderId);
 
         // Récupérer les données de la commande d'abord
-        fetch('/generate-order-data', {
+        await fetch('/generate-order-data', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -265,7 +265,7 @@
             console.log('Response received:', response);
             return response.json();
         })
-        .then(data => {
+        .then(async data => {
             console.log('=== DEBUG FETCH RESPONSE ===');
             console.log('Data received:', data);
             console.log('Data type:', typeof data);
@@ -276,10 +276,40 @@
             console.log('data.signatureData:', data.signatureData);
             
             if (data && data.success && data.orderData) {
-                console.log('=== CALLING printOrderPdfLikeStep5 ===');
-                console.log('Calling printOrderPdfLikeStep5 with orderData:', data.orderData);
+                console.log('=== CALLING updatePDF1DataUser ===');
+                console.log('Calling updatePDF1DataUser with orderData:', data.orderData);
+                
+                // Utiliser la même approche que l'admin
+                await updatePDF1DataUser(data.orderData);
+                
+                // Laisser le DOM finir de peindre
+                await new Promise(requestAnimationFrame);
+                
                 // Utiliser exactement la même logique que printPageArea1 de l'étape 5
-                printOrderPdfLikeStep5(data.orderData);
+                var printContents = document.getElementById('printableArea').innerHTML;
+                console.log('Print contents length:', printContents.length);
+                
+                // Créer une nouvelle fenêtre pour l'impression
+                var printWindow = window.open('', '_blank');
+                printWindow.document.write(`
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <title>Bestellung PDF</title>
+                        <style>
+                            body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
+                            @media print { body { margin: 0; } }
+                        </style>
+                    </head>
+                    <body>
+                        ${printContents}
+                    </body>
+                    </html>
+                `);
+                printWindow.document.close();
+                printWindow.print();
+                
+                console.log('PDF generation completed successfully!');
             } else {
                 console.error('Data not successful:', data);
                 alert('Daten konnten nicht abgerufen werden: ' + (data.error || 'Unbekannter Fehler'));
@@ -290,6 +320,131 @@
             alert('Fehler beim Abrufen der Bestelldaten: ' + error.message);
         });
     };
+
+    // Fonction pour mettre à jour les données PDF (même logique que l'admin)
+    async function updatePDF1DataUser(orderData) {
+        console.log('=== updatePDF1DataUser called ===');
+        console.log('Order data received:', orderData);
+        
+        const userData = orderData.userData || {};
+        const cartData = orderData.cartData || {};
+        const signatureData = orderData.signatureData || {};
+        
+        console.log('UserData:', userData);
+        console.log('CartData:', cartData);
+        console.log('SignatureData:', signatureData);
+        
+        // Remplir les informations personnelles
+        console.log('Filling personal data:', userData);
+        
+        // Informations personnelles
+        const personalDataElements = {
+            'first_name_pd': userData.first_name || '',
+            'last_name_pd': userData.last_name || '',
+            'street_pd': userData.street || '',
+            'mobile_pd': userData.phone || '',
+            'zip_pd': userData.zip || '',
+            'city_pd': userData.city || '',
+            'email_pd': userData.email || '',
+            'dob_pd': userData.dob || '',
+            'health-insurance_pd': userData.health_insurance || '',
+            'insurance_no_pd': userData.insurance_no || ''
+        };
+        
+        Object.entries(personalDataElements).forEach(([id, value]) => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.textContent = value;
+                console.log(`Set ${id} to: ${value}`);
+            }
+        });
+        
+        console.log('Personal data filled');
+        
+        // Remplir les données du panier
+        console.log('Filling cart data:', cartData);
+        
+        // BeleschBox number
+        const beleschBoxElement = document.getElementById('beleschbox_number_pd');
+        if (beleschBoxElement) {
+            beleschBoxElement.textContent = cartData.beleschbox_number || 'Individuell';
+            console.log('Set beleschbox_number_pd to:', cartData.beleschbox_number || 'Individuell');
+        }
+        
+        // Produits
+        console.log('Processing products:', cartData.products);
+        if (cartData.products && Array.isArray(cartData.products)) {
+            cartData.products.forEach(product => {
+                console.log('Processing product:', product.name, 'quantity:', product.quantity);
+                
+                // Mapper le nom du produit à l'ID du template
+                const productMapping = {
+                    'händedesinfektion': 2,
+                    'ffp 2 mundschutz': 4,
+                    'einmalhandschuhe': 1,
+                    'flächendesinfektion': 2
+                };
+                
+                const templateId = productMapping[product.name.toLowerCase()];
+                if (templateId) {
+                    console.log(`Mapping product ${product.name} to template ID ${templateId}`);
+                    
+                    // Cocher la case
+                    const checkboxElement = document.getElementById(`pd_${templateId}`);
+                    if (checkboxElement) {
+                        checkboxElement.innerHTML = '✓';
+                    }
+                    
+                    // Mettre la quantité
+                    const quantityElement = document.getElementById(`qty_pd_${templateId}`);
+                    if (quantityElement) {
+                        quantityElement.textContent = product.quantity;
+                    }
+                }
+            });
+        }
+        
+        // Remplir la signature si disponible
+        const signatureElement = document.querySelector('.signature');
+        if (signatureElement) {
+            if (signatureData && signatureData.image_path) {
+                // Nettoyer le base64
+                let cleanSignature = signatureData.image_path;
+                if (cleanSignature.startsWith('data:image/')) {
+                    const base64Part = cleanSignature.split(',')[1];
+                    if (base64Part) {
+                        const cleanedBase64 = base64Part.replace(/[\s\r\n]/g, '');
+                        cleanSignature = cleanSignature.split(',')[0] + ',' + cleanedBase64;
+                    }
+                }
+                
+                signatureElement.innerHTML = `
+                    <div style="margin-top: 8px; width: 200px; height: 60px; border: 1px solid #ddd; padding: 4px; background: white; display: flex; align-items: center; justify-content: center;">
+                        <img src="${cleanSignature}" style="max-width: 100%; max-height: 100%; object-fit: contain; display: block;" alt="Signature" />
+                    </div>
+                    <div style="font-weight: 600; font-size: 10px; margin-top: 4px;">Unterschrift Versicherte(r) oder Bevollmächtigte(r)</div>
+                `;
+                
+                // Attendre la fin du chargement de l'image
+                await new Promise((resolve) => {
+                    const img = signatureElement.querySelector('img');
+                    if (!img) return resolve();
+                    if (img.complete) return resolve();
+                    img.onload = () => resolve();
+                    img.onerror = () => resolve();
+                });
+            } else {
+                signatureElement.innerHTML = `
+                    <div style="margin-top: 8px; width: 200px; height: 60px; border: 1px solid #ddd; padding: 4px; background: #f9f9f9; display: flex; align-items: center; justify-content: center;">
+                        <span style="color: #999;">Keine Unterschrift</span>
+                    </div>
+                    <div style="font-weight: 600; font-size: 10px; margin-top: 4px;">Unterschrift Versicherte(r) oder Bevollmächtigte(r)</div>
+                `;
+            }
+        }
+        
+        console.log('PDF data updated successfully with products and signature');
+    }
 
     // Fonction qui utilise exactement la même logique que printPageArea1 de l'étape 5
     window.printOrderPdfLikeStep5 = function(orderData) {
